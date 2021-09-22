@@ -1,25 +1,25 @@
 {
   "files": {
     "main.css": "/SparkLink/static/css/main.4cc62af5.chunk.css",
-    "main.js": "/SparkLink/static/js/main.d8c01b8f.chunk.js",
-    "main.js.map": "/SparkLink/static/js/main.d8c01b8f.chunk.js.map",
+    "main.js": "/SparkLink/static/js/main.34384606.chunk.js",
+    "main.js.map": "/SparkLink/static/js/main.34384606.chunk.js.map",
     "runtime-main.js": "/SparkLink/static/js/runtime-main.478220b0.js",
     "runtime-main.js.map": "/SparkLink/static/js/runtime-main.478220b0.js.map",
     "static/css/2.438f77ba.chunk.css": "/SparkLink/static/css/2.438f77ba.chunk.css",
-    "static/js/2.da7e5ab1.chunk.js": "/SparkLink/static/js/2.da7e5ab1.chunk.js",
-    "static/js/2.da7e5ab1.chunk.js.map": "/SparkLink/static/js/2.da7e5ab1.chunk.js.map",
+    "static/js/2.4040233b.chunk.js": "/SparkLink/static/js/2.4040233b.chunk.js",
+    "static/js/2.4040233b.chunk.js.map": "/SparkLink/static/js/2.4040233b.chunk.js.map",
     "index.html": "/SparkLink/index.html",
     "static/css/2.438f77ba.chunk.css.map": "/SparkLink/static/css/2.438f77ba.chunk.css.map",
     "static/css/main.4cc62af5.chunk.css.map": "/SparkLink/static/css/main.4cc62af5.chunk.css.map",
-    "static/js/2.da7e5ab1.chunk.js.LICENSE.txt": "/SparkLink/static/js/2.da7e5ab1.chunk.js.LICENSE.txt",
+    "static/js/2.4040233b.chunk.js.LICENSE.txt": "/SparkLink/static/js/2.4040233b.chunk.js.LICENSE.txt",
     "static/media/books.6e483aa8.png": "/SparkLink/static/media/books.6e483aa8.png",
     "static/media/bootstrap.css": "/SparkLink/static/media/glyphicons-halflings-regular.be810be3.woff2"
   },
   "entrypoints": [
     "static/js/runtime-main.478220b0.js",
     "static/css/2.438f77ba.chunk.css",
-    "static/js/2.da7e5ab1.chunk.js",
+    "static/js/2.4040233b.chunk.js",
     "static/css/main.4cc62af5.chunk.css",
-    "static/js/main.d8c01b8f.chunk.js"
+    "static/js/main.34384606.chunk.js"
   ]
 }
