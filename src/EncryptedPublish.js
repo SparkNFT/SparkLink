@@ -862,7 +862,7 @@ class EncryptedPublish extends Component {
       )
     } else {
       return (
-        <Spin spinning={this.state.onLoading} size='large' style={{ marginTop: 1000 }}>
+        <Spin spinning={this.state.onLoading} size='large' >
 
           <ThemeProvider theme={theme}>
             <TopBar />
