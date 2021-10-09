@@ -130,10 +130,6 @@ class Collections extends Component {
   backend = 'https://api.sparklink.io'
   web3;
   cards = [];
-  // constructor(props) {
-  //     super(props);
-
-  //   }
   state = {
     isLogin: false,
     user_address: null,
@@ -142,8 +138,7 @@ class Collections extends Component {
     cards: [],
     onloading: false,
     SkeletoNumber: 0,
-    noNFT: false,
-    // loading: true,
+    noNFT: true,
   };
 
   async componentDidMount() {
@@ -168,22 +163,17 @@ class Collections extends Component {
     const nft_number = await contract.methods.balanceOf(account).call()
     console.log('nft_number: ', nft_number)
     if (nft_number === 0) {
-      // alert("暂无可展示NFT");
-      this.setState({
-        noNFT: true
-      })
       return;
     }
 
     let ids = await this.getNft(contract, account);
     if (ids.length === 0) {
-      // alert("暂无可展示NFT");
-      this.setState({
-        noNFT: true
-      })
       return;
     }
 
+    this.setState({
+      noNFT: false
+    })
     let data = await this.getMetadata(contract, ids);
     for (let i = 0; i < ids.length; i++) {
       let element = {
@@ -278,15 +268,11 @@ class Collections extends Component {
 
 
   render() {
-    //const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9,10,11];
     const { classes } = this.props
-    // 
-
     let obj = this;
     window.ethereum.on('chainChanged', handleChainChanged);
 
     function handleChainChanged(_chainId) {
-      // We recommend reloading the page, unless you must do otherwise
       window.location.reload();
     }
 
@@ -312,7 +298,6 @@ class Collections extends Component {
                 <Button size="small" variant="contained" color="primary" href={'/#/NFT/' + card.id} >
                   <b>查看 </b>
                 </Button>
-                {/* <Grid xs={3}></Grid> */}
                 <Typography variant="body2" gutterBottom>
                   <b>NFT id: {card.id} </b>
                 </Typography>
@@ -347,10 +332,6 @@ class Collections extends Component {
                   <Typography color="inherit" noWrap className={classes.title2}>
                     <b>An ERC721 Token Trying to Solve Existing Publishing Dilemma</b>
                   </Typography>
-
-                  {/* <Typography color="inherit" noWrap className={classes.title2}>
-                    <b>{this.state.noNFT}</b>
-                  </Typography> */}
                 </Grid>
               </Grid>
             </div>

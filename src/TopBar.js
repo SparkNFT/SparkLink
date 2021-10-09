@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import logo from './imgs/sparkLink.png';
 import './App.css';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { createTheme, withStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { GithubOutlined, WalletOutlined, WalletTwoTone} from '@ant-design/icons';
+import { GithubOutlined, WalletOutlined, WalletTwoTone, WalletFilled} from '@ant-design/icons';
 import Web3 from 'web3';
 
 const theme = createTheme({
@@ -40,8 +41,7 @@ const styles = theme => ({
   titleGrid: {
     marginTop: 25,
     marginBottom: 10,
-    marginLeft: '5%',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   title: {
     minWidth: 100,
@@ -104,17 +104,18 @@ const styles = theme => ({
       fontSize: 25,
     },
   },
-  btnConnected: {
-    color: '#03A9F4',
-    borderColor: '#e3f2fd',
-    fontSize: 16,
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: '#2196f3',
-    width: 10,
-    height: 10
-  },
+  logo: {
+    objectFit: 'contain',
+    [theme.breakpoints.between('xs', 'sm')]: {
+      width: '20%'
+    },
+    [theme.breakpoints.between('sm', 'md')]: {
+      width: '18%'
+    },
+    [theme.breakpoints.up('md')]: {
+      width: '13%'
+    },
+  }
 
 });
 
@@ -160,14 +161,6 @@ class TopBar extends Component {
     }
   }
 
-  // getConnected = async () => {
-  //   var connect = window.ethereum.isConnected()
-  //   console.debug("connected: ", connect)
-  //   this.setState({
-  //     isConnected: connect
-  //   });
-  // }
-
   render() {
     const { classes } = this.props
 
@@ -175,8 +168,9 @@ class TopBar extends Component {
       <div>
         <Toolbar>
           <Grid container direction="row" justifyContent="flex-start" >
-            <Grid item className={classes.titleGrid}>
+            <Grid item className={classes.titleGrid } xs ={2}>
               <Typography component="h1" color="inherit" noWrap className={classes.title}>
+                <img src={logo} className={classes.logo} />
                 <b>SparkLink</b>
               </Typography>
             </Grid>
@@ -202,7 +196,7 @@ class TopBar extends Component {
                 </Button>
               ) : (
                 <Button onClick={this.getAccount}>
-                  <WalletOutlined className={classes.icon} />
+                  <WalletFilled className={classes.icon} />
                 </Button>
               )}
             </Grid>
