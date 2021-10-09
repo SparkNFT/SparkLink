@@ -428,7 +428,7 @@ class NFTInfo extends Component {
 
   downloadIPFS = async () => {
     let obj = this
-    let dataSplits = this.state.dataUrl
+    let dataSplits = this.state.dataUrl.split('/')
     var dataHash = dataSplits[dataSplits.length - 1]
     var dataUrl = this.gateway + dataHash
     this.setState({
