@@ -25,6 +25,9 @@ const styles = theme => ({
     borderColor: '#e3f2fd',
     borderWidth: 2,
     borderRadius: 25,
+    '&:hover':{
+      color: '#FFFFFF',
+    },
     [theme.breakpoints.between('xs', 'sm')]: {
       fontSize: 5,
     },
@@ -46,10 +49,13 @@ const styles = theme => ({
   },
   btnSecond: {
     // marginTop: theme.spacing(3),
-    color: '#03A9F4',
-    borderColor: '#03A9F4',
+    color: '#FFFFFF',
+    borderColor: '#e3f2fd',
     borderWidth: 2,
     borderRadius: 25,
+    '&:hover':{
+      color: '#FFFFFF',
+    },
     [theme.breakpoints.between('xs', 'sm')]: {
       fontSize: 5,
       width: 95
@@ -164,7 +170,7 @@ class IntroPublish extends Component {
                   </Button>
                 </Grid>
                 <Grid item xs={3} >
-                  <Button size="large" variant="outlined" color="secondary" className={classes.btnSecond} href='/#/publish'>
+                  <Button size="large" variant="contained" color="secondary" className={classes.btnSecond} href='/#/publish'>
                     <b>开源发布</b>
                   </Button>
                 </Grid>
