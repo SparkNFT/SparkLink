@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from './imgs/sparkLink.png';
+import logo from './imgs/sparkLink.jpg';
 import './App.css';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
@@ -68,21 +68,20 @@ const styles = theme => ({
     // marginTop: 25,
     marginBottom: 10,
     minWidth: 370,
+    marginTop: 30,
     // backgroundColor: '#e3f2fd',
     [theme.breakpoints.between('sm', 'md')]: {
-      marginTop: 10,
+      marginLeft: '12vw'
     },
     [theme.breakpoints.between('md', 'lg')]: {
-      marginTop: 25,
-      marginLeft: '20%',
+      marginLeft: '33vw'
     },
     [theme.breakpoints.between('lg', 'xl')]: {
-      marginTop: 25,
-      marginLeft: '50%',
+      marginLeft: '40vw'
     },
     [theme.breakpoints.up('xl')]: {
-      marginTop: 25,
-      marginLeft: '60%',
+      marginTop: 40,
+      marginLeft: '60vw',
     },
   },
   btn: {
@@ -93,11 +92,11 @@ const styles = theme => ({
       fontSize: 15,
     },
     [theme.breakpoints.between('sm', 'md')]: {
-      fontSize: 15,
+      fontSize: 18,
       width: 100
     },
     [theme.breakpoints.between('md', 'lg')]: {
-      fontSize: 15,
+      fontSize: 18,
       width: 100
     },
     [theme.breakpoints.up('xl')]: {
@@ -106,14 +105,24 @@ const styles = theme => ({
   },
   logo: {
     objectFit: 'contain',
+    position: 'fixed',
     [theme.breakpoints.between('xs', 'sm')]: {
-      width: '20%'
+      width: '30%'
     },
-    [theme.breakpoints.between('sm', 'md')]: {
-      width: '18%'
+    [theme.breakpoints.between('sm', 'lg')]: {
+      width: 200, 
+      left: 60,
+      top: 0
     },
-    [theme.breakpoints.up('md')]: {
-      width: '13%'
+    [theme.breakpoints.between('lg', 'xl')]: {
+      width: 200,
+      left: 150,
+      top: 0
+    },
+    [theme.breakpoints.up('xl')]: {
+      width: 350,
+      left: 160, 
+      top: -15
     },
   }
 
@@ -170,8 +179,7 @@ class TopBar extends Component {
           <Grid container direction="row" justifyContent="flex-start" >
             <Grid item className={classes.titleGrid } xs ={2}>
               <Typography component="h1" color="inherit" noWrap className={classes.title}>
-                <img src={logo} className={classes.logo} />
-                <b>SparkLink</b>
+                <img alt="logo" src={logo} className={classes.logo} />
               </Typography>
             </Grid>
             <Grid item className={classes.btnGrid}>

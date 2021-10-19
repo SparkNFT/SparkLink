@@ -600,7 +600,7 @@ class Publish extends Component {
                 <form className={classes.form} noValidate>
                   <Grid container spacing={2}>
                     <Grid item style={{ width: "100%" }}>
-                      <label style={{ fontSize: 18, marginBottom: 10 }}>作品名字 *</label>
+                      <label style={{ fontSize: 18, marginBottom: 10 }}>作品名字 <span style={{ color: "red"}}>*</span></label>
                       <Input
                         placeholder="作品名称"
                         allowClear
@@ -611,7 +611,7 @@ class Publish extends Component {
                       />
                     </Grid>
                     <Grid item style={{ width: "100%" }}>
-                      <label style={{ fontSize: 18, marginTop: 20 }}>收益比例 *</label>
+                      <label style={{ fontSize: 18, marginTop: 20 }}>收益比例 <span style={{ color: "red"}}>*</span></label>
                       <p style={{ fontSize: 14 }}>当您的作品被他人分享并获利时，您希望从他的分享利润中获得多少比例的收益</p>
                       <InputNumber
                         id="bonusFee"
@@ -625,7 +625,7 @@ class Publish extends Component {
                       />
                     </Grid>
                     <Grid item style={{ width: "100%" }}>
-                      <label style={{ fontSize: 18, marginTop: 20 }}>通行代币 *</label>
+                      <label style={{ fontSize: 18, marginTop: 20 }}>通行代币 <span style={{ color: "red"}}>*</span></label>
                       <p style={{ fontSize: 14 }}>请选择您支持的支付货币 (输入代币符号或地址)</p>
                       <Select
                         showSearch
@@ -645,7 +645,7 @@ class Publish extends Component {
                       </Select>
                     </Grid>
                     <Grid item style={{ width: "100%" }}>
-                      <label style={{ fontSize: 18, marginTop: 20 }}>售卖价格 ({this.state.token_symbol})*</label>
+                      <label style={{ fontSize: 18, marginTop: 20 }}>售卖价格 ({this.state.token_symbol})<span style={{ color: "red"}}>*</span></label>
                       <InputNumber
                         id="price"
                         defaultValue={0}
@@ -655,7 +655,7 @@ class Publish extends Component {
                       />
                     </Grid>
                     <Grid item style={{ width: "100%" }}>
-                      <label style={{ fontSize: 18, marginTop: 20 }}>最高分享次数 (MAX： 65535)*</label>
+                      <label style={{ fontSize: 18, marginTop: 20 }}>最高分享次数 (MAX： 65535)<span style={{ color: "red"}}>*</span></label>
                       <p style={{ fontSize: 14 }}>您希望每一个帮助您传播的用户最多能够分享多少次？</p>
                       <InputNumber
                         id="shareTimes"
@@ -667,7 +667,7 @@ class Publish extends Component {
                       />
                     </Grid>
                     <Grid item style={{ width: "100%" }} >
-                      <label style={{ fontSize: 18, marginTop: 20 }}>作品描述 *</label>
+                      <label style={{ fontSize: 18, marginTop: 20 }}>作品描述 <span style={{ color: "red"}}>*</span></label>
                       <p style={{ fontSize: 14 }}>请用简单的话语对您的作品进行描述，精准有效的描述能帮助其他用户更准确得了解您的作品</p>
                       <TextArea
                         rows={6}
@@ -676,7 +676,7 @@ class Publish extends Component {
                       />
                     </Grid>
                   </Grid>
-                  <label style={{ fontSize: 18, marginTop: 50 }}>封面图片 *</label>
+                  <label style={{ fontSize: 18, marginTop: 50 }}>封面图片 <span style={{ color: "red"}}>*</span></label>
                   <p style={{ fontSize: 14 }}>请在下方区域上传您的封面图片 <br />
                     封面文件支持这些格式：JPEG/JPG/PNG</p>
                   <Dragger {...prop} style={{ width: '100%', minHeight: 200 }} id="Uploader" accept=".png, .jpg, .jpeg" >
@@ -689,7 +689,7 @@ class Publish extends Component {
                     </p>
                   </Dragger>
 
-                  <label style={{ fontSize: 18, marginTop: 50 }}>作品文件 *</label>
+                  <label style={{ fontSize: 18, marginTop: 50 }}>作品文件 <span style={{ color: "red"}}>*</span></label>
                   <p style={{ fontSize: 14 }}>请在下方区域上传您的作品文件 </p>
                   <Dragger {...propFile} style={{ width: '100%', minHeight: 200 }} id="Uploader2" >
                     <p className="ant-upload-drag-icon">
