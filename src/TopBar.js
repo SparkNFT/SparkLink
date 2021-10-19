@@ -178,8 +178,10 @@ class TopBar extends Component {
         <Toolbar>
           <Grid container direction="row" justifyContent="flex-start" >
             <Grid item className={classes.titleGrid } xs ={2}>
-              <Typography component="h1" color="inherit" noWrap className={classes.title}>
+              <Typography component="h1" color="inherit" noWrap className={classes.title} >
+                <a href='/#/' >
                 <img alt="logo" src={logo} className={classes.logo} />
+                </a>
               </Typography>
             </Grid>
             <Grid item className={classes.btnGrid}>
