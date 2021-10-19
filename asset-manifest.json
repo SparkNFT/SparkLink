@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/static/css/main.b828861b.chunk.css",
-    "main.js": "/static/js/main.9dbd6ad2.chunk.js",
-    "main.js.map": "/static/js/main.9dbd6ad2.chunk.js.map",
+    "main.js": "/static/js/main.60646662.chunk.js",
+    "main.js.map": "/static/js/main.60646662.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.43664945.js",
     "runtime-main.js.map": "/static/js/runtime-main.43664945.js.map",
     "static/css/2.34f0ce90.chunk.css": "/static/css/2.34f0ce90.chunk.css",
@@ -13,14 +13,13 @@
     "static/css/main.b828861b.chunk.css.map": "/static/css/main.b828861b.chunk.css.map",
     "static/js/2.683defbc.chunk.js.LICENSE.txt": "/static/js/2.683defbc.chunk.js.LICENSE.txt",
     "static/media/books.6e483aa8.png": "/static/media/books.6e483aa8.png",
-    "static/media/bootstrap.css": "/static/media/glyphicons-halflings-regular.be810be3.woff2",
-    "static/media/sparkLink.250e0a02.png": "/static/media/sparkLink.250e0a02.png"
+    "static/media/bootstrap.css": "/static/media/glyphicons-halflings-regular.be810be3.woff2"
   },
   "entrypoints": [
     "static/js/runtime-main.43664945.js",
     "static/css/2.34f0ce90.chunk.css",
     "static/js/2.683defbc.chunk.js",
     "static/css/main.b828861b.chunk.css",
-    "static/js/main.9dbd6ad2.chunk.js"
+    "static/js/main.60646662.chunk.js"
   ]
 }
