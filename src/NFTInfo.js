@@ -305,6 +305,7 @@ class NFTInfo extends Component {
       })
     }
     const meta = await contract.methods.tokenURI(this.props.match.params.id).call()
+    // https://coldcdn.com/api/cdn/v5ynur/ipfs/QmV7s3xrtwxfBa7VDcqHGFKcSjKdLZL7offiC31yM2NSqz
     let hash = meta.split('/');
     const issue = await contract.methods.getIssueIdByNFTId(this.props.match.params.id).call()
     const royalty = await contract.methods.getRoyaltyFeeByIssueId(issue).call()
