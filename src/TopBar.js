@@ -245,8 +245,8 @@ const styles = theme => ({
 class TopBar extends Component {
 
   state = {
-    isConnected: false,
-    //userAddress: '',
+    isConnected: '',
+    userAddress: '',
     accountInfo: '',
     dialogOpen: false,
     wallet: '',
@@ -343,7 +343,8 @@ class TopBar extends Component {
         this.setState({
           isConnected: true
         });
-        localStorage.setItem(USERADDRESS, account);
+        this.setState({userAddress:account});
+        //localStorage.setItem(USERADDRESS, account);
         localStorage.setItem(LASTCONNECT, METAMASK)
       }
       console.log(Web3.givenProvider);
@@ -366,7 +367,8 @@ class TopBar extends Component {
         this.setState({
           isConnected: true
         });
-        localStorage.setItem(USERADDRESS, account);
+        //localStorage.setItem(USERADDRESS, account);
+        this.setState({userAddress:account});
         localStorage.setItem(LASTCONNECT, TOKENPOCKET);
       }
 
@@ -419,8 +421,8 @@ class TopBar extends Component {
       const account = accounts[0];
       alert('您已经连接metamask, 当前账户： ' + account)
       this.setState({ isConnected: true, });
-      //this.setState({ userAddress: account });
-      localStorage.setItem(USERADDRESS, account);
+      this.setState({ userAddress: account });
+      //localStorage.setItem(USERADDRESS, account);
       localStorage.setItem(LASTCONNECT, METAMASK);
     } catch (error) {
       console.debug(error)
@@ -440,8 +442,8 @@ class TopBar extends Component {
       )
       alert('您已经连接tokenpocket, 当前账户： ' + account)
       this.setState({ isConnected: true, });
-      //this.setState({ userAddress: account });
-      localStorage.setItem(USERADDRESS, account); //储存用户address
+      this.setState({ userAddress: account });
+      //localStorage.setItem(USERADDRESS, account); //储存用户address
       localStorage.setItem(LASTCONNECT, TOKENPOCKET); //储存上次登陆的信息
     } catch (error) {
       console.debug(error);
@@ -519,7 +521,7 @@ class TopBar extends Component {
                 // </Button>
                 <Button size="large" variant="contained" className={classes.btnUser} onClick={this.getMetaMaskAccount}>
                   <Typography component="" color="inherit" noWrap className={classes.titleToken}>
-                    {localStorage.getItem(USERADDRESS).substring(0, 6)}...{localStorage.getItem(USERADDRESS).substring(localStorage.getItem(USERADDRESS).length - 5, localStorage.getItem(USERADDRESS).length)}
+                    {this.state.userAddress.substring(0, 6)}...{this.state.userAddress.substring(this.state.userAddress.length - 5, this.state.userAddress.length)}
                   </Typography>
 
                 </Button>

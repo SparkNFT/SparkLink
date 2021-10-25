@@ -832,3 +832,4 @@ class NFTInfo extends Component {
 
 }
 export default withStyles(styles, { withTheme: true })(NFTInfo)
+//todo 涉及交易
