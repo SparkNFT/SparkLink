@@ -16,7 +16,7 @@ import TPpic from './imgs/TP.png'
 import { CenterFocusStrong, WallpaperOutlined, Web } from '@material-ui/icons';
 import isMobile from './isMobile';
 import { icons } from 'antd/lib/image/PreviewGroup';
-
+import LanguageBtn from './LanguageBtn';
 //字符串常量
 const TOKENPOCKET = "TokenPocket";
 const METAMASK = "MetaMask";
@@ -528,6 +528,7 @@ class TopBar extends Component {
               <Button size="large" href='https://github.com/SparkNFT' target="_blank">
                 <GithubOutlined className={classes.icon} />
               </Button>
+			  <LanguageBtn />
               {this.state.isConnected ? (
                 // <Button onClick={this.getAccount}>
                 //   <WalletTwoTone className={classes.icon} />
