@@ -16,7 +16,8 @@ import TPpic from './imgs/TP.png'
 import { CenterFocusStrong, WallpaperOutlined, Web } from '@material-ui/icons';
 import isMobile from './isMobile';
 import { icons } from 'antd/lib/image/PreviewGroup';
-
+import LanguageBtn from './LanguageBtn';
+import { withTranslation } from 'react-i18next';
 //字符串常量
 const TOKENPOCKET = "TokenPocket";
 const METAMASK = "MetaMask";
@@ -343,7 +344,7 @@ class TopBar extends Component {
         this.setState({
           isConnected: true
         });
-        this.setState({userAddress:account});
+        this.setState({ userAddress: account });
         //localStorage.setItem(USERADDRESS, account);
         localStorage.setItem(LASTCONNECT, METAMASK)
       }
@@ -368,7 +369,7 @@ class TopBar extends Component {
           isConnected: true
         });
         //localStorage.setItem(USERADDRESS, account);
-        this.setState({userAddress:account});
+        this.setState({ userAddress: account });
         localStorage.setItem(LASTCONNECT, TOKENPOCKET);
       }
 
@@ -432,30 +433,43 @@ class TopBar extends Component {
 
   //获取TokenPocket用户地址
   getTokenPocketAccount = async () => {
-    try {
-      //todo 使用TP链接
-      let account;
-      await tp.getWallet({ walletTypes: ['matic'], switch: false }).then(
-        value => {
-          account = value.data.address;
-        }
-      )
-      alert('您已经连接tokenpocket, 当前账户： ' + account)
-      this.setState({ isConnected: true, });
-      this.setState({ userAddress: account });
-      //localStorage.setItem(USERADDRESS, account); //储存用户address
-      localStorage.setItem(LASTCONNECT, TOKENPOCKET); //储存上次登陆的信息
-    } catch (error) {
-      console.debug(error);
-      this.setState({ isConnected: false });
+    if (this.state.isConnected) {
+      alert('您已经连接tokenpocket, 当前账户： ' + this.state.userAddress)
     }
+    else {
+      try {
+        //todo 使用TP链接
+        let account;
+        await tp.getWallet({ walletTypes: ['matic'], switch: false }).then(
+          value => {
+            account = value.data.address;
+          }
+        )
+        alert('您已经连接tokenpocket, 当前账户： ' + account)
+        this.setState({ isConnected: true, });
+        this.setState({ userAddress: account });
+        //localStorage.setItem(USERADDRESS, account); //储存用户address
+        localStorage.setItem(LASTCONNECT, TOKENPOCKET); //储存上次登陆的信息
+      } catch (error) {
+        console.debug(error);
+        this.setState({ isConnected: false });
+      }
+    }
+
+  }
+
+  //登陆后点击token按钮
+  handleTokenButtonOnClick = () => {
+    let string = localStorage.getItem(LASTCONNECT);
+    if (string === METAMASK) this.getMetaMaskAccount();
+    else if (string === TOKENPOCKET) this.getTokenPocketAccount();
   }
 
   //logout
   //todo 未做登出
   disconnect = () => {
     this.setState({ isConnected: false });
-    localStorage.removeItem(USERADDRESS);
+    //localStorage.removeItem(USERADDRESS);
     localStorage.removeItem(LASTCONNECT);
 
   }
@@ -464,7 +478,7 @@ class TopBar extends Component {
 
   render() {
     const { classes } = this.props
-
+	const { t } = this.props
     return (
       <div>
         <Dialog className={classes.dialog} onClose={this.handleDialogClose} open={this.state.dialogOpen}>
@@ -504,28 +518,27 @@ class TopBar extends Component {
             </Grid>
             <Grid item className={classes.btnGrid}>
               <Button size="large" className={classes.btn} href='/#/' >
-                <b>首页</b>
+                <b>{t('index')}</b>
               </Button>
               <Button size="large" className={classes.btn} href='/#/introPublish'>
-                <b>发布</b>
+                <b>{t('publish')}</b>
               </Button>
               <Button size="large" className={classes.btn} href='/#/collections'>
-                <b>我的收藏</b>
+                <b>{t('collection')}</b>
               </Button>
               <Button size="large" href='https://github.com/SparkNFT' target="_blank">
                 <GithubOutlined className={classes.icon} />
               </Button>
+			  <LanguageBtn />
               {this.state.isConnected ? (
                 // <Button onClick={this.getAccount}>
                 //   <WalletTwoTone className={classes.icon} />
                 // </Button>
-                <Button size="large" variant="contained" className={classes.btnUser} onClick={this.getMetaMaskAccount}>
+                <Button size="large" variant="contained" className={classes.btnUser} onClick={this.handleTokenButtonOnClick}>
                   <Typography component="" color="inherit" noWrap className={classes.titleToken}>
                     {this.state.userAddress.substring(0, 6)}...{this.state.userAddress.substring(this.state.userAddress.length - 5, this.state.userAddress.length)}
                   </Typography>
-
                 </Button>
-
               ) : (
                 // <Button onClick={this.getAccount}>
                 //   <WalletFilled className={classes.icon} />
@@ -536,15 +549,16 @@ class TopBar extends Component {
                   </Typography>
                 </Button>
               )}
+              {/* <Button onClick={this.disconnect}> akdalk</Button> */}
             </Grid>
           </Grid>
         </Toolbar>
-      </div>
+      </div >
     );
   }
 }
 
-export default withStyles(styles, { withTheme: true })(TopBar);
+export default withTranslation()(withStyles(styles, { withTheme: true })(TopBar));
 /*
 todo
 目前TP兼容仅作TopBar上的登陆，未处理其他交互的TP支持；

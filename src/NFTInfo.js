@@ -17,6 +17,12 @@ import { Progress, Spin, message } from 'antd'
 import axios from 'axios'
 import web3 from './web3'
 
+//字符串常量
+const TOKENPOCKET = "TokenPocket";
+const METAMASK = "MetaMask";
+const LASTCONNECT = "lastConnect";
+
+const tp = require('tp-js-sdk');
 const FileSaver = require('file-saver')
 var CryptoJS = require("crypto-js")
 const abi = require('erc-20-abi')
@@ -272,8 +278,31 @@ class NFTInfo extends Component {
     
     const price = await contract.methods.getShillPriceByNFTId(this.props.match.params.id).call()
     const owner = await contract.methods.ownerOf(this.props.match.params.id).call()
-    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
-    const account = accounts[0]
+
+    //获取账号
+    var account;
+    const lastConnect = localStorage.getItem(LASTCONNECT);
+    if (lastConnect === METAMASK) {
+      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+      account = accounts[0];
+    }
+    else if(lastConnect === TOKENPOCKET) {
+      await tp.getCurrentWallet().then(
+        value => {
+          account = value.data.address;
+        }
+      )
+      if(account.length === 0){
+        await tp.getWallet({ walletTypes: ['matic'], switch: false }).then(
+          value => {
+            account = value.data.address;
+          }
+        )
+      } 
+      
+    }
+    // const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+    // const account = accounts[0]
     if (web3.utils.toChecksumAddress(account) !== owner) {
       // alert("这枚nft不属于你");
       message.warning({
@@ -814,3 +843,4 @@ class NFTInfo extends Component {
 }
 export default withStyles(styles, { withTheme: true })(NFTInfo)
 //todo 涉及交易
+//account的获取方式做了修改

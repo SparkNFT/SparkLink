@@ -20,7 +20,7 @@ import ReactLoading from 'react-loading'
 import Paper from '@material-ui/core/Paper'
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Link } from "@material-ui/core"
 import * as tokens from './tokens_list.json'
-
+import { withTranslation } from 'react-i18next';
 const {
   pinata_api_key,
   pinata_secret_api_key,
@@ -202,15 +202,16 @@ class EncryptedPublish extends Component {
   }
 
   async componentDidMount() {
+	const { t } = this.props;
     if (!window.ethereum) {
-      alert("请先安装metamask")
+      alert(t('please_install_metamask'))
       window.location.href = '/#/introPublish'
       return
     }
 
     const chainId = await window.ethereum.request({ method: 'eth_chainId' })
     if (chainId !== '0x89') {
-      alert("请切换至Polygon 主网络")
+      alert(t('please_set_polygon'))
       await window.ethereum.request({
         method: 'wallet_switchEthereumChain',
         params: [{
@@ -301,6 +302,7 @@ class EncryptedPublish extends Component {
   }
 
   handleSelectChange = async (value) => {
+	const {t} = this.props
     var tokens_list = tokens.tokens
     let address
     let token_symbol
@@ -320,7 +322,7 @@ class EncryptedPublish extends Component {
         token_decimal = await token_contract.methods.decimals().call()
         address = value
       } catch (error) {
-        message.error("你提供的地址不是erc20代币，请重新输入")
+        message.error(t('error_no_erc20'))
       }
 
     }
@@ -333,6 +335,7 @@ class EncryptedPublish extends Component {
   }
 
   jump = async (event) => {
+	  const {t} = this.props
     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
     const account = accounts[0]
     this.setState({
@@ -353,7 +356,7 @@ class EncryptedPublish extends Component {
       })
     } else {
       message.warning({
-        content: "您并不是此NFT的持有者",
+        content: t('no_NFT_owner'),
         className: 'custom-class',
         style: {
           marginTop: '10vh',
@@ -577,7 +580,9 @@ class EncryptedPublish extends Component {
   }
 
   render() {
+	const { t } = this.props
     const { classes } = this.props
+	console.log(t,classes)
     let obj = this
     const { TextArea } = Input
     const options = this.state.data.map(d => <Option key={d.value}>{d.text}</Option>)
@@ -760,15 +765,15 @@ class EncryptedPublish extends Component {
 
             <div className={classes.paper}>
               <Typography className={classes.titlePub}>
-                <b>上传作品文件</b>
+                <b>{t('up_file')}</b>
               </Typography>
               <form className={classes.form} noValidate>
                 {this.state.jumped ? (
                   <div>
                     <Grid item style={{ width: "100%" }}>
-                      <label style={{ fontSize: 18, marginBottom: 10 }}>作品名字 *</label>
+                      <label style={{ fontSize: 18, marginBottom: 10 }}>{t('art_name')} *</label>
                       <Input
-                        placeholder="作品名称"
+                        placeholder={t('art_name')}
                         allowClear
                         id="pubName"
                         onChange={this.handleGetPubName}
@@ -777,8 +782,8 @@ class EncryptedPublish extends Component {
                       />
                     </Grid>
                     <Grid item style={{ width: "100%" }}>
-                      <label style={{ fontSize: 18, marginTop: 20 }}>作品描述 *</label>
-                      <p style={{ fontSize: 14 }}>请用简单的话语对您的作品进行描述，精准有效的描述能帮助其他用户更准确得了解您的作品</p>
+                      <label style={{ fontSize: 18, marginTop: 20 }}>{t('art_desc')} *</label>
+                      <p style={{ fontSize: 14 }}>{t('art_desc_tip')}</p>
                       <TextArea
                         rows={4}
                         id="Description"
@@ -789,28 +794,27 @@ class EncryptedPublish extends Component {
                 ) : (
                   <div></div>
                 )}
-                <label style={{ fontSize: 18, marginTop: 50 }}>封面图片 *</label>
-                <p style={{ fontSize: 12 }}>请在下方区域上传您的封面图片 <br />
-                  封面文件支持这些格式：JPEG/JPG/PNG</p>
+                <label style={{ fontSize: 18, marginTop: 50 }}>{t('pic_cover')} *</label>
+                <p style={{ fontSize: 12 }}>{t('pic_cover_tip')}</p>
                 <Dragger {...prop} style={{ width: '100%', minHeight: 100 }} id="Uploader" accept=".png, .jpg, .jpeg" >
                   <p className="ant-upload-drag-icon">
                     <InboxOutlined />
                   </p>
-                  <p className="ant-upload-text">上传文件请点击或者拖拽文件到此处</p>
+                  <p className="ant-upload-text">{t('upload_file_tip1')}</p>
                   <p className="ant-upload-hint">
-                    支持单个文件的上传，支持多种类型文件的上传
+                    {t('upload_file_tip2')}
                   </p>
                 </Dragger>
 
-                <label style={{ fontSize: 18, marginTop: 50 }}>作品文件 *</label>
-                <p style={{ fontSize: 12 }}>请在下方区域上传您的作品文件 </p>
+                <label style={{ fontSize: 18, marginTop: 50 }}>{t('art_file')} *</label>
+                <p style={{ fontSize: 12 }}>{t('art_file_tip')} </p>
                 <Dragger {...propFile} style={{ width: '100%', minHeight: 100 }} id="Uploader2">
                   <p className="ant-upload-drag-icon">
                     <InboxOutlined />
                   </p>
-                  <p className="ant-upload-text">上传文件请点击或者拖拽文件到此处</p>
+                  <p className="ant-upload-text">{t('upload_file_tip1')}</p>
                   <p className="ant-upload-hint">
-                    支持单个文件的上传和多个文件的上传，支持多种类型文件的上传
+                    {t('upload_file_tip2')}
                   </p>
                 </Dragger>
                 <div style={{ textAlign: 'center' }}>
@@ -838,14 +842,14 @@ class EncryptedPublish extends Component {
             <TopBar />
             <div style={{ textAlign: 'center' }}>
               <Typography className={classes.titleCon}>
-                <b> 🎉 恭喜您发布成功</b>
+                <b> {t('pulish_success')}</b>
               </Typography>
 
               <Paper className={classes.paperImg}>
                 <img style={{ width: 300, marginTop: 20, marginBottom: 50 }} src={this.state.coverURL}></img>
               </Paper>
               <Typography variant="h4" style={{ marginTop: 20, fontFamily: 'Ubuntu' }}>
-                <b>您获得的NFT是： #{this.state.rootNFTId}</b>
+                <b>{t('you_gain_nft')} #{this.state.rootNFTId}</b>
               </Typography>
 
               <Button
@@ -854,7 +858,7 @@ class EncryptedPublish extends Component {
                 style={{ marginTop: 50, width: 200, height: 50, marginBottom: 50 }}
                 onClick={this.checkDetail}
               >
-                查看详情
+                {t('show_detail')}
               </Button>
             </div>
           </ThemeProvider>
@@ -869,14 +873,14 @@ class EncryptedPublish extends Component {
             <Container component="main" maxWidth="xs" className={classes.main}>
               <div className={classes.paper}>
                 <Typography className={classes.titlePub}>
-                  <b>发布作品信息</b>
+                  <b>{t('art_info')}</b>
                 </Typography>
                 <form className={classes.form} noValidate>
                   <Grid container spacing={2}>
                     <Grid item style={{ width: "100%" }}>
-                      <label style={{ fontSize: 18, marginBottom: 10 }}>作品名字 *</label>
+                      <label style={{ fontSize: 18, marginBottom: 10 }}>{t('art_name')} *</label>
                       <Input
-                        placeholder="作品名称"
+                        placeholder={t('art_name')}
                         allowClear
                         id="pubName"
                         onChange={this.handleGetPubName}
@@ -885,8 +889,8 @@ class EncryptedPublish extends Component {
                       />
                     </Grid>
                     <Grid item style={{ width: "100%" }}>
-                      <label style={{ fontSize: 18, marginTop: 20 }}>收益比例 *</label>
-                      <p style={{ fontSize: 14 }}>当您的作品被他人分享并获利时，您希望从他的分享利润中获得多少比例的收益</p>
+                      <label style={{ fontSize: 18, marginTop: 20 }}>{t('fit_rate')} *</label>
+                      <p style={{ fontSize: 14 }}>{t('fit_rate_tip')}</p>
                       <InputNumber
                         id="bonusFee"
                         defaultValue={0}
@@ -899,12 +903,12 @@ class EncryptedPublish extends Component {
                       />
                     </Grid>
                     <Grid item style={{ width: "100%" }}>
-                      <label style={{ fontSize: 18, marginTop: 20 }}>通行代币 *</label>
-                      <p style={{ fontSize: 14 }}>请选择您支持的支付货币 (输入代币符号或地址)</p>
+                      <label style={{ fontSize: 18, marginTop: 20 }}>{t('access_coin')} *</label>
+                      <p style={{ fontSize: 14 }}>{t('access_coin_tip')}</p>
                       <Select
                         showSearch
                         value={this.state.token_addr}
-                        placeholder={"请输入代币符号或地址"}
+                        placeholder={t('please_input_coin')}
                         // className={classes.input}
                         style={{ width: "100%" }}
                         size="large"
@@ -919,7 +923,7 @@ class EncryptedPublish extends Component {
                       </Select>
                     </Grid>
                     <Grid item style={{ width: "100%" }}>
-                      <label style={{ fontSize: 18, marginTop: 20 }}>售卖价格 ({this.state.token_symbol})*</label>
+                      <label style={{ fontSize: 18, marginTop: 20 }}>{t('price')} ({this.state.token_symbol})*</label>
                       <InputNumber
                         id="price"
                         defaultValue={0}
@@ -929,8 +933,8 @@ class EncryptedPublish extends Component {
                       />
                     </Grid>
                     <Grid item style={{ width: "100%" }}>
-                      <label style={{ fontSize: 18, marginTop: 20 }}>最高分享次数 (MAX： 65535)*</label>
-                      <p style={{ fontSize: 14 }}>您希望每一个帮助您传播的用户最多能够分享多少次？</p>
+                      <label style={{ fontSize: 18, marginTop: 20 }}>{t('max_share')} (MAX： 65535)*</label>
+                      <p style={{ fontSize: 14 }}>{t('max_share_tip')}</p>
                       <InputNumber
                         id="shareTimes"
                         defaultValue={0}
@@ -941,8 +945,8 @@ class EncryptedPublish extends Component {
                       />
                     </Grid>
                     <Grid item style={{ width: "100%" }}>
-                      <label style={{ fontSize: 18, marginTop: 20 }}>作品描述 *</label>
-                      <p style={{ fontSize: 14 }}>请用简单的话语对您的作品进行描述，精准有效的描述能帮助其他用户更准确得了解您的作品</p>
+                      <label style={{ fontSize: 18, marginTop: 20 }}>{t('art_desc')}  *</label>
+                      <p style={{ fontSize: 14 }}>{t('art_desc_tip')}</p>
                       <TextArea
                         rows={4}
                         id="Description"
@@ -960,12 +964,12 @@ class EncryptedPublish extends Component {
                       style={{ width: 200, height: 50, marginBottom: 20, marginTop: 20 }}
                       onClick={this.submit}
                     >
-                      提交信息
+                       {t('submit')}
                     </Button>
                   </Grid>
                   <Grid item xs style={{ textAlign: 'center' }}>
                     <Link onClick={this.handleClickOpen} style={{ fontSize: 10, textDecoration: 'underline' }}>
-                      已经上传过基本信息？
+                       {t('have_submit')}
                     </Link>
                   </Grid>
                 </Grid>
@@ -974,10 +978,10 @@ class EncryptedPublish extends Component {
                   onClose={this.handleClose}
                   aria-labelledby="form-dialog-title"
                 >
-                  <DialogTitle id="form-dialog-title">填写 NFT ID</DialogTitle>
+                  <DialogTitle id="form-dialog-title">{t('inpt_NFT_ID')}</DialogTitle>
                   <DialogContent>
                     <DialogContentText>
-                      请在下方区域填写您要绑定内容的 NFT ID
+                      {t('inpt_NFT_ID_tip')}
                     </DialogContentText>
                     <label style={{ fontSize: 14, marginBottom: 10 }}>NFT ID *</label>
                     <InputNumber
@@ -988,10 +992,10 @@ class EncryptedPublish extends Component {
                   </DialogContent>
                   <DialogActions>
                     <Button onClick={this.handleClose} color="primary">
-                      取消
+                       {t('cancel')}
                     </Button>
                     <Button variant="contained" onClick={this.jump} color="primary" >
-                      去上传作品
+                       {t('go_upload')}
                     </Button>
                   </DialogActions>
                 </Dialog>
@@ -1006,5 +1010,5 @@ class EncryptedPublish extends Component {
   }
 }
 
-export default withStyles(styles, { withTheme: true })(EncryptedPublish)
+export default withTranslation()(withStyles(styles, { withTheme: true })(EncryptedPublish))
 //todo 涉及交易

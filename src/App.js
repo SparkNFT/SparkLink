@@ -7,7 +7,8 @@ import { createTheme, ThemeProvider, withStyles } from '@material-ui/core/styles
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import TopBar from './TopBar';
-
+import { withTranslation } from 'react-i18next';
+import LanguageBtn from './LanguageBtn';
 const styles = theme => ({
   title: {
     fontFamily: 'Teko',
@@ -146,6 +147,7 @@ const theme = createTheme({
 
 class App extends Component {
   render() {
+	const { t } = this.props;
     const { classes } = this.props
     return (
       <div>
@@ -161,10 +163,10 @@ class App extends Component {
                       <b>SparkLink</b>
                     </Typography>
                     <Typography color="inherit" noWrap className={classes.title2}>
-                      <b>人人传播，互相支持，仿若星星之火，点亮一片世界。</b>
+                      <b>{t('index_slogan')}</b>
                     </Typography>
                     <Typography color="inherit" noWrap className={classes.title3}>
-                      发布你爱的 & 支持你爱的 & 传播你爱的
+                      {t('index_slogan_bottom')}
                     </Typography>
 
                   </Grid>
@@ -174,12 +176,12 @@ class App extends Component {
                   <Grid container justifyContent="center" spacing={5} >
                     <Grid item >
                       <Button size="large" variant="contained" color="secondary" className={classes.btnMain} href='/#/introPublish'>
-                        <b>去发布</b>
+                        <b>{t('go_publish')}</b>
                       </Button>
                     </Grid>
                     <Grid item >
                       <Button size="large" variant="outlined" color="secondary" className={classes.btnSecond} href='/#/buy'>
-                        <b>去购买</b>
+                        <b>{t('go_buy')}</b>
                       </Button>
                     </Grid>
                   </Grid>
@@ -193,4 +195,4 @@ class App extends Component {
   }
 }
 
-export default withStyles(styles, { withTheme: true })(App);
+export default  withTranslation()(withStyles(styles, { withTheme: true })(App));

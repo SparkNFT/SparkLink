@@ -6,6 +6,7 @@ import { createTheme, ThemeProvider, withStyles } from '@material-ui/core/styles
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import TopBar from './TopBar';
+import { withTranslation } from 'react-i18next';
 
 const styles = theme => ({
   icon: {
@@ -137,6 +138,7 @@ const theme = createTheme({
 
 class IntroPublish extends Component {
   render() {
+	const { t } = this.props
     const { classes } = this.props
     return (
       <div>
@@ -166,12 +168,12 @@ class IntroPublish extends Component {
               <Grid container justifyContent="center" style={{ fontFamily: 'Teko', marginTop: 70 }}>
                 <Grid item xs={4} >
                   <Button size="large" variant="contained" color="secondary" className={classes.btnMain} href='/#/encryptedPublish'>
-                    <b>加密发布</b>
+                    <b>{t('publish_encry')}</b>
                   </Button>
                 </Grid>
                 <Grid item xs={3} >
                   <Button size="large" variant="contained" color="secondary" className={classes.btnSecond} href='/#/publish'>
-                    <b>开源发布</b>
+                    <b>{t('publish_open')}</b>
                   </Button>
                 </Grid>
               </Grid>
@@ -183,4 +185,4 @@ class IntroPublish extends Component {
   }
 }
 
-export default withStyles(styles, { withTheme: true })(IntroPublish);
+export default withTranslation()(withStyles(styles, { withTheme: true })(IntroPublish));
