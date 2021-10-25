@@ -36,6 +36,9 @@
 	"go_upload":"去上传作品",
 	"inpt_NFT_ID":"填写 NFT ID",
 	"inpt_NFT_ID_tip":"请在下方区域填写您要绑定内容的 NFT ID",
-	"no_NFT_owner":"您并不是此NFT的持有者"
+	"no_NFT_owner":"您并不是此NFT的持有者",
+	"index":"首页",
+	"collection":"我的收藏",
+	"publish":"发布"
 	
 }

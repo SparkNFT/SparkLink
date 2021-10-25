@@ -36,6 +36,8 @@
 	"go_upload":"To Upload",
 	"inpt_NFT_ID":"Enter NFT ID",
 	"inpt_NFT_ID_tip":"Please fill in the NFT ID of the content you want to bind in the area below",
-	"no_NFT_owner":"You are not the owner of this NFT"
-	
+	"no_NFT_owner":"You are not the owner of this NFT",
+	"index":"Home",
+	"collection":"Collection",
+	"publish":"Publish"
 }

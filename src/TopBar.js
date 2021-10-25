@@ -17,6 +17,7 @@ import { CenterFocusStrong, WallpaperOutlined, Web } from '@material-ui/icons';
 import isMobile from './isMobile';
 import { icons } from 'antd/lib/image/PreviewGroup';
 import LanguageBtn from './LanguageBtn';
+import { withTranslation } from 'react-i18next';
 //字符串常量
 const TOKENPOCKET = "TokenPocket";
 const METAMASK = "MetaMask";
@@ -477,7 +478,7 @@ class TopBar extends Component {
 
   render() {
     const { classes } = this.props
-
+	const { t } = this.props
     return (
       <div>
         <Dialog className={classes.dialog} onClose={this.handleDialogClose} open={this.state.dialogOpen}>
@@ -517,13 +518,13 @@ class TopBar extends Component {
             </Grid>
             <Grid item className={classes.btnGrid}>
               <Button size="large" className={classes.btn} href='/#/' >
-                <b>首页</b>
+                <b>{t('index')}</b>
               </Button>
               <Button size="large" className={classes.btn} href='/#/introPublish'>
-                <b>发布</b>
+                <b>{t('publish')}</b>
               </Button>
               <Button size="large" className={classes.btn} href='/#/collections'>
-                <b>我的收藏</b>
+                <b>{t('collection')}</b>
               </Button>
               <Button size="large" href='https://github.com/SparkNFT' target="_blank">
                 <GithubOutlined className={classes.icon} />
@@ -557,7 +558,7 @@ class TopBar extends Component {
   }
 }
 
-export default withStyles(styles, { withTheme: true })(TopBar);
+export default withTranslation()(withStyles(styles, { withTheme: true })(TopBar));
 /*
 todo
 目前TP兼容仅作TopBar上的登陆，未处理其他交互的TP支持；
