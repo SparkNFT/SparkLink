@@ -22,11 +22,8 @@
     "gh-pages": "^3.2.3",
     "jquery": "^3.6.0",
     "jsdom": "^17.0.0",
-<<<<<<< HEAD
     "qrcode": "^1.4.4",
-=======
     "material": "^0.4.3",
->>>>>>> 008c53076458cce74b8a7ca5e9f910abcbc0259e
     "react": "^17.0.2",
     "react-bootstrap": "^1.6.4",
     "react-copy-to-clipboard": "^5.0.4",
