@@ -366,3 +366,4 @@ class Collections extends Component {
 }
 
 export default withStyles(styles, { withTheme: true })(Collections);
+//todo 涉及交易

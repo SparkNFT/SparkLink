@@ -540,3 +540,4 @@ class BuySingle extends Component {
 }
 
 export default withStyles(styles, { withTheme: true})(BuySingle)
+//todo  涉及交易
