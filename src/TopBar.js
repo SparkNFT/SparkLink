@@ -13,12 +13,18 @@ import { GithubOutlined, WalletOutlined, WalletTwoTone, WalletFilled } from '@an
 import Web3 from 'web3';
 import metamaskpic from './imgs/metamask.png'
 import TPpic from './imgs/TP.png'
-import { CenterFocusStrong, Web } from '@material-ui/icons';
+import { CenterFocusStrong, WallpaperOutlined, Web } from '@material-ui/icons';
 import isMobile from './isMobile';
+import { icons } from 'antd/lib/image/PreviewGroup';
+
+//字符串常量
+const TOKENPOCKET = "TokenPocket";
+const METAMASK = "MetaMask";
+const LASTCONNECT = "lastConnect";
+const USERADDRESS = "userAddress"
 
 //TP钱包支持
 var tp = require('tp-js-sdk');
-
 
 const theme = createTheme({
   breakpoints: {
@@ -60,16 +66,16 @@ const styles = theme => ({
     fontSize: 22,
     fontFamily: 'Teko',
     [theme.breakpoints.between('xs', 'sm')]: {
-      fontSize: 22,
+      fontSize: 15,
     },
     [theme.breakpoints.between('sm', 'md')]: {
-      fontSize: 22,
+      fontSize: 15,
     },
     [theme.breakpoints.between('md', 'lg')]: {
       fontSize: 22,
     },
     [theme.breakpoints.between('lg', 'xl')]: {
-      fontSize: 22,
+      fontSize: 25,
     },
     [theme.breakpoints.up('xl')]: {
       fontSize: 25,
@@ -117,9 +123,6 @@ const styles = theme => ({
   },
   dialog: {
     textAlign: 'center'
-
-
-
   },
   btnImg: {
 
@@ -173,11 +176,14 @@ const styles = theme => ({
     color: '#424949',
     borderColor: '#e3f2fd',
     fontSize: 15,
+    fontFamily: 'Teko',
     [theme.breakpoints.between('xs', 'sm')]: {
-      fontSize: 10,
+      fontSize: 15,
+      width: 80,
+      height: 40,
     },
     [theme.breakpoints.between('sm', 'md')]: {
-      fontSize: 12,
+      fontSize: 15,
       width: 100
     },
     [theme.breakpoints.between('md', 'lg')]: {
@@ -185,7 +191,7 @@ const styles = theme => ({
       width: 200
     },
     [theme.breakpoints.up('xl')]: {
-      fontSize: 20,
+      fontSize: 22,
     },
   },
   btn: {
@@ -246,6 +252,49 @@ class TopBar extends Component {
 
   async componentWillMount() {
     //todo 从本地获取登陆状态（登陆记录）
+    let lastConnect = localStorage.getItem(LASTCONNECT)
+    console.log("lastconnect:  " + lastConnect)
+    if (lastConnect === null) {
+      this.setState({
+        isConnected: false,
+      });
+    }
+    else if (lastConnect === METAMASK) {
+      this.checkMetaMask();
+    }
+    else if (lastConnect === TOKENPOCKET) {
+      this.checkTokenPocket();
+    }
+
+
+
+    // //在Web端仅检测小狐狸登陆状态
+    // if (!isMobile) {
+    //   this.checkMetaMask()
+    // }
+    // //在手机端先检测TP
+    // else {
+    //   tp.getCurrentWallet().then(value => {
+    //     const account = await value.data.address;
+    //     if (account.length == 0) {
+    //       this.setState({
+    //         isConnected: true
+    //       });
+    //     } else {
+    //       console.log(accounts)
+
+    //       this.setState({ accountInfo: account.substring(0, 5), });
+    //       this.setState({
+    //         isConnected: true
+    //       });
+    //       localStorage.setItem(USERADDRESS, account);
+    //     }
+
+    //     // })
+
+    //   })
+    // }
+
 
     // if (Web3.givenProvider) {
     //   //console.log(Web3.givenProvider)
@@ -269,6 +318,60 @@ class TopBar extends Component {
     //   console.log(this.state.isConnected)
     // }
   }
+
+  //check小狐狸账户
+  checkMetaMask = async () => {
+    if (Web3.givenProvider) {
+      //console.log(Web3.givenProvider)
+      //let w3 = new Web3(window.ethereum);
+      let w3 = new Web3(window.web3.currentProvider);
+      const accounts = await w3.eth.getAccounts();
+      console.log("accounts: " + accounts)
+      if (accounts.length == 0) {
+        this.setState({
+          isConnected: false
+        });
+      } else {
+        console.log(accounts)
+        var account = accounts[0]
+        console.log("account: " + account);
+        this.setState({ accountInfo: account.substring(0, 5), });
+        this.setState({
+          isConnected: true
+        });
+        localStorage.setItem(USERADDRESS, account);
+        localStorage.setItem(LASTCONNECT, METAMASK)
+      }
+      console.log(Web3.givenProvider);
+      console.log(this.state.isConnected)
+    }
+
+  }
+
+  //check TP账户
+  checkTokenPocket = async () => {
+    await tp.getCurrentWallet().then(value => {
+      const account = value.data.address;
+      if (account.length == 0) {
+        this.setState({
+          isConnected: false
+        });
+      } else {
+        //console.log(accounts)
+        this.setState({ accountInfo: account.substring(0, 5), });
+        this.setState({
+          isConnected: true
+        });
+        localStorage.setItem(USERADDRESS, account);
+        localStorage.setItem(LASTCONNECT, TOKENPOCKET);
+      }
+
+      // })
+
+    })
+
+  }
+
 
   //点击使用tokenpocket
   handleSelectTokenPockect = () => {
@@ -313,7 +416,8 @@ class TopBar extends Component {
       alert('您已经连接metamask, 当前账户： ' + account)
       this.setState({ isConnected: true, });
       //this.setState({ userAddress: account });
-      localStorage.setItem("userAddress", account);
+      localStorage.setItem(USERADDRESS, account);
+      localStorage.setItem(LASTCONNECT, METAMASK);
     } catch (error) {
       console.debug(error)
       this.setState({ isConnected: false, });
@@ -333,7 +437,8 @@ class TopBar extends Component {
       alert('您已经连接tokenpocket, 当前账户： ' + account)
       this.setState({ isConnected: true, });
       //this.setState({ userAddress: account });
-      localStorage.setItem("userAddress", account);
+      localStorage.setItem(USERADDRESS, account); //储存用户address
+      localStorage.setItem(LASTCONNECT, TOKENPOCKET); //储存上次登陆的信息
     } catch (error) {
       console.debug(error);
       this.setState({ isConnected: false });
@@ -343,8 +448,9 @@ class TopBar extends Component {
   //logout
   //todo 未做登出
   disconnect = () => {
-    this.setState({isConnected:false})
-    localStorage.removeItem("userAddress")
+    this.setState({ isConnected: false });
+    localStorage.removeItem(USERADDRESS);
+    localStorage.removeItem(LASTCONNECT);
 
   }
 
@@ -408,9 +514,8 @@ class TopBar extends Component {
                 //   <WalletTwoTone className={classes.icon} />
                 // </Button>
                 <Button size="large" variant="contained" className={classes.btnUser} onClick={this.getMetaMaskAccount}>
-                  <Typography component="" color="inherit" noWrap className={classes.titleToken} >
-                    <WalletOutlined />
-                    {localStorage.getItem("userAddress")}
+                  <Typography component="" color="inherit" noWrap className={classes.titleToken}>
+                    {localStorage.getItem(USERADDRESS).substring(0, 6)}...{localStorage.getItem(USERADDRESS).substring(localStorage.getItem(USERADDRESS).length - 5, localStorage.getItem(USERADDRESS).length)}
                   </Typography>
 
                 </Button>
@@ -420,7 +525,9 @@ class TopBar extends Component {
                 //   <WalletFilled className={classes.icon} />
                 // </Button>
                 <Button variant="contained" className={classes.btnUser} onClick={this.handleDialogOpen}>
-                  <b>Connect Wallet</b>
+                  <Typography component="" color="inherit" noWrap className={classes.titleToken}>
+                    <b> Connect Wallet</b>
+                  </Typography>
                 </Button>
               )}
             </Grid>
@@ -433,7 +540,8 @@ class TopBar extends Component {
 
 export default withStyles(styles, { withTheme: true })(TopBar);
 /*
-todo目前TP兼容仅作TopBar上的登陆，未处理其他交互的TP支持
-未做移动端的自适应
-connect Wallet界面UI待更改
+todo
+目前TP兼容仅作TopBar上的登陆，未处理其他交互的TP支持；
+界面未做logout操作，disconnect函数已写完；
+connect Wallet界面UI待更改；
 */
