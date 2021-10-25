@@ -5,20 +5,22 @@ import React, { Component } from 'react'
 const MaskLayer = (props) => {
   const styles = {
     modal: {
-      position: 'absolute',
+      position: 'fixed',
+      left: 0,
+      top: 0,
       width: '100%',
       height: '100%',
-      
-      backgroundColor: 'rgba(0,0,0,0.5)'
-    },
-    content: {
-      margin: '0 auto'
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: 'rgba(0,0,0,0.3)'
     }
   }
   return (
     <div
       onClick={
         e => {
+          console.log('click')
           if(e.target.className === 'MaskLayer'){
             props.onClose()
           }
@@ -27,7 +29,7 @@ const MaskLayer = (props) => {
       className='MaskLayer'
       style = {styles.modal}
     >
-      <div style={styles.content}>{props.children}</div>
+      {props.children}
     </div>
   )
 }

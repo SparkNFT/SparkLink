@@ -616,8 +616,9 @@ class NFTInfo extends Component {
     return new Uint8Array(result)
   }
 
-  spark = (flag = true) => {
-    this.setState({ spark: flag });
+  spark = () => {
+    const flag = this.state.spark
+    this.setState({ spark: !flag });
   }
 
   downloadPoster = (res) => {
@@ -630,34 +631,20 @@ class NFTInfo extends Component {
       let toUrl = "https://" + url + '/#/NFT/Spark/' + this.props.match.params.id;
       let share = '分享复制链接：' + toUrl;
       // this.state.onSale
-      /* if (this.state.spark) {
+      if (this.state.spark) {
+        const coverRef = document.getElementById('cover')
+        const coverHeight = coverRef.height
+        const coverWidth = coverRef.width
         return (
-          <Grid container >
-            <Grid item xs>
-              <Typography color="inherit" align="center" noWrap className={classes.share} >
-                请将下方链接分享给买方，<br /> 买方会进入此链接来购买这个NFT <br />
-                {toUrl}
-                <CopyToClipboard text={toUrl}
-                  onCopy={() => this.setState({ copied: true })}>
-                  <IconButton color="primary" aria-label="upload picture" component="span">
-                    <CopyOutlined />
-                  </IconButton>
-                </CopyToClipboard>
-              </Typography>
-              <Poster  str={this.state.price} share={toUrl} />
-            </Grid>
-          </Grid>
+          <div>
+            {this.state.spark?(
+            <MaskLayer onClose={this.spark}>
+              <Poster  str={this.state.price} share={toUrl} coverImg = {coverRef} coverWidth={coverWidth} coverHeight={coverHeight} />
+            </MaskLayer>):null}
+          
+          </div>
         );
-      } */
-      return (
-        <div>
-          {this.state.spark ? (
-            <MaskLayer onClose={this.spark(false)}>
-              <Poster str={this.state.price} share={toUrl} />
-            </MaskLayer>
-          ): null}
-        </div>
-      )
+      } 
     }
 
     if (this.state.showDecryptProgress){
@@ -767,7 +754,7 @@ class NFTInfo extends Component {
 
                     <Grid style={{ maxWidth: 200 }}>
                       <Paper className={classes.imagePapaer}>
-                        <img className={classes.imageStyle} src={this.state.Cover}></img>
+                        <img className={classes.imageStyle} src={this.state.Cover} id='cover' ></img>
                       </Paper>
                     </Grid>
 
@@ -803,7 +790,7 @@ class NFTInfo extends Component {
                         </Grid>
 
                         <Grid>
-                          <Button size="small" variant="outlined" color="secondary" target="_blank" className={classes.btnSecond} startIcon={<FireOutlined />} onClick={this.spark(true)} >
+                          <Button size="small" variant="outlined" color="secondary" target="_blank" className={classes.btnSecond} startIcon={<FireOutlined />} onClick={this.spark} >
                             <font size="3">
                               点火分享
                             </font>
@@ -816,13 +803,7 @@ class NFTInfo extends Component {
                 )}
               </div>
 
-              <Grid container direction="row" justifyContent="center" alignItems="flex-start">
-                <Grid item xs={8}>
-                  <div style={{ marginTop: 30 }}>
-                    {sell_info()}
-                  </div>
-                </Grid>
-              </Grid>
+              {sell_info()}
             </Container>
           </ThemeProvider>
         </Spin>
