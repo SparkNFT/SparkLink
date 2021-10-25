@@ -653,7 +653,7 @@ class NFTInfo extends Component {
         <div>
           {this.state.spark ? (
             <MaskLayer onClose={this.spark(false)}>
-              <Poster str={this.backend.price} share={toUrl} />
+              <Poster str={this.state.price} share={toUrl} />
             </MaskLayer>
           ): null}
         </div>
