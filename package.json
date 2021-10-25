@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.12.3",
+    "@material-ui/icons": "^5.0.0-beta.5",
     "@material-ui/lab": "^4.0.0-alpha.60",
     "@material-ui/styles": "^4.11.4",
     "@testing-library/jest-dom": "^5.14.1",
@@ -21,7 +22,11 @@
     "gh-pages": "^3.2.3",
     "jquery": "^3.6.0",
     "jsdom": "^17.0.0",
+<<<<<<< HEAD
     "qrcode": "^1.4.4",
+=======
+    "material": "^0.4.3",
+>>>>>>> 008c53076458cce74b8a7ca5e9f910abcbc0259e
     "react": "^17.0.2",
     "react-bootstrap": "^1.6.4",
     "react-copy-to-clipboard": "^5.0.4",
@@ -30,6 +35,7 @@
     "react-router-dom": "^5.3.0",
     "react-scripts": "4.0.3",
     "reactstrap": "^8.10.0",
+    "tp-js-sdk": "^3.7.0",
     "web-vitals": "^1.1.2",
     "web3": "^1.6.0"
   },
