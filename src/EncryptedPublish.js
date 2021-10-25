@@ -24,7 +24,7 @@ import * as tokens from './tokens_list.json'
 const {
   pinata_api_key,
   pinata_secret_api_key,
-} = require('./project.secret')
+} = require('./project.secret.js')
 const FormData = require('form-data')
 const bs58 = require('bs58')
 var CryptoJS = require("crypto-js")
@@ -1007,3 +1007,4 @@ class EncryptedPublish extends Component {
 }
 
 export default withStyles(styles, { withTheme: true })(EncryptedPublish)
+//todo 涉及交易

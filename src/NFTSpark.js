@@ -197,6 +197,7 @@ class NFTSpark extends Component {
   }
 
   async componentDidMount (){
+    //?RPC请求
     const chainId = await window.ethereum.request({ method: 'eth_chainId' })
     if (chainId !== '0x89') {
       alert("请切换至Polygon 主网络")
@@ -758,3 +759,4 @@ class NFTSpark extends Component {
 }
 
 export default withStyles(styles, {withTheme: true})(NFTSpark)
+//todo 涉及交易
