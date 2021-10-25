@@ -13,7 +13,14 @@ import { ArrowLeftOutlined, FireOutlined } from '@ant-design/icons'
 import Skeleton from '@material-ui/lab/Skeleton'
 import { Progress, message, Spin } from 'antd'
 
-const abi = require('erc-20-abi')
+//字符串常量
+const TOKENPOCKET = "TokenPocket";
+const METAMASK = "MetaMask";
+const LASTCONNECT = "lastConnect";
+
+const tp = require('tp-js-sdk');
+const abi = require('erc-20-abi');
+
 
 
 const theme = createTheme({
@@ -27,7 +34,7 @@ const theme = createTheme({
   },
 })
 
-const styles = theme => ({ 
+const styles = theme => ({
   container: {
     maxWidth: 1500,
     // backgroundColor: '#2196f3'
@@ -196,7 +203,7 @@ class NFTSpark extends Component {
     maxShillTimes: 0,
   }
 
-  async componentDidMount (){
+  async componentDidMount() {
     //?RPC请求
     const chainId = await window.ethereum.request({ method: 'eth_chainId' })
     if (chainId !== '0x89') {
@@ -209,8 +216,23 @@ class NFTSpark extends Component {
       })
     }
 
-    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
-    const account = accounts[0]
+
+    var account;
+    const lastConnect = localStorage.getItem(LASTCONNECT);
+    if (lastConnect === METAMASK) {
+      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+      account = accounts[0];
+    }
+    else if(lastConnect === TOKENPOCKET) {
+      await tp.getWallet({ walletTypes: ['matic'], switch: false }).then(
+        value => {
+          account = value.data.address;
+        }
+      )
+    }
+
+    // const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+    // const account = accounts[0]
 
     const meta = await contract.methods.tokenURI(this.props.match.params.id).call()
     let hash = meta.split('/')
@@ -237,7 +259,7 @@ class NFTSpark extends Component {
         dataUrl: fileAddr,
         isEncrypt: isEncrypt
       })
-    } catch (error){
+    } catch (error) {
       message.error({
         content: `Error: ${error}`,
         className: 'custom-class',
@@ -292,7 +314,7 @@ class NFTSpark extends Component {
     }
 
     const leafUrl = this.backend + '/api/v1/nft/info?nft_id=' + this.props.match.params.id
-    try{
+    try {
       const res = await axios.get(leafUrl)
       var children_num = res.data.children_count
       var remain_shill_times = res.data.max_shill_times - res.data.shill_times
@@ -407,7 +429,7 @@ class NFTSpark extends Component {
     this.setState({ onLoading: true })
 
     let obj = this
-    try{
+    try {
       const price = this.state.price.toString()
       const token_contract = new web3.eth.Contract(abi, this.state.tokenAddr)
       var gasPrice = await web3.eth.getGasPrice()
@@ -441,7 +463,7 @@ class NFTSpark extends Component {
             },
           })
         })
-    } catch (error){
+    } catch (error) {
       message.error({
         content: `Error: ${error}`,
         className: 'custom-class',
@@ -453,8 +475,21 @@ class NFTSpark extends Component {
   }
 
   shill = async (event) => {
-    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
-    const account = accounts[0]
+    // const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+    // const account = accounts[0]
+    var account;
+    const lastConnect = localStorage.getItem(LASTCONNECT);
+    if (lastConnect === METAMASK) {
+      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+      account = accounts[0];
+    }
+    else if(lastConnect === TOKENPOCKET) {
+      await tp.getWallet({ walletTypes: ['matic'], switch: false }).then(
+        value => {
+          account = value.data.address;
+        }
+      )
+    }
     var gasPrice = await web3.eth.getGasPrice()
     var new_gas_price = Math.floor(parseInt(gasPrice) * 1.5).toString()
     let obj = this
@@ -526,7 +561,7 @@ class NFTSpark extends Component {
   }
 
   render() {
-    const {classes} = this.props
+    const { classes } = this.props
     const showBtn = () => {
       if (this.state.showRecommend) {
         return (
@@ -556,7 +591,7 @@ class NFTSpark extends Component {
                   </Button>
                 </Grid>
                 <Grid item>
-                  <Button size="large" style={{ fontSize: '2rem' }} variant="outlined" color="secondary" target="_blank" className={classes.btnSecond} startIcon={<FireOutlined />}disabled>
+                  <Button size="large" style={{ fontSize: '2rem' }} variant="outlined" color="secondary" target="_blank" className={classes.btnSecond} startIcon={<FireOutlined />} disabled>
                     <Typography variant="button" component="h2" gutterBottom >
                       <font size="4"> 铸造  </font>
                     </Typography>
@@ -645,8 +680,8 @@ class NFTSpark extends Component {
       }
     }
 
-    if(this.state.showProgress){
-      return(
+    if (this.state.showProgress) {
+      return (
         <Spin spinning={this.state.onLoading} size='large'>
           <ThemeProvider theme={theme}>
             <TopBar />
@@ -692,7 +727,7 @@ class NFTSpark extends Component {
                       <Skeleton animation="wave" variant="rect" width={500} height={300} style={{ marginBottom: 50 }} />
                     </Grid>
                   </Grid>
-                ):(
+                ) : (
                   <Grid container direction="row" justifyContent="space-between" className={classes.content}>
                     <Grid item style={{ maxWidth: 200 }}>
                       <Paper className={classes.imagePaper}>
@@ -734,11 +769,11 @@ class NFTSpark extends Component {
                       {showBtn()}
                     </Grid>
                   </Grid>
-                  
+
                 )}
 
                 {this.state.showRecommend ? (
-                  <Grid style={{marginTop: 50}}>
+                  <Grid style={{ marginTop: 50 }}>
                     <Typography variant="h4" gutterBottom >
                       此NFT的子节点已经售完，我们给您推荐了其他还能购买的节点：
                     </Typography>
@@ -758,5 +793,6 @@ class NFTSpark extends Component {
   }
 }
 
-export default withStyles(styles, {withTheme: true})(NFTSpark)
+export default withStyles(styles, { withTheme: true })(NFTSpark)
 //todo 涉及交易
+//account的获取方式做了修改
