@@ -70,6 +70,9 @@ const styles = theme => ({
     minWidth: 370,
     marginTop: 30,
     // backgroundColor: '#e3f2fd',
+    [theme.breakpoints.down('sm')]: {
+      marginLeft: 30
+    },
     [theme.breakpoints.between('sm', 'md')]: {
       marginLeft: '12vw'
     },
@@ -105,9 +108,10 @@ const styles = theme => ({
   },
   logo: {
     objectFit: 'contain',
-    position: 'fixed',
-    [theme.breakpoints.between('xs', 'sm')]: {
-      width: '30%'
+    position: 'absolute',
+    [theme.breakpoints.down('sm')]: {
+      width: '30%',
+      margin: '0 auto'
     },
     [theme.breakpoints.between('sm', 'lg')]: {
       width: 200, 

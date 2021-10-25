@@ -6,6 +6,8 @@ import { createTheme, ThemeProvider, withStyles } from '@material-ui/core/styles
 import Skeleton from '@material-ui/lab/Skeleton'
 import Typography from '@material-ui/core/Typography'
 import TopBar from "./TopBar"
+import Poster from './Poster'
+import MaskLayer from './MaskLayer'
 import Paper from '@material-ui/core/Paper'
 import { DownloadOutlined, FireOutlined, ArrowLeftOutlined, MoneyCollectOutlined, CopyOutlined, DollarCircleOutlined } from '@ant-design/icons'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
@@ -228,6 +230,7 @@ class NFTInfo extends Component {
   gateway = 'https://coldcdn.com/api/cdn/v5ynur/ipfs/'
   backend = 'https://api.sparklink.io'
   state = {
+    price:'',
     loading: false,
     showDecryptProgress: null,
     decryptPercentage: 0,
@@ -266,7 +269,8 @@ class NFTInfo extends Component {
         }]
       })
     }
-
+    
+    const price = await contract.methods.getShillPriceByNFTId(this.props.match.params.id).call()
     const owner = await contract.methods.ownerOf(this.props.match.params.id).call()
     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
     const account = accounts[0]
@@ -287,7 +291,11 @@ class NFTInfo extends Component {
     if (token_addr == '0x0000000000000000000000000000000000000000') {
       var price_with_decimal = res / (10 ** 18)
       var profit = price_with_decimal + " MATIC"
+
+      var price_poster = price/(10**18)
+      price_poster = price_poster+ 'MATIC'
       this.setState({
+        price:price_poster,
         tokenAddr: '0x0000000000000000000000000000000000000000',
         tokenSymbol: 'MATIC',
         Profit: profit
@@ -297,8 +305,11 @@ class NFTInfo extends Component {
       const token_symbol = await token_contract.methods.symbol().call()
       const decimal = await token_contract.methods.decimals().call()
       var price_with_decimal = res / (10 ** decimal)
+      var price_poster = price / (10 ** decimal)
+      price_poster = price_poster+" "+token_symbol
       var profit = price_with_decimal + ` ${token_symbol}`
       this.setState({
+        price: price_poster,
         tokenAddr: token_addr,
         tokenSymbol: token_symbol,
         Profit: profit
@@ -604,11 +615,13 @@ class NFTInfo extends Component {
     return new Uint8Array(result)
   }
 
-  spark = () => {
-    this.setState({ spark: true });
+  spark = (flag = true) => {
+    this.setState({ spark: flag });
   }
 
-
+  downloadPoster = (res) => {
+    console.log(res)
+  }
   render(){
     const {classes} = this.props
     const sell_info = () => {
@@ -616,7 +629,7 @@ class NFTInfo extends Component {
       let toUrl = "https://" + url + '/#/NFT/Spark/' + this.props.match.params.id;
       let share = '分享复制链接：' + toUrl;
       // this.state.onSale
-      if (this.state.spark) {
+      /* if (this.state.spark) {
         return (
           <Grid container >
             <Grid item xs>
@@ -630,10 +643,20 @@ class NFTInfo extends Component {
                   </IconButton>
                 </CopyToClipboard>
               </Typography>
+              <Poster  str={this.state.price} share={toUrl} />
             </Grid>
           </Grid>
         );
-      }
+      } */
+      return (
+        <div>
+          {this.state.spark ? (
+            <MaskLayer onClose={this.spark(false)}>
+              <Poster str={this.backend.price} share={toUrl} />
+            </MaskLayer>
+          ): null}
+        </div>
+      )
     }
 
     if (this.state.showDecryptProgress){
@@ -779,7 +802,7 @@ class NFTInfo extends Component {
                         </Grid>
 
                         <Grid>
-                          <Button size="small" variant="outlined" color="secondary" target="_blank" className={classes.btnSecond} startIcon={<FireOutlined />} onClick={this.spark} >
+                          <Button size="small" variant="outlined" color="secondary" target="_blank" className={classes.btnSecond} startIcon={<FireOutlined />} onClick={this.spark(true)} >
                             <font size="3">
                               点火分享
                             </font>
