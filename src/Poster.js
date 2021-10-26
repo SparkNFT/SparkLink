@@ -10,7 +10,7 @@ const Poster = (props) => {
   
   let {str,share, coverImg, coverHeight, coverWidth} = props;
   //coverImg = document.getElementById('cover')
-  console.log(coverImg)
+  
   const splited = str.split(' ')
   let price = splited[0]
   let currency = splited[1]
@@ -23,6 +23,7 @@ const Poster = (props) => {
         ctx.drawImage(qrcode, 307,331,73,73)
         coverImg.crossOrigin = 'anonymous'
         ctx.drawImage(coverImg, ...getImgPos(coverHeight, coverWidth))
+        
       }
       qrcode.src = dataUrl
 

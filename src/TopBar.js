@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import logo from './imgs/sparkLink.jpg';
+import fullLogo from './imgs/sparkLink.jpg';
+import sLogo from './imgs/sparkLink.png';
 import './App.css';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
@@ -30,8 +31,8 @@ var tp = require('tp-js-sdk');
 const theme = createTheme({
   breakpoints: {
     values: {
-      xs: 0,
-      sm: 600,
+      xs: 300,
+      sm: 400,
       md: 900,
       lg: 1200,
       xl: 1536,
@@ -83,7 +84,6 @@ const styles = theme => ({
     },
   },
   title: {
-    minWidth: 100,
     fontSize: 25,
     fontFamily: 'Teko',
     [theme.breakpoints.between('xs', 'sm')]: {
@@ -105,24 +105,23 @@ const styles = theme => ({
   btnGrid: {
     // marginTop: 25,
     marginBottom: 10,
-    minWidth: 370,
+    minWidth: 400,
+    maxWidth: 800,
     marginTop: 30,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+
     // backgroundColor: '#e3f2fd',
-    [theme.breakpoints.down('sm')]: {
-      marginLeft: 30
+    [theme.breakpoints.between('xs','sm')]: {
     },
     [theme.breakpoints.between('sm', 'md')]: {
-      marginLeft: '12vw'
     },
     [theme.breakpoints.between('md', 'lg')]: {
-      marginLeft: '33vw'
     },
     [theme.breakpoints.between('lg', 'xl')]: {
-      marginLeft: '40vw'
     },
     [theme.breakpoints.up('xl')]: {
-      marginTop: 40,
-      marginLeft: '60vw',
     },
   },
   dialog: {
@@ -201,43 +200,35 @@ const styles = theme => ({
   btn: {
     color: '#424949',
     borderColor: '#e3f2fd',
-    fontSize: 15,
-    [theme.breakpoints.between('xs', 'sm')]: {
-      fontSize: 15,
+    
+    fontSize:22,
+    [theme.breakpoints.down('xs')]: {
+      fontSize: 14
+    },
+    [theme.breakpoints.between('xs','sm')]: {
+      fontSize: 12
     },
     [theme.breakpoints.between('sm', 'md')]: {
-      fontSize: 18,
-      width: 100
     },
     [theme.breakpoints.between('md', 'lg')]: {
-      fontSize: 18,
-      width: 100
     },
     [theme.breakpoints.up('xl')]: {
-      fontSize: 25,
     },
   },
   logo: {
     objectFit: 'contain',
-    position: 'absolute',
+    content: 'url('+fullLogo+')',
+    width: '160px',
+    height: '40px',
     [theme.breakpoints.down('sm')]: {
-      width: '30%',
-      margin: '0 auto'
+      content: 'url('+sLogo+')',
+      width: '50px'
     },
     [theme.breakpoints.between('sm', 'lg')]: {
-      width: 200,
-      left: 60,
-      top: 0
     },
     [theme.breakpoints.between('lg', 'xl')]: {
-      width: 200,
-      left: 150,
-      top: 0
     },
     [theme.breakpoints.up('xl')]: {
-      width: 350,
-      left: 160,
-      top: -15
     },
   }
 
@@ -508,33 +499,29 @@ class TopBar extends Component {
         </Dialog>
 
         <Toolbar>
-          <Grid container direction="row" justifyContent="flex-start" >
-            <Grid item className={classes.titleGrid} xs={2}>
-              <Typography component="h1" color="inherit" noWrap className={classes.title} >
-                <a href='/#/' >
-                  <img alt="logo" src={logo} className={classes.logo} />
-                </a>
-              </Typography>
+          <Grid container direction="row" justifyContent="space-between" wrap="nowrap"  >
+            <Grid item className={classes.titleGrid} >
+                <a href='/#/'  className={classes.logo} />
             </Grid>
             <Grid item className={classes.btnGrid}>
-              <Button size="large" className={classes.btn} href='/#/' >
+              <Button size="medium " className={classes.btn} href='/#/' >
                 <b>{t('index')}</b>
               </Button>
-              <Button size="large" className={classes.btn} href='/#/introPublish'>
+              <Button size="medium" className={classes.btn} href='/#/introPublish'>
                 <b>{t('publish')}</b>
               </Button>
-              <Button size="large" className={classes.btn} href='/#/collections'>
+              <Button size="medium" className={classes.btn} href='/#/collections'>
                 <b>{t('collection')}</b>
               </Button>
-              <Button size="large" href='https://github.com/SparkNFT' target="_blank">
+              <Button size="small" href='https://github.com/SparkNFT' target="_blank">
                 <GithubOutlined className={classes.icon} />
               </Button>
-			  <LanguageBtn />
+			          <LanguageBtn />
               {this.state.isConnected ? (
                 // <Button onClick={this.getAccount}>
                 //   <WalletTwoTone className={classes.icon} />
                 // </Button>
-                <Button size="large" variant="contained" className={classes.btnUser} onClick={this.handleTokenButtonOnClick}>
+                <Button size="small" variant="contained" className={classes.btnUser} onClick={this.handleTokenButtonOnClick}>
                   <Typography component="" color="inherit" noWrap className={classes.titleToken}>
                     {this.state.userAddress.substring(0, 6)}...{this.state.userAddress.substring(this.state.userAddress.length - 5, this.state.userAddress.length)}
                   </Typography>
