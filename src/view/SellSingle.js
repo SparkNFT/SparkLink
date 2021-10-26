@@ -158,10 +158,9 @@ const styles = (theme) => ({
 		borderRadius: 5,
 	},
 })
-
+const gateway = 'https://coldcdn.com/api/cdn/v5ynur/ipfs/'
+const backend = 'https://api.sparklink.io'
 class SellSingle extends Component {
-	gateway = 'https://coldcdn.com/api/cdn/v5ynur/ipfs/'
-	backend = 'https://api.sparklink.io'
 	state = {
 		name: '',
 		bonusFee: 0,
@@ -212,7 +211,7 @@ class SellSingle extends Component {
 		const metadata = await contract.methods.tokenURI(this.props.match.params.NFTId).call()
 		let hash = metadata.split('/')
 		this.setState({ ipfsHashMeta: hash[hash.length - 1] })
-		var url = this.gateway + this.state.ipfsHashMeta
+		var url = gateway + this.state.ipfsHashMeta
 		try {
 			const res = await axios({ method: 'get', url: url, timeout: 1000 * 2 })
 			let content = res.data
@@ -279,7 +278,7 @@ class SellSingle extends Component {
 			}
 		}
 
-		const child_url = this.backend + '/api/v1/nft/info?nft_id=' + this.state.NFTId
+		const child_url = backend + '/api/v1/nft/info?nft_id=' + this.state.NFTId
 		try {
 			const res = await axios.get(child_url)
 			var children_num = res.data.children_count

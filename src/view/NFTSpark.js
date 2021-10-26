@@ -191,11 +191,10 @@ const styles = (theme) => ({
 		},
 	},
 })
-
+const gateway = 'https://coldcdn.com/api/cdn/v5ynur/ipfs/'
+const backend = 'https://api.sparklink.io'
+const sparkAddr = '0xb42d4525841008A69E427026DF354067fD6A524f'
 class NFTSpark extends Component {
-	gateway = 'https://coldcdn.com/api/cdn/v5ynur/ipfs/'
-	backend = 'https://api.sparklink.io'
-	sparkAddr = '0xb42d4525841008A69E427026DF354067fD6A524f'
 	state = {
 		Name: '',
 		Description: '',
@@ -232,7 +231,7 @@ class NFTSpark extends Component {
 			})
 		}
 
-		var account
+		let account
 		const lastConnect = localStorage.getItem(LASTCONNECT)
 		if (lastConnect === METAMASK) {
 			const accounts = await window.ethereum.request({
@@ -253,7 +252,7 @@ class NFTSpark extends Component {
 		this.setState({ hash: hash[hash.length - 1] })
 		let isEncrypt
 		try {
-			var url = this.gateway + this.state.hash
+			let url = gateway + this.state.hash
 			const res = await axios.get(url)
 			let data = res.data
 			let bouns = data.attributes[0].value
@@ -306,7 +305,7 @@ class NFTSpark extends Component {
 				let price_with_decimal = price / 10 ** decimals
 				price_with_decimal = price_with_decimal + ' ' + token_symbol
 				this.setState({ priceString: price_with_decimal })
-				const approved_amount = await token_contract.methods.allowance(account, this.sparkAddr).call()
+				const approved_amount = await token_contract.methods.allowance(account, sparkAddr).call()
 				if (approved_amount >= price) {
 					this.setState({
 						approved: true,
@@ -327,12 +326,12 @@ class NFTSpark extends Component {
 			}
 		}
 
-		const leafUrl = this.backend + '/api/v1/nft/info?nft_id=' + this.props.match.params.id
+		const leafUrl = backend + '/api/v1/nft/info?nft_id=' + this.props.match.params.id
 		try {
 			const res = await axios.get(leafUrl)
-			var children_num = res.data.children_count
-			var remain_shill_times = res.data.max_shill_times - res.data.shill_times
-			var max_shill_times = res.data.max_shill_times
+			let children_num = res.data.children_count
+			let remain_shill_times = res.data.max_shill_times - res.data.shill_times
+			let max_shill_times = res.data.max_shill_times
 			this.setState({
 				remainShillTimes: remain_shill_times,
 				maxShillTimes: max_shill_times,
@@ -386,24 +385,24 @@ class NFTSpark extends Component {
 	}
 
 	handleClickLink = () => {
-		var new_url = '/#/NFT/Spark/' + this.state.recommendNFT
+		let new_url = '/#/NFT/Spark/' + this.state.recommendNFT
 		window.open(new_url)
 	}
 
 	downloadIPFS = async () => {
 		let obj = this
 		let dataSplits = this.state.dataUrl.split('/')
-		var dataHash = dataSplits[dataSplits.length - 1]
-		var dataUrl = this.gateway + dataHash
+		let dataHash = dataSplits[dataSplits.length - 1]
+		let dataUrl = gateway + dataHash
 		this.setState({
 			showProgress: true,
 		})
-		var open_config = {
+		let open_config = {
 			url: dataUrl, //your url
 			method: 'GET',
 			responseType: 'blob', // important
 			onDownloadProgress(progress) {
-				var percentage = Math.round((progress.loaded / progress.total) * 100)
+				let percentage = Math.round((progress.loaded / progress.total) * 100)
 				obj.setState({
 					percentage: percentage,
 				})
@@ -416,8 +415,8 @@ class NFTSpark extends Component {
 			const link = document.createElement('a')
 			link.href = url
 			link.style.display = 'none'
-			var suffix = '.' + this.state.fileType
-			var fileName = this.state.Name + suffix
+			let suffix = '.' + this.state.fileType
+			let fileName = this.state.Name + suffix
 			link.download = fileName
 			document.body.appendChild(link)
 			link.click()
@@ -447,10 +446,10 @@ class NFTSpark extends Component {
 		try {
 			const price = this.state.price.toString()
 			const token_contract = new web3.eth.Contract(abi, this.state.tokenAddr)
-			var gasPrice = await web3.eth.getGasPrice()
-			var new_gas_price = Math.floor(parseInt(gasPrice) * 1.5).toString()
+			let gasPrice = await web3.eth.getGasPrice()
+			let new_gas_price = Math.floor(parseInt(gasPrice) * 1.5).toString()
 			token_contract.methods
-				.approve(this.sparkAddr, price)
+				.approve(sparkAddr, price)
 				.send({
 					from: account,
 					gasPrice: new_gas_price,
@@ -494,7 +493,7 @@ class NFTSpark extends Component {
 	shill = async () => {
 		// const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
 		// const account = accounts[0]
-		var account
+		let account
 		const lastConnect = localStorage.getItem(LASTCONNECT)
 		if (lastConnect === METAMASK) {
 			const accounts = await window.ethereum.request({
@@ -506,8 +505,8 @@ class NFTSpark extends Component {
 				account = value.data.address
 			})
 		}
-		var gasPrice = await web3.eth.getGasPrice()
-		var new_gas_price = Math.floor(parseInt(gasPrice) * 1.5).toString()
+		let gasPrice = await web3.eth.getGasPrice()
+		let new_gas_price = Math.floor(parseInt(gasPrice) * 1.5).toString()
 		let obj = this
 
 		this.setState({ onLoading: true })

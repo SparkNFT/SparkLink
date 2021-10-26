@@ -23,7 +23,7 @@ import { withTranslation } from 'react-i18next'
 const { pinata_api_key, pinata_secret_api_key } = require('../project.secret.js')
 const FormData = require('form-data')
 const bs58 = require('bs58')
-var CryptoJS = require('crypto-js')
+let CryptoJS = require('crypto-js')
 const { Option } = Select
 const abi = require('erc-20-abi')
 
@@ -338,9 +338,9 @@ class EncryptedPublish extends Component {
 		})
 
 		const owner = await contract.methods.ownerOf(this.state.rootNFTId).call()
-		var issueId = await contract.methods.getIssueIdByNFTId(this.state.rootNFTId).call()
+		let issueId = await contract.methods.getIssueIdByNFTId(this.state.rootNFTId).call()
 
-		var bonus = await contract.methods.getRoyaltyFeeByIssueId(issueId).call()
+		let bonus = await contract.methods.getRoyaltyFeeByIssueId(issueId).call()
 
 		if (account == owner.toLowerCase()) {
 			this.setState({
@@ -390,12 +390,12 @@ class EncryptedPublish extends Component {
 			this.setState({
 				onLoading: true,
 			})
-			var price_with_decimal = this.state.price * 10 ** this.state.decimal
+			let price_with_decimal = this.state.price * 10 ** this.state.decimal
 			price_with_decimal = price_with_decimal.toString()
-			var ipfsToContract = '0x0000000000000000000000000000000000000000000000000000000000000000'
+			let ipfsToContract = '0x0000000000000000000000000000000000000000000000000000000000000000'
 			console.debug('price_with_decimal: ', price_with_decimal)
-			var gasPrice = await web3.eth.getGasPrice()
-			var new_gas_price = Math.floor(parseInt(gasPrice) * 1.5).toString()
+			let gasPrice = await web3.eth.getGasPrice()
+			let new_gas_price = Math.floor(parseInt(gasPrice) * 1.5).toString()
 			contract.methods
 				.publish(price_with_decimal, this.state.bonusFee, this.state.shareTimes, ipfsToContract, this.state.token_addr)
 				.send({
@@ -404,11 +404,11 @@ class EncryptedPublish extends Component {
 				})
 				.on('receipt', function (receipt) {
 					console.log(receipt)
-					var publish_event = receipt.events.Publish
-					var returned_values = publish_event.returnValues
-					var root_nft_id = String(returned_values.rootNFTId)
+					let publish_event = receipt.events.Publish
+					let returned_values = publish_event.returnValues
+					let root_nft_id = String(returned_values.rootNFTId)
 					console.debug(typeof root_nft_id)
-					var issue_id = returned_values.issue_id
+					let issue_id = returned_values.issue_id
 					obj.setState({
 						onLoading: false,
 						rootNFTId: root_nft_id,
@@ -450,7 +450,7 @@ class EncryptedPublish extends Component {
 	}
 
 	checkDetail = async () => {
-		var new_url = '/#/NFT/' + this.state.rootNFTId
+		let new_url = '/#/NFT/' + this.state.rootNFTId
 		window.open(new_url, '_self')
 	}
 
@@ -464,12 +464,12 @@ class EncryptedPublish extends Component {
 				},
 			})
 		} else {
-			var img_url = 'https://coldcdn.com/api/cdn/v5ynur/ipfs/' + this.state.ipfsHashCover
+			let img_url = 'https://coldcdn.com/api/cdn/v5ynur/ipfs/' + this.state.ipfsHashCover
 			this.setState({
 				coverURL: img_url,
 			})
 			console.debug('coverURL: ', this.state.coverURL)
-			var trimmed_des = this.state.description.replace(/(\r\n\t|\n|\r\t)/gm, ' ')
+			let trimmed_des = this.state.description.replace(/(\r\n\t|\n|\r\t)/gm, ' ')
 			const accounts = await window.ethereum.request({
 				method: 'eth_requestAccounts',
 			})
@@ -484,8 +484,8 @@ class EncryptedPublish extends Component {
 				})
 				return
 			}
-			var file_url = 'https://coldcdn.com/api/cdn/v5ynur/ipfs/' + this.state.fileIpfs
-			var JSONBody = {
+			let file_url = 'https://coldcdn.com/api/cdn/v5ynur/ipfs/' + this.state.fileIpfs
+			let JSONBody = {
 				name: this.state.name,
 				description: trimmed_des,
 				image: this.state.coverURL,
@@ -531,10 +531,10 @@ class EncryptedPublish extends Component {
 					ipfsMeta: bytesToContract,
 				})
 
-				var ipfsToContract = '0x' + bytesToContract
+				let ipfsToContract = '0x' + bytesToContract
 
-				var gasPrice = await web3.eth.getGasPrice()
-				var new_gas_price = Math.floor(parseInt(gasPrice) * 1.5).toString()
+				let gasPrice = await web3.eth.getGasPrice()
+				let new_gas_price = Math.floor(parseInt(gasPrice) * 1.5).toString()
 
 				contract.methods
 					.setURI(obj.state.rootNFTId, ipfsToContract)
@@ -602,7 +602,7 @@ class EncryptedPublish extends Component {
 						const reader = new FileReader()
 						reader.readAsArrayBuffer(file)
 						reader.onload = (e) => {
-							var b = e.target.result
+							let b = e.target.result
 							let params = new FormData()
 							params.append('file', b)
 							this.setState({
@@ -649,37 +649,37 @@ class EncryptedPublish extends Component {
 							method: 'eth_requestAccounts',
 						})
 						const signer = accounts[0]
-						var message = {
+						let message = {
 							account: signer,
 							nft_id: obj.state.rootNFTId,
 						}
 						const sig = await web3.eth.personal.sign(JSON.stringify(message), signer)
 						console.debug(sig)
-						var payload = {
+						let payload = {
 							nft_id: obj.state.rootNFTId,
 							account: signer,
 							signature: sig,
 						}
-						var payload_str = JSON.stringify(payload)
+						let payload_str = JSON.stringify(payload)
 						console.log(payload_str)
-						var req_key_url = this.backend + '/api/v1/key/claim'
+						let req_key_url = this.backend + '/api/v1/key/claim'
 						try {
 							const res = await axios.post(req_key_url, payload_str, {
 								headers: {
 									'Content-Type': 'application/json',
 								},
 							})
-							var secret_key = res.data.key //res.data.key
+							let secret_key = res.data.key //res.data.key
 							console.debug(secret_key)
 							// if (file.type === 'text/plain') {
 							const reader = new FileReader()
 							reader.readAsArrayBuffer(file)
 							reader.onload = (e) => {
-								var b = e.target.result
-								var wordArray = CryptoJS.lib.WordArray.create(b)
+								let b = e.target.result
+								let wordArray = CryptoJS.lib.WordArray.create(b)
 								const str = CryptoJS.enc.Hex.stringify(wordArray)
-								var cipher_text = CryptoJS.AES.encrypt(str, secret_key).toString()
-								var myblob = new Blob([cipher_text])
+								let cipher_text = CryptoJS.AES.encrypt(str, secret_key).toString()
+								let myblob = new Blob([cipher_text])
 								resolve(myblob)
 							}
 						} catch (error) {
@@ -742,8 +742,8 @@ class EncryptedPublish extends Component {
 			onChange(info) {
 				const { status } = info.file
 				if (status === 'done') {
-					var file_type = info.file.name.split('.')
-					var file_suffix = file_type[file_type.length - 1]
+					let file_type = info.file.name.split('.')
+					let file_suffix = file_type[file_type.length - 1]
 					obj.setState({
 						fileIpfs: info.file.response.IpfsHash,
 						fileType: file_suffix,

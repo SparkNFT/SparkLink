@@ -29,7 +29,7 @@ const LASTCONNECT = 'lastConnect'
 
 const tp = require('tp-js-sdk')
 const FileSaver = require('file-saver')
-var CryptoJS = require('crypto-js')
+const CryptoJS = require('crypto-js')
 const abi = require('erc-20-abi')
 
 const theme = createTheme({
@@ -246,10 +246,9 @@ const styles = (theme) => ({
 		},
 	},
 })
-
+const gateway = 'https://coldcdn.com/api/cdn/v5ynur/ipfs/'
+const backend = 'https://api.sparklink.io'
 class NFTInfo extends Component {
-	gateway = 'https://coldcdn.com/api/cdn/v5ynur/ipfs/'
-	backend = 'https://api.sparklink.io'
 	state = {
 		price: '',
 		loading: false,
@@ -297,7 +296,7 @@ class NFTInfo extends Component {
 		const owner = await contract.methods.ownerOf(this.props.match.params.id).call()
 
 		//获取账号
-		var account
+		let account
 		const lastConnect = localStorage.getItem(LASTCONNECT)
 		if (lastConnect === METAMASK) {
 			const accounts = await window.ethereum.request({
@@ -362,8 +361,8 @@ class NFTInfo extends Component {
 		let hash = meta.split('/')
 		const issue = await contract.methods.getIssueIdByNFTId(this.props.match.params.id).call()
 		const royalty = await contract.methods.getRoyaltyFeeByIssueId(issue).call()
-		var file_hash = hash[hash.length - 1]
-		var request_url = 'https://coldcdn.com/api/cdn/v5ynur/ipfs/' + file_hash
+		let file_hash = hash[hash.length - 1]
+		let request_url = 'https://coldcdn.com/api/cdn/v5ynur/ipfs/' + file_hash
 
 		try {
 			const res = await axios({
@@ -418,11 +417,11 @@ class NFTInfo extends Component {
 			this.setState({ dataUrl: 'fileAddr_PlaceHolder', loadItem: false })
 		}
 
-		const leafUrl = this.backend + '/api/v1/nft/info?nft_id=' + this.props.match.params.id
+		const leafUrl = backend + '/api/v1/nft/info?nft_id=' + this.props.match.params.id
 		axios
 			.get(leafUrl)
 			.then((res) => {
-				var children_num = res.data.children_count
+				let children_num = res.data.children_count
 				this.setState({
 					childrenNum: children_num,
 				})
@@ -460,8 +459,8 @@ class NFTInfo extends Component {
 		this.setState({
 			loading: true,
 		})
-		var gasPrice = await web3.eth.getGasPrice()
-		var new_gas_price = Math.floor(parseInt(gasPrice) * 1.5).toString()
+		let gasPrice = await web3.eth.getGasPrice()
+		let new_gas_price = Math.floor(parseInt(gasPrice) * 1.5).toString()
 		try {
 			await contract.methods.claimProfit(this.props.match.params.id).send({
 				from: this.state.account,
@@ -485,17 +484,17 @@ class NFTInfo extends Component {
 	downloadIPFS = async () => {
 		let obj = this
 		let dataSplits = this.state.dataUrl.split('/')
-		var dataHash = dataSplits[dataSplits.length - 1]
-		var dataUrl = this.gateway + dataHash
+		let dataHash = dataSplits[dataSplits.length - 1]
+		let dataUrl = gateway + dataHash
 		this.setState({
 			showProgress: true,
 		})
 		if (this.state.isEncrypt) {
-			var cipher_config = {
+			let cipher_config = {
 				method: 'get',
 				url: dataUrl,
 				onDownloadProgress(progress) {
-					var percentage = Math.round((progress.loaded / progress.total) * 100)
+					let percentage = Math.round((progress.loaded / progress.total) * 100)
 					obj.setState({
 						percentage: percentage,
 					})
@@ -518,12 +517,12 @@ class NFTInfo extends Component {
 			})
 			await this.signDataAndDecrypt(account, ciphertext)
 		} else {
-			var open_config = {
+			let open_config = {
 				url: dataUrl, //your url
 				method: 'GET',
 				responseType: 'blob', // important
 				onDownloadProgress(progress) {
-					var percentage = Math.round((progress.loaded / progress.total) * 100)
+					let percentage = Math.round((progress.loaded / progress.total) * 100)
 					obj.setState({
 						percentage: percentage,
 					})
@@ -535,8 +534,8 @@ class NFTInfo extends Component {
 				const link = document.createElement('a')
 				link.href = url
 				link.style.display = 'none'
-				var suffix = '.' + obj.state.fileType
-				var fileName = this.state.Name + suffix
+				let suffix = '.' + obj.state.fileType
+				let fileName = this.state.Name + suffix
 				link.download = fileName
 				document.body.appendChild(link)
 				link.click()
@@ -557,24 +556,24 @@ class NFTInfo extends Component {
 	}
 
 	signDataAndDecrypt = async (signer, ciphertext) => {
-		var JSONBody = {
+		let JSONBody = {
 			account: signer,
 			nft_id: this.props.match.params.id,
 		}
-		var json_str = JSON.stringify(JSONBody)
+		let json_str = JSON.stringify(JSONBody)
 		const sig = await web3.eth.personal.sign(json_str, signer)
 
 		this.setState({
 			showDecryptProgress: true,
 		})
 
-		var payload = {
+		let payload = {
 			account: signer,
 			nft_id: this.props.match.params.id,
 			signature: sig,
 		}
-		var payload_str = JSON.stringify(payload)
-		var req_key_url = this.backend + '/api/v1/key/claim'
+		let payload_str = JSON.stringify(payload)
+		let req_key_url = backend + '/api/v1/key/claim'
 		try {
 			const res = await axios.post(req_key_url, payload_str, {
 				headers: {
@@ -588,11 +587,11 @@ class NFTInfo extends Component {
 				let plainText = data.toString(CryptoJS.enc.Utf8)
 				const wordArray = CryptoJS.enc.Hex.parse(plainText)
 				let BaText = this.wordArrayToByteArray(wordArray, wordArray.length)
-				var blob = new Blob([BaText])
+				let blob = new Blob([BaText])
 				let suffix = '.' + this.state.fileType
 				FileSaver.saveAs(blob, this.state.Name + suffix)
 			} else {
-				var error_msg = res.data.message
+				let error_msg = res.data.message
 				message.error({
 					content: `Error: ${error_msg}`,
 					className: 'custom-class',
@@ -620,7 +619,7 @@ class NFTInfo extends Component {
 		if (length > 2) result.push((word >>> 8) & xff)
 		if (length > 3) result.push(word & xff)
 
-		var info = {
+		let info = {
 			result: result,
 			addedLength: result.length - lengthBefore,
 		}
@@ -637,17 +636,17 @@ class NFTInfo extends Component {
 			wordArray = wordArray.words
 		}
 
-		var result = [],
+		let result = [],
 			bytesAdded,
 			current_bytes = 0,
 			lengthBefore = length,
 			i = 0
 		while (length > 0) {
-			var added_info = this.wordToByteArray(result, wordArray[i], Math.min(4, length))
+			let added_info = this.wordToByteArray(result, wordArray[i], Math.min(4, length))
 			result = added_info.result
 			bytesAdded = added_info.addedLength
 			current_bytes = current_bytes + bytesAdded
-			var percent = Math.round((current_bytes / lengthBefore) * 100)
+			let percent = Math.round((current_bytes / lengthBefore) * 100)
 			if (percent !== this.state.decryptPercentage) {
 				this.setState({
 					decryptPercentage: percent,

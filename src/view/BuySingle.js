@@ -186,7 +186,7 @@ class BuySingle extends Component {
 		this.setState({
 			ipfsHashMeta: hash[hash.length - 1],
 		})
-		var url = gateway + this.state.ipfsHashMeta
+		let url = gateway + this.state.ipfsHashMeta
 		try {
 			const res = await axios({ method: 'get', url: url, timeout: 1000 * 3 })
 			let content = res.data
@@ -207,7 +207,7 @@ class BuySingle extends Component {
 				encrypted: encrypted,
 			})
 		} catch (error) {
-			var name_holder = 'SparkNFT#' + this.props.match.params.NFTId
+			let name_holder = 'SparkNFT#' + this.props.match.params.NFTId
 			this.setState({
 				loadItem: false,
 				name: name_holder,
@@ -217,10 +217,10 @@ class BuySingle extends Component {
 			})
 		}
 
-		var owner = await contract.methods.ownerOf(this.props.match.params.NFTId).call()
-		var approved = await contract.methods.getApproved(this.props.match.params.NFTId).call()
-		var price = await contract.methods.getTransferPriceByNFTId(this.props.match.params.NFTId).call()
-		var token_addr = await contract.methods.getTokenAddrByNFTId(this.props.match.params.NFTId).call()
+		let owner = await contract.methods.ownerOf(this.props.match.params.NFTId).call()
+		let approved = await contract.methods.getApproved(this.props.match.params.NFTId).call()
+		let price = await contract.methods.getTransferPriceByNFTId(this.props.match.params.NFTId).call()
+		let token_addr = await contract.methods.getTokenAddrByNFTId(this.props.match.params.NFTId).call()
 		this.setState({
 			owner: owner,
 			approvedAddr: approved,
@@ -264,7 +264,7 @@ class BuySingle extends Component {
 			}
 		}
 
-		var price_with_decimal = price / 10 ** this.state.decimal
+		let price_with_decimal = price / 10 ** this.state.decimal
 		price_with_decimal = price_with_decimal + ' ' + this.state.tokenSymbol
 		this.setState({
 			priceString: price_with_decimal,
@@ -273,7 +273,7 @@ class BuySingle extends Component {
 		const child_url = backend + '/api/v1/nft/info?nft_id=' + this.state.NFTId
 		try {
 			const response = await axios.get(child_url)
-			var children_num = response.data.children_count
+			let children_num = response.data.children_count
 			this.setState({
 				childrenNum: children_num,
 			})
@@ -294,8 +294,8 @@ class BuySingle extends Component {
 		})
 		const account = accounts[0]
 
-		var gasPrice = await web3.eth.getGasPrice()
-		var new_gas_price = Math.floor(parseInt(gasPrice) * 1.5).toString()
+		let gasPrice = await web3.eth.getGasPrice()
+		let new_gas_price = Math.floor(parseInt(gasPrice) * 1.5).toString()
 		let obj = this
 		if (this.state.tokenAddr == '0x0000000000000000000000000000000000000000') {
 			this.setState({
@@ -381,9 +381,9 @@ class BuySingle extends Component {
 		let obj = this
 		try {
 			const token_contract = new web3.eth.Contract(abi, this.state.tokenAddr)
-			var gasPrice = await web3.eth.getGasPrice()
-			var new_gas_price = Math.floor(parseInt(gasPrice) * 1.5).toString()
-			var price = this.state.price.toString()
+			let gasPrice = await web3.eth.getGasPrice()
+			let new_gas_price = Math.floor(parseInt(gasPrice) * 1.5).toString()
+			let price = this.state.price.toString()
 
 			token_contract.methods
 				.approve(this.sparkAddr, price)

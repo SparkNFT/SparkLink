@@ -124,10 +124,10 @@ const styles = (theme) => ({
 		},
 	},
 })
+const backend = 'https://api.sparklink.io'
 class Collections extends Component {
 	constructor(props) {
 		super(props)
-		this.handleClick = this.handleClick.bind(this)
 		this.state = {
 			isLogin: false,
 			user_address: null,
@@ -187,7 +187,7 @@ class Collections extends Component {
 			}
 			cards.push(element)
 		}
-		var reversed_cards = cards.reverse()
+		let reversed_cards = cards.reverse()
 		this.setState({ viewable: true })
 		this.setState({ cards: reversed_cards })
 		this.setState({
@@ -200,9 +200,9 @@ class Collections extends Component {
 		let metaDatas = []
 		for (let i = 0; i < id.length; i++) {
 			let ipfs_link = await nft.methods.tokenURI(id[i]).call()
-			var ipfs_hash_arr = ipfs_link.split('/')
-			var ipfs_hash = ipfs_hash_arr[ipfs_hash_arr.length - 1]
-			var meta = 'https://coldcdn.com/api/cdn/v5ynur/ipfs/' + ipfs_hash
+			let ipfs_hash_arr = ipfs_link.split('/')
+			let ipfs_hash = ipfs_hash_arr[ipfs_hash_arr.length - 1]
+			let meta = 'https://coldcdn.com/api/cdn/v5ynur/ipfs/' + ipfs_hash
 			// console.debug("meta: " + id[i] + " " + meta)
 			await axios({
 				method: 'get',
@@ -214,8 +214,8 @@ class Collections extends Component {
 					metaDatas.push(res.data)
 				})
 				.catch(() => {
-					var name_holder = 'SparkNFT#' + id[i]
-					var placeholder = {
+					let name_holder = 'SparkNFT#' + id[i]
+					let placeholder = {
 						name: name_holder,
 						description: '暂时无法获取到该nft的相关描述',
 						image: 'https://testnets.opensea.io/static/images/placeholder.png',
@@ -240,11 +240,11 @@ class Collections extends Component {
 	getNft = async (nft, account) => {
 		let balanceId = []
 		//0x9452644E9fdd59bD46A4d9eC24462995ADfD8d01
-		var checksum_address = web3.utils.toChecksumAddress(account)
-		var url = this.backend + '/api/v1/nft/list?owner=' + checksum_address
+		let checksum_address = web3.utils.toChecksumAddress(account)
+		let url = backend + '/api/v1/nft/list?owner=' + checksum_address
 		console.debug('owner: ', checksum_address)
 		try {
-			var res = await axios.get(url)
+			let res = await axios.get(url)
 			balanceId = res.data.nft
 			this.setState({
 				onloading: true,

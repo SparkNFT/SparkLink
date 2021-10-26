@@ -222,10 +222,10 @@ class Publish extends Component {
 
 	handleSearch = async (value) => {
 		if (value) {
-			let value = value.toLowerCase()
+			let values = value.toLowerCase()
 			let tokens_list = tokens.tokens
 			let matched_data = []
-			let reg = new RegExp(value)
+			let reg = new RegExp(values)
 			for (let token of tokens_list) {
 				let symbol_lower_case = token.symbol.toLowerCase()
 				// eslint-disable-next-line no-useless-escape
@@ -238,10 +238,10 @@ class Publish extends Component {
 					matched_data.push(info)
 				}
 			}
-			if (value.includes('0x') && value.length == 42) {
+			if (values.includes('0x') && values.length == 42) {
 				let info = {
-					value: value,
-					text: value,
+					value: values,
+					text: values,
 				}
 				matched_data = [info]
 			}
@@ -309,12 +309,12 @@ class Publish extends Component {
 			this.setState({
 				onLoading: true,
 			})
-			var img_url = 'https://coldcdn.com/api/cdn/v5ynur/ipfs/' + this.state.ipfsHashCover
+			let img_url = 'https://coldcdn.com/api/cdn/v5ynur/ipfs/' + this.state.ipfsHashCover
 			this.setState({
 				coverURL: img_url,
 			})
 			console.debug('coverURL: ', this.state.coverURL)
-			var trimmed_des = this.state.description.replace(/(\r\n\t|\n|\r\t)/gm, ' ')
+			let trimmed_des = this.state.description.replace(/(\r\n\t|\n|\r\t)/gm, ' ')
 			const accounts = await window.ethereum.request({
 				method: 'eth_requestAccounts',
 			})
@@ -322,8 +322,8 @@ class Publish extends Component {
 			this.setState({
 				usedAcc: account,
 			})
-			var file_url = 'https://coldcdn.com/api/cdn/v5ynur/ipfs/' + this.state.fileIpfs
-			var JSONBody = {
+			let file_url = 'https://coldcdn.com/api/cdn/v5ynur/ipfs/' + this.state.fileIpfs
+			let JSONBody = {
 				name: this.state.name,
 				description: trimmed_des,
 				image: this.state.coverURL,
@@ -363,13 +363,13 @@ class Publish extends Component {
 					ipfsMeta: bytesToContract,
 				})
 
-				var price_with_decimal = this.state.price * 10 ** this.state.decimal
+				let price_with_decimal = this.state.price * 10 ** this.state.decimal
 				price_with_decimal = price_with_decimal.toString()
 				console.debug('price_with_decimal: ', price_with_decimal)
-				var ipfsToContract = '0x' + bytesToContract
+				let ipfsToContract = '0x' + bytesToContract
 
-				var gasPrice = await web3.eth.getGasPrice()
-				var new_gas_price = Math.floor(parseInt(gasPrice) * 1.5).toString()
+				let gasPrice = await web3.eth.getGasPrice()
+				let new_gas_price = Math.floor(parseInt(gasPrice) * 1.5).toString()
 				contract.methods
 					.publish(
 						price_with_decimal,
@@ -384,10 +384,10 @@ class Publish extends Component {
 					})
 					.on('receipt', function (receipt) {
 						console.log(receipt)
-						var publish_event = receipt.events.Publish
-						var returned_values = publish_event.returnValues
-						var root_nft_id = returned_values.rootNFTId
-						var issue_id = returned_values.issue_id
+						let publish_event = receipt.events.Publish
+						let returned_values = publish_event.returnValues
+						let root_nft_id = returned_values.rootNFTId
+						let issue_id = returned_values.issue_id
 						obj.setState({
 							onLoading: false,
 							rootNFTId: root_nft_id,
@@ -439,7 +439,7 @@ class Publish extends Component {
 	}
 
 	checkDetail = async () => {
-		var new_url = '/#/NFT/' + this.state.rootNFTId
+		let new_url = '/#/NFT/' + this.state.rootNFTId
 		window.open(new_url, '_self')
 	}
 
@@ -463,7 +463,7 @@ class Publish extends Component {
 						const reader = new FileReader()
 						reader.readAsArrayBuffer(file)
 						reader.onload = (e) => {
-							var b = e.target.result
+							let b = e.target.result
 							let params = new FormData()
 							params.append('file', b)
 							this.setState({
@@ -509,7 +509,7 @@ class Publish extends Component {
 						const reader = new FileReader()
 						reader.readAsArrayBuffer(file)
 						reader.onload = (e) => {
-							var b = e.target.result
+							let b = e.target.result
 							let params = new FormData()
 							params.append('file', b)
 							this.setState({
@@ -529,8 +529,8 @@ class Publish extends Component {
 				// text/plain image/jpeg application/pdf
 				if (status === 'done') {
 					message.success(`${info.file.name} file uploaded successfully.`)
-					var file_type = info.file.name.split('.')
-					var file_suffix = file_type[file_type.length - 1]
+					let file_type = info.file.name.split('.')
+					let file_suffix = file_type[file_type.length - 1]
 					console.debug(file_suffix)
 					console.debug('file ipfs hash: ', info.file.response.IpfsHash)
 					obj.setState({
