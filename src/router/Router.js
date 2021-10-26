@@ -1,19 +1,19 @@
-import React from 'react';
-import { HashRouter, Route, Switch } from 'react-router-dom';
+import React from "react";
+import { HashRouter, Route, Switch } from "react-router-dom";
 
-import App from './App';
-import Publish from './Publish';
-import NFTInfo from './NFTInfo';
-import SellSingle from './SellSingle';
-import BuySingle from './BuySingle';
-import Collections from './Collections';
-import Spark from './NFTSpark';
-import IntroPublish from './IntroPublish';
-import EncryptedPublish from './EncryptedPublish';
-import Buy from './Buy';
+import App from "../App";
+import Publish from "../view/Publish";
+import NFTInfo from "../view/NFTInfo";
+import SellSingle from "../view/SellSingle";
+import BuySingle from "../view/BuySingle";
+import Collections from "../view/Collections";
+import Spark from "../view/NFTSpark";
+import IntroPublish from "../view/IntroPublish";
+import EncryptedPublish from "../view/EncryptedPublish";
+import Buy from "../view/Buy";
 
 const BasicRoute = () => (
-  <HashRouter >
+  <HashRouter>
     <Switch>
       <Route exact path="/" component={App} />
       <Route exact path="/introPublish" component={IntroPublish} />
@@ -28,6 +28,5 @@ const BasicRoute = () => (
     </Switch>
   </HashRouter>
 );
-
 
 export default BasicRoute;
