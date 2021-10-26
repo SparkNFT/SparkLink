@@ -21,6 +21,8 @@ import contract from '../utils/contract'
 import { Progress, Spin, message } from 'antd'
 import axios from 'axios'
 import web3 from '../utils/web3'
+import config from '../global/config'
+const { gateway, backend } = config
 
 //字符串常量
 const TOKENPOCKET = 'TokenPocket'
@@ -246,8 +248,6 @@ const styles = (theme) => ({
 		},
 	},
 })
-const gateway = 'https://coldcdn.com/api/cdn/v5ynur/ipfs/'
-const backend = 'https://api.sparklink.io'
 class NFTInfo extends Component {
 	state = {
 		price: '',

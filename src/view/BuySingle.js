@@ -13,7 +13,8 @@ import { Spin, message } from 'antd'
 import contract from '../utils/contract'
 import web3 from '../utils/web3'
 import Skeleton from '@material-ui/lab/Skeleton'
-
+import config from '../global/config'
+const { gateway, backend, sparkAddr } = config
 const abi = require('erc-20-abi')
 const theme = createTheme({
 	palette: {
@@ -138,9 +139,6 @@ const styles = (theme) => ({
 		},
 	},
 })
-const gateway = 'https://coldcdn.com/api/cdn/v5ynur/ipfs/'
-const backend = 'https://api.sparklink.io'
-const sparkAddr = '0xb42d4525841008A69E427026DF354067fD6A524f'
 class BuySingle extends Component {
 	constructor(props) {
 		super(props)

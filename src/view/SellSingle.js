@@ -13,7 +13,8 @@ import { CopyToClipboard } from 'react-copy-to-clipboard'
 import contract from '../utils/contract'
 import web3 from '../utils/web3'
 import Skeleton from '@material-ui/lab/Skeleton'
-
+import config from '../global/config'
+const { gateway, backend } = config
 const abi = require('erc-20-abi')
 const theme = createTheme({
 	palette: {
@@ -158,8 +159,6 @@ const styles = (theme) => ({
 		borderRadius: 5,
 	},
 })
-const gateway = 'https://coldcdn.com/api/cdn/v5ynur/ipfs/'
-const backend = 'https://api.sparklink.io'
 class SellSingle extends Component {
 	state = {
 		name: '',

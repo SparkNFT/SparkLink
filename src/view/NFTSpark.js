@@ -12,7 +12,8 @@ import web3 from '../utils/web3'
 import { ArrowLeftOutlined, FireOutlined } from '@ant-design/icons'
 import Skeleton from '@material-ui/lab/Skeleton'
 import { Progress, message, Spin } from 'antd'
-
+import config from '../global/config'
+const { gateway, backend, sparkAddr } = config
 //字符串常量
 const TOKENPOCKET = 'TokenPocket'
 const METAMASK = 'MetaMask'
@@ -191,9 +192,6 @@ const styles = (theme) => ({
 		},
 	},
 })
-const gateway = 'https://coldcdn.com/api/cdn/v5ynur/ipfs/'
-const backend = 'https://api.sparklink.io'
-const sparkAddr = '0xb42d4525841008A69E427026DF354067fD6A524f'
 class NFTSpark extends Component {
 	state = {
 		Name: '',

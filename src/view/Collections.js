@@ -15,7 +15,8 @@ import Skeleton from '@material-ui/lab/Skeleton'
 import { Empty } from 'antd'
 import axios from 'axios'
 import web3 from '../utils/web3'
-
+import config from '../global/config'
+const { backend } = config
 const theme = createTheme({
 	palette: {
 		primary: {
@@ -124,7 +125,6 @@ const styles = (theme) => ({
 		},
 	},
 })
-const backend = 'https://api.sparklink.io'
 class Collections extends Component {
 	constructor(props) {
 		super(props)

@@ -21,7 +21,7 @@ const METAMASK = 'MetaMask'
 const LASTCONNECT = 'lastConnect'
 
 //TP钱包支持
-var tp = require('tp-js-sdk')
+const tp = require('tp-js-sdk')
 
 // const theme = createTheme({
 // 	breakpoints: {
@@ -317,8 +317,7 @@ class TopBar extends Component {
 					isConnected: false,
 				})
 			} else {
-				console.log(accounts)
-				var account = accounts[0]
+				let account = accounts[0]
 				console.log('account: ' + account)
 				this.setState({ accountInfo: account.substring(0, 5) })
 				this.setState({

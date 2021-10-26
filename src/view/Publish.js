@@ -18,7 +18,7 @@ import axios from 'axios'
 import contract from '../utils/contract'
 import web3 from '../utils/web3'
 import Paper from '@material-ui/core/Paper'
-import * as tokens from '../tokens_list.json'
+import * as tokens from '../global/tokens_list.json'
 import { withTranslation } from 'react-i18next'
 
 const { pinata_api_key, pinata_secret_api_key } = require('../project.secret.js')

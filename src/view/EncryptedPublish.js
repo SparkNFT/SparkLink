@@ -18,8 +18,10 @@ import contract from '../utils/contract'
 import web3 from '../utils/web3'
 import Paper from '@material-ui/core/Paper'
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Link } from '@material-ui/core'
-import * as tokens from '../tokens_list.json'
+import * as tokens from '../global/tokens_list.json'
 import { withTranslation } from 'react-i18next'
+import config from '../global/config'
+const { backend } = config
 const { pinata_api_key, pinata_secret_api_key } = require('../project.secret.js')
 const FormData = require('form-data')
 const bs58 = require('bs58')
@@ -162,9 +164,7 @@ const styles = (theme) => ({
 		fontSize: 20,
 	},
 })
-
 class EncryptedPublish extends Component {
-	backend = 'https://api.sparklink.io' //http://192.168.0.64:3000
 	state = {
 		name: '',
 		bonusFee: 0,
@@ -662,7 +662,7 @@ class EncryptedPublish extends Component {
 						}
 						let payload_str = JSON.stringify(payload)
 						console.log(payload_str)
-						let req_key_url = this.backend + '/api/v1/key/claim'
+						let req_key_url = backend + '/api/v1/key/claim'
 						try {
 							const res = await axios.post(req_key_url, payload_str, {
 								headers: {
