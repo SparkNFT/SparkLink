@@ -13,15 +13,19 @@ import { GithubOutlined, WalletOutlined, WalletTwoTone, WalletFilled } from '@an
 import Web3 from 'web3';
 import metamaskpic from './imgs/metamask.png'
 import TPpic from './imgs/TP.png'
+import trustwalletpic from './imgs/trust.png'
 import { CenterFocusStrong, WallpaperOutlined, Web } from '@material-ui/icons';
 import isMobile from './isMobile';
 import { icons } from 'antd/lib/image/PreviewGroup';
+//import { getUserAddress } from './getUserAddress.js'
+import { TOKENPOCKET, METAMASK, LASTCONNECT, USERADDRESS } from './GlobalString.js'
 
-//字符串常量
-const TOKENPOCKET = "TokenPocket";
-const METAMASK = "MetaMask";
-const LASTCONNECT = "lastConnect";
-const USERADDRESS = "userAddress"
+
+// //字符串常量
+// const TOKENPOCKET = "TokenPocket";
+// const METAMASK = "MetaMask";
+// const LASTCONNECT = "lastConnect";
+// const USERADDRESS = "userAddress"
 
 //TP钱包支持
 var tp = require('tp-js-sdk');
@@ -248,8 +252,6 @@ class TopBar extends Component {
     wallet: '',
   };
 
-
-
   async componentWillMount() {
     //todo 从本地获取登陆状态（登陆记录）
     let lastConnect = localStorage.getItem(LASTCONNECT)
@@ -349,7 +351,7 @@ class TopBar extends Component {
 
   }
 
-  //check TP账户
+  // //check TP账户
   checkTokenPocket = async () => {
     await tp.getCurrentWallet().then(value => {
       const account = value.data.address;
@@ -378,11 +380,46 @@ class TopBar extends Component {
   //点击使用tokenpocket
   handleSelectTokenPockect = () => {
     this.getTokenPocketAccount()
+    //getUserAddress(TOKENPOCKET)
     this.setState({
       dialogOpen: false,
     });
 
   }
+
+  //dialog内点击使用某钱包
+  // handleSelectWallet = (wallet) => {
+  //   console.log(wallet);
+  //   if (wallet === METAMASK) {
+  //     //this.getMetaMaskAccount()
+  //     const account = getUserAddress(METAMASK);
+  //     if (account) {
+  //       //获得账户成功
+  //       this.setState({ isConnected: true, });
+  //       this.setState({ userAddress: account });
+  //     }
+  //     else {
+  //       //获得账户失败
+  //       this.setState({ isConnected: false });
+  //     }
+  //   }
+  //   else if (wallet === TOKENPOCKET) {
+  //     const account = getUserAddress(TOKENPOCKET);
+  //     if (account) {
+  //       //获得账户成功
+  //       this.setState({ isConnected: true, });
+  //       this.setState({ userAddress: account });
+  //     }
+  //     else {
+  //       //获得账户失败
+  //       this.setState({ isConnected: false });
+  //     }
+  //   }
+
+  //   this.setState({
+  //     dialogOpen: false,
+  //   });
+  // }
 
   //点击使用MetaMask
   handleSelectMetaMask = () => {
@@ -409,7 +446,7 @@ class TopBar extends Component {
   }
 
 
-  //获取MetaMask用户地址
+  // 获取MetaMask用户地址
   getMetaMaskAccount = async () => {
     try {
       //const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
@@ -426,7 +463,7 @@ class TopBar extends Component {
     }
   }
 
-  //获取TokenPocket用户地址
+  // //获取TokenPocket用户地址
   getTokenPocketAccount = async () => {
     if (this.state.isConnected) {
       alert('您已经连接tokenpocket, 当前账户： ' + this.state.userAddress)
@@ -458,6 +495,8 @@ class TopBar extends Component {
     let string = localStorage.getItem(LASTCONNECT);
     if (string === METAMASK) this.getMetaMaskAccount();
     else if (string === TOKENPOCKET) this.getTokenPocketAccount();
+    // if (string === METAMASK) getUserAddress(METAMASK);
+    // else if (string === TOKENPOCKET) getUserAddress(TOKENPOCKET);
   }
 
   //logout
@@ -490,6 +529,9 @@ class TopBar extends Component {
               <Button size="large" className={classes.btnWallet} onClick={!isMobile ? this.handleSelectMetaMask : this.handleSelectTokenPockect}>
                 <img className={classes.btnImg} src={TPpic}></img>
               </Button>
+              {/* <Button size="large" className={classes.btnWallet} onClick={!isMobile ? this.handleSelectMetaMask : this.handleSelectTokenPockect}>
+                <img className={classes.btnImg} src={trustwalletpic}></img>
+              </Button> */}
             </Grid>
             <Grid>
               <Typography component="h1" color="inherit" style={{ textAlign: 'center' }} noWrap className={classes.title} >

@@ -295,8 +295,8 @@ class NFTInfo extends Component {
           }
         )
       } 
-      
     }
+    this.setState({account:account})
     // const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
     // const account = accounts[0]
     if (web3.utils.toChecksumAddress(account) !== owner) {
