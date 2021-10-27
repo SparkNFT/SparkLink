@@ -22,13 +22,10 @@ import { Progress, Spin, message } from 'antd'
 import axios from 'axios'
 import web3 from '../utils/web3'
 import config from '../global/config'
+import { TOKENPOCKET, METAMASK, LASTCONNECT, MATHWALLET } from '../global/globalsString'
 const { gateway, backend } = config
 
-//字符串常量
-const TOKENPOCKET = 'TokenPocket'
-const METAMASK = 'MetaMask'
-const LASTCONNECT = 'lastConnect'
-
+const mathwallet = require('math-js-sdk');
 const tp = require('tp-js-sdk')
 const FileSaver = require('file-saver')
 const CryptoJS = require('crypto-js')
@@ -296,23 +293,50 @@ class NFTInfo extends Component {
 		const owner = await contract.methods.ownerOf(this.props.match.params.id).call()
 
 		//获取账号
-		let account
-		const lastConnect = localStorage.getItem(LASTCONNECT)
-		if (lastConnect === METAMASK) {
-			const accounts = await window.ethereum.request({
-				method: 'eth_requestAccounts',
-			})
-			account = accounts[0]
-		} else if (lastConnect === TOKENPOCKET) {
-			await tp.getCurrentWallet().then((value) => {
-				account = value.data.address
-			})
-			if (account.length === 0) {
-				await tp.getWallet({ walletTypes: ['matic'], switch: false }).then((value) => {
-					account = value.data.address
-				})
-			}
+		// let account
+		// const lastConnect = localStorage.getItem(LASTCONNECT)
+		// if (lastConnect === METAMASK) {
+		// 	const accounts = await window.ethereum.request({
+		// 		method: 'eth_requestAccounts',
+		// 	})
+		// 	account = accounts[0]
+		// } else if (lastConnect === TOKENPOCKET) {
+		// 	await tp.getCurrentWallet().then((value) => {
+		// 		account = value.data.address
+		// 	})
+		// 	if (account.length === 0) {
+		// 		await tp.getWallet({ walletTypes: ['matic'], switch: false }).then((value) => {
+		// 			account = value.data.address
+		// 		})
+		// 	}
+		// }
+		var account = null;
+		var value, accounts;
+		const lastConnect = localStorage.getItem(LASTCONNECT);
+		switch (lastConnect) {
+		case TOKENPOCKET:
+			value = await tp.getCurrentWallet()
+			account = value.data.address;
+			break;
+		case MATHWALLET:
+			value = await mathwallet.getCurrentWallet()
+			account = value.address;
+			break;
+		case METAMASK:
+			accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+			account = accounts[0];
+			break;
+		default:
+			// accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+			// account = accounts[0];
+			break;
 		}
+		if (account === null) {
+			alert('请先连接钱包')
+			window.location.href = '/#/';
+			return;
+		}
+		this.setState({ account: account })
 		// const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
 		// const account = accounts[0]
 		if (web3.utils.toChecksumAddress(account) !== owner) {
@@ -503,6 +527,7 @@ class NFTInfo extends Component {
 
 			const response = await axios(cipher_config)
 			let ciphertext = response.data
+			//TODO请求account
 			let accounts = await await window.ethereum.request({
 				method: 'eth_requestAccounts',
 			})

@@ -20,7 +20,10 @@ import web3 from '../utils/web3'
 import Paper from '@material-ui/core/Paper'
 import * as tokens from '../global/tokens_list.json'
 import { withTranslation } from 'react-i18next'
+import { TOKENPOCKET, METAMASK, LASTCONNECT, MATHWALLET } from '../global/globalsString'
 
+const mathwallet = require('math-js-sdk');
+const tp = require('tp-js-sdk');
 const { pinata_api_key, pinata_secret_api_key } = require('../project.secret.js')
 
 const FormData = require('form-data')
@@ -157,7 +160,7 @@ class Publish extends Component {
 		shareTimes: 0,
 		onLoading: false,
 		rootNFTId: '',
-		usedAcc: '',
+		userAccount: '',
 		sig: '',
 		fileType: '',
 		finished: false,
@@ -315,12 +318,36 @@ class Publish extends Component {
 			})
 			console.debug('coverURL: ', this.state.coverURL)
 			let trimmed_des = this.state.description.replace(/(\r\n\t|\n|\r\t)/gm, ' ')
-			const accounts = await window.ethereum.request({
-				method: 'eth_requestAccounts',
-			})
-			const account = accounts[0]
+			// const accounts = await window.ethereum.request({
+			// 	method: 'eth_requestAccounts',
+			// })
+			// const account = accounts[0]
+			// let account = null;
+			//alert(account);
+			let value, accounts, account;
+			const lastConnect = localStorage.getItem(LASTCONNECT);
+			switch (lastConnect) {
+			case TOKENPOCKET:
+				value = await tp.getCurrentWallet()
+				account = value.data.address;
+				break;
+			case MATHWALLET:
+				value = await mathwallet.getCurrentWallet()
+				account = value.address;
+				break;
+			case METAMASK:
+				accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+				account = accounts[0];
+				//alert("hello")
+				break;
+			default:
+				// accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+				// account = accounts[0];
+				break;
+			}
+			//alert(account)
 			this.setState({
-				usedAcc: account,
+				userAccount: account,
 			})
 			let file_url = 'https://coldcdn.com/api/cdn/v5ynur/ipfs/' + this.state.fileIpfs
 			let JSONBody = {
@@ -379,7 +406,7 @@ class Publish extends Component {
 						this.state.token_addr
 					)
 					.send({
-						from: this.state.usedAcc,
+						from: this.state.userAccount,
 						gasPrice: new_gas_price,
 					})
 					.on('receipt', function (receipt) {

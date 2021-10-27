@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 import React, { Component } from 'react'
 import '../App.css'
 import Button from '@material-ui/core/Button'
@@ -16,6 +17,14 @@ import { Empty } from 'antd'
 import axios from 'axios'
 import web3 from '../utils/web3'
 import config from '../global/config'
+import Web3 from 'web3';
+import { TOKENPOCKET, METAMASK, LASTCONNECT, MATHWALLET } from '../global/globalsString'
+
+//TP钱包支持
+const tp = require('tp-js-sdk');
+//麦子钱包支持
+const mathwallet = require('math-js-sdk');
+// eslint-disable-next-line no-unused-vars
 const { backend } = config
 const theme = createTheme({
 	palette: {
@@ -139,14 +148,43 @@ class Collections extends Component {
 			noNFT: true,
 		}
 	}
-	async componentDidMount() {
-		const accounts = await window.ethereum.request({
-			method: 'eth_requestAccounts',
-		})
-		if (accounts.length === 0) {
-			alert('请先连接Metamask')
+	async componentDidMount () {
+		// const accounts = await window.ethereum.request({
+		// 	method: 'eth_requestAccounts',
+		// })
+		// if (accounts.length === 0) {
+		// 	alert('请先连接Metamask')
+		// }
+
+		web3.setProvider(new Web3.providers.HttpProvider('https://matic-mainnet--jsonrpc.datahub.figment.io/apikey/e84b63fff0e37deb30837101f20eb793/'))
+		var account = null;
+		var value, accounts;
+		const lastConnect = localStorage.getItem(LASTCONNECT);
+		switch (lastConnect) {
+		case TOKENPOCKET:
+			value = await tp.getCurrentWallet()
+			account = value.data.address;
+			break;
+		case MATHWALLET:
+			value = await mathwallet.getCurrentWallet()
+			account = value.address;
+			break;
+		case METAMASK:
+			accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+			account = accounts[0];
+			break;
+		default:
+			// accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+			// account = accounts[0];
+			break;
 		}
-		const account = accounts[0]
+		if (account === null) {
+			alert('请先连接钱包')
+			window.location.href = '/#/';
+			return;
+		}
+
+		//const account = accounts[0]
 		const chainId = await window.ethereum.request({ method: 'eth_chainId' })
 		if (chainId !== '0x89') {
 			alert('请切换至Polygon 主网络')
@@ -176,14 +214,14 @@ class Collections extends Component {
 		this.setState({
 			noNFT: false,
 		})
-		let data = await this.getMetadata(contract, ids)
+		let metadatas = await this.getMetadata(contract, ids)
 		for (let i = 0; i < ids.length; i++) {
 			let element = {
 				id: ids[i],
-				title: data[i].name,
-				description: data[i].description,
-				bonusFee: data[i].attributes.value,
-				image: data[i].image,
+				title: metadatas[i].name,
+				description: metadatas[i].description,
+				bonusFee: metadatas[i].attributes.value,
+				image: metadatas[i].image,
 			}
 			cards.push(element)
 		}
@@ -195,168 +233,168 @@ class Collections extends Component {
 			SkeletoNumber: 0,
 		})
 	}
-
-	getMetadata = async (nft, id) => {
-		let metaDatas = []
-		for (let i = 0; i < id.length; i++) {
-			let ipfs_link = await nft.methods.tokenURI(id[i]).call()
-			let ipfs_hash_arr = ipfs_link.split('/')
-			let ipfs_hash = ipfs_hash_arr[ipfs_hash_arr.length - 1]
-			let meta = 'https://coldcdn.com/api/cdn/v5ynur/ipfs/' + ipfs_hash
-			// console.debug("meta: " + id[i] + " " + meta)
-			await axios({
-				method: 'get',
-				url: meta,
-				timeout: 1000 * 2,
-			})
-				.then((res) => {
-					// console.log("meta: ", res.data)
-					metaDatas.push(res.data)
-				})
-				.catch(() => {
-					let name_holder = 'SparkNFT#' + id[i]
-					let placeholder = {
-						name: name_holder,
-						description: '暂时无法获取到该nft的相关描述',
-						image: 'https://testnets.opensea.io/static/images/placeholder.png',
-						attributes: [
-							{
-								display_type: 'boost_percentage',
-								trait_type: 'Bonuse Percentage',
-								value: 0,
-							},
-							{
-								trait_type: 'File Address',
-								value: 'file_url',
-							},
-						],
-					}
-					metaDatas.push(placeholder)
-				})
-		}
-		return metaDatas
+	componentWillUnmount () {
+		web3.setProvider(window.ethereum);
 	}
 
-	getNft = async (nft, account) => {
-		let balanceId = []
-		//0x9452644E9fdd59bD46A4d9eC24462995ADfD8d01
-		let checksum_address = web3.utils.toChecksumAddress(account)
-		let url = backend + '/api/v1/nft/list?owner=' + checksum_address
-		console.debug('owner: ', checksum_address)
-		try {
-			let res = await axios.get(url)
-			balanceId = res.data.nft
-			this.setState({
-				onloading: true,
-				SkeletoNumber: balanceId.length,
-			})
-			return balanceId
-		} catch (error) {
-			// alert('无法获取您当前拥有的nft')
-			return []
-		}
-	}
+  getMetadata = async (contract, ids) => {
+  	return Promise.all(ids.map(async (id) => {
+  		let ipfs_link = await contract.methods.tokenURI(id).call();
+  		var ipfs_hash_arr = ipfs_link.split('/');
+  		var ipfs_hash = ipfs_hash_arr[ipfs_hash_arr.length - 1];
+  		var meta = 'https://coldcdn.com/api/cdn/v5ynur/ipfs/' + ipfs_hash;
+  		// console.debug("meta: " + ids[i] + " " + meta)
+  		try {
+  			return (await axios({
+  				method: 'get',
+  				url: meta,
+  				timeout: 1000 * 2,
+  			})).data
+  		} catch (err) {
+  			var name_holder = 'SparkNFT#' + id;
+  			var placeholder = {
+  				'name': name_holder,
+  				'description': '暂时无法获取到该nft的相关描述',
+  				'image': 'https://testnets.opensea.io/static/images/placeholder.png',
+  				'attributes': [
+  					{
+  						'display_type': 'boost_percentage',
+  						'trait_type': 'Bonuse Percentage',
+  						'value': 0
+  					},
+  					{
+  						'trait_type': 'File Address',
+  						'value': 'file_url'
+  					}
+  				]
+  			};
+  			return placeholder;
+  		}
+  	}));
+  }
 
-	renderDescription = (description) => {
-		if (description.length <= 150) {
-			return description
-		} else {
-			let newDescription = description.substring(0, 150) + '..........'
-			return newDescription
-		}
-	}
+  getNft = async (nft, account) => {
+  	// let balanceId = [];
+  	//0x9452644E9fdd59bD46A4d9eC24462995ADfD8d01
+  	var checksum_address = web3.utils.toChecksumAddress(account);
+  	var url = backend + '/api/v1/nft/list?owner=' + checksum_address
+  	console.debug('owner: ', checksum_address)
+  	try {
+  		var res = await axios.get(url)
+  		// balanceId = res.data.nft
+  		this.setState({
+  			onloading: true,
+  			SkeletoNumber: res.data.nft.length
+  		})
+  		// return balanceId;
+  		return res.data.nft
+  	} catch (error) {
+  		// alert('无法获取您当前拥有的nft')
+  		return [];
+  	}
+  };
 
-	render() {
-		const { classes } = this.props
-		let obj = this
-		window.ethereum.on('chainChanged', handleChainChanged)
 
-		function handleChainChanged(_chainId) {
-			console.log(_chainId)
-			window.location.reload()
-		}
+  renderDescription = (description) => {
+  	if (description.length <= 150) {
+  		return description
+  	} else {
+  		let newDescription = description.substring(0, 150) + '..........'
+  		return newDescription
+  	}
+  }
 
-		function showCard(card, index) {
-			let res = (
-				<Grid item key={index} xs={12} sm={6} md={4}>
-					{card ? (
-						<Card className={classes.card}>
-							<CardMedia className={classes.cardMedia} image={card.image} title="Image title" />
-							<CardContent className={classes.cardContent}>
-								<Typography gutterBottom variant="h5" component="h2">
-									<b>{card.title}</b>
-								</Typography>
-								<Typography>{obj.renderDescription(card.description)}</Typography>
-							</CardContent>
-							<CardActions>
-								<Button size="small" variant="contained" color="primary" href={'/#/NFT/' + card.id}>
-									<b>查看 </b>
-								</Button>
-								<Typography variant="body2" gutterBottom>
-									<b>NFT id: {card.id} </b>
-								</Typography>
-							</CardActions>
-						</Card>
-					) : (
-						<Card className={classes.card}>
-							<Skeleton variant="rect" style={{ marginLeft: 70 }} width={260} height={288} />
-							<Skeleton width="60%" style={{ marginTop: 40 }} height={33} />
-							<Skeleton height={33} />
-							<Skeleton height={33} />
-							<Skeleton height={33} />
-						</Card>
-					)}
-				</Grid>
-			)
+  render () {
+  	const { classes } = this.props
+  	let obj = this
+  	window.ethereum.on('chainChanged', handleChainChanged)
 
-			return res
-		}
-		return (
-			<div>
-				<ThemeProvider theme={theme}>
-					<TopBar />
-					<Container component="main" className={classes.container}>
-						<div className={classes.paper}>
-							<Grid container justifyContent="center">
-								<Grid item xs={10}>
-									<Typography color="inherit" noWrap className={classes.title}>
-										<b>我的收藏馆</b>
-									</Typography>
-									<Typography color="inherit" noWrap className={classes.title2}>
-										<b>An ERC721 Token Trying to Solve Existing Publishing Dilemma</b>
-									</Typography>
-								</Grid>
-							</Grid>
-						</div>
-					</Container>
-				</ThemeProvider>
-				{this.state.noNFT ? (
-					<Empty
-						description={
-							<span style={{ fontFamily: 'Teko' }}>
-								<b>暂无可展示NFT</b>
-							</span>
-						}
-						style={{ marginTop: 100 }}
-					/>
-				) : (
-					<main>
-						{
-							<Container className={classes.cardGrid} maxWidth="md">
-								<Grid container spacing={4}>
-									{(this.state.onloading ? Array.from(new Array(this.state.SkeletoNumber)) : this.state.cards).map(
-										(card, index) => {
-											return showCard(card, index)
-										}
-									)}
-								</Grid>
-							</Container>
-						}
-					</main>
-				)}
-			</div>
-		)
-	}
+  	function handleChainChanged (_chainId) {
+  		console.log(_chainId)
+  		window.location.reload()
+  	}
+
+  	function showCard (card, index) {
+  		let res = (
+  			<Grid item key={index} xs={12} sm={6} md={4}>
+  				{card ? (
+  					<Card className={classes.card}>
+  						<CardMedia className={classes.cardMedia} image={card.image} title="Image title" />
+  						<CardContent className={classes.cardContent}>
+  							<Typography gutterBottom variant="h5" component="h2">
+  								<b>{card.title}</b>
+  							</Typography>
+  							<Typography>{obj.renderDescription(card.description)}</Typography>
+  						</CardContent>
+  						<CardActions>
+  							<Button size="small" variant="contained" color="primary" href={'/#/NFT/' + card.id}>
+  								<b>查看 </b>
+  							</Button>
+  							<Typography variant="body2" gutterBottom>
+  								<b>NFT id: {card.id} </b>
+  							</Typography>
+  						</CardActions>
+  					</Card>
+  				) : (
+  					<Card className={classes.card}>
+  						<Skeleton variant="rect" style={{ marginLeft: 70 }} width={260} height={288} />
+  						<Skeleton width="60%" style={{ marginTop: 40 }} height={33} />
+  						<Skeleton height={33} />
+  						<Skeleton height={33} />
+  						<Skeleton height={33} />
+  					</Card>
+  				)}
+  			</Grid>
+  		)
+
+  		return res
+  	}
+  	return (
+  		<div>
+  			<ThemeProvider theme={theme}>
+  				<TopBar />
+  				<Container component="main" className={classes.container}>
+  					<div className={classes.paper}>
+  						<Grid container justifyContent="center">
+  							<Grid item xs={10}>
+  								<Typography color="inherit" noWrap className={classes.title}>
+  									<b>我的收藏馆</b>
+  								</Typography>
+  								<Typography color="inherit" noWrap className={classes.title2}>
+  									<b>An ERC721 Token Trying to Solve Existing Publishing Dilemma</b>
+  								</Typography>
+  							</Grid>
+  						</Grid>
+  					</div>
+  				</Container>
+  			</ThemeProvider>
+  			{this.state.noNFT ? (
+  				<Empty
+  					description={
+  						<span style={{ fontFamily: 'Teko' }}>
+  							<b>暂无可展示NFT</b>
+  						</span>
+  					}
+  					style={{ marginTop: 100 }}
+  				/>
+  			) : (
+  				<main>
+  					{
+  						<Container className={classes.cardGrid} maxWidth="md">
+  							<Grid container spacing={4}>
+  								{(this.state.onloading ? Array.from(new Array(this.state.SkeletoNumber)) : this.state.cards).map(
+  									(card, index) => {
+  										return showCard(card, index)
+  									}
+  								)}
+  							</Grid>
+  						</Container>
+  					}
+  				</main>
+  			)}
+  		</div>
+  	)
+  }
 }
 
 export default withStyles(styles, { withTheme: true })(Collections)
