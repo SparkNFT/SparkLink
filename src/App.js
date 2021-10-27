@@ -13,13 +13,13 @@ const styles = (theme) => ({
 		fontFamily: 'Teko',
 		marginTop: '25%',
 		[theme.breakpoints.between('xs', 'sm')]: {
-			fontSize: 25,
+			fontSize: 55,
 		},
 		[theme.breakpoints.between('sm', 'md')]: {
-			fontSize: 25,
+			fontSize: 55,
 		},
 		[theme.breakpoints.between('md', 'lg')]: {
-			fontSize: 35,
+			fontSize: 55,
 		},
 		[theme.breakpoints.between('lg', 'xl')]: {
 			fontSize: 100,
@@ -31,10 +31,10 @@ const styles = (theme) => ({
 	title2: {
 		fontFamily: 'Teko',
 		[theme.breakpoints.between('xs', 'sm')]: {
-			fontSize: 10,
+			fontSize: 20,
 		},
 		[theme.breakpoints.between('sm', 'md')]: {
-			fontSize: 15,
+			fontSize: 25,
 		},
 		[theme.breakpoints.between('md', 'lg')]: {
 			fontSize: 25,
@@ -49,13 +49,13 @@ const styles = (theme) => ({
 	title3: {
 		fontFamily: 'Teko',
 		[theme.breakpoints.between('xs', 'sm')]: {
-			fontSize: 8,
+			fontSize: 18,
 		},
 		[theme.breakpoints.between('sm', 'md')]: {
-			fontSize: 10,
+			fontSize: 20,
 		},
 		[theme.breakpoints.between('md', 'lg')]: {
-			fontSize: 15,
+			fontSize: 25,
 		},
 		[theme.breakpoints.between('lg', 'xl')]: {
 			fontSize: 25,
@@ -77,16 +77,16 @@ const styles = (theme) => ({
 		borderWidth: 2,
 		borderRadius: 25,
 		[theme.breakpoints.between('xs', 'sm')]: {
-			fontSize: 5,
+			fontSize: 15,
 		},
 		[theme.breakpoints.between('sm', 'md')]: {
-			fontSize: 10,
+			fontSize: 20,
 		},
 		[theme.breakpoints.between('md', 'lg')]: {
-			fontSize: 16,
+			fontSize: 26,
 		},
 		[theme.breakpoints.between('lg', 'xl')]: {
-			fontSize: 16,
+			fontSize: 26,
 			width: 150,
 		},
 		[theme.breakpoints.up('xl')]: {
@@ -102,16 +102,16 @@ const styles = (theme) => ({
 		borderWidth: 2,
 		borderRadius: 25,
 		[theme.breakpoints.between('xs', 'sm')]: {
-			fontSize: 5,
+			fontSize: 15,
 		},
 		[theme.breakpoints.between('sm', 'md')]: {
-			fontSize: 10,
+			fontSize: 20,
 		},
 		[theme.breakpoints.between('md', 'lg')]: {
-			fontSize: 16,
+			fontSize: 26,
 		},
 		[theme.breakpoints.between('lg', 'xl')]: {
-			fontSize: 16,
+			fontSize: 26,
 			width: 150,
 		},
 		[theme.breakpoints.up('xl')]: {
@@ -160,7 +160,7 @@ class App extends Component {
 										<Typography color="inherit" noWrap className={classes.title}>
 											<b>SparkLink</b>
 										</Typography>
-										<Typography color="inherit" noWrap className={classes.title2}>
+										<Typography color="inherit" className={classes.title2}>
 											<b>{t('index_slogan')}</b>
 										</Typography>
 										<Typography color="inherit" noWrap className={classes.title3}>
