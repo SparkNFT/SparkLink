@@ -9,7 +9,7 @@ import { reactLocalStorage } from 'reactjs-localstorage'
 import i18next from 'i18next'
 
 const tokenId = 'multilanguage_demo'
-const options = ['English', '中文']
+const options = ['EN', '中文']
 const lngOptions = ['en', 'zh']
 
 function LanguageBtn({ fontColor }) {
@@ -38,9 +38,9 @@ function LanguageBtn({ fontColor }) {
 
 	return (
 		<>
-			<Button aria-haspopup="true" onClick={handleClick}>
-				<TranslateIcon style={{ color: fontColor }} />
-				<p style={{ color: fontColor }}>{options[selectedIndex].toUpperCase()}</p>
+			<Button aria-haspopup="true" onClick={handleClick} style={{ marginLeft: 15, marginRight: 15}}>
+				<TranslateIcon style={{ color: fontColor, fontSize: 20 }} />
+				<p style={{ color: fontColor, fontSize: 16 }}>{options[selectedIndex].toUpperCase()}</p>
 				<DownIcon style={{ color: fontColor }} />
 			</Button>
 			<Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>

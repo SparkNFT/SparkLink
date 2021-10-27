@@ -40,12 +40,14 @@ const styles = (theme) => ({
 		},
 		[theme.breakpoints.between('lg', 'xl')]: {
 			fontSize: 16,
-			width: 150,
+			paddingLeft: 30,
+			paddingRight: 30,
 		},
 		[theme.breakpoints.up('xl')]: {
 			fontSize: 30,
-			width: 300,
 			height: 70,
+			paddingLeft: 30,
+			paddingRight: 30,
 		},
 	},
 	btnSecond: {
@@ -69,12 +71,14 @@ const styles = (theme) => ({
 		},
 		[theme.breakpoints.between('lg', 'xl')]: {
 			fontSize: 16,
-			width: 150,
+			paddingLeft: 30,
+			paddingRight: 30,
 		},
 		[theme.breakpoints.up('xl')]: {
 			fontSize: 30,
-			width: 300,
 			height: 70,
+			paddingLeft: 30,
+			paddingRight: 30,
 		},
 	},
 	paper: {
