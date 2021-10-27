@@ -14,12 +14,9 @@ import contract from './contract'
 import { Progress, Spin, message } from 'antd'
 import axios from 'axios'
 import web3 from './web3'
+import { TOKENPOCKET, METAMASK, LASTCONNECT, USERADDRESS, MATHWALLET } from './GlobalString.js'
 
-//字符串常量
-const TOKENPOCKET = "TokenPocket";
-const METAMASK = "MetaMask";
-const LASTCONNECT = "lastConnect";
-
+var mathwallet = require('math-js-sdk');
 const tp = require('tp-js-sdk');
 const FileSaver = require('file-saver')
 var CryptoJS = require("crypto-js")
@@ -276,27 +273,80 @@ class NFTInfo extends Component {
     const owner = await contract.methods.ownerOf(this.props.match.params.id).call()
 
     //获取账号
-    var account;
+    // var account;
+    // const lastConnect = localStorage.getItem(LASTCONNECT);
+    // if (lastConnect === METAMASK) {
+    //   const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+    //   account = accounts[0];
+    // }
+    // else if(lastConnect === TOKENPOCKET) {
+    //   await tp.getCurrentWallet().then(
+    //     value => {
+    //       account = value.data.address;
+    //     }
+    //   )
+    //   if(account.length === 0){
+    //     await tp.getWallet({ walletTypes: ['matic'], switch: false }).then(
+    //       value => {
+    //         account = value.data.address;
+    //       }
+    //     )
+    //   } 
+    // }
+    // var account = null;
+    // const lastConnect = localStorage.getItem(LASTCONNECT);
+    // //alert(lastConnect)
+    // if (lastConnect === TOKENPOCKET) {
+    //   await tp.getCurrentWallet().then(
+    //     value => {
+    //       account = value.data.address;
+    //     })
+    //   if (account.length === 0) {
+    //     await tp.getWallet({ walletTypes: ['matic'], switch: false }).then(
+    //       value => {
+    //         account = value.data.address;
+    //       })
+    //   }
+    // }
+    // else if (lastConnect === MATHWALLET) {
+    //   await mathwallet.getCurrentWallet().then(
+    //     value => {
+    //       account = value.address;
+    //     })
+    // }
+    // else if (lastConnect === METAMASK) {
+    //   const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+    //   account = accounts[0];
+    // }
+
+    var account = null;
+    var value, accounts;
     const lastConnect = localStorage.getItem(LASTCONNECT);
-    if (lastConnect === METAMASK) {
-      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
-      account = accounts[0];
+    switch (lastConnect) {
+      case TOKENPOCKET:
+        value = await tp.getCurrentWallet()
+        account = value.data.address;
+        break;
+      case MATHWALLET:
+        value = await mathwallet.getCurrentWallet()
+        account = value.address;
+        break;
+      case METAMASK:
+        accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+        account = accounts[0];
+        break;
+      default:
+        // accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+        // account = accounts[0];
+        break;
     }
-    else if(lastConnect === TOKENPOCKET) {
-      await tp.getCurrentWallet().then(
-        value => {
-          account = value.data.address;
-        }
-      )
-      if(account.length === 0){
-        await tp.getWallet({ walletTypes: ['matic'], switch: false }).then(
-          value => {
-            account = value.data.address;
-          }
-        )
-      } 
+
+    if (account === null) {
+      alert("请先连接钱包")
+      window.location.href = '/#/';
+      return;
     }
-    this.setState({account:account})
+    this.setState({ account: account })
     // const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
     // const account = accounts[0]
     if (web3.utils.toChecksumAddress(account) !== owner) {
@@ -312,7 +362,7 @@ class NFTInfo extends Component {
     }
 
     const token_addr = await contract.methods.getTokenAddrByNFTId(this.props.match.params.id).call()
-    const res = await contract.methods.getProfitByNFTId(this.props.match.params.id).call()  
+    const res = await contract.methods.getProfitByNFTId(this.props.match.params.id).call()
     if (token_addr == '0x0000000000000000000000000000000000000000') {
       var price_with_decimal = res / (10 ** 18)
       var profit = price_with_decimal + " MATIC"
@@ -340,7 +390,7 @@ class NFTInfo extends Component {
     const royalty = await contract.methods.getRoyaltyFeeByIssueId(issue).call()
     var file_hash = hash[hash.length - 1]
     var request_url = "https://coldcdn.com/api/cdn/v5ynur/ipfs/" + file_hash
-    
+
     try {
       const res = await axios({
         method: 'get',
@@ -434,12 +484,12 @@ class NFTInfo extends Component {
     })
     var gasPrice = await web3.eth.getGasPrice()
     var new_gas_price = Math.floor(parseInt(gasPrice) * 1.5).toString()
-    try{
+    try {
       await contract.methods.claimProfit(this.props.match.params.id).send({
         from: this.state.account,
         gasPrice: new_gas_price
       })
-    } catch (error){
+    } catch (error) {
       message.error({
         content: `Error: ${error}`,
         className: 'custom-class',
@@ -454,7 +504,7 @@ class NFTInfo extends Component {
     }
   }
 
-  
+
 
   downloadIPFS = async () => {
     let obj = this
@@ -464,7 +514,7 @@ class NFTInfo extends Component {
     this.setState({
       showProgress: true
     })
-    if(this.state.isEncrypt){
+    if (this.state.isEncrypt) {
       var cipher_config = {
         method: 'get',
         url: dataUrl,
@@ -501,7 +551,7 @@ class NFTInfo extends Component {
           })
         }
       }
-      try{
+      try {
         const response = await axios(open_config)
         const url = window.URL.createObjectURL(new Blob([response.data]))
         const link = document.createElement('a')
@@ -514,7 +564,7 @@ class NFTInfo extends Component {
         link.click()
         document.body.removeChild(link)
         URL.revokeObjectURL(url)
-      } catch(error){
+      } catch (error) {
         message.error({
           content: `Error: ${error}`,
           className: 'custom-class',
@@ -547,7 +597,7 @@ class NFTInfo extends Component {
     }
     var payload_str = JSON.stringify(payload)
     var req_key_url = this.backend + "/api/v1/key/claim"
-    try{
+    try {
       const res = await axios.post(req_key_url, payload_str, {
         headers: {
           'Content-Type': 'application/json'
@@ -639,8 +689,8 @@ class NFTInfo extends Component {
   }
 
 
-  render(){
-    const {classes} = this.props
+  render() {
+    const { classes } = this.props
     const sell_info = () => {
       let url = window.location.host;
       let toUrl = "https://" + url + '/#/NFT/Spark/' + this.props.match.params.id;
@@ -666,8 +716,8 @@ class NFTInfo extends Component {
       }
     }
 
-    if (this.state.showDecryptProgress){
-      return(
+    if (this.state.showDecryptProgress) {
+      return (
         <Spin spinning={this.state.loading} size='large'>
           <ThemeProvider theme={theme}>
             <TopBar />
@@ -692,8 +742,8 @@ class NFTInfo extends Component {
           </ThemeProvider>
         </Spin>
       )
-    } else if(this.state.showProgress){
-      return(
+    } else if (this.state.showProgress) {
+      return (
         <Spin spinning={this.state.loading} size='large'>
           <ThemeProvider theme={theme}>
             <TopBar />
@@ -709,7 +759,7 @@ class NFTInfo extends Component {
         </Spin>
       )
     } else {
-      return(
+      return (
         <Spin spinning={this.state.loading} size='large'>
           <ThemeProvider theme={theme}>
             <TopBar />
@@ -722,7 +772,7 @@ class NFTInfo extends Component {
                 回到我的收藏馆
               </Button>
               <Grid container direction="row" justifyContent="center" alignContent="flex-start">
-                <Grid container direction="row" className={classes.cbutton}> 
+                <Grid container direction="row" className={classes.cbutton}>
 
                   <Grid item>
                     <Typography color="textPrimary" gutterBottom style={{ marginRight: 50, marginTop: 20, fontSize: 14 }}>
@@ -755,9 +805,9 @@ class NFTInfo extends Component {
 
               <div className={classes.paper}>
                 {this.state.loadItem ? (
-                  <Grid container className={classes.content} spacing = {5}>
+                  <Grid container className={classes.content} spacing={5}>
 
-                    <Grid item xs = {4}>
+                    <Grid item xs={4}>
                       <Skeleton variant="rect" width={300} height={500} style={{ width: 370, marginLeft: 50, marginBottom: 50 }} />
                     </Grid>
 
@@ -768,7 +818,7 @@ class NFTInfo extends Component {
                     </Grid>
 
                   </Grid>
-                ):(
+                ) : (
                   <Grid container direction="row" justifyContent="space-between" spacing={5} className={classes.content}>
 
                     <Grid style={{ maxWidth: 200 }}>

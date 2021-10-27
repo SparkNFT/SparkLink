@@ -12,16 +12,11 @@ import web3 from './web3'
 import { ArrowLeftOutlined, FireOutlined } from '@ant-design/icons'
 import Skeleton from '@material-ui/lab/Skeleton'
 import { Progress, message, Spin } from 'antd'
+import { TOKENPOCKET, METAMASK, LASTCONNECT, USERADDRESS, MATHWALLET } from './GlobalString.js'
 
-//字符串常量
-const TOKENPOCKET = "TokenPocket";
-const METAMASK = "MetaMask";
-const LASTCONNECT = "lastConnect";
-
+var mathwallet = require('math-js-sdk');
 const tp = require('tp-js-sdk');
 const abi = require('erc-20-abi');
-
-
 
 const theme = createTheme({
   palette: {
@@ -217,20 +212,33 @@ class NFTSpark extends Component {
     }
 
 
-    var account;
+    var account = null;
+    var value, accounts;
     const lastConnect = localStorage.getItem(LASTCONNECT);
-    if (lastConnect === METAMASK) {
-      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
-      account = accounts[0];
-    }
-    else if(lastConnect === TOKENPOCKET) {
-      await tp.getWallet({ walletTypes: ['matic'], switch: false }).then(
-        value => {
-          account = value.data.address;
-        }
-      )
+    switch (lastConnect) {
+      case TOKENPOCKET:
+        value = await tp.getCurrentWallet()
+        account = value.data.address;
+        break;
+      case MATHWALLET:
+        value = await mathwallet.getCurrentWallet()
+        account = value.address;
+        break;
+      case METAMASK:
+        accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+        account = accounts[0];
+        break;
+      default:
+        // accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+        // account = accounts[0];
+        break;
     }
 
+    if (account === null) {
+      alert("请先连接钱包")
+      window.location.href = '/#/';
+      return;
+    }
     // const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
     // const account = accounts[0]
 
@@ -483,7 +491,7 @@ class NFTSpark extends Component {
       const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
       account = accounts[0];
     }
-    else if(lastConnect === TOKENPOCKET) {
+    else if (lastConnect === TOKENPOCKET) {
       await tp.getWallet({ walletTypes: ['matic'], switch: false }).then(
         value => {
           account = value.data.address;

@@ -13,12 +13,13 @@ import { GithubOutlined, WalletOutlined, WalletTwoTone, WalletFilled } from '@an
 import Web3 from 'web3';
 import metamaskpic from './imgs/metamask.png'
 import TPpic from './imgs/TP.png'
-import trustwalletpic from './imgs/trust.png'
+import mathwalletpic from './imgs/mathwallet.png'
 import { CenterFocusStrong, WallpaperOutlined, Web } from '@material-ui/icons';
 import isMobile from './isMobile';
 import { icons } from 'antd/lib/image/PreviewGroup';
 //import { getUserAddress } from './getUserAddress.js'
-import { TOKENPOCKET, METAMASK, LASTCONNECT, USERADDRESS } from './GlobalString.js'
+import { TOKENPOCKET, METAMASK, LASTCONNECT, USERADDRESS, MATHWALLET } from './GlobalString.js'
+import web3 from './web3';
 
 
 // //字符串常量
@@ -29,6 +30,9 @@ import { TOKENPOCKET, METAMASK, LASTCONNECT, USERADDRESS } from './GlobalString.
 
 //TP钱包支持
 var tp = require('tp-js-sdk');
+//麦子钱包支持
+var mathwallet = require('math-js-sdk');
+
 
 const theme = createTheme({
   breakpoints: {
@@ -239,7 +243,6 @@ const styles = theme => ({
       top: -15
     },
   }
-
 });
 
 class TopBar extends Component {
@@ -253,7 +256,12 @@ class TopBar extends Component {
   };
 
   async componentWillMount() {
-    //todo 从本地获取登陆状态（登陆记录）
+    //console.log(this.GetUrlRelativePath())
+    // if(this.GetUrlRelativePath()) {
+    //   const web3 = new Web3(new Web3.providers.HttpProvider('https://matic-mainnet--jsonrpc.datahub.figment.io/apikey/e84b63fff0e37deb30837101f20eb793/'));
+    // }
+    //console.log(window.location.href)
+    //this.GetUrlRelativePath()
     let lastConnect = localStorage.getItem(LASTCONNECT)
     console.log("lastconnect:  " + lastConnect)
     if (lastConnect === null) {
@@ -267,67 +275,32 @@ class TopBar extends Component {
     else if (lastConnect === TOKENPOCKET) {
       this.checkTokenPocket();
     }
-
-
-
-    // //在Web端仅检测小狐狸登陆状态
-    // if (!isMobile) {
-    //   this.checkMetaMask()
-    // }
-    // //在手机端先检测TP
-    // else {
-    //   tp.getCurrentWallet().then(value => {
-    //     const account = await value.data.address;
-    //     if (account.length == 0) {
-    //       this.setState({
-    //         isConnected: true
-    //       });
-    //     } else {
-    //       console.log(accounts)
-
-    //       this.setState({ accountInfo: account.substring(0, 5), });
-    //       this.setState({
-    //         isConnected: true
-    //       });
-    //       localStorage.setItem(USERADDRESS, account);
-    //     }
-
-    //     // })
-
-    //   })
-    // }
-
-
-    // if (Web3.givenProvider) {
-    //   //console.log(Web3.givenProvider)
-    //   //let w3 = new Web3(window.ethereum);
-    //   let w3 = new Web3(window.web3.currentProvider);
-    //   const accounts = await w3.eth.getAccounts();
-    //   if (accounts.length == 0) {
-    //     this.setState({
-    //       isConnected: false
-    //     });
-    //   } else {
-    //     console.log(accounts)
-    //     var account = accounts[0]
-    //     this.setState({ accountInfo: account.substring(0, 5), });
-    //     this.setState({
-    //       isConnected: true
-    //     });
-    //     localStorage.setItem("userAddress", account);
-    //   }
-    //   console.log(Web3.givenProvider);
-    //   console.log(this.state.isConnected)
-    // }
+    else if (lastConnect === MATHWALLET) {
+      this.checkMathWallet();
+    }
   }
+
+  // GetUrlRelativePath = () => {
+  //   let url = document.location.toString();
+  //   let arrUrl = url.split("//");
+
+  //   let start = arrUrl[1].indexOf("/");
+  //   let relUrl = arrUrl[1].substring(start);//stop省略，截取从start开始到结尾的所有字符
+
+  //   if (relUrl.indexOf("?") != -1) {
+  //     relUrl = relUrl.split("?")[0];
+  //   }
+  //   console.log(relUrl)
+  //   return relUrl==='/#/collections';
+  // }
 
   //check小狐狸账户
   checkMetaMask = async () => {
     if (Web3.givenProvider) {
       //console.log(Web3.givenProvider)
       //let w3 = new Web3(window.ethereum);
-      let w3 = new Web3(window.web3.currentProvider);
-      const accounts = await w3.eth.getAccounts();
+      //let w3 = new Web3(window.web3.currentProvider);
+      const accounts = await web3.eth.getAccounts();
       console.log("accounts: " + accounts)
       if (accounts.length == 0) {
         this.setState({
@@ -335,7 +308,7 @@ class TopBar extends Component {
         });
       } else {
         console.log(accounts)
-        var account = accounts[0]
+        const account = accounts[0]
         console.log("account: " + account);
         this.setState({ accountInfo: account.substring(0, 5), });
         this.setState({
@@ -348,7 +321,6 @@ class TopBar extends Component {
       console.log(Web3.givenProvider);
       console.log(this.state.isConnected)
     }
-
   }
 
   // //check TP账户
@@ -369,57 +341,48 @@ class TopBar extends Component {
         this.setState({ userAddress: account });
         localStorage.setItem(LASTCONNECT, TOKENPOCKET);
       }
-
-      // })
-
     })
-
   }
 
+  //check 麦子钱包
+  checkMathWallet = async () => {
+    await mathwallet.getCurrentWallet().then(
+      value => {
+        const account = value.address;
+        if (account.length == 0) {
+          this.setState({
+            isConnected: false
+          });
+        }
+        else {
+          //console.log(accounts)
+          this.setState({ accountInfo: account.substring(0, 5), });
+          this.setState({
+            isConnected: true
+          });
+          //localStorage.setItem(USERADDRESS, account);
+          this.setState({ userAddress: account });
+          localStorage.setItem(LASTCONNECT, MATHWALLET);
+        }
+      }
+    )
+  }
 
   //点击使用tokenpocket
   handleSelectTokenPockect = () => {
     this.getTokenPocketAccount()
-    //getUserAddress(TOKENPOCKET)
     this.setState({
       dialogOpen: false,
     });
-
   }
 
-  //dialog内点击使用某钱包
-  // handleSelectWallet = (wallet) => {
-  //   console.log(wallet);
-  //   if (wallet === METAMASK) {
-  //     //this.getMetaMaskAccount()
-  //     const account = getUserAddress(METAMASK);
-  //     if (account) {
-  //       //获得账户成功
-  //       this.setState({ isConnected: true, });
-  //       this.setState({ userAddress: account });
-  //     }
-  //     else {
-  //       //获得账户失败
-  //       this.setState({ isConnected: false });
-  //     }
-  //   }
-  //   else if (wallet === TOKENPOCKET) {
-  //     const account = getUserAddress(TOKENPOCKET);
-  //     if (account) {
-  //       //获得账户成功
-  //       this.setState({ isConnected: true, });
-  //       this.setState({ userAddress: account });
-  //     }
-  //     else {
-  //       //获得账户失败
-  //       this.setState({ isConnected: false });
-  //     }
-  //   }
-
-  //   this.setState({
-  //     dialogOpen: false,
-  //   });
-  // }
+  //点击使用MathWallet
+  handleSelectMathWallet = () => {
+    this.getMathWalletAccount();
+    this.setState({
+      dialogOpen: false,
+    })
+  }
 
   //点击使用MetaMask
   handleSelectMetaMask = () => {
@@ -490,11 +453,40 @@ class TopBar extends Component {
 
   }
 
+  //获取MathWallet用户地址
+  getMathWalletAccount = async () => {
+    if (this.state.isConnected) {
+      alert('您已经连接MathWallet, 当前账户： ' + this.state.userAddress)
+    }
+    else {
+      try {
+        //todo 使用TP链接
+        let account;
+        await mathwallet.getCurrentWallet().then(
+          value => {
+            account = value.address;
+          }
+        )
+        alert('您已经连接MathWallet, 当前账户： ' + account)
+        this.setState({ isConnected: true, });
+        this.setState({ userAddress: account });
+        //localStorage.setItem(USERADDRESS, account); //储存用户address
+        localStorage.setItem(LASTCONNECT, MATHWALLET); //储存上次登陆的信息
+      } catch (error) {
+        console.debug(error);
+        this.setState({ isConnected: false });
+      }
+    }
+  }
+
+
+
   //登陆后点击token按钮
   handleTokenButtonOnClick = () => {
     let string = localStorage.getItem(LASTCONNECT);
     if (string === METAMASK) this.getMetaMaskAccount();
     else if (string === TOKENPOCKET) this.getTokenPocketAccount();
+    else if (string === MATHWALLET) this.getMathWalletAccount();
     // if (string === METAMASK) getUserAddress(METAMASK);
     // else if (string === TOKENPOCKET) getUserAddress(TOKENPOCKET);
   }
@@ -529,9 +521,9 @@ class TopBar extends Component {
               <Button size="large" className={classes.btnWallet} onClick={!isMobile ? this.handleSelectMetaMask : this.handleSelectTokenPockect}>
                 <img className={classes.btnImg} src={TPpic}></img>
               </Button>
-              {/* <Button size="large" className={classes.btnWallet} onClick={!isMobile ? this.handleSelectMetaMask : this.handleSelectTokenPockect}>
-                <img className={classes.btnImg} src={trustwalletpic}></img>
-              </Button> */}
+              <Button size="large" className={classes.btnWallet} onClick={!isMobile ? this.handleSelectMetaMask : this.handleSelectMathWallet}>
+                <img className={classes.btnImg} src={mathwalletpic}></img>
+              </Button>
             </Grid>
             <Grid>
               <Typography component="h1" color="inherit" style={{ textAlign: 'center' }} noWrap className={classes.title} >
@@ -585,7 +577,7 @@ class TopBar extends Component {
                   </Typography>
                 </Button>
               )}
-              {/* <Button onClick={this.disconnect}> akdalk</Button> */}
+              {/* <Button onClick={this.disconnect}> 登出测试</Button> */}
             </Grid>
           </Grid>
         </Toolbar>

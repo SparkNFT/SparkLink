@@ -20,12 +20,7 @@ import web3 from './web3'
 import ReactLoading from 'react-loading'
 import Paper from '@material-ui/core/Paper'
 import * as tokens from './tokens_list.json'
-import { TOKENPOCKET, METAMASK, LASTCONNECT, USERADDRESS, MATHWALLET } from './GlobalString.js'
-
-var mathwallet = require('math-js-sdk');
-const tp = require('tp-js-sdk');
-
-
+import { withTranslation } from 'react-i18next';
 
 const {
   pinata_api_key,
@@ -169,7 +164,7 @@ class Publish extends Component {
     shareTimes: 0,
     onLoading: false,
     rootNFTId: '',
-    userAccount: '',
+    usedAcc: '',
     sig: '',
     fileType: '',
     finished: false,
@@ -181,16 +176,16 @@ class Publish extends Component {
   }
 
   async componentDidMount() {
-    console.log("web3.currentProvider"+web3.currentProvider)
+	const { t } = this.props;
     if (!window.ethereum) {
-      alert("请先安装metamask")
+      alert(t('please_install_metamask'))
       window.location.href = '/#/introPublish'
       return
     }
     // const chainId = await window.ethereum.request({ method: 'eth_chainId' })
     const chainId = await window.ethereum.request({ method: 'eth_chainId' })
     if (chainId !== '0x89') {
-      alert("请切换至Polygon 主网络")
+      alert(t('please_set_polygon'))
       await window.ethereum.request({
         method: 'wallet_switchEthereumChain',
         params: [{
@@ -263,6 +258,7 @@ class Publish extends Component {
   }
 
   handleSelectChange = async (value) => {
+	const {t} = this.props
     var tokens_list = tokens.tokens
     let address
     let token_symbol
@@ -282,7 +278,7 @@ class Publish extends Component {
         token_decimal = await token_contract.methods.decimals().call()
         address = value
       } catch (error) {
-        message.error("你提供的地址不是erc20代币，请重新输入")
+        message.error(t('error_no_erc20'))
       }
 
     }
@@ -296,6 +292,7 @@ class Publish extends Component {
   }
 
   submit = async (event) => {
+	  
     /*TODO: call smart contract publish() and wait for publish success event
      * then call backend to get a secret key. Then encrypt the pdf file and upload it to IPFS
      * Finally, form a new metadata json file and send its ipfs hash to backend and publish it
@@ -322,41 +319,9 @@ class Publish extends Component {
       var trimmed_des = this.state.description.replace(/(\r\n\t|\n|\r\t)/gm, " ")
       const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
       const account = accounts[0]
-      // let account = null;
-      // //alert(account);
-      // let value, accounts;
-      // const lastConnect = localStorage.getItem(LASTCONNECT);
-      // switch (lastConnect) {
-      //   case TOKENPOCKET:
-      //     value = await tp.getCurrentWallet()
-      //     account = value.data.address;
-      //     break;
-      //   case MATHWALLET:
-      //     value = await mathwallet.getCurrentWallet()
-      //     account = value.address;
-      //     break;
-      //   case METAMASK:
-      //     accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
-      //     account = accounts[0];
-      //     //alert("hello")
-      //     break;
-      //   default:
-      //     // accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
-      //     // account = accounts[0];
-      //     break;
-      // }
-      //alert(account)
-
-      if (account === null) {
-        alert("请先连接钱包")
-        window.location.href = '/#/';
-        return;
-      }
-      //alert(account)
       this.setState({
-        userAccount: account
+        usedAcc: account
       })
-      //alert(this.state.user)
       var file_url = 'https://coldcdn.com/api/cdn/v5ynur/ipfs/' + this.state.fileIpfs
       var JSONBody = {
         "name": this.state.name,
@@ -405,9 +370,8 @@ class Publish extends Component {
 
         var gasPrice = await web3.eth.getGasPrice()
         var new_gas_price = Math.floor(parseInt(gasPrice) * 1.5).toString()
-        //alert("this.state.userAccount: "+this.state.userAccount)
         contract.methods.publish(price_with_decimal, this.state.bonusFee, this.state.shareTimes, ipfsToContract, this.state.token_addr).send({
-          from: this.state.userAccount,
+          from: this.state.usedAcc,
           gasPrice: new_gas_price
         })
           .on('receipt', function (receipt) {
@@ -476,6 +440,7 @@ class Publish extends Component {
   }
 
   render() {
+	const { t } = this.props
     const { classes } = this.props
     let obj = this
     const { TextArea } = Input
@@ -601,14 +566,14 @@ class Publish extends Component {
             <TopBar />
             <div style={{ textAlign: 'center' }}>
               <Typography className={classes.titleCon}>
-                <b> 🎉 恭喜您发布成功</b>
+                <b>{t('pulish_success')}</b>
               </Typography>
 
               <Paper className={classes.paperImg}>
                 <img style={{ width: 300, marginTop: 20, marginBottom: 50 }} src={this.state.coverURL}></img>
               </Paper>
               <Typography variant="h4" style={{ marginTop: 20, fontFamily: 'Ubuntu' }}>
-                <b>您获得的NFT是： #{this.state.rootNFTId}</b>
+                <b>{t('you_gain_nft')} #{this.state.rootNFTId}</b>
               </Typography>
 
               <Button
@@ -617,7 +582,7 @@ class Publish extends Component {
                 style={{ marginTop: 50, width: 200, height: 50, marginBottom: 50 }}
                 onClick={this.checkDetail}
               >
-                查看详情
+                {t('show_detail')}
               </Button>
             </div>
           </ThemeProvider>
@@ -625,7 +590,7 @@ class Publish extends Component {
       )
     } else {
       return (
-        <Spin spinning={this.state.onLoading} size='large' style={{ marginTop: 1000 }}>
+        <Spin spinning={this.state.onLoading} size='large' style={{marginTop: 1000}}>
 
           <ThemeProvider theme={theme}>
             <TopBar />
@@ -633,14 +598,14 @@ class Publish extends Component {
               <div className={classes.paper}>
                 {/* {showLoading()} */}
                 <Typography className={classes.titlePub}>
-                  <b>发布作品信息</b>
+                  <b>{t('art_info')}</b>
                 </Typography>
                 <form className={classes.form} noValidate>
                   <Grid container spacing={2}>
                     <Grid item style={{ width: "100%" }}>
-                      <label style={{ fontSize: 18, marginBottom: 10 }}>作品名字 <span style={{ color: "red" }}>*</span></label>
+                      <label style={{ fontSize: 18, marginBottom: 10 }}>{t('art_name')} <span style={{ color: "red"}}>*</span></label>
                       <Input
-                        placeholder="作品名称"
+                        placeholder={t('art_name')}
                         allowClear
                         id="pubName"
                         onChange={this.handleGetPubName}
@@ -649,8 +614,8 @@ class Publish extends Component {
                       />
                     </Grid>
                     <Grid item style={{ width: "100%" }}>
-                      <label style={{ fontSize: 18, marginTop: 20 }}>收益比例 <span style={{ color: "red" }}>*</span></label>
-                      <p style={{ fontSize: 14 }}>当您的作品被他人分享并获利时，您希望从他的分享利润中获得多少比例的收益</p>
+                      <label style={{ fontSize: 18, marginTop: 20 }}>{t('fit_rate')} <span style={{ color: "red"}}>*</span></label>
+                      <p style={{ fontSize: 14 }}>{t('fit_rate_tip')}</p>
                       <InputNumber
                         id="bonusFee"
                         defaultValue={0}
@@ -663,12 +628,12 @@ class Publish extends Component {
                       />
                     </Grid>
                     <Grid item style={{ width: "100%" }}>
-                      <label style={{ fontSize: 18, marginTop: 20 }}>通行代币 <span style={{ color: "red" }}>*</span></label>
-                      <p style={{ fontSize: 14 }}>请选择您支持的支付货币 (输入代币符号或地址)</p>
+                      <label style={{ fontSize: 18, marginTop: 20 }}>{t('access_coin')} <span style={{ color: "red"}}>*</span></label>
+                      <p style={{ fontSize: 14 }}>{t('access_coin_tip')}</p>
                       <Select
                         showSearch
                         value={this.state.token_addr}
-                        placeholder={"请输入代币符号或地址"}
+                        placeholder={t('please_input_coin')}
                         // className={classes.input}
                         style={{ width: "100%" }}
                         size="large"
@@ -683,7 +648,7 @@ class Publish extends Component {
                       </Select>
                     </Grid>
                     <Grid item style={{ width: "100%" }}>
-                      <label style={{ fontSize: 18, marginTop: 20 }}>售卖价格 ({this.state.token_symbol})<span style={{ color: "red" }}>*</span></label>
+                      <label style={{ fontSize: 18, marginTop: 20 }}>{t('price')} ({this.state.token_symbol})<span style={{ color: "red"}}>*</span></label>
                       <InputNumber
                         id="price"
                         defaultValue={0}
@@ -693,8 +658,8 @@ class Publish extends Component {
                       />
                     </Grid>
                     <Grid item style={{ width: "100%" }}>
-                      <label style={{ fontSize: 18, marginTop: 20 }}>最高分享次数 (MAX： 65535)<span style={{ color: "red" }}>*</span></label>
-                      <p style={{ fontSize: 14 }}>您希望每一个帮助您传播的用户最多能够分享多少次？</p>
+                      <label style={{ fontSize: 18, marginTop: 20 }}>{t('max_share')} (MAX： 65535)<span style={{ color: "red"}}>*</span></label>
+                      <p style={{ fontSize: 14 }}>{t('max_share_tip')}</p>
                       <InputNumber
                         id="shareTimes"
                         defaultValue={0}
@@ -705,8 +670,8 @@ class Publish extends Component {
                       />
                     </Grid>
                     <Grid item style={{ width: "100%" }} >
-                      <label style={{ fontSize: 18, marginTop: 20 }}>作品描述 <span style={{ color: "red" }}>*</span></label>
-                      <p style={{ fontSize: 14 }}>请用简单的话语对您的作品进行描述，精准有效的描述能帮助其他用户更准确得了解您的作品</p>
+                      <label style={{ fontSize: 18, marginTop: 20 }}>{t('art_desc')} <span style={{ color: "red"}}>*</span></label>
+                      <p style={{ fontSize: 14 }}>{t('art_desc_tip')}</p>
                       <TextArea
                         rows={6}
                         id="Description"
@@ -714,28 +679,27 @@ class Publish extends Component {
                       />
                     </Grid>
                   </Grid>
-                  <label style={{ fontSize: 18, marginTop: 50 }}>封面图片 <span style={{ color: "red" }}>*</span></label>
-                  <p style={{ fontSize: 14 }}>请在下方区域上传您的封面图片 <br />
-                    封面文件支持这些格式：JPEG/JPG/PNG</p>
+                  <label style={{ fontSize: 18, marginTop: 50 }}>{t('pic_cover')} <span style={{ color: "red"}}>*</span></label>
+                  <p style={{ fontSize: 14 }}>{t('pic_cover_tip')}</p>
                   <Dragger {...prop} style={{ width: '100%', minHeight: 200 }} id="Uploader" accept=".png, .jpg, .jpeg" >
                     <p className="ant-upload-drag-icon">
                       <InboxOutlined />
                     </p>
-                    <p className="ant-upload-text">上传文件请点击或者拖拽文件到此处</p>
+                    <p className="ant-upload-text">{t('upload_file_tip1')}</p>
                     <p className="ant-upload-hint">
-                      支持单个文件的上传，支持多种类型文件的上传
+                      {t('upload_file_tip2')}
                     </p>
                   </Dragger>
 
-                  <label style={{ fontSize: 18, marginTop: 50 }}>作品文件 <span style={{ color: "red" }}>*</span></label>
-                  <p style={{ fontSize: 14 }}>请在下方区域上传您的作品文件 </p>
+                  <label style={{ fontSize: 18, marginTop: 50 }}>{t('art_file')} <span style={{ color: "red"}}>*</span></label>
+                  <p style={{ fontSize: 14 }}> {t('art_file_tip')}</p>
                   <Dragger {...propFile} style={{ width: '100%', minHeight: 200 }} id="Uploader2" >
                     <p className="ant-upload-drag-icon">
                       <InboxOutlined />
                     </p>
-                    <p className="ant-upload-text">上传文件请点击或者拖拽文件到此处</p>
+                    <p className="ant-upload-text">{t('upload_file_tip1')}</p>
                     <p className="ant-upload-hint">
-                      仅支持单个文件的上传，支持多种类型文件的上传
+                      {t('upload_file_tip2')}
                     </p>
                   </Dragger>
                 </form>
@@ -746,7 +710,7 @@ class Publish extends Component {
                   style={{ marginTop: 50, width: 200, height: 50, marginBottom: 50 }}
                   onClick={this.submit}
                 >
-                  提交信息
+                  {t('submit')}
                 </Button>
               </div>
             </Container>
@@ -759,5 +723,6 @@ class Publish extends Component {
   }
 }
 
-export default withStyles(styles, { withTheme: true })(Publish)
+
+export default  withTranslation()(withStyles(styles, { withTheme: true })(Publish))
 //todo 涉及交易

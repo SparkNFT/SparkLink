@@ -15,6 +15,15 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import { Empty } from 'antd';
 import axios from 'axios';
 import web3 from './web3';
+import Web3 from 'web3';
+import { TOKENPOCKET, METAMASK, LASTCONNECT, USERADDRESS, MATHWALLET } from './GlobalString.js'
+
+//const web3 = new Web3(new Web3.providers.HttpProvider('https://matic-mainnet--jsonrpc.datahub.figment.io/apikey/e84b63fff0e37deb30837101f20eb793/'))
+//TP钱包支持
+const tp = require('tp-js-sdk');
+//麦子钱包支持
+const mathwallet = require('math-js-sdk');
+
 
 const theme = createTheme({
   palette: {
@@ -139,14 +148,59 @@ class Collections extends Component {
     onloading: false,
     SkeletoNumber: 0,
     noNFT: true,
+    tpAPP: false,
+    mathAPP: false,
   };
 
   async componentDidMount() {
-    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-    if (accounts.length === 0) {
-      alert("请先连接Metamask")
+    // const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+    // if (accounts.length === 0) {
+    //   alert("请先连接Metamask")
+    // }
+    // const account = accounts[0];
+    web3.setProvider(new Web3.providers.HttpProvider('https://matic-mainnet--jsonrpc.datahub.figment.io/apikey/e84b63fff0e37deb30837101f20eb793/'))
+    var account = null;
+    var value, accounts;
+    const lastConnect = localStorage.getItem(LASTCONNECT);
+    switch (lastConnect) {
+      case TOKENPOCKET:
+        value = await tp.getCurrentWallet()
+        account = value.data.address;
+        break;
+      case MATHWALLET:
+        value = await mathwallet.getCurrentWallet()
+        account = value.address;
+        break;
+      case METAMASK:
+        accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+        account = accounts[0];
+        break;
+      default:
+        // accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+        // account = accounts[0];
+        break;
     }
-    const account = accounts[0];
+
+    // if (lastConnect === TOKENPOCKET) {
+    //   const value = await tp.getCurrentWallet()
+    //   account = value.data.address;
+    // }
+    // else if (lastConnect === MATHWALLET) {
+    //   const value = await mathwallet.getCurrentWallet()
+    //   account = value.address;
+    //   //alert(account)
+    // }
+    // else if (lastConnect === METAMASK) {
+    //   const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+    //   account = accounts[0];
+    // }
+    //alert(account)
+
+    if (account === null) {
+      alert("请先连接钱包")
+      window.location.href = '/#/';
+      return;
+    }
     const chainId = await window.ethereum.request({ method: 'eth_chainId' });
     if (chainId !== '0x89') {
       alert("请切换至Polygon 主网络");
@@ -159,7 +213,6 @@ class Collections extends Component {
     }
 
     let cards = [];
-
     const nft_number = await contract.methods.balanceOf(account).call()
     console.log('nft_number: ', nft_number)
     if (nft_number === 0) {
@@ -174,17 +227,29 @@ class Collections extends Component {
     this.setState({
       noNFT: false
     })
-    let data = await this.getMetadata(contract, ids);
+    let metadatas = await this.getMetadata(contract, ids);
+    // console.log(metadatas);
+
     for (let i = 0; i < ids.length; i++) {
       let element = {
         id: ids[i],
-        title: data[i].name,
-        description: data[i].description,
-        bonusFee: data[i].attributes.value,
-        image: data[i].image,
+        title: metadatas[i].name,
+        description: metadatas[i].description,
+        bonusFee: metadatas[i].attributes.value,
+        image: metadatas[i].image,
       }
       cards.push(element);
     }
+    // const cards = ids.map(id => {
+    //   return {
+    //     id,
+    //     title: metadatas[i].name,
+    //     description: metadatas[i].description,
+    //     bonusFee: metadatas[i].attributes.value,
+    //     image: metadatas[i].image,
+    //   }
+    // }).reverse()
+
     var reversed_cards = cards.reverse()
     this.setState({ viewable: true, });
     this.setState({ cards: reversed_cards, });
@@ -195,23 +260,26 @@ class Collections extends Component {
 
   }
 
-  getMetadata = async (nft, id) => {
-    let metaDatas = [];
-    for (let i = 0; i < id.length; i++) {
-      let ipfs_link = await nft.methods.tokenURI(id[i]).call();
-      var ipfs_hash_arr = ipfs_link.split('/')
-      var ipfs_hash = ipfs_hash_arr[ipfs_hash_arr.length - 1]
-      var meta = "https://coldcdn.com/api/cdn/v5ynur/ipfs/" + ipfs_hash
-      // console.debug("meta: " + id[i] + " " + meta)
-      await axios({
-        method: 'get',
-        url: meta,
-        timeout: 1000 * 2,
-      }).then(res => {
-        // console.log("meta: ", res.data)
-        metaDatas.push(res.data)
-      }).catch(error => {
-        var name_holder = 'SparkNFT#' + id[i]
+  componentWillUnmount() {
+    web3.setProvider(window.ethereum);
+
+  }
+
+  getMetadata = async (contract, ids) => {
+    return Promise.all(ids.map(async (id) => {
+      let ipfs_link = await contract.methods.tokenURI(id).call();
+      var ipfs_hash_arr = ipfs_link.split('/');
+      var ipfs_hash = ipfs_hash_arr[ipfs_hash_arr.length - 1];
+      var meta = "https://coldcdn.com/api/cdn/v5ynur/ipfs/" + ipfs_hash;
+      // console.debug("meta: " + ids[i] + " " + meta)
+      try {
+        return (await axios({
+          method: 'get',
+          url: meta,
+          timeout: 1000 * 2,
+        })).data
+      } catch (err) {
+        var name_holder = 'SparkNFT#' + id;
         var placeholder = {
           "name": name_holder,
           "description": '暂时无法获取到该nft的相关描述',
@@ -227,27 +295,27 @@ class Collections extends Component {
               "value": 'file_url'
             }
           ]
-        }
-        metaDatas.push(placeholder);
-      })
-    }
-    return metaDatas;
+        };
+        return placeholder;
+      }
+    }));
   }
 
   getNft = async (nft, account) => {
-    let balanceId = [];
+    // let balanceId = [];
     //0x9452644E9fdd59bD46A4d9eC24462995ADfD8d01
     var checksum_address = web3.utils.toChecksumAddress(account);
     var url = this.backend + '/api/v1/nft/list?owner=' + checksum_address
     console.debug('owner: ', checksum_address)
     try {
       var res = await axios.get(url)
-      balanceId = res.data.nft
+      // balanceId = res.data.nft
       this.setState({
         onloading: true,
-        SkeletoNumber: balanceId.length
+        SkeletoNumber: res.data.nft.length
       })
-      return balanceId;
+      // return balanceId;
+      return res.data.nft
     } catch (error) {
       // alert('无法获取您当前拥有的nft')
       return [];
@@ -338,17 +406,17 @@ class Collections extends Component {
           </Container>
         </ThemeProvider>
         {this.state.noNFT ? (
-          <Empty 
+          <Empty
             description={
               <span style={{ fontFamily: 'Teko' }}>
                 <b>暂无可展示NFT</b>
               </span>
             }
-            style={{marginTop: 100}}
-            />
-        ):(
+            style={{ marginTop: 100 }}
+          />
+        ) : (
           <main>
-            { <Container className = {classes.cardGrid} maxWidth="md">
+            {<Container className={classes.cardGrid} maxWidth="md">
               <Grid container spacing={4}>
                 {
                   (this.state.onloading ? Array.from(new Array(this.state.SkeletoNumber)) : this.state.cards).map((card, index) => {
@@ -359,7 +427,7 @@ class Collections extends Component {
             </Container>}
           </main>
         )}
-        
+
       </div>
     );
   }
