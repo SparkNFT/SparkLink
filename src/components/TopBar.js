@@ -56,8 +56,7 @@ const styles = (theme) => ({
 	},
 	titleGrid: {
 		marginTop: 25,
-		marginBottom: 10,
-		textAlign: 'center',
+		marginBottom: 10
 	},
 	titleToken: {
 		fontSize: 22,
@@ -189,9 +188,10 @@ const styles = (theme) => ({
 	logo: {
 		objectFit: 'contain',
 		content: 'url('+fullLogo+')',
-		width: '160px',
+		width: '200px',
 		height: '40px',
 		[theme.breakpoints.down('sm')]: {
+			width: '50px',
 			content: 'url('+sLogo+')'
 		}
 	},
@@ -451,7 +451,7 @@ class TopBar extends Component {
 
 				<Toolbar>
 					<Grid container direction="row" justifyContent="space-between" wrap="nowrap">
-						<Grid item className={classes.titleGrid} xs={2}>
+						<Grid item className={classes.titleGrid}>
 							<a href="/#/" className={classes.logo} />
 						</Grid>
 						<Grid item className={classes.btnGrid}>
