@@ -30,16 +30,18 @@ const styles = (theme) => ({
 			color: '#FFFFFF',
 		},
 		[theme.breakpoints.between('xs', 'sm')]: {
-			fontSize: 5,
+			fontSize: 15,
+			paddingLeft: 10,
+			paddingRight: 10,
 		},
 		[theme.breakpoints.between('sm', 'md')]: {
-			fontSize: 10,
+			fontSize: 20,
 		},
 		[theme.breakpoints.between('md', 'lg')]: {
-			fontSize: 16,
+			fontSize: 26,
 		},
 		[theme.breakpoints.between('lg', 'xl')]: {
-			fontSize: 16,
+			fontSize: 26,
 			paddingLeft: 30,
 			paddingRight: 30,
 		},
@@ -60,18 +62,18 @@ const styles = (theme) => ({
 			color: '#FFFFFF',
 		},
 		[theme.breakpoints.between('xs', 'sm')]: {
-			fontSize: 5,
+			fontSize: 15,
 			paddingLeft: 10,
 			paddingRight: 10,
 		},
 		[theme.breakpoints.between('sm', 'md')]: {
-			fontSize: 10,
+			fontSize: 20,
 		},
 		[theme.breakpoints.between('md', 'lg')]: {
-			fontSize: 16,
+			fontSize: 26,
 		},
 		[theme.breakpoints.between('lg', 'xl')]: {
-			fontSize: 16,
+			fontSize: 26,
 			paddingLeft: 30,
 			paddingRight: 30,
 		},
@@ -92,7 +94,7 @@ const styles = (theme) => ({
 		marginTop: 20,
 		lineHeight: 1.5,
 		[theme.breakpoints.between('xs', 'sm')]: {
-			fontSize: 16,
+			fontSize: 16
 		},
 		[theme.breakpoints.between('sm', 'md')]: {
 			fontSize: 20,
@@ -175,7 +177,7 @@ class IntroPublish extends Component {
 								<br />
 							</Typography>
 							<Grid container justifyContent="center" style={{ fontFamily: 'Teko', marginTop: 70 }}>
-								<Grid item xs={4}>
+								<Grid item style={{display: 'flex'}} justifyContent="center" xs={12}>
 									<Button
 										size="large"
 										variant="contained"
@@ -183,10 +185,10 @@ class IntroPublish extends Component {
 										className={classes.btnMain}
 										href="/#/encryptedPublish"
 									>
-										<b>{t('publish_encry')}</b>
+                  	<b>{t('publish_encry')}</b>
 									</Button>
 								</Grid>
-								<Grid item xs={3}>
+								<Grid item  style={{display: 'flex' ,marginTop: 20}} justifyContent="center"  xs={12}>
 									<Button
 										size="large"
 										variant="contained"
