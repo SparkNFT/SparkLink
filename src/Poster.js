@@ -76,11 +76,9 @@ const Poster = (props) => {
       canvas.width=424
       canvas.height=600
       const ctx = canvas.getContext('2d')
-      const ratio = getPixelRatio(ctx);
+      //const ratio = getPixelRatio(ctx);
       canvas.style.width = canvas.width + 'px';
       canvas.style.height = canvas.height + 'px';
-      canvas.width = canvas.width * ratio;
-      canvas.height = canvas.height * ratio;
       ctx.globalCompositeOperation = 'destination-over'
       draw(ctx,data)
       
