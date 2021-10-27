@@ -38,9 +38,9 @@ function LanguageBtn({ fontColor }) {
 
 	return (
 		<>
-			<Button aria-haspopup="true" onClick={handleClick} style={{ marginLeft: 15, marginRight: 15}}>
+			<Button aria-haspopup="true" onClick={handleClick} style={{ marginLeft: 5, marginRight: 5}}>
 				<TranslateIcon style={{ color: fontColor, fontSize: 20 }} />
-				<p style={{ color: fontColor, fontSize: 16 }}>{options[selectedIndex].toUpperCase()}</p>
+				<p style={{ color: fontColor, fontSize: 12 }}>{options[selectedIndex].toUpperCase()}</p>
 				<DownIcon style={{ color: fontColor }} />
 			</Button>
 			<Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>

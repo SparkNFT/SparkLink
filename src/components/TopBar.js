@@ -102,7 +102,7 @@ const styles = (theme) => ({
 	btnGrid: {
 		// marginTop: 25,
 		marginBottom: 10,
-		minWidth: 400,
+		minWidth: 430,
 		marginTop: 30,
 		display: 'flex',
 		alignItems: 'center',

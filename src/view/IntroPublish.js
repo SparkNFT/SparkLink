@@ -61,7 +61,8 @@ const styles = (theme) => ({
 		},
 		[theme.breakpoints.between('xs', 'sm')]: {
 			fontSize: 5,
-			width: 95,
+			paddingLeft: 10,
+			paddingRight: 10,
 		},
 		[theme.breakpoints.between('sm', 'md')]: {
 			fontSize: 10,
