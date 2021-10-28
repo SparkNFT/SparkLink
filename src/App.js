@@ -87,12 +87,9 @@ const styles = (theme) => ({
 		},
 		[theme.breakpoints.between('lg', 'xl')]: {
 			fontSize: 26,
-			width: 150,
 		},
 		[theme.breakpoints.up('xl')]: {
 			fontSize: 30,
-			width: 300,
-			height: 70,
 		},
 	},
 	btnSecond: {
@@ -112,12 +109,10 @@ const styles = (theme) => ({
 		},
 		[theme.breakpoints.between('lg', 'xl')]: {
 			fontSize: 26,
-			width: 150,
 		},
 		[theme.breakpoints.up('xl')]: {
 			fontSize: 30,
-			width: 300,
-			height: 70,
+
 		},
 	},
 	paper: {

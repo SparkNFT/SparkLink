@@ -31,8 +31,8 @@ const styles = (theme) => ({
 		},
 		[theme.breakpoints.between('xs', 'sm')]: {
 			fontSize: 15,
-			paddingLeft: 10,
-			paddingRight: 10,
+			paddingLeft: 20,
+			paddingRight: 20,
 		},
 		[theme.breakpoints.between('sm', 'md')]: {
 			fontSize: 20,
@@ -63,8 +63,8 @@ const styles = (theme) => ({
 		},
 		[theme.breakpoints.between('xs', 'sm')]: {
 			fontSize: 15,
-			paddingLeft: 10,
-			paddingRight: 10,
+			paddingLeft: 20,
+			paddingRight: 20,
 		},
 		[theme.breakpoints.between('sm', 'md')]: {
 			fontSize: 20,
@@ -177,7 +177,7 @@ class IntroPublish extends Component {
 								<br />
 							</Typography>
 							<Grid container justifyContent="center" style={{ fontFamily: 'Teko', marginTop: 70 }}>
-								<Grid item style={{display: 'flex'}} justifyContent="center" xs={12}>
+								<Grid item style={{display: 'flex'}} justifyContent="center" xl={6} xs={12} >
 									<Button
 										size="large"
 										variant="contained"
@@ -188,7 +188,7 @@ class IntroPublish extends Component {
                   	<b>{t('publish_encry')}</b>
 									</Button>
 								</Grid>
-								<Grid item  style={{display: 'flex' ,marginTop: 20}} justifyContent="center"  xs={12}>
+								<Grid item  style={{display: 'flex' ,marginTop: 20}} justifyContent="center" xl={6} xs={12} >
 									<Button
 										size="large"
 										variant="contained"
