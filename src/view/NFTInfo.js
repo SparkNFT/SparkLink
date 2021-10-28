@@ -257,6 +257,7 @@ class NFTInfo extends Component {
 		account: null,
 		loadItem: true,
 		Cover: '',
+		isCoverLoaded: false,
 		Name: '',
 		Description: '',
 		BonusFee: 0,
@@ -358,7 +359,7 @@ class NFTInfo extends Component {
 			let profit = price_with_decimal + ' MATIC'
 
 			let price_poster = price / 10 ** 18
-			price_poster = price_poster + 'MATIC'
+			price_poster = price_poster + ' MATIC'
 			this.setState({
 				price: price_poster,
 				tokenAddr: '0x0000000000000000000000000000000000000000',
@@ -425,6 +426,7 @@ class NFTInfo extends Component {
 				Description: data.description,
 				BonusFee: royalty,
 				Cover: data.image,
+				isCoverLoaded: true,
 				dataUrl: fileAddr,
 				isEncrypt: isEncrypt,
 				encrypted: encrypted,
@@ -684,9 +686,11 @@ class NFTInfo extends Component {
 		return new Uint8Array(result)
 	}
 
-	spark = () => {
-		const flag = this.state.spark
-		this.setState({ spark: !flag })
+	setFlag = (name) => {
+		const obj = {}
+		const flag = this.state[name]
+		obj[name] = !flag
+		this.setState(obj)
 	}
 
 	downloadPoster = (res) => {
@@ -699,14 +703,14 @@ class NFTInfo extends Component {
 			let toUrl = 'https://' + url + '/#/NFT/Spark/' + this.props.match.params.id
 			// let share = '分享复制链接：' + toUrl
 			// this.state.onSale
-			if (this.state.spark) {
-				const coverRef = document.getElementById('cover')
+			const coverRef = document.getElementById('cover')
+			if (this.state.spark && this.state.Cover !== '' && coverRef ) {
 				const coverHeight = coverRef.height
 				const coverWidth = coverRef.width
 				return (
 					<div>
 						{this.state.spark ? (
-							<MaskLayer onClose={this.spark}>
+							<MaskLayer onClose={()=>this.setFlag('spark')}>
 								<Poster
 									str={this.state.price}
 									share={toUrl}
@@ -861,7 +865,7 @@ class NFTInfo extends Component {
 									>
 										<Grid style={{ maxWidth: 200 }}>
 											<Paper className={classes.imagePapaer}>
-												<img className={classes.imageStyle} src={this.state.Cover} id="cover"></img>
+												<img className={classes.imageStyle} src={this.state.Cover} onError={()=>this.setFlag('isCoverLoaded')} id="cover" crossOrigin="anonymous" ></img>
 											</Paper>
 										</Grid>
 
@@ -950,7 +954,8 @@ class NFTInfo extends Component {
 														target="_blank"
 														className={classes.btnSecond}
 														startIcon={<FireOutlined />}
-														onClick={this.spark}
+														onClick={()=>this.setFlag('spark')}
+														disabled = {!this.state.isCoverLoaded}
 													>
 														<font size="3">点火分享</font>
 													</Button>
