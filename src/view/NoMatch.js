@@ -1,7 +1,7 @@
 /*
  * @Author: Chan
  * @Date: 2021-10-28 10:51:04
- * @LastEditTime: 2021-10-28 15:18:13
+ * @LastEditTime: 2021-10-28 15:26:59
  * @LastEditors: Chan
  * @Description: 404
  */
@@ -26,13 +26,7 @@ const NoMatch = () => {
         <Typography className="title" component="" color="inherit" noWrap>
           <b>404</b>
         </Typography>
-        <Typography
-          component="div"
-          className="subtitle"
-          color="textSecondary"
-          paragraph
-          style={{ fontSize: 20, fontFamily: 'Teko' }}
-        >
+        <Typography component="div" className="subtitle" color="textSecondary" paragraph>
           {t('no_match_title')}
         </Typography>
       </div>
