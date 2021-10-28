@@ -707,11 +707,6 @@ class NFTInfo extends Component {
 			if (this.state.spark && this.state.Cover !== '' && coverRef ) {
 				const coverHeight = coverRef.height
 				const coverWidth = coverRef.width
-				const obj = {}
-				for (let prop in coverRef ) {
-					obj[prop] = coverRef[ prop ]
-				}
-				console.log(obj)
 				return (
 					<div>
 						{this.state.spark ? (
@@ -870,7 +865,7 @@ class NFTInfo extends Component {
 									>
 										<Grid style={{ maxWidth: 200 }}>
 											<Paper className={classes.imagePapaer}>
-												<img className={classes.imageStyle} src={this.state.Cover} onError={()=>this.state.setFlag('isCoverLoaded')} id="cover" crossOrigin="anonymous" ></img>
+												<img className={classes.imageStyle} src={this.state.Cover} onError={()=>this.setFlag('isCoverLoaded')} id="cover" crossOrigin="anonymous" ></img>
 											</Paper>
 										</Grid>
 
