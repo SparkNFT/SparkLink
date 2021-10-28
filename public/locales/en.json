@@ -39,5 +39,6 @@
 	"no_NFT_owner":"You are not the owner of this NFT",
 	"index":"Home",
 	"collection":"Collection",
-	"publish":"Publish"
+	"publish":"Publish",
+	"no_match_title":"Even a prairie fire cannot burn all the weeds, it grows again when the spring breeze blows."
 }
