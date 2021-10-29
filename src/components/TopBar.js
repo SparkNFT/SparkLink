@@ -190,7 +190,7 @@ const styles = (theme) => ({
 	logo: {
 		objectFit: 'contain',
 		content: 'url('+fullLogo+')',
-		width: '200px',
+		width: '120px',
 		height: '40px',
 		[theme.breakpoints.down('sm')]: {
 			width: '30px',

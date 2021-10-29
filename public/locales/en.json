@@ -29,7 +29,11 @@
 	"art_file_tip":"Please upload your work file in the area below",
 	"submit":"submit",
 	"publish_open":"Open Source publish",
+<<<<<<< HEAD
 	"publish_encry":"Encryption publish",
+=======
+	"publish_encry":"Encryption　publish",
+>>>>>>> b74b1e6526b86fd9c98de77fd8d2a74c72e60872
 	"have_submit":"uploaded information?",
 	"up_file":"Upload Item file",
 	"cancel":"Cancel",

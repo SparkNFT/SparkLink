@@ -155,8 +155,8 @@ class Collections extends Component {
 		// if (accounts.length === 0) {
 		// 	alert('请先连接Metamask')
 		// }
-
-		web3.setProvider(new Web3.providers.HttpProvider('https://matic-mainnet--jsonrpc.datahub.figment.io/apikey/e84b63fff0e37deb30837101f20eb793/'))
+		web3.setProvider(new Web3.providers.HttpProvider('https://polygon-mainnet.infura.io/v3/0232394ba4b34544a778575aefa2ee8c'))
+		//web3.setProvider(new Web3.providers.HttpProvider('https://matic-mainnet--jsonrpc.datahub.figment.io/apikey/e84b63fff0e37deb30837101f20eb793/'))
 		var account = null;
 		var value, accounts;
 		const lastConnect = localStorage.getItem(LASTCONNECT);
@@ -307,12 +307,12 @@ class Collections extends Component {
   render () {
   	const { classes } = this.props
   	let obj = this
-  	window.ethereum.on('chainChanged', handleChainChanged)
+  	// window.ethereum.on('chainChanged', handleChainChanged)
 
-  	function handleChainChanged (_chainId) {
-  		console.log(_chainId)
-  		window.location.reload()
-  	}
+  	// function handleChainChanged (_chainId) {
+  	// 	console.log(_chainId)
+  	// 	window.location.reload()
+  	// }
 
   	function showCard (card, index) {
   		let res = (
