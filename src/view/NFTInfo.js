@@ -289,6 +289,11 @@ class NFTInfo extends Component {
 			})
 		}
 
+		//TODO
+		// if(mathwallet.isMath()){
+		// 	web3.setProvider(window.ethereum);
+		// }
+
 		const price = await contract.methods.getShillPriceByNFTId(this.props.match.params.id).call()
 		const owner = await contract.methods.ownerOf(this.props.match.params.id).call()
 

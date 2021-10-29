@@ -3,6 +3,9 @@ import bgImg from '../imgs/poster.png';
 import loading from '../imgs/imgloading.png';
 import QRCode from 'qrcode';
 
+
+
+
 const Poster = (props) => {
 	let { str, share, coverImg, coverHeight, coverWidth } = props;
 	//coverImg = document.getElementById('cover')
@@ -13,20 +16,49 @@ const Poster = (props) => {
 	const imgRef = useRef(null);
 	useEffect(() => {
 		function draw(ctx, dataUrl) {
-			let qrcode = new Image();
-			qrcode.onload = function () {
-				ctx.drawImage(qrcode, 307, 331, 73, 73);
-				coverImg.crossOrigin = 'anonymous';
-				ctx.drawImage(coverImg, ...getImgPos(coverHeight, coverWidth));
-			};
-			qrcode.src = dataUrl;
+			const qrcode = loadImage(dataUrl);
+			const bg = loadImage(bgImg)
+			const coverImgPromise = Promise.resolve(coverImg)
+			// qrcode.onload = function () {
+			// 	ctx.drawImage(qrcode, 307, 331, 73, 73);
+			// 	coverImg.crossOrigin = 'anonymous';
+			// 	console.log('onload qrcode');
+			// 	ctx.drawImage(coverImg, ...getImgPos(coverHeight, coverWidth));
+			// };
+			// qrcode.src = dataUrl;
 
-			let bg = new Image();
+			//let bg = new Image();
 
-			bg.onload = function () {
-				ctx.drawImage(bg, 0, 0, 424, 600);
-			};
-			bg.src = bgImg;
+			// bg.onload = function () {
+			// 	ctx.drawImage(bg, 0, 0, 424, 600);
+			// 	console.log('onload bg')
+			// 	// let qrcode = new Image();
+			// 	// qrcode.onload = function () {
+			// 	// 	ctx.drawImage(qrcode, 307, 331, 73, 73);
+			// 	// 	coverImg.crossOrigin = 'anonymous';
+			// 	// 	console.log('onload qrcode');
+			// 	// 	ctx.drawImage(coverImg, ...getImgPos(coverHeight, coverWidth));				
+			// 	// };
+			// 	// qrcode.src = dataUrl;
+			// };
+
+			Promise.all([bg, qrcode, coverImgPromise])
+				.then(([bg, qrcode, coverImg]) => {
+					coverImg.crossOrigin = 'anonymous';
+					ctx.drawImage(qrcode, 307, 331, 73, 73);
+					console.log(bg);
+					console.log(qrcode)
+					console.log(coverImg)
+					ctx.drawImage(coverImg, ...getImgPos(coverHeight, coverWidth));
+					ctx.drawImage(bg, 0, 0, 424, 600);
+					//ctx.drawImage(qrcode, 307, 331, 73, 73);
+				})
+				.catch((err) => {
+					console.error(err);
+				});
+			//qrcode.src = dataUrl;
+
+			//bg.src = bgImg;
 
 			ctx.font = '18px serif';
 			ctx.fillText(price, 122, 384);
@@ -37,13 +69,13 @@ const Poster = (props) => {
 		}
 		/* function getPixelRatio(context) {
 			const backingStore =
-        context.backingStorePixelRatio ||
-        context.webkitBackingStorePixelRatio ||
-        context.mozBackingStorePixelRatio ||
-        context.msBackingStorePixelRatio ||
-        context.oBackingStorePixelRatio ||
-        context.backingStorePixelRatio ||
-        1;
+		context.backingStorePixelRatio ||
+		context.webkitBackingStorePixelRatio ||
+		context.mozBackingStorePixelRatio ||
+		context.msBackingStorePixelRatio ||
+		context.oBackingStorePixelRatio ||
+		context.backingStorePixelRatio ||
+		1;
 			return (window.devicePixelRatio || 1) / backingStore;
 		} */
 		function getImgPos(h, w) {
@@ -61,6 +93,20 @@ const Poster = (props) => {
 				const preY = 180 - preHeight / 2;
 				return [30, preY, 364, preHeight];
 			}
+		}
+
+
+		function loadImage(imagePath) {
+			return new Promise((resolve, reject) => {
+				let image = new Image();
+				image.addEventListener('load', () => {
+					resolve(image);
+				});
+				image.addEventListener('error', (err) => {
+					reject(err);
+				});
+				image.src = imagePath;
+			});
 		}
 
 		QRCode.toDataURL(share, {

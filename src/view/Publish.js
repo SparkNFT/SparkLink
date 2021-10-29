@@ -505,7 +505,14 @@ class Publish extends Component {
 				})
 			},
 			async onChange(info) {
-				const { status } = info.file
+				let { status } = info.file
+				console.log(info)
+				// if (type === 'image/png' || type === 'image/jpg' || type === 'image/jpeg') {
+				// 	status = 'done';
+				// }
+				// else {
+				// 	status = 'error';
+				// }
 				// text/plain image/jpeg application/pdf
 				if (status === 'done') {
 					message.success(`${info.file.name} file uploaded successfully.`)
@@ -725,7 +732,8 @@ class Publish extends Component {
 										{t('pic_cover')} <span style={{ color: 'red' }}>*</span>
 									</label>
 									<p style={{ fontSize: 14 }}>{t('pic_cover_tip')}</p>
-									<Dragger {...prop} style={{ width: '100%', minHeight: 200 }} id="Uploader" accept=".png, .jpg, .jpeg">
+									{/* <Dragger {...prop} style={{ width: '100%', minHeight: 200 }} id="Uploader" accept=".png, .jpg, .jpeg"> */}
+									<Dragger {...prop} style={{ width: '100%', minHeight: 200 }} accept="image/*" id="Uploader">
 										<p className="ant-upload-drag-icon">
 											<InboxOutlined />
 										</p>

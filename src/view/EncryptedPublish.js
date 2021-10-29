@@ -790,7 +790,7 @@ class EncryptedPublish extends Component {
 								)}
 								<label style={{ fontSize: 18, marginTop: 50 }}>{t('pic_cover')} *</label>
 								<p style={{ fontSize: 12 }}>{t('pic_cover_tip')}</p>
-								<Dragger {...prop} style={{ width: '100%', minHeight: 100 }} id="Uploader" accept=".png, .jpg, .jpeg">
+								<Dragger {...prop} style={{ width: '100%', minHeight: 100 }} id="Uploader" accept="image/*">
 									<p className="ant-upload-drag-icon">
 										<InboxOutlined />
 									</p>

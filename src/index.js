@@ -7,6 +7,14 @@ import 'bootstrap/dist/css/bootstrap-theme.css'
 import Router from './router/Router'
 import './utils/i18n'
 
+// const cors = require('cors');
+// const corsOptions ={
+// 	origin:'http://localhost:3000', 
+// 	credentials:true,            //access-control-allow-credentials:true
+// 	optionSuccessStatus:200
+// }
+// app.use(cors(corsOptions));
+
 ReactDOM.render(<Router />, document.getElementById('root'))
 
 // If you want your app to work offline and load faster, you can change
