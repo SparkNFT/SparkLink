@@ -112,7 +112,6 @@ const styles = (theme) => ({
 		},
 		[theme.breakpoints.up('xl')]: {
 			fontSize: 30,
-
 		},
 	},
 	paper: {

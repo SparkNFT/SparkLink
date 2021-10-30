@@ -25,25 +25,25 @@ const initCanvas = () => {
 	//const ratio = getPixelRatio(ctx);
 	cvs.style.width = cvs.width + 'px';
 	cvs.style.height = cvs.height + 'px';
-	
-	return [cvs,ctx]
+
+	return [cvs, ctx]
 }
 
 const getImgPos = (h, w) => {
 	console.log(h, w);
 	const ratio = h / w;
 	const standardRatio = 260 / 364;
-	if (ratio - standardRatio < 0.1 && ratio - standardRatio > -0.1) {
-		return [30,50,364,260]
+	if (ratio - standardRatio < 0.01 && ratio - standardRatio > -0.01) {
+		return [30, 50, 364, 260]
 	} else if (ratio > standardRatio) {
-		const preWidth = 260 * w / h;
+		const preWidth = (260 * w) / h;
 		const preX = 212 - preWidth / 2;
-		return [preX,50,preWidth,260]
+		return [preX, 50, preWidth, 260]
 	} else {
 		const preHeight = 364 * ratio;
 		const preY = 180 - preHeight / 2;
-		return [30,preY,364,preHeight]
-		
+		return [30, preY, 364, preHeight]
+
 	}
 }
 

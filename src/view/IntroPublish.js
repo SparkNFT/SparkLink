@@ -177,7 +177,7 @@ class IntroPublish extends Component {
 								<br />
 							</Typography>
 							<Grid container justifyContent="center" style={{ fontFamily: 'Teko', marginTop: 70 }}>
-								<Grid item style={{display: 'flex'}} justifyContent="center" xl={6} xs={12} >
+								<Grid item style={{ display: 'flex' }} justifyContent="center" xl={6} xs={12} >
 									<Button
 										size="large"
 										variant="contained"
@@ -185,10 +185,10 @@ class IntroPublish extends Component {
 										className={classes.btnMain}
 										href="/#/encryptedPublish"
 									>
-                  	<b>{t('publish_encry')}</b>
+										<b>{t('publish_encry')}</b>
 									</Button>
 								</Grid>
-								<Grid item  style={{display: 'flex' ,marginTop: 20}} justifyContent="center" xl={6} xs={12} >
+								<Grid item style={{ display: 'flex', marginTop: 20 }} justifyContent="center" xl={6} xs={12} >
 									<Button
 										size="large"
 										variant="contained"

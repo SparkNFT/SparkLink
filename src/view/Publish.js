@@ -725,7 +725,7 @@ class Publish extends Component {
 										{t('pic_cover')} <span style={{ color: 'red' }}>*</span>
 									</label>
 									<p style={{ fontSize: 14 }}>{t('pic_cover_tip')}</p>
-									<Dragger {...prop} style={{ width: '100%', minHeight: 200 }} id="Uploader" accept=".png, .jpg, .jpeg">
+									<Dragger {...prop} style={{ width: '100%', minHeight: 200 }} id="Uploader" accept="image/*">
 										<p className="ant-upload-drag-icon">
 											<InboxOutlined />
 										</p>
