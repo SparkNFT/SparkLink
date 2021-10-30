@@ -36,9 +36,6 @@ const theme = createTheme({
 		primary: {
 			main: '#2196f3',
 		},
-		secondary: {
-			main: '#FDFEFE',
-		},
 	},
 })
 
@@ -48,6 +45,7 @@ const styles = (theme) => ({
 	},
 	cbutton: {
 		fontFamily: 'Teko',
+		height: 70,
 		[theme.breakpoints.between('xs', 'sm')]: {
 			justifyContent: 'center',
 			alignItems: 'flex-start',
@@ -105,6 +103,7 @@ const styles = (theme) => ({
 	},
 	btnSecond: {
 		marginTop: theme.spacing(3),
+		marginLeft: 30,
 		color: '#03A9F4',
 		borderWidth: 3,
 		borderColor: '#03A9F4',
@@ -204,6 +203,7 @@ const styles = (theme) => ({
 	},
 	cbutton2: {
 		fontFamily: 'Teko',
+		height:80,
 		[theme.breakpoints.between('xs', 'sm')]: {
 			justifyContent: 'center',
 			alignItems: 'flex-start',
@@ -823,7 +823,6 @@ class NFTInfo extends Component {
 											style={{ marginTop: 10, marginBottom: 20 }}
 											size="large"
 											variant="outlined"
-											color="secondary"
 											className={classes.btnSecond}
 											startIcon={<DollarCircleOutlined />}
 											href={'/#/sellSingle/' + this.props.match.params.id}
@@ -951,7 +950,6 @@ class NFTInfo extends Component {
 													<Button
 														size="small"
 														variant="outlined"
-														color="secondary"
 														target="_blank"
 														className={classes.btnSecond}
 														startIcon={<FireOutlined />}
