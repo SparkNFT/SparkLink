@@ -725,7 +725,7 @@ class Publish extends Component {
 										{t('pic_cover')} <span style={{ color: 'red' }}>*</span>
 									</label>
 									<p style={{ fontSize: 14 }}>{t('pic_cover_tip')}</p>
-									<Dragger {...prop} style={{ width: '100%', minHeight: 200 }} id="Uploader" accept="image/*">
+									<Dragger {...prop} style={{ width: '100%', minHeight: 200 }} id="Uploader" maxCount='1' accept="image/*">
 										<p className="ant-upload-drag-icon">
 											<InboxOutlined />
 										</p>
@@ -737,7 +737,7 @@ class Publish extends Component {
 										{t('art_file')} <span style={{ color: 'red' }}>*</span>
 									</label>
 									<p style={{ fontSize: 14 }}> {t('art_file_tip')}</p>
-									<Dragger {...propFile} style={{ width: '100%', minHeight: 200 }} id="Uploader2">
+									<Dragger {...propFile} style={{ width: '100%', minHeight: 200 }} maxCount='1' id="Uploader2">
 										<p className="ant-upload-drag-icon">
 											<InboxOutlined />
 										</p>
