@@ -714,7 +714,7 @@ class NFTInfo extends Component {
 								<Poster
 									str={this.state.price}
 									share={toUrl}
-									coverImg={coverRef}
+									coverImg={coverRef.src}
 									coverWidth={coverWidth}
 									coverHeight={coverHeight}
 								/>

@@ -10,6 +10,7 @@ const qrPos = [307, 331, 73, 73]
 const loadImage = url => {
 	return new Promise((resolve, reject) => {
 		const img = new Image();
+		img.crossOrigin = 'anonymous';
 		img.onload = () => resolve(img);
 		img.onerror = () => reject(new Error(`load ${url} fail`));
 		img.src = url;
@@ -32,10 +33,10 @@ const getImgPos = (h, w) => {
 	console.log(h, w);
 	const ratio = h / w;
 	const standardRatio = 260 / 364;
-	if (ratio - standardRatio < 0.01 && ratio - standardRatio > -0.01) {
+	if (ratio - standardRatio < 0.1 && ratio - standardRatio > -0.1) {
 		return [30,50,364,260]
 	} else if (ratio > standardRatio) {
-		const preWidth = (260 * w) / h;
+		const preWidth = 260 * w / h;
 		const preX = 212 - preWidth / 2;
 		return [preX,50,preWidth,260]
 	} else {
@@ -51,9 +52,9 @@ const getImgPos = (h, w) => {
 const Poster = (props) => {
 	
 	const [canvas, ctx] = initCanvas()
-	let { str, share, coverImg, coverHeight, coverWidth } = props;
+	let { str, share, coverImg } = props;
+	console.log(coverImg)
 	
-	const coverPos = getImgPos(coverHeight, coverWidth)
 	const splited = str.split(' ');
 	let price = splited[0];
 	let currency = splited[1];
@@ -65,14 +66,17 @@ const Poster = (props) => {
 	}).then((data) => {
 		const qrcode = loadImage(data)
 		const bg = loadImage(bgImg)
-		Promise.all([bg, qrcode]).then(res => {
+		const cover = loadImage(coverImg)
+		Promise.all([bg, qrcode,cover]).then(res => {
 			ctx.drawImage(res[0],...bgPos)
 			ctx.drawImage(res[1],...qrPos)
-			ctx.drawImage(coverImg,...coverPos)
+			const coverPos = getImgPos(res[2].height, res[2].width)
+			console.log(res[2]);
+			ctx.drawImage(res[2],...coverPos)
 			
-			ctx.font = '18px serif';
+			ctx.font = '18px Consolas';
 			ctx.fillText(price, 122, 384);
-			ctx.font = '12px serif';
+			ctx.font = '12px Consolas';
 			ctx.fillText(currency, 210, 382);
 			ctx.strokeRect(30, 50, 364, 260);
 			setTimeout(()=>{
