@@ -194,6 +194,7 @@ const styles = (theme) => ({
 		height: '40px',
 		[theme.breakpoints.down('sm')]: {
 			width: '30px',
+			transform: 'scale(2.0,2.0)',
 			content: 'url('+sLogo+')'
 		}
 	},
