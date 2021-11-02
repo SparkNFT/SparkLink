@@ -1,6 +1,9 @@
 import React, { useRef } from 'react';
 import bgImg from '../imgs/poster.png';
 import loading from '../imgs/imgloading.png';
+import matic from '../imgs/matic.png';
+import error from '../imgs/error.png';
+import list from '../imgs/assets/info.json';
 import QRCode from 'qrcode';
 
 const bgPos = [0, 0, 424, 600]
@@ -8,11 +11,15 @@ const qrPos = [307, 331, 73, 73]
 
 
 const loadImage = url => {
-	return new Promise((resolve, reject) => {
+	return new Promise((resolve) => {
 		const img = new Image();
 		img.crossOrigin = 'anonymous';
 		img.onload = () => resolve(img);
-		img.onerror = () => reject(new Error(`load ${url} fail`));
+		img.onerror = () => {
+			const temp = new Image();
+			temp.onload = () => resolve(temp);
+			temp.src = error
+		};
 		img.src = url;
 	});
 };
@@ -47,14 +54,33 @@ const getImgPos = (h, w) => {
 	}
 }
 
-//depict(ctx, {uri:bgImg, x:0, y:0, sw:424, sh:600})
+
+const circleImg = (ctx,img,x,y,r) => {
+	ctx.save();
+	var d =2 * r;
+	var cx = x + r;
+	var cy = y + r;
+	ctx.arc(cx, cy, r, 0, 2 * Math.PI);
+	ctx.clip();
+	ctx.drawImage(img, x, y, d, d);
+	ctx.restore();
+}
+
+
 
 const Poster = (props) => {
 	
 	const [canvas, ctx] = initCanvas()
-	let { str, share, coverImg } = props;
-	console.log(coverImg)
-	
+	const { str, addr, share, coverImg } = props;
+	let tokenUrl = 'https://raw.githubusercontent.com/TP-Lab/tokens/master/bsc/' + addr + '/logo.png'
+	if(addr === '0x0000000000000000000000000000000000000000'){
+		tokenUrl = matic
+	} else if(list.indexOf(addr) !== -1){
+		
+		tokenUrl = require(`../imgs/assets/${addr}/logo.png`).default
+		console.log(matic);
+	}
+
 	const splited = str.split(' ');
 	let price = splited[0];
 	let currency = splited[1];
@@ -67,12 +93,15 @@ const Poster = (props) => {
 		const qrcode = loadImage(data)
 		const bg = loadImage(bgImg)
 		const cover = loadImage(coverImg)
-		Promise.all([bg, qrcode,cover]).then(res => {
+		const token = loadImage(tokenUrl)
+		Promise.all([bg, qrcode, cover, token]).then(res => {
 			ctx.drawImage(res[0],...bgPos)
 			ctx.drawImage(res[1],...qrPos)
+			//计算封面图片位置
 			const coverPos = getImgPos(res[2].height, res[2].width)
 			console.log(res[2]);
 			ctx.drawImage(res[2],...coverPos)
+			circleImg(ctx,res[3],182,365,13)
 			
 			ctx.font = '18px Consolas';
 			ctx.fillText(price, 122, 384);

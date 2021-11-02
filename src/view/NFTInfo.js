@@ -704,18 +704,17 @@ class NFTInfo extends Component {
 			// this.state.onSale
 			const coverRef = document.getElementById('cover')
 			if (this.state.spark && this.state.Cover !== '' && coverRef ) {
-				const coverHeight = coverRef.height
-				const coverWidth = coverRef.width
+				//const coverHeight = coverRef.height
+				//const coverWidth = coverRef.width
 				return (
 					<div>
 						{this.state.spark ? (
 							<MaskLayer onClose={() => this.setFlag('spark')}>
 								<Poster
+									addr={this.state.tokenAddr}
+									coverImg={coverRef.src}
 									str={this.state.price}
 									share={toUrl}
-									coverImg={coverRef.src}
-									coverWidth={coverWidth}
-									coverHeight={coverHeight}
 								/>
 							</MaskLayer>
 						) : null}
