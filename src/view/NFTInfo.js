@@ -9,6 +9,7 @@ import TopBar from '../components/TopBar'
 import Poster from '../components/Poster'
 import MaskLayer from '../components/MaskLayer'
 import Paper from '@material-ui/core/Paper'
+import CopyToClipboard from 'react-copy-to-clipboard'
 import {
 	DownloadOutlined,
 	FireOutlined,
@@ -82,7 +83,7 @@ const styles = (theme) => ({
 			alignItems: 'flex-start',
 		},
 		[theme.breakpoints.between('lg', 'xl')]: {
-			justifyContent: 'center',
+			justifyContent: 'flex',
 			alignItems: 'flex-start',
 		},
 		[theme.breakpoints.up('xl')]: {
@@ -103,7 +104,7 @@ const styles = (theme) => ({
 	},
 	btnSecond: {
 		marginTop: theme.spacing(3),
-		marginLeft: 30,
+		marginRight: 30,
 		color: '#03A9F4',
 		borderWidth: 3,
 		borderColor: '#03A9F4',
@@ -204,26 +205,8 @@ const styles = (theme) => ({
 	cbutton2: {
 		fontFamily: 'Teko',
 		height:80,
-		[theme.breakpoints.between('xs', 'sm')]: {
-			justifyContent: 'center',
-			alignItems: 'flex-start',
-		},
-		[theme.breakpoints.between('sm', 'md')]: {
-			justifyContent: 'center',
-			alignItems: 'flex-start',
-		},
-		[theme.breakpoints.between('md', 'lg')]: {
-			justifyContent: 'flex-end',
-			alignItems: 'flex-start',
-		},
-		[theme.breakpoints.between('lg', 'xl')]: {
-			justifyContent: 'space-evenly',
-			alignItems: 'flex-start',
-		},
-		[theme.breakpoints.up('xl')]: {
-			justifyContent: 'space-evenly',
-			alignItems: 'flex-start',
-		},
+		justifyContent: 'flex-start',
+		alignItems: 'center',
 	},
 	share: {
 		fontFamily: 'Teko',
@@ -697,9 +680,10 @@ class NFTInfo extends Component {
 	}
 	render() {
 		const { classes } = this.props
+		
+		const url = window.location.host
+		const toUrl = 'https://' + url + '/#/NFT/Spark/' + this.props.match.params.id
 		const sell_info = () => {
-			let url = window.location.host
-			let toUrl = 'https://' + url + '/#/NFT/Spark/' + this.props.match.params.id
 			// let share = '分享复制链接：' + toUrl
 			// this.state.onSale
 			const coverRef = document.getElementById('cover')
@@ -928,36 +912,56 @@ class NFTInfo extends Component {
 												NFT作品是否加密: {this.state.encrypted}
 											</Typography>
 
-											<Grid container direction="row" className={classes.cbutton2}>
-												<Grid item>
-													<Button
-														size="small"
-														variant="contained"
-														color="primary"
-														target="_blank"
-														className={classes.btnMain}
-														startIcon={<DownloadOutlined />}
-														onClick={this.downloadIPFS}
-													>
-														<font size="3" color="white">
+											<Grid container className={classes.cbutton2}>
+												
+												<Button item
+													size="small"
+													variant="contained"
+													color="primary"
+													target="_blank"
+													className={classes.btnMain}
+													startIcon={<DownloadOutlined />}
+													onClick={this.downloadIPFS}
+												>
+													<font size="3" color="white">
 															下载
-														</font>
-													</Button>
-												</Grid>
+													</font>
+												</Button>
+											</Grid>
 
-												<Grid>
-													<Button
+											<Grid container direction="row" className={classes.cbutton2} >
+												<CopyToClipboard 
+													text={'欢迎来到SparkLink查看并购买我的NFT作品：'+toUrl}
+													onCopy={()=>{
+														message.success('分享链接复制成功')
+													}}>
+													<Button item
 														size="small"
 														variant="outlined"
 														target="_blank"
 														className={classes.btnSecond}
 														startIcon={<FireOutlined />}
-														onClick={() => this.setFlag('spark')}
-														disabled={!this.state.isCoverLoaded}
 													>
-														<font size="3">点火分享</font>
+														<font size="3">链接分享</font>
 													</Button>
-												</Grid>
+												</CopyToClipboard>
+
+												<Button item
+													size="small"
+													variant="outlined"
+													target="_blank"
+													className={classes.btnSecond}
+													startIcon={<FireOutlined />}
+													onClick={() => this.setFlag('spark')}
+													disabled={!this.state.isCoverLoaded}
+												>
+													<font size="3">海报分享</font>
+												</Button>
+											</Grid>
+											<Grid>
+												<Typography align="left" color="textPrimary" paragraph style={{ fontSize: 12 }}>
+													💡所有人可通过分享链接或海报进入作品详情页查看以及购买本作品
+												</Typography>
 											</Grid>
 										</Grid>
 									</Grid >
