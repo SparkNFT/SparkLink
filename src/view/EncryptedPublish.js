@@ -459,9 +459,10 @@ class EncryptedPublish extends Component {
 	}
 
 	submitWork = async () => {
+		const {t} = this.props
 		if (this.state.ipfsHashCover === '' || this.state.fileIpfs === '') {
 			message.error({
-				content: '你有信息尚未填写',
+				content: t('你有信息尚未填写'),
 				className: 'custom-class',
 				style: {
 					marginTop: '10vh',
@@ -480,7 +481,7 @@ class EncryptedPublish extends Component {
 			const account = accounts[0]
 			if (account !== this.state.usedAcc) {
 				message.warning({
-					content: '账户发生变化，请切换回原账户',
+					content: t('账户发生变化，请切换回原账户'),
 					className: 'custom-class',
 					style: {
 						marginTop: '10vh',
@@ -549,7 +550,7 @@ class EncryptedPublish extends Component {
 					.on('receipt', function (receipt) {
 						console.debug(receipt.events.SetURI)
 						message.success({
-							content: '作品基本信息已提交成功',
+							content: t('作品基本信息已提交成功'),
 							className: 'custom-class',
 							style: {
 								marginTop: '10vh',
