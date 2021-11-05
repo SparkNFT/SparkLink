@@ -35,7 +35,7 @@ let styles = (theme) => ({
 		paddingTop: 10,
 		paddingBottom: 5,
 		fontFamily: 'ANC',
-		marginTop: '1vw',
+		marginTop: '0vw',
 		color: 'red',
 		lineHeight: 1,
 		[theme.breakpoints.between('xs', 'sm')]: {
@@ -153,7 +153,7 @@ let styles = (theme) => ({
 	},
 	p21:{
 		[theme.breakpoints.between('xs', 'sm')]: {
-			height: '50vh'
+			height: '60vh'
 		},
 		[theme.breakpoints.up('sm')]: {
 			height: '60.9vw'
@@ -161,7 +161,7 @@ let styles = (theme) => ({
 	},
 	p22:{
 		[theme.breakpoints.between('xs', 'sm')]: {
-			height: '50vh'
+			height: '40vh'
 		},
 		[theme.breakpoints.up('sm')]: {
 			height: '50vw'
