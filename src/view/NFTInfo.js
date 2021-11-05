@@ -26,7 +26,7 @@ import config from '../global/config'
 import { TOKENPOCKET, METAMASK, LASTCONNECT, MATHWALLET } from '../global/globalsString'
 import { withTranslation } from 'react-i18next'
 import withCommon from '../styles/common'
-
+import Footer from '../components/Footer'
 const { gateway, backend } = config
 
 const mathwallet = require('math-js-sdk');
@@ -760,12 +760,13 @@ class NFTInfo extends Component {
 											<b>{t('目前收益：')} {this.state.Profit}</b>
 										</Typography>
 									</Grid>
-									<Grid item xs={11} container  md={6} lg={6} xl={6}>
+									<Grid item xs={12} container  md={6} lg={6} xl={6}>
 										<Grid item>
 											<Button
 												style={{
 													marginTop: 10,
-													marginRight: 30,
+													marginRight: 10,
+													marginLeft: 10,
 													marginBottom: 20,
 												}}
 												size="large"
@@ -775,7 +776,7 @@ class NFTInfo extends Component {
 												startIcon={<MoneyCollectOutlined />}
 												onClick={this.claim}
 											>
-												<Typography id="isSpark" variant="button" gutterBottom>
+												<Typography id="isSpark">
 													<font size="3">
 														{t('领收益')}
 													</font>
@@ -791,7 +792,7 @@ class NFTInfo extends Component {
 												startIcon={<DollarCircleOutlined />}
 												href={'/#/sellSingle/' + this.props.match.params.id}
 											>
-												<Typography variant="button" gutterBottom>
+												<Typography>
 													<font size="3">{t('售卖')}</font>
 												</Typography>
 											</Button>
@@ -954,6 +955,7 @@ class NFTInfo extends Component {
 
 							{sell_info()}
 						</Container >
+						<Footer />
 					</ThemeProvider >
 				</Spin >
 			)

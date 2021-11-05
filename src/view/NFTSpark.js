@@ -16,6 +16,8 @@ import config from '../global/config'
 import { TOKENPOCKET, METAMASK, LASTCONNECT, MATHWALLET } from '../global/globalsString'
 import { withTranslation } from 'react-i18next'
 import withCommon from '../styles/common'
+import Footer from '../components/Footer'
+
 const { gateway, backend, sparkAddr } = config
 
 const mathwallet = require('math-js-sdk');
@@ -621,7 +623,7 @@ class NFTSpark extends Component {
 									className={classes.btnMain}
 									disabled
 								>
-									<Typography variant="button" component="h2" gutterBottom >
+									<Typography>
 										<font size="4"> {t('下载')}</font>
 									</Typography>
 								</Button>
@@ -636,7 +638,7 @@ class NFTSpark extends Component {
 										startIcon={<FireOutlined />}
 										disabled
 									>
-										<Typography variant="button" component="h2" gutterBottom>
+										<Typography>
 											<font size="4"> {t('铸造')} </font>
 										</Typography>
 									</Button>
@@ -652,7 +654,7 @@ class NFTSpark extends Component {
 										className={classes.btnMain}
 										onClick={this.downloadIPFS}
 									>
-										<Typography variant="button" component="h2" gutterBottom style={{ color: '#FFFFFF' }}>
+										<Typography>
 											<font size="4"> {t('下载')} </font>
 										</Typography>
 									</Button>
@@ -668,7 +670,7 @@ class NFTSpark extends Component {
 										startIcon={<FireOutlined />}
 										disabled
 									>
-										<Typography variant="button" component="h2" gutterBottom>
+										<Typography>
 											<font size="4"> {t('铸造')} </font>
 										</Typography>
 									</Button>
@@ -686,11 +688,10 @@ class NFTSpark extends Component {
 									size="large"
 									style={{ fontSize: '3rem' }}
 									variant="contained"
-									color="primary"
 									className={classes.btnColor2}
 									disabled
 								>
-									<Typography variant="button" gutterBottom>
+									<Typography>
 										<font size="4"> {t('下载')}</font>
 									</Typography>
 								</Button>
@@ -698,12 +699,11 @@ class NFTSpark extends Component {
 									<Button
 										size="large"
 										style={{ fontSize: '3rem' }}
-										color="secondary"
 										target="_blank"
 										className={classes.btnColor}
 										onClick={this.approve}
 									>
-										<Typography variant="button" gutterBottom>
+										<Typography>
 											<font size="4"> {t('授权合约')}</font>
 										</Typography>
 									</Button>
@@ -716,11 +716,10 @@ class NFTSpark extends Component {
 										size="large"
 										style={{ fontSize: '3rem' }}
 										variant="contained"
-										color="primary"
 										className={classes.btnColor2}
 										onClick={this.downloadIPFS}
 									>
-										<Typography variant="button" gutterBottom>
+										<Typography>
 											<font size="4"> {t('下载')} </font>
 										</Typography>
 									</Button>
@@ -730,12 +729,11 @@ class NFTSpark extends Component {
 										size="large"
 										style={{ fontSize: '3rem' }}
 										variant="outlined"
-										color="secondary"
 										target="_blank"
 										className={classes.btnColor}
 										onClick={this.approve}
 									>
-										<Typography variant="button" gutterBottom>
+										<Typography>
 											<font size="4"> {t('授权合约')} </font>
 										</Typography>
 									</Button>
@@ -753,26 +751,23 @@ class NFTSpark extends Component {
 									size="large"
 									style={{ fontSize: '3rem' }}
 									variant="contained"
-									color="primary"
-									className={classes.btnMain}
+									className={classes.btnColor2}
 									disabled
 								>
-									<Typography variant="button" component="h2" gutterBottom style={{ color: '#FFFFFF' }}>
+									<Typography variant="button"  gutterBottom>
 										<font size="4"> {t('下载')} </font>
 									</Typography>
 								</Button>
 								<Grid item>
 									<Button
 										size="large"
+										className={classes.btnColor}
 										style={{ fontSize: '3rem' }}
-										variant="outlined"
-										color="secondary"
 										target="_blank"
-										className={classes.btnSecond}
 										startIcon={<FireOutlined />}
 										onClick={this.shill}
 									>
-										<Typography variant="button" component="h2" gutterBottom>
+										<Typography variant="button" gutterBottom>
 											<font size="4"> {t('铸造')} </font>
 										</Typography>
 									</Button>
@@ -785,11 +780,10 @@ class NFTSpark extends Component {
 										size="large"
 										style={{ fontSize: '3rem' }}
 										variant="contained"
-										color="primary"
-										className={classes.btnMain}
+										className={classes.btnColor2}
 										onClick={this.downloadIPFS}
 									>
-										<Typography variant="button" component="h2" gutterBottom style={{ color: '#FFFFFF' }}>
+										<Typography variant="button"  gutterBottom>
 											<font size="4"> {t('下载')} </font>
 										</Typography>
 									</Button>
@@ -798,14 +792,12 @@ class NFTSpark extends Component {
 									<Button
 										size="large"
 										style={{ fontSize: '3rem' }}
-										variant="outlined"
-										color="secondary"
 										target="_blank"
-										className={classes.btnSecond}
+										className={classes.btnColor}
 										startIcon={<FireOutlined />}
 										onClick={this.shill}
 									>
-										<Typography variant="button" component="h2" gutterBottom>
+										<Typography variant="button"  gutterBottom>
 											<font size="4"> {t('铸造')} </font>
 										</Typography>
 									</Button>
@@ -879,7 +871,7 @@ class NFTSpark extends Component {
 
 										<Grid xs={2}></Grid>
 
-										<Grid item xs className={classes.content2}>
+										<Grid item xs={12} className={classes.content2}>
 											<Typography
 												color="inherit"
 												align="left"
@@ -974,6 +966,7 @@ class NFTSpark extends Component {
 								)}
 							</div>
 						</Container>
+						<Footer></Footer>
 					</ThemeProvider>
 				</Spin>
 			)
