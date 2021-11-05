@@ -125,6 +125,8 @@
 	"你有信息尚未填写":"You have some information that you haven't filled in yet.",
 	"已经成功发布作品":"The work has been successfully published.",
 	"交易已提交，当前网络较拥堵，请稍等后去我的收藏中查看":"The transaction has been submitted. The current network is congested. Please check it in my collection later.",
-	"似乎遇到了些小问题：":"There seems to be some minor problem:"
+	"似乎遇到了些小问题：":"There seems to be some minor problem:",
+	"作品基本信息已提交成功":"The basic information of the work has been submitted successfully.",
+	"账户发生变化，请切换回原账户":"The account has changed, please switch back to the original account"
 
 }
