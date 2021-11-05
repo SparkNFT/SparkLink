@@ -285,10 +285,10 @@ let styleCommon = (theme) => {
 				fontSize: 20,
 			},
 			[theme.breakpoints.between('lg', 'xl')]: {
-				fontSize: 20,
+				fontSize: 25,
 			},
 			[theme.breakpoints.up('xl')]: {
-				fontSize: 25,
+				fontSize: 30,
 				paddingLeft: 20,
 				paddingRight: 20,
 				paddingTop: 16,
@@ -324,10 +324,10 @@ let styleCommon = (theme) => {
 				fontSize: 20,
 			},
 			[theme.breakpoints.between('lg', 'xl')]: {
-				fontSize: 20,
+				fontSize: 25,
 			},
 			[theme.breakpoints.up('xl')]: {
-				fontSize: 25,
+				fontSize: 30,
 				paddingLeft: 20,
 				paddingRight: 20,
 				paddingTop: 16,
@@ -368,7 +368,7 @@ let styleCommon = (theme) => {
 				fontSize: 16,
 			},
 			[theme.breakpoints.up('xl')]: {
-				fontSize: 16,
+				fontSize: 19,
 				paddingLeft: 20,
 				paddingRight: 20,
 				paddingTop: 16,

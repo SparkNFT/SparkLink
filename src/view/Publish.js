@@ -48,6 +48,9 @@ const styles = (theme) => ({
 	h5:{
 		color:'#757575'
 	},
+	h3:{
+		marginTop:20
+	},
 	main: {
 		[theme.breakpoints.between('xs', 'sm')]: {
 			width: '60%',
