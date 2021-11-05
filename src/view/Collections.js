@@ -241,7 +241,6 @@ class Collections extends Component {
 	}
 
   getMetadata = async (contract, ids) => {
-	  const { t } = this.props;
   	return Promise.all(ids.map(async (id) => {
   		let ipfs_link = await contract.methods.tokenURI(id).call();
   		var ipfs_hash_arr = ipfs_link.split('/');
@@ -258,7 +257,7 @@ class Collections extends Component {
   			var name_holder = 'SparkNFT#' + id;
   			var placeholder = {
   				'name': name_holder,
-  				'description': t('暂时无法获取到该nft的相关描述'),
+  				'description': '暂时无法获取到该nft的相关描述',
   				'image': 'https://testnets.opensea.io/static/images/placeholder.png',
   				'attributes': [
   					{
@@ -319,7 +318,6 @@ class Collections extends Component {
   	// }
 
   	function showCard (card, index) {
-		  const { t } = this.props;
   		let res = (
   			<Grid item key={index} xs={12} sm={6} md={4}>
   				{card ? (
@@ -333,7 +331,7 @@ class Collections extends Component {
   						</CardContent>
   						<CardActions>
   							<Button size="small" variant="contained" color="primary" href={'/#/NFT/' + card.id}>
-  								<b>{t('查看')}</b>
+  								<b>{'查看'}</b>
   							</Button>
   							<Typography variant="body2" gutterBottom>
   								<b>NFT id: {card.id} </b>
