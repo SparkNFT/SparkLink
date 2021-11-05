@@ -110,8 +110,8 @@
 	"海报分享":"Poster sharing",
 	"所有人可通过分享链接或海报进入作品详情页查看以及购买本作品":"Everyone can view and purchase this work by sharing links or posters to the details page of the work.",
 	"点火价格: ":"Sprak Price:",
-	"最大分享次数： ":"Maximum number of shares:",
-	"剩余分享次数： ":"Remaining number of shares:",
+	"最大分享次数：":"Maximum number of shares:",
+	"剩余分享次数：":"Remaining number of shares:",
 	"加密作品":"Encrypted works",
 	"开源作品":"Open source works",
 	"此NFT的子节点已经售完，我们给您推荐了其他还能购买的节点：":"The child nodes of this NFT have been sold out, and we recommend other nodes that can be purchased:",
@@ -127,6 +127,6 @@
 	"交易已提交，当前网络较拥堵，请稍等后去我的收藏中查看":"The transaction has been submitted. The current network is congested. Please check it in my collection later.",
 	"似乎遇到了些小问题：":"There seems to be some minor problem:",
 	"作品基本信息已提交成功":"The basic information of the work has been submitted successfully.",
-	"账户发生变化，请切换回原账户":"The account has changed, please switch back to the original account"
-
+	"账户发生变化，请切换回原账户":"The account has changed, please switch back to the original account",
+	"铸造":"cast"
 }
