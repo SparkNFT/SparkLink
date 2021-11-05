@@ -202,6 +202,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		btnOutline: {
+			whiteSpace:'nowrap',
 			// marginTop: theme.spacing(3),
 			fontFamily: 'ANC',
 			color: '#FFFFFF',
@@ -240,6 +241,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		btnColor:{
+			whiteSpace:'nowrap',
 			fontFamily: 'ANC',
 			color: '#FFFFFF',
 			boxShadow: '0px 2px 2px #ff7d57',
@@ -270,6 +272,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		btnColor2:{
+			whiteSpace:'nowrap',
 			fontFamily: 'ANC',
 			backgroundColor: 'rgb(255,241,235)',
 			boxShadow: '0px 2px 2px #ff7d57',
@@ -304,6 +307,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		btnColor3:{
+			whiteSpace:'nowrap',
 			fontFamily: 'ANC',
 			backgroundColor: '#FFFFFF',
 			boxShadow: '0px 2px 2px #ff7d57',

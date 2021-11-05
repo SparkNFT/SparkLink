@@ -25,6 +25,7 @@ import web3 from '../utils/web3'
 import config from '../global/config'
 import { TOKENPOCKET, METAMASK, LASTCONNECT, MATHWALLET } from '../global/globalsString'
 import { withTranslation } from 'react-i18next'
+import withCommon from '../styles/common'
 
 const { gateway, backend } = config
 
@@ -792,12 +793,12 @@ class NFTInfo extends Component {
 											size="large"
 											variant="contained"
 											color="primary"
-											className={classes.btnMain}
+											className={classes.btnColor2}
 											startIcon={<MoneyCollectOutlined />}
 											onClick={this.claim}
 										>
 											<Typography id="isSpark" variant="button" component="h3" gutterBottom>
-												<font size="3" color="white">
+												<font size="3">
 													{t('领收益')}
 												</font>
 											</Typography>
@@ -808,8 +809,7 @@ class NFTInfo extends Component {
 										<Button
 											style={{ marginTop: 10, marginBottom: 20 }}
 											size="large"
-											variant="outlined"
-											className={classes.btnSecond}
+											className={classes.btnColor2}
 											startIcon={<DollarCircleOutlined />}
 											href={'/#/sellSingle/' + this.props.match.params.id}
 										>
@@ -922,7 +922,7 @@ class NFTInfo extends Component {
 													variant="contained"
 													color="primary"
 													target="_blank"
-													className={classes.btnMain}
+													className={classes.btnColor3}
 													startIcon={<DownloadOutlined />}
 													onClick={this.downloadIPFS}
 												>
@@ -943,7 +943,7 @@ class NFTInfo extends Component {
 														size="small"
 														variant="outlined"
 														target="_blank"
-														className={classes.btnSecond}
+														className={classes.btnColor}
 														startIcon={<FireOutlined />}
 													>
 														<font size="3">{t('链接分享')}</font>
@@ -954,7 +954,7 @@ class NFTInfo extends Component {
 													size="small"
 													variant="outlined"
 													target="_blank"
-													className={classes.btnSecond}
+													className={classes.btnColor2}
 													startIcon={<FireOutlined />}
 													onClick={() => this.setFlag('spark')}
 													disabled={!this.state.isCoverLoaded}
@@ -982,6 +982,6 @@ class NFTInfo extends Component {
 		}
 	}
 }
-export default withTranslation()(withStyles(styles, { withTheme: true })(NFTInfo))
+export default withTranslation()(withStyles(withCommon(styles), { withTheme: true })(NFTInfo))
 //todo 涉及交易
 //account的获取方式做了修改
