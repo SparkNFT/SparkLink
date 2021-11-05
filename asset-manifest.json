@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/static/css/main.3fdba848.chunk.css",
-    "main.js": "/static/js/main.a9073d7e.chunk.js",
-    "main.js.map": "/static/js/main.a9073d7e.chunk.js.map",
+    "main.js": "/static/js/main.674e8e1b.chunk.js",
+    "main.js.map": "/static/js/main.674e8e1b.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.43664945.js",
     "runtime-main.js.map": "/static/js/runtime-main.43664945.js.map",
     "static/css/2.48e5491c.chunk.css": "/static/css/2.48e5491c.chunk.css",
@@ -14,7 +14,7 @@
     "static/js/2.a563b6cc.chunk.js.LICENSE.txt": "/static/js/2.a563b6cc.chunk.js.LICENSE.txt",
     "static/media/index.css": "/static/media/Mada-Bold.96321df8.ttf",
     "static/media/bg.332d3dd3.png": "/static/media/bg.332d3dd3.png",
-    "static/media/bg2.04763d2d.png": "/static/media/bg2.04763d2d.png",
+    "static/media/bg2.2a5db9ea.png": "/static/media/bg2.2a5db9ea.png",
     "static/media/bg3.2bbd5c2d.png": "/static/media/bg3.2bbd5c2d.png",
     "static/media/bigLogo.6427ee80.png": "/static/media/bigLogo.6427ee80.png",
     "static/media/bot.3f6f295c.png": "/static/media/bot.3f6f295c.png",
@@ -45,6 +45,6 @@
     "static/css/2.48e5491c.chunk.css",
     "static/js/2.a563b6cc.chunk.js",
     "static/css/main.3fdba848.chunk.css",
-    "static/js/main.a9073d7e.chunk.js"
+    "static/js/main.674e8e1b.chunk.js"
   ]
 }
