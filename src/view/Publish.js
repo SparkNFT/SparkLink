@@ -21,6 +21,8 @@ import Paper from '@material-ui/core/Paper'
 import * as tokens from '../global/tokens_list.json'
 import { withTranslation } from 'react-i18next'
 import { TOKENPOCKET, METAMASK, LASTCONNECT, MATHWALLET } from '../global/globalsString'
+import withCommon from '../styles/common'
+import Footer from '../components/Footer'
 
 const mathwallet = require('math-js-sdk');
 const tp = require('tp-js-sdk');
@@ -53,7 +55,7 @@ const styles = (theme) => ({
 	},
 	titleCon: {
 		marginTop: 50,
-		fontFamily: 'Ubuntu',
+		fontFamily: 'ANC',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			fontSize: 30,
 		},
@@ -87,12 +89,12 @@ const styles = (theme) => ({
 	},
 	titlePub: {
 		marginTop: '3%',
-		fontFamily: 'Ubuntu',
+		fontFamily: 'ANC',
 		[theme.breakpoints.between('xs', 'sm')]: {
-			fontSize: 30,
+			fontSize: 20,
 		},
 		[theme.breakpoints.up('sm')]: {
-			fontSize: 40,
+			fontSize: 30,
 		},
 	},
 	btn: {
@@ -106,6 +108,7 @@ const styles = (theme) => ({
 		display: 'flex',
 		flexDirection: 'column',
 		alignItems: 'center',
+		fontFamily: 'ANC',
 	},
 	avatar: {
 		margin: theme.spacing(1),
@@ -747,7 +750,7 @@ class Publish extends Component {
 								</form>
 								<Button
 									variant="contained"
-									className={classes.button}
+									className={classes.btnColor2}
 									startIcon={<CloudUploadOutlined />}
 									style={{
 										marginTop: 50,
@@ -761,6 +764,7 @@ class Publish extends Component {
 								</Button>
 							</div>
 						</Container>
+						<Footer></Footer>
 					</ThemeProvider>
 				</Spin>
 			)
@@ -768,5 +772,5 @@ class Publish extends Component {
 	}
 }
 
-export default withTranslation()(withStyles(styles, { withTheme: true })(Publish))
+export default withTranslation()(withStyles(withCommon(styles), { withTheme: true })(Publish))
 //todo 涉及交易

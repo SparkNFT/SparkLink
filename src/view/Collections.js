@@ -19,7 +19,9 @@ import web3 from '../utils/web3'
 import config from '../global/config'
 import Web3 from 'web3';
 import { TOKENPOCKET, METAMASK, LASTCONNECT, MATHWALLET } from '../global/globalsString'
-
+import { withTranslation } from 'react-i18next'
+import withCommon from '../styles/common'
+import Footer from '../components/Footer'
 //TP钱包支持
 const tp = require('tp-js-sdk');
 //麦子钱包支持
@@ -42,7 +44,7 @@ const styles = (theme) => ({
 		marginRight: theme.spacing(2),
 	},
 	titleFont: {
-		fontFamily: 'Teko',
+		fontFamily: 'ANC',
 	},
 	btn: {
 		color: '#424949',
@@ -97,7 +99,7 @@ const styles = (theme) => ({
 		width: 150,
 	},
 	title: {
-		fontFamily: 'Teko',
+		fontFamily: 'ANC',
 		marginTop: '5%',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			fontSize: 35,
@@ -116,7 +118,7 @@ const styles = (theme) => ({
 		},
 	},
 	title2: {
-		fontFamily: 'Teko',
+		fontFamily: 'ANC',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			fontSize: 16,
 		},
@@ -305,7 +307,7 @@ class Collections extends Component {
   }
 
   render () {
-  	const { classes } = this.props
+  	const { classes, t} = this.props
   	let obj = this
   	// window.ethereum.on('chainChanged', handleChainChanged)
 
@@ -351,6 +353,7 @@ class Collections extends Component {
   	}
   	return (
   		<div>
+			  
   			<ThemeProvider theme={theme}>
   				<TopBar />
   				<Container component="main" className={classes.container}>
@@ -358,17 +361,16 @@ class Collections extends Component {
   						<Grid container justifyContent="center">
   							<Grid item xs={10}>
   								<Typography color="inherit" noWrap className={classes.title}>
-  									<b>我的收藏馆</b>
+  									<b>{t('collection')}</b>
   								</Typography>
-  								<Typography color="inherit" noWrap className={classes.title2}>
+  								<Typography color="inherit" noWrap className={classes.h2}>
   									<b>An ERC721 Token Trying to Solve Existing Publishing Dilemma</b>
   								</Typography>
   							</Grid>
   						</Grid>
   					</div>
   				</Container>
-  			</ThemeProvider>
-  			{this.state.noNFT ? (
+				  {this.state.noNFT ? (
   				<Empty
   					description={
   						<span style={{ fontFamily: 'Teko' }}>
@@ -392,10 +394,16 @@ class Collections extends Component {
   					}
   				</main>
   			)}
+			  <Footer />
+  			</ThemeProvider>
+			
+
+			  
   		</div>
+		
   	)
   }
 }
 
-export default withStyles(styles, { withTheme: true })(Collections)
+export default withTranslation()(withStyles(withCommon(styles), { withTheme: true })(Collections))
 //todo 涉及交易

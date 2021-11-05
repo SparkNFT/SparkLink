@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import fullLogo from '../imgs/sparkLink.jpg'
+import fullLogo from '../imgs/bigLogo.png'
 import sLogo from '../imgs/sparkLink.png'
+import bg from '../imgs/bg.png'
 import TPpic from '../imgs/TP.png'
 import metamaskpic from '../imgs/metamask.png'
 import mathwalletpic from '../imgs/mathwallet.png'
@@ -12,15 +13,15 @@ import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 //import ChooseWalletDialog from './ChooseWalletDialog'
 import { Dialog, DialogContent, DialogTitle } from '@material-ui/core'
-import { GithubOutlined } from '@ant-design/icons'
 import Web3 from 'web3'
 import isMobile from '../utils/isMobile'
 import LanguageBtn from './LanguageBtn'
 import { withTranslation } from 'react-i18next'
-import { TOKENPOCKET, METAMASK, LASTCONNECT,  MATHWALLET } from '../global/globalsString'
+import { TOKENPOCKET, METAMASK, LASTCONNECT, MATHWALLET } from '../global/globalsString'
 import web3 from '../utils/web3';
-
-
+import withCommon from '../styles/common.js'
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 //TP钱包支持
 const tp = require('tp-js-sdk')
 //麦子钱包支持
@@ -48,6 +49,29 @@ const mathwallet = require('math-js-sdk');
 
 //todo theme传参无用
 const styles = (theme) => ({
+	btngroup:{
+		display: 'flex',
+		[theme.breakpoints.down('sm')]: {
+			display: 'none'
+		},
+		['@media (min-width:600px) and (max-width:1279.95px) and (min-height:768px) and (max-height:1024px)']:{
+			display: 'none'
+		}
+
+	},
+	noPadding:{
+		paddingLeft: 0,
+		paddingRight: 0
+
+	},
+	Toolbar: {
+		backgroundImage: 'url(' + bg + ')',
+		backgroundSize: 'cover',
+		[theme.breakpoints.down('sm')]: {
+			backgroundRepeat: 'repeat-y',
+			backgroundSize: 'auto',
+		}
+	},
 	icon: {
 		[theme.breakpoints.down('xl')]: {
 			fontSize: 19,
@@ -58,11 +82,13 @@ const styles = (theme) => ({
 	},
 	titleGrid: {
 		marginTop: 25,
-		marginBottom: 10
+		marginBottom: 10,
+		display: 'flex',
+		alignItems: 'center'
 	},
 	titleToken: {
 		fontSize: 22,
-		fontFamily: 'Teko',
+		fontFamily: 'ANC',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			fontSize: 15,
 		},
@@ -82,7 +108,7 @@ const styles = (theme) => ({
 	title: {
 		minWidth: 100,
 		fontSize: 25,
-		fontFamily: 'Teko',
+		fontFamily: 'ANC',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			fontSize: 25,
 		},
@@ -106,7 +132,6 @@ const styles = (theme) => ({
 		marginTop: 30,
 		display: 'flex',
 		alignItems: 'center',
-		justifyContent: 'flex-end',
 		flexWrap: 'nowrap'
 		// backgroundColor: '#e3f2fd',
 	},
@@ -158,7 +183,7 @@ const styles = (theme) => ({
 		color: '#424949',
 		borderColor: '#e3f2fd',
 		fontSize: 15,
-		fontFamily: 'Teko',
+		fontFamily: 'ANC',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			fontSize: 15,
 			width: 80,
@@ -177,9 +202,12 @@ const styles = (theme) => ({
 		},
 	},
 	btn: {
-		color: '#424949',
+		fontFamily: 'ANC',
+		color: '#fafafa',
 		borderColor: '#e3f2fd',
-		fontSize: 22,
+		fontWeight: 'normal',
+		fontSize: 16,
+		marginTop: 7,
 		[theme.breakpoints.between('xs', 'sm')]: {
 			fontSize: 12,
 		},
@@ -188,14 +216,16 @@ const styles = (theme) => ({
 		}
 	},
 	logo: {
+		marginLeft: 12,
+		marginRight: 24,
 		objectFit: 'contain',
-		content: 'url('+fullLogo+')',
+		content: 'url(' + fullLogo + ')',
 		width: '120px',
 		height: '40px',
 		[theme.breakpoints.down('sm')]: {
 			width: '30px',
 			transform: 'scale(2.0,2.0)',
-			content: 'url('+sLogo+')'
+			content: 'url(' + sLogo + ')'
 		}
 	},
 })
@@ -207,13 +237,74 @@ class TopBar extends Component {
 		accountInfo: '',
 		dialogOpen: false,
 		wallet: '',
+		isFixed: false,
+		isPCFixed: false,
+		topbarHeight: 0,
+		anchorEl: null
 	}
-
+	onScroll() {
+		if(this.state.topbarHeight == 0){
+			this.setState({
+				topbarHeight: document.getElementById('topbar').offsetHeight
+			})
+			console.log(this.state.topbarHeight)
+		}
+		const fixedTop = document.getElementById('topbar').offsetTop + 1;
+		window.ontouchmove = () => {
+			let scrollTop = Math.max(
+				document.body.scrollTop,
+				document.documentElement.scrollTop,
+				window.pageYOffset
+			);
+			if ((scrollTop > fixedTop)&&(!this.state.isFixed)) {
+				this.setState({ isFixed: true });
+			} else if ((scrollTop <= fixedTop)&&(this.state.isFixed)) {
+				this.setState({ isFixed: false });
+			}
+		};
+		window.addEventListener('scroll', () => {
+			let scrollTop = Math.max(
+				document.body.scrollTop,
+				document.documentElement.scrollTop,
+				window.pageYOffset
+			);
+			if ((scrollTop > fixedTop)&&(!this.state.isFixed)) {
+				this.setState({
+					isFixed: true,
+					isPCFixed: true
+				});
+			} else if ((scrollTop <= fixedTop)&&(this.state.isFixed)) {
+				this.setState({
+					isFixed: false,
+					isPCFixed: false
+				});
+			}
+		});
+	}
+	constructor() {
+		super()
+		this.onScroll = this.onScroll.bind(this)
+	}
+	scrollEvent() {
+		window.addEventListener('scroll', this.onScroll);
+	}
+	componentWillUnmount(){
+		window.removeEventListener('scroll', this.onScroll);
+		clearTimeout(this.onScroll);
+		clearTimeout(this.scrollEvent);
+	}
 	// eslint-disable-next-line react/no-deprecated
 	async componentDidMount() {
+		this.scrollEvent()
+		if (this.props.onRef) {
+			this.props.onRef(this)
+		}
+
+		
+
 		//todo 从本地获取登陆状态（登陆记录）
 		let lastConnect = localStorage.getItem(LASTCONNECT)
-		console.log('lastconnect:  '+ lastConnect)
+		console.log('lastconnect:  ' + lastConnect)
 		switch (lastConnect) {
 		case METAMASK:
 			this.checkMetaMask();
@@ -401,13 +492,14 @@ class TopBar extends Component {
 
 	//获取MetaMask用户地址
 	getMetaMaskAccount = async () => {
+		const { t } = this.props
 		try {
 			//const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
 			const accounts = await window.web3.currentProvider.request({
 				method: 'eth_requestAccounts',
 			})
 			const account = accounts[0]
-			alert('您已经连接metamask, 当前账户： ' + account)
+			alert(t('您已经连接metamask, 当前账户： ') + account)
 			this.setState({ isConnected: true })
 			this.setState({ userAddress: account })
 			//localStorage.setItem(USERADDRESS, account);
@@ -420,8 +512,9 @@ class TopBar extends Component {
 
 	//获取TokenPocket用户地址
 	getTokenPocketAccount = async () => {
+		const { t } = this.props
 		if (this.state.isConnected) {
-			alert('您已经连接tokenpocket, 当前账户： ' + this.state.userAddress)
+			alert(t('您已经连接tokenpocket, 当前账户： ') + this.state.userAddress)
 		} else {
 			try {
 				//todo 使用TP链接
@@ -429,7 +522,7 @@ class TopBar extends Component {
 				await tp.getWallet({ walletTypes: ['matic'], switch: false }).then((value) => {
 					account = value.data.address
 				})
-				alert('您已经连接tokenpocket, 当前账户： ' + account)
+				alert(t('您已经连接tokenpocket, 当前账户： ') + account)
 				this.setState({ isConnected: true })
 				this.setState({ userAddress: account })
 				//localStorage.setItem(USERADDRESS, account); //储存用户address
@@ -443,8 +536,9 @@ class TopBar extends Component {
 
 	//获取MathWallet用户地址
 	getMathWalletAccount = async () => {
+		const { t } = this.props
 		if (this.state.isConnected) {
-			alert('您已经连接MathWallet, 当前账户： ' + this.state.userAddress)
+			alert(t('您已经连接MathWallet, 当前账户： ') + this.state.userAddress)
 		}
 		else {
 			try {
@@ -455,7 +549,7 @@ class TopBar extends Component {
 						account = value.address;
 					}
 				)
-				alert('您已经连接MathWallet, 当前账户： ' + account)
+				alert(t('您已经连接MathWallet, 当前账户： ') + account)
 				this.setState({ isConnected: true, });
 				this.setState({ userAddress: account });
 				//localStorage.setItem(USERADDRESS, account); //储存用户address
@@ -495,6 +589,24 @@ class TopBar extends Component {
 	render() {
 		const { classes } = this.props
 		const { t } = this.props
+		const { isFixed } = this.state
+		const fixStyle = isFixed ? { position: 'fixed', top: 0, zIndex: 9 ,boxShadow: 'rgb(255, 189, 164) 0px 1px 4px'} : {}
+		const fixStyleBlank = isFixed ? { display:'block',width:'100vw',height:this.state.topbarHeight,maxWidth: '100vw'} : {display:'none'}
+		const menuStyle = isMobile ? {display:'block'} : {display:'none'}
+		let open = false;
+		if(this.state.anchorEl){
+			open = Boolean(this.state.anchorEl)
+		}
+		const handleMenuClick = (event) => {
+			this.setState({
+				anchorEl: event.currentTarget
+			})
+		};
+		const handleMenuClose = () => {
+			this.setState({
+				anchorEl: null
+			})
+		};
 		return (
 			<div>
 				<Dialog className={classes.dialog} onClose={this.handleDialogClose} open={this.state.dialogOpen}>
@@ -535,26 +647,74 @@ class TopBar extends Component {
 						</Grid>
 					</DialogContent>
 				</Dialog>
-
-				<Toolbar>
-					<Grid container direction="row" justifyContent="space-between" wrap="nowrap">
+				<Menu
+					id="basic-menu"
+					anchorEl={this.state.anchorEl}
+					open={open}
+					onClose={handleMenuClose}
+					MenuListProps={{
+						'aria-labelledby': 'basic-button',
+					}}
+				>
+					<MenuItem onClick={handleMenuClose}>
+						<Button size="medium" style={{width: '100%'}} className={classes.btnColor3} href="/#/">
+							{t('index')}
+						</Button>						
+					</MenuItem>
+					<MenuItem onClick={handleMenuClose}>
+						<Button size="medium" style={{width: '100%'}}  className={classes.btnColor3} href="/#/introPublish">
+							{t('publish')}
+						</Button>
+					</MenuItem>
+					<MenuItem onClick={handleMenuClose}>
+						<Button size="medium" style={{width: '100%'}}  className={classes.btnColor3} href="/#/collections">
+							{t('collection')}
+						</Button>
+					</MenuItem>
+					<MenuItem onClick={handleMenuClose}>
+						<Button size="medium" style={{width: '100%'}}  className={classes.btnColor3} href="https://docs.sparklink.io/">
+							Wiki
+						</Button>
+					</MenuItem>
+					<MenuItem onClick={handleMenuClose}>
+						<Button size="medium" style={{width: '100%'}}  className={classes.btnColor3} href="/#/buy">
+							{t('market')}
+						</Button>
+					</MenuItem>
+				</Menu>				
+				<Toolbar className={classes.noPadding}>
+					<div style={fixStyleBlank}></div>
+					<Grid style={fixStyle} id='topbar' className={classes.Toolbar} container direction="row"  wrap="nowrap">
 						<Grid item className={classes.titleGrid}>
 							<a href="/#/" className={classes.logo} />
+							<div className={classes.btngroup}>
+								<Button size="medium" className={classes.btn} href="/#/">
+									{t('index')}
+								</Button>
+								<Button size="medium" className={classes.btn} href="/#/introPublish">
+									{t('publish')}
+								</Button>
+								<Button size="medium" className={classes.btn} href="/#/collections">
+									{t('collection')}
+								</Button>
+								<Button size="medium" className={classes.btn} href="https://docs.sparklink.io/">
+									Wiki
+								</Button>
+								<Button size="medium" className={classes.btn} href="/#/buy">
+									{t('market')}
+								</Button>
+							</div>
 						</Grid>
+						<div style={{flex: '1'}}></div>
 						<Grid item className={classes.btnGrid}>
-							<Button size="medium" className={classes.btn} href="/#/">
-								<b>{t('index')}</b>
+							<Button style={menuStyle} className={classes.btnColor3} aria-controls="basic-menu" aria-haspopup="true" aria-expanded={open ? 'true' : undefined} onClick={handleMenuClick}>
+								<Typography component="" color="inherit" noWrap className={classes.h3}>
+									<b> ...</b>
+								</Typography>
 							</Button>
-							<Button size="medium" className={classes.btn} href="/#/introPublish">
-								<b>{t('publish')}</b>
-							</Button>
-							<Button size="medium" className={classes.btn} href="/#/collections">
-								<b>{t('collection')}</b>
-							</Button>
-							<Button size="small" href="https://github.com/SparkNFT" target="_blank">
-								<GithubOutlined className={classes.icon} />
-							</Button>
-							<LanguageBtn />
+
+
+
 							{this.state.isConnected ? (
 								// <Button onClick={this.getAccount}>
 								//   <WalletTwoTone className={classes.icon} />
@@ -562,10 +722,10 @@ class TopBar extends Component {
 								<Button
 									size="small"
 									variant="contained"
-									className={classes.btnUser}
+									className={classes.btnColor3}
 									onClick={this.handleTokenButtonOnClick}
 								>
-									<Typography component="" color="inherit" noWrap className={classes.titleToken}>
+									<Typography component="" color="inherit" noWrap className={classes.h3}>
 										{this.state.userAddress.substring(0, 6)}...
 										{this.state.userAddress.substring(this.state.userAddress.length - 5, this.state.userAddress.length)}
 									</Typography>
@@ -574,12 +734,14 @@ class TopBar extends Component {
 								// <Button onClick={this.getAccount}>
 								//   <WalletFilled className={classes.icon} />
 								// </Button>
-								<Button variant="contained" className={classes.btnUser} onClick={this.handleDialogOpen}>
-									<Typography component="" color="inherit" noWrap className={classes.titleToken}>
+								<Button variant="contained" className={classes.btnColor3} onClick={this.handleDialogOpen}>
+									<Typography component="" color="inherit" noWrap className={classes.h3}>
 										<b> Connect Wallet</b>
 									</Typography>
 								</Button>
 							)}
+
+							<LanguageBtn />
 							{/* <Button onClick={this.disconnect}> akdalk</Button> */}
 						</Grid>
 					</Grid>
@@ -590,7 +752,7 @@ class TopBar extends Component {
 }
 
 
-export default withTranslation()(withStyles(styles, { withTheme: true })(TopBar))
+export default withTranslation()(withStyles(withCommon(styles), { withTheme: true })(TopBar))
 /*
 todo
 目前TP兼容仅作TopBar上的登陆，未处理其他交互的TP支持；

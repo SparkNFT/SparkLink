@@ -17,10 +17,13 @@ import axios from 'axios'
 import contract from '../utils/contract'
 import web3 from '../utils/web3'
 import Paper from '@material-ui/core/Paper'
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Link } from '@material-ui/core'
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core'
 import * as tokens from '../global/tokens_list.json'
 import { withTranslation } from 'react-i18next'
 import config from '../global/config'
+import withCommon from '../styles/common'
+import Footer from '../components/Footer'
+
 const { backend } = config
 const { pinata_api_key, pinata_secret_api_key } = require('../project.secret.js')
 const FormData = require('form-data')
@@ -51,7 +54,7 @@ const styles = (theme) => ({
 	},
 	titleCon: {
 		marginTop: 50,
-		fontFamily: 'Ubuntu',
+		fontFamily: 'ANC',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			fontSize: 30,
 		},
@@ -61,12 +64,12 @@ const styles = (theme) => ({
 	},
 	titlePub: {
 		marginTop: '3%',
-		fontFamily: 'Ubuntu',
+		fontFamily: 'ANC',
 		[theme.breakpoints.between('xs', 'sm')]: {
-			fontSize: 30,
+			fontSize: 20,
 		},
 		[theme.breakpoints.up('sm')]: {
-			fontSize: 40,
+			fontSize: 30,
 		},
 	},
 	paperImg: {
@@ -125,6 +128,7 @@ const styles = (theme) => ({
 		display: 'flex',
 		flexDirection: 'column',
 		alignItems: 'center',
+		fontFamily: 'ANC'
 	},
 	avatar: {
 		margin: theme.spacing(1),
@@ -946,11 +950,11 @@ class EncryptedPublish extends Component {
 										</Grid>
 									</Grid>
 								</form>
-								<Grid container alignItems="center" spacing={4} style={{ marginTop: 20, marginBottom: 50 }}>
+								<Grid container alignItems="center" direction="column" spacing={4} style={{ marginTop: 20, marginBottom: 50 }}>
 									<Grid item xs style={{ textAlign: 'center' }}>
 										<Button
 											variant="contained"
-											className={classes.button}
+											className={classes.btnColor2}
 											startIcon={<CloudUploadOutlined />}
 											style={{
 												width: 200,
@@ -964,9 +968,9 @@ class EncryptedPublish extends Component {
 										</Button>
 									</Grid>
 									<Grid item xs style={{ textAlign: 'center' }}>
-										<Link onClick={this.handleClickOpen} style={{ fontSize: 10, textDecoration: 'underline' }}>
-											{t('have_submit')}
-										</Link>
+										<Button className={classes.btnColor3} onClick={this.handleClickOpen} style={{ fontSize: 15, textDecoration: 'underline' }}>
+											<span> {t('have_submit')} </span>
+										</Button>
 									</Grid>
 								</Grid>
 								<Dialog open={this.state.open} onClose={this.handleClose} aria-labelledby="form-dialog-title">
@@ -987,6 +991,7 @@ class EncryptedPublish extends Component {
 								</Dialog>
 							</div>
 						</Container>
+						<Footer />
 					</ThemeProvider>
 				</Spin>
 			)
@@ -994,5 +999,5 @@ class EncryptedPublish extends Component {
 	}
 }
 
-export default withTranslation()(withStyles(styles, { withTheme: true })(EncryptedPublish))
+export default withTranslation()(withStyles(withCommon(styles), { withTheme: true })(EncryptedPublish))
 //todo 涉及交易
