@@ -775,7 +775,7 @@ class NFTInfo extends Component {
 												startIcon={<MoneyCollectOutlined />}
 												onClick={this.claim}
 											>
-												<Typography id="isSpark" variant="button" component="h3" gutterBottom>
+												<Typography id="isSpark" variant="button" gutterBottom>
 													<font size="3">
 														{t('领收益')}
 													</font>
@@ -791,7 +791,7 @@ class NFTInfo extends Component {
 												startIcon={<DollarCircleOutlined />}
 												href={'/#/sellSingle/' + this.props.match.params.id}
 											>
-												<Typography variant="button" component="h2" gutterBottom>
+												<Typography variant="button" gutterBottom>
 													<font size="3">{t('售卖')}</font>
 												</Typography>
 											</Button>
