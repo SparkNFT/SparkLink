@@ -185,9 +185,12 @@ const styles = (theme) => ({
 	},
 	cbutton2: {
 		fontFamily: 'ANC',
-		height:80,
 		justifyContent: 'flex-start',
 		alignItems: 'center',
+		[theme.breakpoints.between('xs', 'sm')]: {
+			justifyContent:'',
+			textAlign:'left'
+		},
 	},
 	share: {
 		fontFamily: 'ANC',
@@ -913,36 +916,43 @@ class NFTInfo extends Component {
 												</Button>
 											</Grid>
 
-											<Grid container direction="row" className={classes.cbutton2} >
-												<CopyToClipboard 
-													text={ t('欢迎来到SparkLink查看并购买我的NFT作品：') + toUrl}
-													onCopy={()=>{
-														message.success(t('分享链接复制成功'))
-													}}>
+											<Grid container  className={classes.cbutton2} >
+												<Grid item xs={12} sm={12} lg={6} xl={6}>
+													<CopyToClipboard 
+														style={{marginRight: 10,marginLeft: 10,marginTop:5,marginBottom:5}}
+														text={ t('欢迎来到SparkLink查看并购买我的NFT作品：') + toUrl}
+														onCopy={()=>{
+															message.success(t('分享链接复制成功'))
+														}}>
+														<Button item
+															size="small"
+															target="_blank"
+															
+															className={classes.btnColor}
+															startIcon={<FireOutlined />}
+														>
+															<font size="3">{t('链接分享')}</font>
+														</Button>
+													</CopyToClipboard>
+												</Grid>
+
+												<Grid item xs={12} sm={12} lg={6} xl={6}>
 													<Button item
 														size="small"
 														target="_blank"
-														className={classes.btnColor}
+														style={{marginRight: 10,marginLeft: 10,marginTop:5,marginBottom:5}}
+														className={classes.btnColor2}
 														startIcon={<FireOutlined />}
+														onClick={() => this.setFlag('spark')}
+														disabled={!this.state.isCoverLoaded}
 													>
-														<font size="3">{t('链接分享')}</font>
+														<font size="3">{t('海报分享')}</font>
 													</Button>
-												</CopyToClipboard>
+												</Grid>
 
-												<Button item
-													size="small"
-													target="_blank"
-													style={{marginLeft: 20}}
-													className={classes.btnColor2}
-													startIcon={<FireOutlined />}
-													onClick={() => this.setFlag('spark')}
-													disabled={!this.state.isCoverLoaded}
-												>
-													<font size="3">{t('海报分享')}</font>
-												</Button>
 											</Grid>
-											<Grid>
-												<Typography align="left" color="textPrimary" paragraph style={{ fontSize: 12 }}>
+											<Grid item xs={12} sm={12} lg={12} xl={12}>
+												<Typography align="left" className={classes.h5} style={{color:'black'}}>
 													💡
 													{t('所有人可通过分享链接或海报进入作品详情页查看以及购买本作品')}
 												</Typography>
