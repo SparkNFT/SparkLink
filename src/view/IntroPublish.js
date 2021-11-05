@@ -115,7 +115,7 @@ class IntroPublish extends Component {
 								<br />
 							</Typography>
 							<Grid container justifyContent="center" style={{ fontFamily: 'ANC', marginTop: 40 }}>
-								<Grid container item style={{ display: 'flex' }} justifyContent="center" xl={6} xs={12} >
+								<Grid container item style={{ display: 'flex' }} justifyContent="center" xl={12} xs={12} >
 									<Button
 										size="large"
 										variant="contained"
@@ -126,7 +126,7 @@ class IntroPublish extends Component {
 										<b>{t('publish_encry')}</b>
 									</Button>
 								</Grid>
-								<Grid container item style={{ display: 'flex', marginTop: 20 }} justifyContent="center" xl={6} xs={12} >
+								<Grid container item style={{ display: 'flex', marginTop: 20 }} justifyContent="center" xl={12} xs={12} >
 									<Button
 										size="large"
 										variant="contained"

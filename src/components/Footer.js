@@ -28,6 +28,9 @@ let styles = (theme) => ({
 		[theme.breakpoints.up('sm')]: {
 			width: '12vh'
 		},
+		[theme.breakpoints.up('xl')]: {
+			width: '10vh'
+		},
 	},
 	helpimg:{
 		[theme.breakpoints.between('xs', 'sm')]: {height:'100px',width:'205px',marginLeft: '25px',marginTop:'15px'},
@@ -79,9 +82,9 @@ class Footer extends Component {
 						</div>
 					</Grid>
 					<Grid direction="column" justifyContent='center' container item style={{color: 'white' ,paddingTop: '10vw'}} xs={12} sm={5} md={5} lg={5} xl={5} >
-						<div style={{display: 'flex', justifyContent:'center'}}>
+						<div style={{display: 'flex', justifyContent:'center',alignItems:'center'}}>
 							<img src={bot} className={classes.botimg} />
-							<Button style={{marginLeft:'20px' , lineHeight :'200%'}} className={classes.btnColor}>SparkLink Telegram Bot</Button>
+							<div><Button style={{marginLeft:'20px' , lineHeight :'200%'}} className={classes.btnColor}>SparkLink Telegram Bot</Button></div>
 						</div>
 						<span className={classes.h2center} style={{marginTop:'15px',marginLeft:'0px'}}>
 							Use The SparkLink bot in Telegram Group <br/>

@@ -148,7 +148,7 @@ let styleCommon = (theme) => {
 				fontSize: 20,
 			},
 			[theme.breakpoints.up('xl')]: {
-				fontSize: 45,
+				fontSize: 35,
 			},
 		},
 		h4Link: {
@@ -268,7 +268,11 @@ let styleCommon = (theme) => {
 				fontSize: 20,
 			},
 			[theme.breakpoints.up('xl')]: {
-				fontSize: 30,
+				fontSize: 25,
+				paddingLeft: 20,
+				paddingRight: 20,
+				paddingTop: 16,
+				paddingBottom: 16,
 			},
 		},
 		btnColor2:{
@@ -303,7 +307,11 @@ let styleCommon = (theme) => {
 				fontSize: 20,
 			},
 			[theme.breakpoints.up('xl')]: {
-				fontSize: 30,
+				fontSize: 25,
+				paddingLeft: 20,
+				paddingRight: 20,
+				paddingTop: 16,
+				paddingBottom: 16,
 			},
 		},
 		btnColor3:{
@@ -341,6 +349,10 @@ let styleCommon = (theme) => {
 			},
 			[theme.breakpoints.up('xl')]: {
 				fontSize: 16,
+				paddingLeft: 20,
+				paddingRight: 20,
+				paddingTop: 16,
+				paddingBottom: 16,
 			},
 		},
 		container: {
@@ -365,6 +377,10 @@ let styleCommon = (theme) => {
 			[theme.breakpoints.between('xs', 'sm')]: {
 				width:'30px',
 				marginLeft:'2px',
+			},
+			[theme.breakpoints.up('xl')]: {
+				width:'80px',
+				marginLeft:'20px',
 			},
 		}
 
