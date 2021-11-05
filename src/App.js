@@ -29,7 +29,6 @@ let styles = (theme) => ({
 		letterSpacing: -2,
 		textAlign: 'center',
 		wordSpacing: 5,
-		boxShadow: '0px 2px 2px #ff7d57',
 		borderRadius: '100vw',
 		backgroundColor: '#FFFFFF',
 		paddingLeft: 50,
@@ -38,7 +37,7 @@ let styles = (theme) => ({
 		paddingBottom: 5,
 		fontFamily: 'ANC',
 		marginTop: '1vw',
-		color: 'red',
+		color: 'rgb(255,90,39)',
 		lineHeight: 1,
 		[theme.breakpoints.between('xs', 'sm')]: {
 			marginTop: 'calc(2vh + 10px)',

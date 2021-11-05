@@ -317,23 +317,23 @@ class Collections extends Component {
   	// 	window.location.reload()
   	// }
 
-  	function showCard (card, index) {
+  	function showCard (card, index, t,classes) {
   		let res = (
   			<Grid item key={index} xs={12} sm={6} md={4}>
   				{card ? (
   					<Card className={classes.card}>
   						<CardMedia className={classes.cardMedia} image={card.image} title="Image title" />
   						<CardContent className={classes.cardContent}>
-  							<Typography gutterBottom variant="h5" component="h2">
+  							<Typography gutterBottom className={classes.h3}>
   								<b>{card.title}</b>
   							</Typography>
-  							<Typography>{obj.renderDescription(card.description)}</Typography>
+  							<Typography className={classes.h5} style={{color:'black'}}  >{obj.renderDescription(card.description)}</Typography>
   						</CardContent>
   						<CardActions>
-  							<Button size="small" variant="contained" color="primary" href={'/#/NFT/' + card.id}>
-  								<b>{'查看'}</b>
+  							<Button size="small" className={classes.btnColor3} href={'/#/NFT/' + card.id}>
+  								<b>{t('查看')}</b>
   							</Button>
-  							<Typography variant="body2" gutterBottom>
+  							<Typography variant="body2" style={{color:'black'}} gutterBottom className={classes.h5}>
   								<b>NFT id: {card.id} </b>
   							</Typography>
   						</CardActions>
@@ -387,7 +387,7 @@ class Collections extends Component {
   							<Grid container spacing={4}>
   								{(this.state.onloading ? Array.from(new Array(this.state.SkeletoNumber)) : this.state.cards).map(
   									(card, index) => {
-  										return showCard(card, index)
+  										return showCard(card, index , t ,classes)
   									}
   								)}
   							</Grid>

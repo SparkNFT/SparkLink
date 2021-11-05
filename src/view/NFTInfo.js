@@ -49,7 +49,6 @@ const styles = (theme) => ({
 	},
 	cbutton: {
 		fontFamily: 'ANC',
-		height: 70,
 		[theme.breakpoints.between('xs', 'sm')]: {
 			justifyContent: 'center',
 			alignItems: 'flex-start',
@@ -94,30 +93,8 @@ const styles = (theme) => ({
 			alignItems: 'flex-start',
 		},
 	},
-	btnMain: {
-		marginTop: theme.spacing(3),
-		color: '#FFFFFF',
-		borderWidth: 2,
-		borderColor: '#e3f2fd',
-		fontSize: 16,
-		borderRadius: 25,
-		width: 120,
-		maxWidth: '20rem',
-		minWidth: '10rem',
-	},
-	btnSecond: {
-		marginTop: theme.spacing(3),
-		marginRight: 30,
-		color: '#03A9F4',
-		borderWidth: 3,
-		borderColor: '#03A9F4',
-		fontSize: 16,
-		borderRadius: 25,
-		width: 120,
-		maxWidth: '20rem',
-		minWidth: '10rem',
-	},
 	paper: {
+		marginLeft: 15, 
 		marginTop: theme.spacing(1),
 		textAlign: 'center',
 		maxWidth: 1370,
@@ -184,6 +161,7 @@ const styles = (theme) => ({
 	},
 	content2: {
 		fontFamily: 'ANC',
+		marginLeft:15,
 		[theme.breakpoints.between('xs', 'sm')]: {
 			marginLeft: 10,
 			maxWidth: 500,
@@ -773,7 +751,7 @@ class NFTInfo extends Component {
 							</Button>
 							<Grid container direction="row" justifyContent="center" alignContent="flex-start">
 								<Grid container direction="row" className={classes.cbutton}>
-									<Grid item>
+									<Grid item xs={11} md={6} lg={6} xl={6}>
 										<Typography
 											color="textPrimary"
 											gutterBottom
@@ -782,41 +760,42 @@ class NFTInfo extends Component {
 											<b>{t('目前收益：')} {this.state.Profit}</b>
 										</Typography>
 									</Grid>
+									<Grid item xs={11} container  md={6} lg={6} xl={6}>
+										<Grid item>
+											<Button
+												style={{
+													marginTop: 10,
+													marginRight: 30,
+													marginBottom: 20,
+												}}
+												size="large"
+												variant="contained"
+												color="primary"
+												className={classes.btnColor2}
+												startIcon={<MoneyCollectOutlined />}
+												onClick={this.claim}
+											>
+												<Typography id="isSpark" variant="button" component="h3" gutterBottom>
+													<font size="3">
+														{t('领收益')}
+													</font>
+												</Typography>
+											</Button>
+										</Grid>
 
-									<Grid item>
-										<Button
-											style={{
-												marginTop: 10,
-												marginRight: 30,
-												marginBottom: 20,
-											}}
-											size="large"
-											variant="contained"
-											color="primary"
-											className={classes.btnColor2}
-											startIcon={<MoneyCollectOutlined />}
-											onClick={this.claim}
-										>
-											<Typography id="isSpark" variant="button" component="h3" gutterBottom>
-												<font size="3">
-													{t('领收益')}
-												</font>
-											</Typography>
-										</Button>
-									</Grid>
-
-									<Grid item>
-										<Button
-											style={{ marginTop: 10, marginBottom: 20 }}
-											size="large"
-											className={classes.btnColor2}
-											startIcon={<DollarCircleOutlined />}
-											href={'/#/sellSingle/' + this.props.match.params.id}
-										>
-											<Typography variant="button" component="h2" gutterBottom>
-												<font size="3">{t('售卖')}</font>
-											</Typography>
-										</Button>
+										<Grid item>
+											<Button
+												style={{ marginTop: 10, marginBottom: 20 }}
+												size="large"
+												className={classes.btnColor2}
+												startIcon={<DollarCircleOutlined />}
+												href={'/#/sellSingle/' + this.props.match.params.id}
+											>
+												<Typography variant="button" component="h2" gutterBottom>
+													<font size="3">{t('售卖')}</font>
+												</Typography>
+											</Button>
+										</Grid>
 									</Grid>
 								</Grid>
 							</Grid>
@@ -865,7 +844,7 @@ class NFTInfo extends Component {
 												color="textSecondary"
 												noWrap
 												style={{
-													fontFamily: 'Teko',
+													fontFamily: 'ANC',
 													fontSize: 16,
 													marginTop: '2%',
 												}}
@@ -877,7 +856,7 @@ class NFTInfo extends Component {
 												align="left"
 												noWrap
 												style={{
-													fontFamily: 'Teko',
+													fontFamily: 'ANC',
 													fontSize: 34,
 													marginTop: '2%',
 												}}
@@ -926,7 +905,7 @@ class NFTInfo extends Component {
 													startIcon={<DownloadOutlined />}
 													onClick={this.downloadIPFS}
 												>
-													<font size="3" color="white">
+													<font size="3" >
 														{t('下载')}
 															
 													</font>
@@ -941,7 +920,6 @@ class NFTInfo extends Component {
 													}}>
 													<Button item
 														size="small"
-														variant="outlined"
 														target="_blank"
 														className={classes.btnColor}
 														startIcon={<FireOutlined />}
@@ -952,8 +930,8 @@ class NFTInfo extends Component {
 
 												<Button item
 													size="small"
-													variant="outlined"
 													target="_blank"
+													style={{marginLeft: 20}}
 													className={classes.btnColor2}
 													startIcon={<FireOutlined />}
 													onClick={() => this.setFlag('spark')}

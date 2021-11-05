@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import fullLogo from '../imgs/bigLogo.png'
+import fullLogo from '../imgs/logowhite.png'
 import sLogo from '../imgs/sparkLink.png'
 import bg from '../imgs/bg.png'
 import TPpic from '../imgs/TP.png'
@@ -83,7 +83,7 @@ const styles = (theme) => ({
 		},
 	},
 	titleGrid: {
-		marginTop: 25,
+		marginTop: 10,
 		marginBottom: 10,
 		display: 'flex',
 		alignItems: 'center'
