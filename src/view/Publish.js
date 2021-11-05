@@ -23,6 +23,7 @@ import { withTranslation } from 'react-i18next'
 import { TOKENPOCKET, METAMASK, LASTCONNECT, MATHWALLET } from '../global/globalsString'
 import withCommon from '../styles/common'
 import Footer from '../components/Footer'
+import { generateZipFile } from '../utils/zipFile.js'
 
 const mathwallet = require('math-js-sdk');
 const tp = require('tp-js-sdk');
@@ -178,6 +179,7 @@ class Publish extends Component {
 		token_addr: null,
 		token_symbol: 'MATIC',
 		decimal: 0,
+		fileList: [],
 	}
 
 	async componentDidMount() {
@@ -480,11 +482,53 @@ class Publish extends Component {
 		window.open(new_url, '_self')
 	}
 
+	/* Get ziped files and upload ziped files to IPFS
+	 */
+	uploadFiles = async () => {
+		if( this.state.fileList.length !== 0 ) {
+			const zipedFiles = await generateZipFile(this.state.name, this.state.fileList);
+			const params = new FormData()
+			params.append('file',zipedFiles)
+			console.log('binary: ')
+			const pinFileUrl = 'https://api.pinata.cloud/pinning/pinFileToIPFS';
+			
+			try {
+				const response = await axios.post(
+					pinFileUrl,
+					params, 
+					{
+						maxBodyLength: 'infinity',
+						headers: {
+							'Content-Type': 'multipart/form-data;',
+							pinata_api_key: pinata_api_key,
+							pinata_secret_api_key: pinata_secret_api_key,
+						}
+					})
+				console.log(response)
+				if(response.statusText === 'OK') {
+					message.success('文件打包上传成功!');
+				}
+				//TODO: 默认所有文件都为zip类型（单文件同样打包）
+				this.setState({
+					fileIpfs: response.data.IpfsHash,
+					fileType: 'zip',
+				})
+			}catch (e) {
+				console.log(e.response);
+			}
+		}
+		else{
+			message.error('上传文件不能为空！')
+		}
+		
+	}
+
 	render() {
 		const { t } = this.props
 		const { classes } = this.props
 		let obj = this
 		const { TextArea } = Input
+		const { fileList } = this.state;
 		const options = this.state.data.map((d) => <Option key={d.value}>{d.text}</Option>)
 		const prop = {
 			name: 'file',
@@ -533,55 +577,73 @@ class Publish extends Component {
 		}
 
 		const propFile = {
-			name: 'file',
-			action: 'https://api.pinata.cloud/pinning/pinFileToIPFS',
-			headers: {
-				pinata_api_key: pinata_api_key,
-				pinata_secret_api_key: pinata_secret_api_key,
+			// name: 'file',
+			// action: 'https://api.pinata.cloud/pinning/pinFileToIPFS',
+			// headers: {
+			// 	pinata_api_key: pinata_api_key,
+			// 	pinata_secret_api_key: pinata_secret_api_key,
+			// },
+			// data: this.state.buffer,
+			// beforeUpload: (file) => {
+			// 	return new Promise((resolve, reject) => {
+			// 		try {
+			// 			const reader = new FileReader()
+			// 			reader.readAsArrayBuffer(file)
+			// 			reader.onload = (e) => {
+			// 				let b = e.target.result
+			// 				let params = new FormData()
+			// 				params.append('file', b)
+			// 				this.setState({
+			// 					buffer: params,
+			// 				})
+			// 			}
+			// 			resolve()
+			// 		} catch (e) {
+			// 			message.error('Read file error')
+			// 			reject()
+			// 		}
+			// 	})
+			// },
+			// async onChange(info) {
+			// 	const { status } = info.file
+			// 	// console.debug(typeof info.file.type)
+			// 	// text/plain image/jpeg application/pdf
+			// 	if (status === 'done') {
+			// 		message.success(`${info.file.name} file uploaded successfully.`)
+			// 		let file_type = info.file.name.split('.')
+			// 		let file_suffix = file_type[file_type.length - 1]
+			// 		console.debug(file_suffix)
+			// 		console.debug('file ipfs hash: ', info.file.response.IpfsHash)
+			// 		obj.setState({
+			// 			fileIpfs: info.file.response.IpfsHash,
+			// 			fileType: file_suffix,
+			// 		})
+			// 	} else if (status === 'error') {
+			// 		message.error(`${info.file.name} file upload failed.`)
+			// 	}
+			// },
+			// onDrop(e) {
+			// 	message.error('Only image file supported')
+			// 	console.log('Dropped files', e.dataTransfer.files)
+			// },
+			onRemove: file => {
+				this.setState(state => {
+					const index = state.fileList.indexOf(file);
+					const newFileList = state.fileList.slice();
+					newFileList.splice(index, 1);
+					return {
+						fileList: newFileList,
+					};
+				});
 			},
-			data: this.state.buffer,
-			beforeUpload: (file) => {
-				return new Promise((resolve, reject) => {
-					try {
-						const reader = new FileReader()
-						reader.readAsArrayBuffer(file)
-						reader.onload = (e) => {
-							let b = e.target.result
-							let params = new FormData()
-							params.append('file', b)
-							this.setState({
-								buffer: params,
-							})
-						}
-						resolve()
-					} catch (e) {
-						message.error('Read file error')
-						reject()
-					}
-				})
+			beforeUpload: file => {
+				this.setState(state => ({
+					fileList: [...state.fileList, file],
+				}));
+				console.log(this.state.fileList)
+				return false;
 			},
-			async onChange(info) {
-				const { status } = info.file
-				// console.debug(typeof info.file.type)
-				// text/plain image/jpeg application/pdf
-				if (status === 'done') {
-					message.success(`${info.file.name} file uploaded successfully.`)
-					let file_type = info.file.name.split('.')
-					let file_suffix = file_type[file_type.length - 1]
-					console.debug(file_suffix)
-					console.debug('file ipfs hash: ', info.file.response.IpfsHash)
-					obj.setState({
-						fileIpfs: info.file.response.IpfsHash,
-						fileType: file_suffix,
-					})
-				} else if (status === 'error') {
-					message.error(`${info.file.name} file upload failed.`)
-				}
-			},
-			onDrop(e) {
-				message.error('Only image file supported')
-				console.log('Dropped files', e.dataTransfer.files)
-			},
+			fileList,
 		}
 
 		// if (this.state.onLoading) {
@@ -754,6 +816,20 @@ class Publish extends Component {
 										<p className="ant-upload-text">{t('upload_file_tip1')}</p>
 										<p className="ant-upload-hint">{t('upload_file_tip2')}</p>
 									</Dragger>
+									<Button
+										variant="contained"
+										className={classes.button}
+										startIcon={<CloudUploadOutlined />}
+										style={{
+											marginTop: 50,
+											width: 200,
+											height: 50,
+											marginBottom: 50,
+										}}
+										onClick={this.uploadFiles}
+									>
+										打包文件并上传
+									</Button>
 								</form>
 								<Button
 									variant="contained"
