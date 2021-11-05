@@ -35,7 +35,7 @@ let styles = (theme) => ({
 		paddingTop: 10,
 		paddingBottom: 5,
 		fontFamily: 'ANC',
-		marginTop: '0vw',
+		marginTop: '1vw',
 		color: 'red',
 		lineHeight: 1,
 		[theme.breakpoints.between('xs', 'sm')]: {
@@ -167,7 +167,7 @@ let styles = (theme) => ({
 			height: '50vw'
 		},
 		['@media (min-height:600px) and (max-height:1279.95px) and (min-width:768px) and (max-width:1024px)']:{
-			height: '40vw',
+			height: '50vw',
 			marginBottom:'10vw'
 		}
 	},
@@ -194,6 +194,9 @@ let styles = (theme) => ({
 		[theme.breakpoints.up('sm')]: {
 			height: '40.6vw'
 		},
+		['@media (min-height:600px) and (max-height:1279.95px) and (min-width:768px) and (max-width:1024px)']:{
+			height: '46vw'
+		}
 	},
 	p32:{
 		[theme.breakpoints.between('xs', 'sm')]: {
