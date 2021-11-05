@@ -336,7 +336,7 @@ let styleCommon = (theme) => {
 				fontSize: 16,
 			},
 			[theme.breakpoints.up('xl')]: {
-				fontSize: 18,
+				fontSize: 16,
 			},
 		},
 		container: {
