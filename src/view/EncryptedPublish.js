@@ -646,6 +646,7 @@ class EncryptedPublish extends Component {
 				pinata_secret_api_key: pinata_secret_api_key,
 			},
 			beforeUpload: (file) => {
+				const {t} = this.props;
 				// eslint-disable-next-line no-async-promise-executor
 				return new Promise(async (resolve, reject) => {
 					try {
@@ -690,7 +691,7 @@ class EncryptedPublish extends Component {
 							if (error.response.status == 400) {
 								if (error.response.data.message.includes('signature invalid')) {
 									message.error({
-										content: '您的签名有误，请查看签名账号是否正确',
+										content: t('您的签名有误，请查看签名账号是否正确'),
 										className: 'custom-class',
 										style: {
 											marginTop: '10vh',
@@ -698,7 +699,7 @@ class EncryptedPublish extends Component {
 									})
 								} else if (error.response.data.message.includes('param invalid')) {
 									message.error({
-										content: '参数错误',
+										content: t('参数错误'),
 										className: 'custom-class',
 										style: {
 											marginTop: '10vh',
@@ -706,7 +707,7 @@ class EncryptedPublish extends Component {
 									})
 								} else if (error.response.data.message.includes('not owned')) {
 									message.error({
-										content: '您并不拥有此nft',
+										content: t('您并不拥有此nft'),
 										className: 'custom-class',
 										style: {
 											marginTop: '10vh',
@@ -714,7 +715,7 @@ class EncryptedPublish extends Component {
 									})
 								} else if (error.response.data.message.includes('not found')) {
 									message.error({
-										content: '此nft还未生成',
+										content: t('此nft还未生成'),
 										className: 'custom-class',
 										style: {
 											marginTop: '10vh',
@@ -723,7 +724,7 @@ class EncryptedPublish extends Component {
 								}
 							} else {
 								message.error({
-									content: '请求文件加密密钥失败',
+									content: t('请求文件加密密钥失败'),
 									className: 'custom-class',
 									style: {
 										marginTop: '10vh',

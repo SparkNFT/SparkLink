@@ -14,6 +14,7 @@ import contract from '../utils/contract'
 import web3 from '../utils/web3'
 import Skeleton from '@material-ui/lab/Skeleton'
 import config from '../global/config'
+import { withTranslation } from 'react-i18next'
 const { gateway, backend, sparkAddr } = config
 const abi = require('erc-20-abi')
 const theme = createTheme({
@@ -439,7 +440,7 @@ class BuySingle extends Component {
 
 	render() {
 		const { classes } = this.props
-
+		const { t } = this.props
 		const buyButton = () => {
 			if (this.state.approvedAddr.toLowerCase() !== this.state.currentAcc.toLowerCase()) {
 				return (
@@ -449,13 +450,13 @@ class BuySingle extends Component {
 						className={classes.btnDisable}
 						disabled
 					>
-						购买
+						{t('购买')}
 					</Button>
 				)
 			} else if (!this.state.approved) {
 				return (
 					<Button variant="outlined" color="primary" className={classes.btnSell} onClick={this.handleApprove}>
-						授权合约
+						{t('授权合约')}
 					</Button>
 				)
 			} else {
@@ -466,7 +467,7 @@ class BuySingle extends Component {
 						className={classes.btnSell}
 						onClick={this.handleBuy}
 					>
-						购买
+						{t('购买')}
 					</Button>
 				)
 			}
@@ -482,7 +483,7 @@ class BuySingle extends Component {
 							href="/"
 							style={{ marginTop: 20, marginBottom: 10, fontSize: '2rem' }}
 						>
-							回到首页
+							{t('回到首页')}
 						</Button>
 						<div className={classes.paper}>
 							{this.state.loadItem ? (
@@ -556,7 +557,7 @@ class BuySingle extends Component {
 											paragraph
 											style={{ marginTop: '2%', maxWidth: '65%', fontSize: 20 }}
 										>
-											创作者分红比例: {this.state.bonusFee} %
+											{t('创作者分红比例')} {this.state.bonusFee} %
 										</Typography>
 										<Typography
 											align="left"
@@ -568,7 +569,7 @@ class BuySingle extends Component {
 												fontSize: 18,
 											}}
 										>
-											售价: {this.state.priceString}
+											{t('售价：')} {this.state.priceString}
 										</Typography>
 										<Typography
 											align="left"
@@ -576,13 +577,13 @@ class BuySingle extends Component {
 											paragraph
 											style={{ marginTop: '1%', maxWidth: '65%', fontSize: 12 }}
 										>
-											当前拥有者: {this.state.owner}
+											{t('当前拥有者：')} {this.state.owner}
 										</Typography>
 										<Typography align="left" color="textPrimary" paragraph style={{ maxWidth: '65%', fontSize: 12 }}>
-											当前拥有的子节点数量: {this.state.childrenNum}
+											{t('当前拥有的子节点数量：')} {this.state.childrenNum}
 										</Typography>
 										<Typography align="left" color="textPrimary" paragraph style={{ maxWidth: '65%', fontSize: 12 }}>
-											NFT作品是否加密: {this.state.encrypted}
+											{t('NFT是否加密：')} {this.state.encrypted}
 										</Typography>
 										{buyButton()}
 									</Grid>
@@ -596,5 +597,5 @@ class BuySingle extends Component {
 	}
 }
 
-export default withStyles(styles, { withTheme: true })(BuySingle)
+export default withTranslation()(withStyles(styles, { withTheme: true })(BuySingle))
 //todo  涉及交易

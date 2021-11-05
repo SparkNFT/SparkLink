@@ -24,6 +24,8 @@ import axios from 'axios'
 import web3 from '../utils/web3'
 import config from '../global/config'
 import { TOKENPOCKET, METAMASK, LASTCONNECT, MATHWALLET } from '../global/globalsString'
+import { withTranslation } from 'react-i18next'
+
 const { gateway, backend } = config
 
 const mathwallet = require('math-js-sdk');
@@ -45,7 +47,7 @@ const styles = (theme) => ({
 		maxWidth: 1500,
 	},
 	cbutton: {
-		fontFamily: 'Teko',
+		fontFamily: 'ANC',
 		height: 70,
 		[theme.breakpoints.between('xs', 'sm')]: {
 			justifyContent: 'center',
@@ -69,7 +71,7 @@ const styles = (theme) => ({
 		},
 	},
 	content: {
-		fontFamily: 'Teko',
+		fontFamily: 'ANC',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			justifyContent: 'flex-start',
 			alignItems: 'flex-start',
@@ -180,7 +182,7 @@ const styles = (theme) => ({
 		},
 	},
 	content2: {
-		fontFamily: 'Teko',
+		fontFamily: 'ANC',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			marginLeft: 10,
 			maxWidth: 500,
@@ -203,13 +205,13 @@ const styles = (theme) => ({
 		},
 	},
 	cbutton2: {
-		fontFamily: 'Teko',
+		fontFamily: 'ANC',
 		height:80,
 		justifyContent: 'flex-start',
 		alignItems: 'center',
 	},
 	share: {
-		fontFamily: 'Teko',
+		fontFamily: 'ANC',
 		marginBottom: '10%',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			fontSize: 14,
@@ -254,15 +256,16 @@ class NFTInfo extends Component {
 		tokenSymbol: '',
 	}
 	async componentDidMount() {
+		const {t} = this.props
 		if (!window.ethereum) {
-			alert('请先安装metamask')
+			alert(t('请先安装metamask'))
 			window.location.href = '/#/collections'
 			return
 		}
 
 		const chainId = await window.ethereum.request({ method: 'eth_chainId' })
 		if (chainId !== '0x89') {
-			alert('请切换至Polygon 主网络')
+			alert(t('请切换至Polygon 主网络'))
 			await window.ethereum.request({
 				method: 'wallet_switchEthereumChain',
 				params: [
@@ -316,7 +319,7 @@ class NFTInfo extends Component {
 			break;
 		}
 		if (account === null) {
-			alert('请先连接钱包')
+			alert(t('请先连接钱包'))
 			window.location.href = '/#/';
 			return;
 		}
@@ -326,7 +329,7 @@ class NFTInfo extends Component {
 		if (web3.utils.toChecksumAddress(account) !== owner) {
 			// alert("这枚nft不属于你");
 			message.warning({
-				content: '这枚nft不属于你',
+				content: t('您并不拥有此nft'),
 				className: 'custom-class',
 				style: {
 					marginTop: '10vh',
@@ -382,7 +385,7 @@ class NFTInfo extends Component {
 			let fileAddr = ''
 			let isEncrypt = false
 			let fileType = data.attributes[2].value
-			let encrypted = '未知'
+			let encrypted = t('未知')
 
 			for (let i = 0; i < data.attributes.length; i++) {
 				if (data.attributes[i].trait_type === 'Bonuse Percentage') {
@@ -395,10 +398,10 @@ class NFTInfo extends Component {
 				if (data.attributes[i].trait_type === 'Encrypted') {
 					if (data.attributes[i].value === 'FALSE') {
 						isEncrypt = false
-						encrypted = '否'
+						encrypted = t('否')
 					} else {
 						isEncrypt = true
-						encrypted = '是'
+						encrypted = t('是')
 					}
 				}
 			}
@@ -417,7 +420,7 @@ class NFTInfo extends Component {
 			})
 		} catch (error) {
 			this.setState({ Name: 'SparkNFT' })
-			this.setState({ Description: '暂时无法获取到该nft的相关描述' })
+			this.setState({ Description: t('暂时无法获取到该nft的相关描述') })
 			this.setState({ BonusFee: royalty })
 			this.setState({
 				Cover: 'https://via.placeholder.com/100x140.png?text=SparkNFT',
@@ -437,7 +440,7 @@ class NFTInfo extends Component {
 			.catch((error) => {
 				if (error.response === undefined) {
 					message.error({
-						content: '错误：服务器未响应',
+						content: t('错误：服务器未响应'),
 						className: 'custom-class',
 						style: {
 							marginTop: '10vh',
@@ -449,7 +452,7 @@ class NFTInfo extends Component {
 					console.debug('no children')
 				} else {
 					message.error({
-						content: `获取nft子节点情况页面失败： ${error}`,
+						content: t('获取nft子节点情况页面失败：')+` ${error}`,
 						className: 'custom-class',
 						style: {
 							marginTop: '10vh',
@@ -680,7 +683,7 @@ class NFTInfo extends Component {
 	}
 	render() {
 		const { classes } = this.props
-		
+		const { t } = this.props
 		const url = window.location.host
 		const toUrl = 'https://' + url + '/#/NFT/Spark/' + this.props.match.params.id
 		const sell_info = () => {
@@ -714,7 +717,7 @@ class NFTInfo extends Component {
 						<TopBar />
 						<div style={{ textAlign: 'center', marginTop: '2%', marginLeft: 40 }}>
 							<Typography color="textPrimary" gutterBottom style={{ marginRight: 50, marginTop: 20, fontSize: 24 }}>
-								<b>正在解密文件</b>
+								<b>{t('正在解密文件')}</b>
 							</Typography>
 						</div>
 						<div style={{ textAlign: 'center', marginTop: '10%' }}>
@@ -732,7 +735,7 @@ class NFTInfo extends Component {
 								}}
 								onClick={this.return}
 							>
-								返回信息页面
+								{t('返回信息页面')}
 							</Button>
 						</div>
 					</ThemeProvider>
@@ -745,7 +748,7 @@ class NFTInfo extends Component {
 						<TopBar />
 						<div style={{ textAlign: 'center', marginTop: '2%', marginLeft: 40 }}>
 							<Typography color="textPrimary" gutterBottom style={{ marginRight: 50, marginTop: 20, fontSize: 24 }}>
-								<b>正在下载文件</b>
+								<b>{t('正在下载文件')}</b>
 							</Typography>
 						</div>
 						<div style={{ textAlign: 'center', marginTop: '10%' }}>
@@ -765,7 +768,7 @@ class NFTInfo extends Component {
 								href="/#/collections"
 								style={{ marginTop: 20, marginBottom: 10, fontSize: '2rem' }}
 							>
-								回到我的收藏馆
+								{t('回到我的收藏馆')}
 							</Button>
 							<Grid container direction="row" justifyContent="center" alignContent="flex-start">
 								<Grid container direction="row" className={classes.cbutton}>
@@ -775,7 +778,7 @@ class NFTInfo extends Component {
 											gutterBottom
 											style={{ marginRight: 50, marginTop: 20, fontSize: 14 }}
 										>
-											<b>目前收益: {this.state.Profit}</b>
+											<b>{t('目前收益：')} {this.state.Profit}</b>
 										</Typography>
 									</Grid>
 
@@ -795,7 +798,7 @@ class NFTInfo extends Component {
 										>
 											<Typography id="isSpark" variant="button" component="h3" gutterBottom>
 												<font size="3" color="white">
-													领收益
+													{t('领收益')}
 												</font>
 											</Typography>
 										</Button>
@@ -811,7 +814,7 @@ class NFTInfo extends Component {
 											href={'/#/sellSingle/' + this.props.match.params.id}
 										>
 											<Typography variant="button" component="h2" gutterBottom>
-												<font size="3">售卖</font>
+												<font size="3">{t('售卖')}</font>
 											</Typography>
 										</Button>
 									</Grid>
@@ -903,13 +906,13 @@ class NFTInfo extends Component {
 													fontSize: 24,
 												}}
 											>
-												分红比例: {this.state.BonusFee} %
+												{t('分红比例：')} {this.state.BonusFee} %
 											</Typography>
 											<Typography align="left" color="textPrimary" paragraph style={{ maxWidth: '65%', fontSize: 12 }}>
-												当前拥有的子节点数量: {this.state.childrenNum}
+												{t('当前拥有的子节点数量：')} {this.state.childrenNum}
 											</Typography>
 											<Typography align="left" color="textPrimary" paragraph style={{ maxWidth: '65%', fontSize: 12 }}>
-												NFT作品是否加密: {this.state.encrypted}
+												{t('NFT是否加密：')} {this.state.encrypted}
 											</Typography>
 
 											<Grid container className={classes.cbutton2}>
@@ -924,16 +927,17 @@ class NFTInfo extends Component {
 													onClick={this.downloadIPFS}
 												>
 													<font size="3" color="white">
-															下载
+														{t('下载')}
+															
 													</font>
 												</Button>
 											</Grid>
 
 											<Grid container direction="row" className={classes.cbutton2} >
 												<CopyToClipboard 
-													text={'欢迎来到SparkLink查看并购买我的NFT作品：'+toUrl}
+													text={ t('欢迎来到SparkLink查看并购买我的NFT作品：') + toUrl}
 													onCopy={()=>{
-														message.success('分享链接复制成功')
+														message.success(t('分享链接复制成功'))
 													}}>
 													<Button item
 														size="small"
@@ -942,7 +946,7 @@ class NFTInfo extends Component {
 														className={classes.btnSecond}
 														startIcon={<FireOutlined />}
 													>
-														<font size="3">链接分享</font>
+														<font size="3">{t('链接分享')}</font>
 													</Button>
 												</CopyToClipboard>
 
@@ -955,12 +959,13 @@ class NFTInfo extends Component {
 													onClick={() => this.setFlag('spark')}
 													disabled={!this.state.isCoverLoaded}
 												>
-													<font size="3">海报分享</font>
+													<font size="3">{t('海报分享')}</font>
 												</Button>
 											</Grid>
 											<Grid>
 												<Typography align="left" color="textPrimary" paragraph style={{ fontSize: 12 }}>
-													💡所有人可通过分享链接或海报进入作品详情页查看以及购买本作品
+													💡
+													{t('所有人可通过分享链接或海报进入作品详情页查看以及购买本作品')}
 												</Typography>
 											</Grid>
 										</Grid>
@@ -977,6 +982,6 @@ class NFTInfo extends Component {
 		}
 	}
 }
-export default withStyles(styles, { withTheme: true })(NFTInfo)
+export default withTranslation()(withStyles(styles, { withTheme: true })(NFTInfo))
 //todo 涉及交易
 //account的获取方式做了修改

@@ -151,6 +151,7 @@ class Collections extends Component {
 		}
 	}
 	async componentDidMount () {
+		const { t } = this.props;
 		// const accounts = await window.ethereum.request({
 		// 	method: 'eth_requestAccounts',
 		// })
@@ -181,7 +182,7 @@ class Collections extends Component {
 			break;
 		}
 		if (account === null) {
-			alert('请先连接钱包')
+			alert(t('请先连接钱包'))
 			window.location.href = '/#/';
 			return;
 		}
@@ -189,7 +190,7 @@ class Collections extends Component {
 		//const account = accounts[0]
 		const chainId = await window.ethereum.request({ method: 'eth_chainId' })
 		if (chainId !== '0x89') {
-			alert('请切换至Polygon 主网络')
+			alert(t('请切换至Polygon 主网络'))
 			await window.ethereum.request({
 				method: 'wallet_switchEthereumChain',
 				params: [
@@ -240,6 +241,7 @@ class Collections extends Component {
 	}
 
   getMetadata = async (contract, ids) => {
+	  const { t } = this.props;
   	return Promise.all(ids.map(async (id) => {
   		let ipfs_link = await contract.methods.tokenURI(id).call();
   		var ipfs_hash_arr = ipfs_link.split('/');
@@ -256,7 +258,7 @@ class Collections extends Component {
   			var name_holder = 'SparkNFT#' + id;
   			var placeholder = {
   				'name': name_holder,
-  				'description': '暂时无法获取到该nft的相关描述',
+  				'description': t('暂时无法获取到该nft的相关描述'),
   				'image': 'https://testnets.opensea.io/static/images/placeholder.png',
   				'attributes': [
   					{
@@ -317,6 +319,7 @@ class Collections extends Component {
   	// }
 
   	function showCard (card, index) {
+		  const { t } = this.props;
   		let res = (
   			<Grid item key={index} xs={12} sm={6} md={4}>
   				{card ? (
@@ -330,7 +333,7 @@ class Collections extends Component {
   						</CardContent>
   						<CardActions>
   							<Button size="small" variant="contained" color="primary" href={'/#/NFT/' + card.id}>
-  								<b>查看 </b>
+  								<b>{t('查看')}</b>
   							</Button>
   							<Typography variant="body2" gutterBottom>
   								<b>NFT id: {card.id} </b>
@@ -374,7 +377,7 @@ class Collections extends Component {
   				<Empty
   					description={
   						<span style={{ fontFamily: 'Teko' }}>
-  							<b>暂无可展示NFT</b>
+  							<b>{t('暂无可展示NFT')}</b>
   						</span>
   					}
   					style={{ marginTop: 100 }}

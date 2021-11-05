@@ -4,7 +4,7 @@ import { createTheme, ThemeProvider, withStyles } from '@material-ui/core/styles
 import Typography from '@material-ui/core/Typography'
 import Container from '@material-ui/core/Container'
 import TopBar from '../components/TopBar'
-
+import { withTranslation } from 'react-i18next'
 const styles = (theme) => ({
 	icon: {
 		marginRight: theme.spacing(2),
@@ -129,6 +129,7 @@ const theme = createTheme({
 class Buy extends Component {
 	render() {
 		const { classes } = this.props
+		const { t } = this.props
 		return (
 			<div>
 				<ThemeProvider theme={theme}>
@@ -136,7 +137,7 @@ class Buy extends Component {
 					<Container component="main" className={classes.container}>
 						<div className={classes.paper}>
 							<Typography color="inherit" noWrap className={classes.shouldKnow}>
-								<b>敬请期待</b>
+								<b>{t('敬请期待')}</b>
 							</Typography>
 						</div>
 					</Container>
@@ -146,4 +147,4 @@ class Buy extends Component {
 	}
 }
 
-export default withStyles(styles, { withTheme: true })(Buy)
+export default withTranslation()(withStyles(styles, { withTheme: true })(Buy))

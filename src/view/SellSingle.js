@@ -14,6 +14,7 @@ import contract from '../utils/contract'
 import web3 from '../utils/web3'
 import Skeleton from '@material-ui/lab/Skeleton'
 import config from '../global/config'
+import { withTranslation } from 'react-i18next'
 const { gateway, backend } = config
 const abi = require('erc-20-abi')
 const theme = createTheme({
@@ -183,9 +184,10 @@ class SellSingle extends Component {
 	}
 
 	async componentDidMount() {
+		const { t } = this.props;
 		const chainId = await window.ethereum.request({ method: 'eth_chainId' })
 		if (chainId !== '0x89') {
-			alert('请切换至Polygon 主网络')
+			alert(t('请切换至Polygon 主网络'))
 			await window.ethereum.request({
 				method: 'wallet_switchEthereumChain',
 				params: [
@@ -228,7 +230,7 @@ class SellSingle extends Component {
 			obj.setState({
 				loadItem: false,
 				name: name_holder,
-				description: '暂时无法获取到该nft的相关描述',
+				description: t('暂时无法获取到该nft的相关描述'),
 				bonusFee: royalty,
 				coverURL: 'https://via.placeholder.com/100x140.png?text=SparkNFT',
 			})
@@ -287,7 +289,7 @@ class SellSingle extends Component {
 		} catch (error) {
 			if (error.response === undefined) {
 				message.error({
-					content: '错误：服务器未响应',
+					content: t('错误：服务器未响应'),
 					className: 'custom-class',
 					style: {
 						marginTop: '10vh',
@@ -299,7 +301,7 @@ class SellSingle extends Component {
 				console.debug('no children')
 			} else {
 				message.error({
-					content: `获取nft子节点情况页面失败： ${error}`,
+					content:t('获取nft子节点情况页面失败：')+ ` ${error}`,
 					className: 'custom-class',
 					style: {
 						marginTop: '10vh',
@@ -339,6 +341,7 @@ class SellSingle extends Component {
 	}
 
 	sell = async () => {
+		const {t} = this.props;
 		this.setState({
 			open: false,
 		})
@@ -367,7 +370,7 @@ class SellSingle extends Component {
 					onLoading: false,
 				})
 				message.success({
-					content: '已经成功授权买方',
+					content: t('已经成功授权买方'),
 					className: 'custom-class',
 					style: {
 						marginTop: '10vh',
@@ -390,6 +393,7 @@ class SellSingle extends Component {
 
 	render() {
 		const { classes } = this.props
+		const { t } = this.props
 		const sell_info = () => {
 			let host = window.location.host
 			let toUrl = 'https://' + host + '/#/buySingle/' + this.state.NFTId
@@ -398,8 +402,8 @@ class SellSingle extends Component {
 					<Grid container>
 						<Grid item xs>
 							<Typography color="inherit" align="center" noWrap className={classes.share}>
-								请将下方链接分享给买方，
-								<br /> 买方会进入此链接来购买这个NFT <br />
+								{t('请将下方链接分享给买方，')}
+								<br />{t('买方会进入此链接来购买这个NFT')}<br />
 								{toUrl}
 								<CopyToClipboard text={toUrl} onCopy={() => this.setState({ copied: true })}>
 									<IconButton color="primary" aria-label="upload picture" component="span">
@@ -423,7 +427,7 @@ class SellSingle extends Component {
 						className={classes.btnSell}
 						onClick={this.handleClickOpen}
 					>
-						售卖
+						{t('售卖')}
 					</Button>
 				)
 			} else {
@@ -434,7 +438,7 @@ class SellSingle extends Component {
 						className={classes.btnSell}
 						disabled
 					>
-						售卖
+						{t('售卖')}
 					</Button>
 				)
 			}
@@ -450,7 +454,7 @@ class SellSingle extends Component {
 							onClick={this.handleClickLink}
 							style={{ marginTop: 50, marginBottom: 100, fontSize: 22 }}
 						>
-							返回
+							{t('返回')}
 						</Button>
 						<div className={classes.paper}>
 							{this.state.loadItem ? (
@@ -532,17 +536,17 @@ class SellSingle extends Component {
 											paragraph
 											style={{ marginTop: '6%', maxWidth: '65%', fontSize: 20 }}
 										>
-											创作者分红比例: {this.state.bonusFee} %
+											{t('创作者分红比例：')}{this.state.bonusFee} %
 										</Typography>
 										<Typography align="left" color="textPrimary" paragraph style={{ maxWidth: '65%', fontSize: 12 }}>
-											当前拥有的子节点数量: {this.state.childrenNum}
+											{t('当前拥有的子节点数量：')} {this.state.childrenNum}
 										</Typography>
 										{showSellBtn()}
 										<Dialog open={this.state.open} onClose={this.handleClose} aria-labelledby="form-dialog-title">
-											<DialogTitle id="form-dialog-title">填写售卖信息</DialogTitle>
+											<DialogTitle id="form-dialog-title">{t('填写售卖信息')}</DialogTitle>
 											<DialogContent>
 												<DialogContentText>
-													请在下方区域填写你希望售卖的价格，以及售卖对象的钱包地址。
+													{t('请在下方区域填写你希望售卖的价格，以及售卖对象的钱包地址。')}
 												</DialogContentText>
 												<label style={{ fontSize: 14, marginBottom: 10 }}>售卖价格 ({this.state.tokenSymbol})*</label>
 												<InputNumber
@@ -558,10 +562,10 @@ class SellSingle extends Component {
 														marginTop: 10,
 													}}
 												>
-													买方钱包地址 *
+													{t('买方钱包地址 *')}
 												</label>
 												<Input
-													placeholder="买方钱包地址"
+													placeholder={t('买方钱包地址 *')}
 													allowClear
 													id="pubName"
 													onChange={this.handleGetAddr}
@@ -570,10 +574,10 @@ class SellSingle extends Component {
 											</DialogContent>
 											<DialogActions>
 												<Button onClick={this.handleClose} color="primary">
-													取消
+													{t('取消')}
 												</Button>
 												<Button variant="contained" onClick={this.sell} color="primary">
-													卖出
+													{t('售卖')}
 												</Button>
 											</DialogActions>
 										</Dialog>
@@ -589,5 +593,5 @@ class SellSingle extends Component {
 	}
 }
 
-export default withStyles(styles, { withTheme: true })(SellSingle)
+export default withTranslation(withStyles(styles, { withTheme: true })(SellSingle))
 //todo 涉及交易

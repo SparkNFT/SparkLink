@@ -295,6 +295,7 @@ class Publish extends Component {
 		 * then call backend to get a secret key. Then encrypt the pdf file and upload it to IPFS
 		 * Finally, form a new metadata json file and send its ipfs hash to backend and publish it
 		 */
+		const {t} = this.props;
 		let obj = this
 		if (
 			this.state.price === 0 ||
@@ -305,7 +306,7 @@ class Publish extends Component {
 			this.state.token_addr === null
 		) {
 			message.error({
-				content: '你有信息尚未填写',
+				content: t('你有信息尚未填写'),
 				className: 'custom-class',
 				style: {
 					marginTop: '10vh',
@@ -425,7 +426,7 @@ class Publish extends Component {
 							finished: true,
 						})
 						message.success({
-							content: '已经成功发布作品',
+							content: t('已经成功发布作品'),
 							className: 'custom-class',
 							style: {
 								marginTop: '10vh',
@@ -438,7 +439,7 @@ class Publish extends Component {
 						})
 						if (error.message.includes('not mined')) {
 							message.warning({
-								content: '交易已提交，当前网络较拥堵，请稍等后去我的收藏中查看',
+								content: t('交易已提交，当前网络较拥堵，请稍等后去我的收藏中查看'),
 								className: 'custom-class',
 								style: {
 									marginTop: '10vh',
@@ -458,7 +459,7 @@ class Publish extends Component {
 			} catch (error) {
 				console.debug(error)
 				message.error({
-					content: `似乎遇到了些小问题： ${error}`,
+					content: t('似乎遇到了些小问题：')+` ${error}`,
 					className: 'custom-class',
 					style: {
 						marginTop: '10vh',

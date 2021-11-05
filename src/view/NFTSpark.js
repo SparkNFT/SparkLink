@@ -14,6 +14,7 @@ import Skeleton from '@material-ui/lab/Skeleton'
 import { Progress, message, Spin } from 'antd'
 import config from '../global/config'
 import { TOKENPOCKET, METAMASK, LASTCONNECT, MATHWALLET } from '../global/globalsString'
+import { withTranslation } from 'react-i18next'
 const { gateway, backend, sparkAddr } = config
 
 const mathwallet = require('math-js-sdk');
@@ -518,6 +519,7 @@ class NFTSpark extends Component {
 		// const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
 		// const account = accounts[0]
 		let account
+		const{ t } =this.props;
 		const lastConnect = localStorage.getItem(LASTCONNECT)
 		if (lastConnect === METAMASK) {
 			const accounts = await window.ethereum.request({
@@ -544,7 +546,7 @@ class NFTSpark extends Component {
 				})
 				.on('receipt', function () {
 					message.success({
-						content: '交易已经上链',
+						content: t('交易已经上链'),
 						className: 'custom-class',
 						style: {
 							marginTop: '10vh',
@@ -576,7 +578,7 @@ class NFTSpark extends Component {
 				})
 				.on('receipt', function () {
 					message.success({
-						content: '交易已经上链',
+						content: t('交易已经上链'),
 						className: 'custom-class',
 						style: {
 							marginTop: '10vh',
@@ -604,6 +606,7 @@ class NFTSpark extends Component {
 
 	render() {
 		const { classes } = this.props
+		const { t } = this.props
 		const showBtn = () => {
 			if (this.state.showRecommend) {
 				return (
@@ -618,7 +621,7 @@ class NFTSpark extends Component {
 									disabled
 								>
 									<Typography variant="button" component="h2" gutterBottom style={{ color: '#FFFFFF' }}>
-										<font size="4"> 下 载 </font>
+										<font size="4"> {t('下载')}</font>
 									</Typography>
 								</Button>
 								<Grid item>
@@ -633,7 +636,7 @@ class NFTSpark extends Component {
 										disabled
 									>
 										<Typography variant="button" component="h2" gutterBottom>
-											<font size="4"> 铸造 </font>
+											<font size="4"> {t('铸造')} </font>
 										</Typography>
 									</Button>
 								</Grid>
@@ -649,7 +652,7 @@ class NFTSpark extends Component {
 										onClick={this.downloadIPFS}
 									>
 										<Typography variant="button" component="h2" gutterBottom style={{ color: '#FFFFFF' }}>
-											<font size="4"> 下 载 </font>
+											<font size="4"> {t('下载')} </font>
 										</Typography>
 									</Button>
 								</Grid>
@@ -665,7 +668,7 @@ class NFTSpark extends Component {
 										disabled
 									>
 										<Typography variant="button" component="h2" gutterBottom>
-											<font size="4"> 铸造 </font>
+											<font size="4"> {t('铸造')} </font>
 										</Typography>
 									</Button>
 								</Grid>
@@ -687,7 +690,7 @@ class NFTSpark extends Component {
 									disabled
 								>
 									<Typography variant="button" component="h2" gutterBottom style={{ color: '#FFFFFF' }}>
-										<font size="4"> 下 载 </font>
+										<font size="4"> {t('下载')}</font>
 									</Typography>
 								</Button>
 								<Grid item>
@@ -701,7 +704,7 @@ class NFTSpark extends Component {
 										onClick={this.approve}
 									>
 										<Typography variant="button" component="h2" gutterBottom>
-											<font size="4"> 授权合约 </font>
+											<font size="4"> {t('授权合约')}</font>
 										</Typography>
 									</Button>
 								</Grid>
@@ -718,7 +721,7 @@ class NFTSpark extends Component {
 										onClick={this.downloadIPFS}
 									>
 										<Typography variant="button" component="h2" gutterBottom style={{ color: '#FFFFFF' }}>
-											<font size="4"> 下载 </font>
+											<font size="4"> {t('下载')} </font>
 										</Typography>
 									</Button>
 								</Grid>
@@ -733,7 +736,7 @@ class NFTSpark extends Component {
 										onClick={this.approve}
 									>
 										<Typography variant="button" component="h2" gutterBottom>
-											<font size="4"> 授权合约 </font>
+											<font size="4"> {t('授权合约')} </font>
 										</Typography>
 									</Button>
 								</Grid>
@@ -755,7 +758,7 @@ class NFTSpark extends Component {
 									disabled
 								>
 									<Typography variant="button" component="h2" gutterBottom style={{ color: '#FFFFFF' }}>
-										<font size="4"> 下 载 </font>
+										<font size="4"> {t('下载')} </font>
 									</Typography>
 								</Button>
 								<Grid item>
@@ -770,7 +773,7 @@ class NFTSpark extends Component {
 										onClick={this.shill}
 									>
 										<Typography variant="button" component="h2" gutterBottom>
-											<font size="4"> 铸造 </font>
+											<font size="4"> {t('铸造')} </font>
 										</Typography>
 									</Button>
 								</Grid>
@@ -787,7 +790,7 @@ class NFTSpark extends Component {
 										onClick={this.downloadIPFS}
 									>
 										<Typography variant="button" component="h2" gutterBottom style={{ color: '#FFFFFF' }}>
-											<font size="4"> 下 载 </font>
+											<font size="4"> {t('下载')} </font>
 										</Typography>
 									</Button>
 								</Grid>
@@ -803,7 +806,7 @@ class NFTSpark extends Component {
 										onClick={this.shill}
 									>
 										<Typography variant="button" component="h2" gutterBottom>
-											<font size="4"> 铸造 </font>
+											<font size="4"> {t('铸造')} </font>
 										</Typography>
 									</Button>
 								</Grid>
@@ -821,7 +824,7 @@ class NFTSpark extends Component {
 						<TopBar />
 						<div style={{ textAlign: 'center', marginTop: '2%', marginLeft: 40 }}>
 							<Typography color="textPrimary" gutterBottom style={{ marginRight: 50, marginTop: 20, fontSize: 24 }}>
-								<b>正在下载文件</b>
+								<b>{t('正在下载文件')}</b>
 							</Typography>
 						</div>
 						<div style={{ textAlign: 'center', marginTop: '10%' }}>
@@ -841,7 +844,7 @@ class NFTSpark extends Component {
 								href="/#/collections"
 								style={{ marginTop: 20, marginBottom: 10, fontSize: '2rem' }}
 							>
-								回到我的收藏馆
+								{t('回到我的收藏馆')}
 							</Button>
 							<Grid container direction="row" justifyContent="center" alignItems="center" xs={12}>
 								<Typography color="inherit" noWrap className={classes.title}>
@@ -925,13 +928,13 @@ class NFTSpark extends Component {
 													fontSize: 24,
 												}}
 											>
-												点火价格: {this.state.priceString}
+												{t('点火价格: ')} {this.state.priceString}
 											</Typography>
 											<Typography align="left" color="textPrimary" paragraph style={{ maxWidth: '100%', fontSize: 18 }}>
-												最大分享次数: {this.state.maxShillTimes} 次
+												{t('最大分享次数：')} {this.state.maxShillTimes} 次
 											</Typography>
 											<Typography align="left" color="textPrimary" paragraph style={{ maxWidth: '100%', fontSize: 18 }}>
-												剩余分享次数: {this.state.remainShillTimes} 次
+												{t('剩余分享次数：')} {this.state.remainShillTimes} 次
 											</Typography>
 											{this.state.isEncrypt ? (
 												<Typography
@@ -940,7 +943,7 @@ class NFTSpark extends Component {
 													paragraph
 													style={{ maxWidth: '100%', fontSize: 16 }}
 												>
-													加密作品
+													{t('加密作品')}
 												</Typography>
 											) : (
 												<Typography
@@ -949,7 +952,7 @@ class NFTSpark extends Component {
 													paragraph
 													style={{ maxWidth: '100%', fontSize: 16 }}
 												>
-													开源作品
+													{t('开源作品')}
 												</Typography>
 											)}
 											{showBtn()}
@@ -960,7 +963,7 @@ class NFTSpark extends Component {
 								{this.state.showRecommend ? (
 									<Grid style={{ marginTop: 50 }}>
 										<Typography variant="h4" gutterBottom>
-											此NFT的子节点已经售完，我们给您推荐了其他还能购买的节点：
+											{t('此NFT的子节点已经售完，我们给您推荐了其他还能购买的节点：')}
 										</Typography>
 										<Link onClick={this.handleClickLink} style={{ fontSize: 20, textDecoration: 'underline' }}>
 											{window.location.host + '/#/NFT/Spark/' + this.state.recommendNFT}
@@ -978,6 +981,6 @@ class NFTSpark extends Component {
 	}
 }
 
-export default withStyles(styles, { withTheme: true })(NFTSpark)
+export default withTranslation()(withStyles(styles, { withTheme: true })(NFTSpark))
 //todo 涉及交易
 //account的获取方式做了修改
