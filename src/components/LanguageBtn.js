@@ -44,7 +44,7 @@ function LanguageBtn({ classes }) {
 			<Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
 				{options.map((option, index) => (
 					<MenuItem style={{ fontSize: 20}} key={option} selected={index === selectedIndex} onClick={handleCloseProfile(index)} value={index}>
-						{option}
+						<Button  className={classes.btnColor3}>{option}</Button>
 					</MenuItem>
 				))}
 			</Menu>

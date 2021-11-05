@@ -1,4 +1,5 @@
 import bg from './imgs/bg.png'
+import bg_mobile from './imgs/bg_mobile.png'
 import bg2 from './imgs/bg2.png'
 import bg3 from './imgs/bg3.png'
 import index1 from './imgs/index1.png'
@@ -22,6 +23,7 @@ import Container from '@material-ui/core/Container'
 import TopBar from './components/TopBar'
 import withCommon from './styles/common.js'
 import { withTranslation } from 'react-i18next'
+import isMobile from './utils/isMobile'
 let styles = (theme) => ({
 	title4box: {
 		letterSpacing: -2,
@@ -78,7 +80,7 @@ let styles = (theme) => ({
 		top: '0px',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			height: 'calc(50vh + 100px)',
-			width: 'auto',
+			width: '100vw',
 			clip:'rect(0px,100vw,calc(50vh + 100px),0px)'
 		},
 		[theme.breakpoints.up('sm')]: {
@@ -95,6 +97,7 @@ let styles = (theme) => ({
 		zIndex: '-2',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			height: '150vh',
+			width:'100vw',
 			clip:'rect(0px,100vw,150vh,0px)'
 		},
 		[theme.breakpoints.up('sm')]: {
@@ -120,7 +123,10 @@ let styles = (theme) => ({
 		objectFit: 'cover'
 	},
 	bigLogo: {
-		maxWidth: '70%'
+		maxWidth: '70%',
+		['@media (min-height:600px) and (max-height:1279.95px) and (min-width:768px) and (max-width:1024px)']:{
+			maxWidth: '50%',
+		},
 	},
 	miniBox:{
 		width: '100%',
@@ -257,6 +263,7 @@ class App extends Component {
 	render() {
 		const { t } = this.props
 		const { classes } = this.props
+		const bgsrc = isMobile ? bg_mobile : bg
 		return (
 			<div>
 				<ThemeProvider theme={theme}>
@@ -264,8 +271,8 @@ class App extends Component {
 						<TopBar onRef={this.onRef} />
 						<Container component="main" className={classes.container}>
 							<Grid className={classes.p1} container style={{}}>
-								<img src={bg} className={classes.bg} />
-								<Grid item style={{paddingLeft:'8%',color: 'white',paddingRight:'8%'}} xs={12} sm={8} md={6} lg={6} xl={6}>
+								<img src={bgsrc} className={classes.bg} />
+								<Grid item style={{paddingLeft:'8%',color: 'white',paddingRight:'8%'}} xs={12} sm={9} md={6} lg={6} xl={6}>
 									<img src={bigLogo} className={classes.bigLogo}/>
 									<div style={{paddingLeft: '20px'}}>
 										<Typography color="inherit" className={classes.h2}>
