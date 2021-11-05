@@ -70,7 +70,9 @@ const styles = (theme) => ({
 		[theme.breakpoints.down('sm')]: {
 			backgroundRepeat: 'repeat-y',
 			backgroundSize: 'auto',
-		}
+		},
+		maxWidth:'100vw',
+		overflow:'hidden'
 	},
 	icon: {
 		[theme.breakpoints.down('xl')]: {
@@ -591,7 +593,7 @@ class TopBar extends Component {
 		const { t } = this.props
 		const { isFixed } = this.state
 		const fixStyle = isFixed ? { position: 'fixed', top: 0, zIndex: 9 ,boxShadow: 'rgb(255, 189, 164) 0px 1px 4px'} : {}
-		const fixStyleBlank = isFixed ? { display:'block',width:'100vw',height:this.state.topbarHeight,maxWidth: '100vw'} : {display:'none'}
+		const fixStyleBlank = isFixed ? { display:'block',width:'100vw',height:this.state.topbarHeight,maxWidth: '100vw'} : {display:'none',maxWidth: '100vw'}
 		const menuStyle = isMobile ? {display:'block'} : {display:'none'}
 		let open = false;
 		if(this.state.anchorEl){
