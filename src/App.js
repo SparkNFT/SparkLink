@@ -156,7 +156,7 @@ let styles = (theme) => ({
 			height: '60vh'
 		},
 		[theme.breakpoints.up('sm')]: {
-			height: '60.9vw'
+			height: '63.9vw'
 		},
 	},
 	p22:{
@@ -164,7 +164,7 @@ let styles = (theme) => ({
 			height: '40vh'
 		},
 		[theme.breakpoints.up('sm')]: {
-			height: '50vw'
+			height: '47vw'
 		},
 		['@media (min-height:600px) and (max-height:1279.95px) and (min-width:768px) and (max-width:1024px)']:{
 			height: '50vw',
