@@ -44,6 +44,9 @@ const theme = createTheme({
 })
 
 const styles = (theme) => ({
+	h5:{
+		color:'#757575'
+	},
 	main: {
 		[theme.breakpoints.between('xs', 'sm')]: {
 			width: '60%',
@@ -775,7 +778,7 @@ class EncryptedPublish extends Component {
 								{this.state.jumped ? (
 									<div>
 										<Grid item style={{ width: '100%' }}>
-											<label style={{ fontSize: 18, marginBottom: 10 }}>{t('art_name')} *</label>
+											<label className={classes.h3}>{t('art_name')} *</label>
 											<Input
 												placeholder={t('art_name')}
 												allowClear
@@ -794,7 +797,7 @@ class EncryptedPublish extends Component {
 								) : (
 									<div></div>
 								)}
-								<label style={{ fontSize: 18, marginTop: 50 }}>{t('pic_cover')} *</label>
+								<label className={classes.h3}>{t('pic_cover')} *</label>
 								<p style={{ fontSize: 12 }}>{t('pic_cover_tip')}</p>
 								<Dragger {...prop} style={{ width: '100%', minHeight: 100 }} id="Uploader" maxCount='1' accept="image/*">
 									<p className="ant-upload-drag-icon">
@@ -804,7 +807,7 @@ class EncryptedPublish extends Component {
 									<p className="ant-upload-hint">{t('upload_file_tip2')}</p>
 								</Dragger>
 
-								<label style={{ fontSize: 18, marginTop: 50 }}>{t('art_file')} *</label>
+								<label className={classes.h3}>{t('art_file')} *</label>
 								<p style={{ fontSize: 12 }}>{t('art_file_tip')} </p>
 								<Dragger {...propFile} style={{ width: '100%', minHeight: 100 }} maxCount='1' id="Uploader2">
 									<p className="ant-upload-drag-icon">
@@ -877,7 +880,7 @@ class EncryptedPublish extends Component {
 								<form className={classes.form} noValidate>
 									<Grid container spacing={2}>
 										<Grid item style={{ width: '100%' }}>
-											<label style={{ fontSize: 18, marginBottom: 10 }}>{t('art_name')} *</label>
+											<label className={classes.h3}>{t('art_name')} *</label>
 											<Input
 												placeholder={t('art_name')}
 												allowClear
@@ -888,8 +891,8 @@ class EncryptedPublish extends Component {
 											/>
 										</Grid>
 										<Grid item style={{ width: '100%' }}>
-											<label style={{ fontSize: 18, marginTop: 20 }}>{t('fit_rate')} *</label>
-											<p style={{ fontSize: 14 }}>{t('fit_rate_tip')}</p>
+											<label className={classes.h3}>{t('fit_rate')} *</label>
+											<p className={classes.h5}>{t('fit_rate_tip')}</p>
 											<InputNumber
 												id="bonusFee"
 												defaultValue={0}
@@ -902,8 +905,8 @@ class EncryptedPublish extends Component {
 											/>
 										</Grid>
 										<Grid item style={{ width: '100%' }}>
-											<label style={{ fontSize: 18, marginTop: 20 }}>{t('access_coin')} *</label>
-											<p style={{ fontSize: 14 }}>{t('access_coin_tip')}</p>
+											<label className={classes.h3}>{t('access_coin')} *</label>
+											<p className={classes.h5}>{t('access_coin_tip')}</p>
 											<Select
 												showSearch
 												value={this.state.token_addr}
@@ -922,7 +925,7 @@ class EncryptedPublish extends Component {
 											</Select>
 										</Grid>
 										<Grid item style={{ width: '100%' }}>
-											<label style={{ fontSize: 18, marginTop: 20 }}>
+											<label className={classes.h3}>
 												{t('price')} ({this.state.token_symbol})*
 											</label>
 											<InputNumber
@@ -934,8 +937,8 @@ class EncryptedPublish extends Component {
 											/>
 										</Grid>
 										<Grid item style={{ width: '100%' }}>
-											<label style={{ fontSize: 18, marginTop: 20 }}>{t('max_share')} (MAX： 65535)*</label>
-											<p style={{ fontSize: 14 }}>{t('max_share_tip')}</p>
+											<label className={classes.h3}>{t('max_share')} (MAX： 65535)*</label>
+											<p className={classes.h5}>{t('max_share_tip')}</p>
 											<InputNumber
 												id="shareTimes"
 												defaultValue={0}
@@ -946,8 +949,8 @@ class EncryptedPublish extends Component {
 											/>
 										</Grid>
 										<Grid item style={{ width: '100%' }}>
-											<label style={{ fontSize: 18, marginTop: 20 }}>{t('art_desc')} *</label>
-											<p style={{ fontSize: 14 }}>{t('art_desc_tip')}</p>
+											<label className={classes.h3}>{t('art_desc')} *</label>
+											<p className={classes.h5}>{t('art_desc_tip')}</p>
 											<TextArea rows={4} id="Description" onChange={this.handleGetDescription} />
 										</Grid>
 									</Grid>

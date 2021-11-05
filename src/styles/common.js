@@ -104,6 +104,7 @@ let styleCommon = (theme) => {
 			},
 			[theme.breakpoints.up('xl')]: {
 				fontSize: 33,
+				marginTop: 10
 			},
 		},
 		h3Color:{
@@ -148,7 +149,26 @@ let styleCommon = (theme) => {
 				fontSize: 20,
 			},
 			[theme.breakpoints.up('xl')]: {
-				fontSize: 35,
+				fontSize: 30,
+			},
+		},
+		h5: {
+			color: 'white',
+			fontFamily: 'ANC',
+			[theme.breakpoints.between('xs', 'sm')]: {
+				fontSize: 16,
+			},
+			[theme.breakpoints.between('sm', 'md')]: {
+				fontSize: 16,
+			},
+			[theme.breakpoints.between('md', 'lg')]: {
+				fontSize: 16,
+			},
+			[theme.breakpoints.between('lg', 'xl')]: {
+				fontSize: 16,
+			},
+			[theme.breakpoints.up('xl')]: {
+				fontSize: 20,
 			},
 		},
 		h4Link: {

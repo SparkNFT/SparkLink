@@ -376,7 +376,7 @@ class Collections extends Component {
 				  {this.state.noNFT ? (
   				<Empty
   					description={
-  						<span style={{ fontFamily: 'ANC' }}>
+  						<span style={{ color:'black'}} className={classes.h4}>
   							<b>{t('暂无可展示NFT')}</b>
   						</span>
   					}
