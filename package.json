@@ -26,6 +26,7 @@
     "i18next-xhr-backend": "^3.2.2",
     "jquery": "^3.6.0",
     "jsdom": "^17.0.0",
+    "jszip": "^3.7.1",
     "material": "^0.4.3",
     "math-js-sdk": "^1.0.9",
     "qrcode": "^1.4.4",
