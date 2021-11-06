@@ -10,7 +10,7 @@ const styles = (theme) => ({
 		marginRight: theme.spacing(2),
 	},
 	titleFont: {
-		fontFamily: 'Teko',
+		fontFamily: 'ANC',
 	},
 	btn: {
 		color: '#424949',
@@ -74,7 +74,7 @@ const styles = (theme) => ({
 	},
 
 	content: {
-		fontFamily: 'Teko',
+		fontFamily: 'ANC',
 		marginTop: 20,
 		lineHeight: 1.5,
 		[theme.breakpoints.between('xs', 'sm')]: {
@@ -95,7 +95,7 @@ const styles = (theme) => ({
 	},
 
 	shouldKnow: {
-		fontFamily: 'Teko',
+		fontFamily: 'ANC',
 		textAlign: 'center',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			fontSize: 16,

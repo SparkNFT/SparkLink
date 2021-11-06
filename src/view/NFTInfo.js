@@ -46,6 +46,8 @@ const theme = createTheme({
 const styles = (theme) => ({
 	container: {
 		maxWidth: 1500,
+		justifyContent:'center',
+		display:'flex'
 	},
 	cbutton: {
 		fontFamily: 'ANC',
@@ -94,7 +96,6 @@ const styles = (theme) => ({
 		},
 	},
 	paper: {
-		marginLeft: 15, 
 		marginTop: theme.spacing(1),
 		textAlign: 'center',
 		maxWidth: 1370,
@@ -104,27 +105,22 @@ const styles = (theme) => ({
 		[theme.breakpoints.between('xs', 'sm')]: {
 			backgroundColor: '#EFEBE9',
 			width: 330,
-			marginLeft: 25,
 		},
 		[theme.breakpoints.between('sm', 'md')]: {
 			backgroundColor: '#EFEBE9',
 			width: 340,
-			marginLeft: 25,
 		},
 		[theme.breakpoints.between('md', 'lg')]: {
 			backgroundColor: '#EFEBE9',
 			width: 350,
-			marginLeft: 25,
 		},
 		[theme.breakpoints.between('lg', 'xl')]: {
 			backgroundColor: '#EFEBE9',
 			width: 350,
-			marginLeft: 10,
 		},
 		[theme.breakpoints.up('xl')]: {
 			backgroundColor: '#EFEBE9',
 			width: 350,
-			marginLeft: 10,
 		},
 	},
 	imageStyle: {
@@ -745,225 +741,226 @@ class NFTInfo extends Component {
 					<ThemeProvider theme={theme}>
 						<TopBar />
 						<Container component="main" className={classes.container}>
-							<Button
-								startIcon={<ArrowLeftOutlined style={{ fontSize: '2rem' }} />}
-								href="/#/collections"
-								style={{ marginTop: 20, marginBottom: 10, fontSize: '2rem' }}
-							>
-								{t('回到我的收藏馆')}
-							</Button>
-							<Grid container direction="row" justifyContent="center" alignContent="flex-start">
-								<Grid container direction="row" className={classes.cbutton}>
-									<Grid item xs={11} md={6} lg={6} xl={6}>
-										<Typography
-											color="textPrimary"
-											gutterBottom
-											style={{ marginRight: 50, marginTop: 20, fontSize: 14 }}
-										>
-											<b>{t('目前收益：')} {this.state.Profit}</b>
-										</Typography>
-									</Grid>
-									<Grid item xs={12} container  md={6} lg={6} xl={6}>
-										<Grid item>
-											<Button
-												style={{
-													marginTop: 10,
-													marginRight: 10,
-													marginLeft: 10,
-													marginBottom: 20,
-												}}
-												size="large"
-												variant="contained"
-												color="primary"
-												className={classes.btnColor2}
-												startIcon={<MoneyCollectOutlined />}
-												onClick={this.claim}
-											>
-												<Typography id="isSpark">
-													<font size="3">
-														{t('领收益')}
-													</font>
-												</Typography>
-											</Button>
-										</Grid>
-
-										<Grid item>
-											<Button
-												style={{ marginTop: 10, marginBottom: 20 }}
-												size="large"
-												className={classes.btnColor2}
-												startIcon={<DollarCircleOutlined />}
-												href={'/#/sellSingle/' + this.props.match.params.id}
-											>
-												<Typography>
-													<font size="3">{t('售卖')}</font>
-												</Typography>
-											</Button>
-										</Grid>
-									</Grid>
-								</Grid>
-							</Grid>
-
-							<div className={classes.paper}>
-								{this.state.loadItem ? (
-									<Grid container className={classes.content} spacing={5}>
-										<Grid item xs={4}>
-											<Skeleton
-												variant="rect"
-												width={300}
-												height={500}
-												style={{ width: 370, marginLeft: 50, marginBottom: 50 }}
-											/>
-										</Grid>
-
-										<Grid item xs style={{ marginLeft: '5%' }}>
-											<Skeleton animation="wave" variant="text" width={200} height={30} />
-											<Skeleton animation="wave" variant="text" width={400} height={70} />
-											<Skeleton animation="wave" variant="rect" width={500} height={300} style={{ marginBottom: 50 }} />
-										</Grid>
-									</Grid>
-								) : (
-									<Grid
-										container
-										direction="row"
-										justifyContent="space-between"
-										spacing={5}
-										className={classes.content}
-									>
-										<Grid style={{ maxWidth: 200 }}>
-											<Paper className={classes.imagePapaer}>
-
-												<img className={classes.imageStyle} src={this.state.Cover} onError={() => this.setFlag('isCoverLoaded')} id="cover" crossOrigin="anonymous" ></img>
-
-											</Paper >
-										</Grid >
-
-										<Grid item xs={2}></Grid>
-
-										<Grid item className={classes.content2}>
+							<Grid container item xs={11} md={10} sm={10} lg={10} xl={10}>
+								<Button
+									startIcon={<ArrowLeftOutlined style={{ fontSize: '2rem' }} />}
+									href="/#/collections"
+									style={{ marginTop: 20, marginBottom: 10, fontSize: '2rem' }}
+								>
+									{t('回到我的收藏馆')}
+								</Button>
+								<Grid container item direction="row" justifyContent="center" alignContent="flex-start">
+									<Grid container direction="row" className={classes.cbutton}>
+										<Grid item xs={11} md={6} lg={6} xl={6}>
 											<Typography
-												color="inherit"
-												align="left"
-												// eslint-disable-next-line react/jsx-no-duplicate-props
-												color="textSecondary"
-												noWrap
-												style={{
-													fontFamily: 'ANC',
-													fontSize: 16,
-													marginTop: '2%',
-												}}
-											>
-												#{this.props.match.params.id}
-											</Typography>
-											<Typography
-												color="inherit"
-												align="left"
-												noWrap
-												style={{
-													fontFamily: 'ANC',
-													fontSize: 34,
-													marginTop: '2%',
-												}}
-											>
-												<b>{this.state.Name}</b>
-											</Typography>
-											<Typography
-												align="justify"
-												color="textSecondary"
-												paragraph
-												style={{
-													marginTop: '2%',
-													maxWidth: '100%',
-													fontSize: 16,
-												}}
-											>
-												{this.state.Description}
-											</Typography>
-											<Typography
-												align="left"
 												color="textPrimary"
-												paragraph
-												style={{
-													marginTop: '6%',
-													maxWidth: '100%',
-													fontSize: 24,
-												}}
+												gutterBottom
+												style={{ marginRight: 50, marginTop: 20, fontSize: 14 }}
 											>
-												{t('分红比例：')} {this.state.BonusFee} %
+												<b>{t('目前收益：')} {this.state.Profit}</b>
 											</Typography>
-											<Typography align="left" color="textPrimary" paragraph style={{ maxWidth: '65%', fontSize: 12 }}>
-												{t('当前拥有的子节点数量：')} {this.state.childrenNum}
-											</Typography>
-											<Typography align="left" color="textPrimary" paragraph style={{ maxWidth: '65%', fontSize: 12 }}>
-												{t('NFT是否加密：')} {this.state.encrypted}
-											</Typography>
-
-											<Grid container className={classes.cbutton2}>
-												
-												<Button item
-													size="small"
+										</Grid>
+										<Grid item xs={12} container  md={6} lg={6} xl={6}>
+											<Grid item>
+												<Button
+													style={{
+														marginTop: 10,
+														marginRight: 10,
+														marginLeft: 10,
+														marginBottom: 20,
+													}}
+													size="large"
 													variant="contained"
 													color="primary"
-													target="_blank"
-													className={classes.btnColor3}
-													startIcon={<DownloadOutlined />}
-													onClick={this.downloadIPFS}
+													className={classes.btnColor2}
+													startIcon={<MoneyCollectOutlined />}
+													onClick={this.claim}
 												>
-													<font size="3" >
-														{t('下载')}
-															
-													</font>
+													<Typography id="isSpark">
+														<font size="3">
+															{t('领收益')}
+														</font>
+													</Typography>
 												</Button>
 											</Grid>
 
-											<Grid container  className={classes.cbutton2} >
-												<Grid item xs={12} sm={12} lg={6} xl={6}>
-													<CopyToClipboard 
-														style={{marginRight: 10,marginLeft: 10,marginTop:5,marginBottom:5}}
-														text={ t('欢迎来到SparkLink查看并购买我的NFT作品：') + toUrl}
-														onCopy={()=>{
-															message.success(t('分享链接复制成功'))
-														}}>
-														<Button item
-															size="small"
-															target="_blank"
-															
-															className={classes.btnColor}
-															startIcon={<FireOutlined />}
-														>
-															<font size="3">{t('链接分享')}</font>
-														</Button>
-													</CopyToClipboard>
-												</Grid>
+											<Grid item>
+												<Button
+													style={{ marginTop: 10, marginBottom: 20 }}
+													size="large"
+													className={classes.btnColor2}
+													startIcon={<DollarCircleOutlined />}
+													href={'/#/sellSingle/' + this.props.match.params.id}
+												>
+													<Typography>
+														<font size="3">{t('售卖')}</font>
+													</Typography>
+												</Button>
+											</Grid>
+										</Grid>
+									</Grid>
+								</Grid>
 
-												<Grid item xs={12} sm={12} lg={6} xl={6}>
+								<div className={classes.paper}>
+									{this.state.loadItem ? (
+										<Grid container className={classes.content} spacing={5}>
+											<Grid item xs={10} sm={5} md={5} lg={5} xl={5}>
+												<Skeleton
+													variant="rect"
+													width={300}
+													height={500}
+													style={{ width: 370, marginLeft: 0, marginBottom: 50 }}
+												/>
+											</Grid>
+
+											<Grid item xs={10} sm={5} md={5} lg={5}>
+												<Skeleton animation="wave" variant="text" width={200} height={30} />
+												<Skeleton animation="wave" variant="text" width={400} height={70} />
+												<Skeleton animation="wave" variant="rect" width={500} height={300} style={{ marginBottom: 50 }} />
+											</Grid>
+										</Grid>
+									) : (
+										<Grid
+											container
+											direction="row"
+											className={classes.content}
+										>
+											<Grid item xs={10} sm={5} md={5} lg={5} xl={5}>
+												<Paper className={classes.imagePapaer}>
+
+													<img className={classes.imageStyle} src={this.state.Cover} onError={() => this.setFlag('isCoverLoaded')} id="cover" crossOrigin="anonymous" ></img>
+
+												</Paper >
+											</Grid >
+
+											<Grid item xs={10} sm={5} md={5} lg={5} className={classes.content2}>
+												<Typography
+													color="inherit"
+													align="left"
+													className={classes.Display10}
+													// eslint-disable-next-line react/jsx-no-duplicate-props
+													color="textSecondary"
+													noWrap
+													style={{
+														fontFamily: 'ANC',
+														fontSize: 16,
+														marginTop: '2%',
+													}}
+												>
+													#{this.props.match.params.id}
+												</Typography>
+												<Typography
+													color="inherit"
+													align="left"
+													noWrap
+													className={classes.Display8}
+													style={{
+														fontFamily: 'ANC',
+														marginTop: '2%',
+													}}
+												>
+													<b>{this.state.Name}</b>
+												</Typography>
+												<Typography
+													align="justify"
+													color="textSecondary"
+													className={classes.Display10}
+													paragraph
+													style={{
+														marginTop: '2%',
+														maxWidth: '100%',
+													}}
+												>
+													{this.state.Description}
+												</Typography>
+												<Typography
+													align="left"
+													color="textPrimary"
+													item xs={10} sm={5} md={5} lg={5}
+													className={classes.Display10}
+													paragraph
+													style={{
+														marginTop: '6%',
+														maxWidth: '100%',
+													}}
+												>
+													{t('分红比例：')} {this.state.BonusFee} %
+												</Typography>
+												<Typography align="left" className={classes.Display10} color="textPrimary" paragraph style={{ maxWidth: '65%'}}>
+													{t('当前拥有的子节点数量：')} {this.state.childrenNum}
+												</Typography>
+												<Typography align="left" className={classes.Display10} color="textPrimary" paragraph style={{ maxWidth: '65%'}}>
+													{t('NFT是否加密：')} {this.state.encrypted}
+												</Typography>
+
+												<Grid container className={classes.cbutton2}>
+													
 													<Button item
 														size="small"
+														variant="contained"
+														color="primary"
 														target="_blank"
-														style={{marginRight: 10,marginLeft: 10,marginTop:5,marginBottom:5}}
-														className={classes.btnColor2}
-														startIcon={<FireOutlined />}
-														onClick={() => this.setFlag('spark')}
-														disabled={!this.state.isCoverLoaded}
+														className={classes.btnColor3}
+														startIcon={<DownloadOutlined />}
+														onClick={this.downloadIPFS}
 													>
-														<font size="3">{t('海报分享')}</font>
+														<font size="3" >
+															{t('下载')}
+																
+														</font>
 													</Button>
 												</Grid>
 
-											</Grid>
-											<Grid item xs={12} sm={12} lg={12} xl={12}>
-												<Typography align="left" className={classes.h5} style={{color:'black'}}>
-													💡
-													{t('所有人可通过分享链接或海报进入作品详情页查看以及购买本作品')}
-												</Typography>
-											</Grid>
-										</Grid>
-									</Grid >
-								)
-								}
-							</div >
+												<Grid container  className={classes.cbutton2+' '+classes.MarginT7} >
+													<Grid item xs={12} sm={12} md={5}  lg={5} xl={5}>
+														<CopyToClipboard 
+															style={{marginRight: 10,marginTop:5,marginBottom:5}}
+															text={ t('欢迎来到SparkLink查看并购买我的NFT作品：') + toUrl}
+															onCopy={()=>{
+																message.success(t('分享链接复制成功'))
+															}}>
+															<Button item
+																size="small"
+																target="_blank"
+																
+																className={classes.btnColor}
+																startIcon={<FireOutlined />}
+															>
+																<font size="3">{t('链接分享')}</font>
+															</Button>
+														</CopyToClipboard>
+													</Grid>
 
-							{sell_info()}
+													<Grid item xs={12} sm={12} md={5} lg={6} xl={6}>
+														<Button item
+															size="small"
+															target="_blank"
+															style={{marginRight: 10,marginTop:5,marginBottom:5}}
+															className={classes.btnColor2}
+															startIcon={<FireOutlined />}
+															onClick={() => this.setFlag('spark')}
+															disabled={!this.state.isCoverLoaded}
+														>
+															<font size="3">{t('海报分享')}</font>
+														</Button>
+													</Grid>
+
+												</Grid>
+												<Grid item xs={12} sm={12} lg={12} xl={12}>
+													<Typography align="left" className={classes.Display10} style={{color:'black',marginTop:'2%'}}>
+														💡
+														{t('所有人可通过分享链接或海报进入作品详情页查看以及购买本作品')}
+													</Typography>
+												</Grid>
+											</Grid>
+										</Grid >
+									)
+									}
+								</div >
+
+								{sell_info()}
+							</Grid>
+							
 						</Container >
 						<Footer />
 					</ThemeProvider >

@@ -72,7 +72,10 @@ const styles = (theme) => ({
 			backgroundSize: 'auto',
 		},
 		maxWidth:'100vw',
-		overflow:'hidden'
+		overflow:'hidden',
+		minHeight:'0px',
+		paddingTop:'10px',
+		paddingBottom:'10px'
 	},
 	icon: {
 		[theme.breakpoints.down('xl')]: {
@@ -83,10 +86,9 @@ const styles = (theme) => ({
 		},
 	},
 	titleGrid: {
-		marginTop: 10,
-		marginBottom: 10,
 		display: 'flex',
-		alignItems: 'center'
+		alignItems: 'center',
+		width:'100vw',
 	},
 	titleToken: {
 		fontSize: 22,
@@ -127,11 +129,9 @@ const styles = (theme) => ({
 			fontSize: 45,
 		},
 	},
+
 	btnGrid: {
 		// marginTop: 25,
-		marginBottom: 10,
-		minWidth: 430,
-		marginTop: 30,
 		display: 'flex',
 		alignItems: 'center',
 		flexWrap: 'nowrap'
@@ -155,80 +155,66 @@ const styles = (theme) => ({
 			width: 150,
 		},
 	},
-	btnWallet: {
-		color: '#424949',
-		borderColor: '#e3f2fd',
-		textAlign: 'center',
-		fontSize: 15,
+	btnTopbar: {
+		fontFamily: 'ANC',
+		color: '#FFFFFF',
+		borderColor: '#FFFFFF',
+		borderWidth: 2,
+		borderRadius: '100vw',
+		paddingTop: 3,
+		paddingBottom: 3,
+		'&:hover':{
+			color:'rgb(255,112,67)'
+		},
+		'&:active':{
+			color:'#fafafa'
+		},
 		[theme.breakpoints.between('xs', 'sm')]: {
+			fontSize: 12,
+		},
+		[theme.breakpoints.between('sm', 'md')]: {
+			fontSize: 14,
+		},
+		[theme.breakpoints.between('md', 'xl')]: {
+			fontSize: 16,
+		},
+		[theme.breakpoints.up('xl')]: {
 			fontSize: 20,
-			width: 100,
-			height: 100,
 		},
-		[theme.breakpoints.between('sm', 'md')]: {
-			fontSize: 22,
-			width: 155,
-			height: 155,
-		},
-		[theme.breakpoints.between('md', 'lg')]: {
-			fontSize: 22,
-			width: 155,
-			height: 155,
-		},
-		[theme.breakpoints.up('xl')]: {
-			fontSize: 28,
-			width: 155,
-			height: 155,
+		['@media (min-width:3200px)']: {
+			fontSize: 40,
 		},
 	},
-	btnUser: {
-		color: '#424949',
-		borderColor: '#e3f2fd',
-		fontSize: 15,
-		fontFamily: 'ANC',
-		[theme.breakpoints.between('xs', 'sm')]: {
-			fontSize: 15,
-			width: 80,
-			height: 40,
-		},
-		[theme.breakpoints.between('sm', 'md')]: {
-			fontSize: 15,
-			width: 100,
-		},
-		[theme.breakpoints.between('md', 'lg')]: {
-			fontSize: 15,
-			width: 200,
-		},
-		[theme.breakpoints.up('xl')]: {
-			fontSize: 22,
-		},
-	},
-	btn: {
-		fontFamily: 'ANC',
-		color: '#fafafa',
-		borderColor: '#e3f2fd',
-		fontWeight: 'normal',
-		fontSize: 16,
-		marginTop: 7,
-		[theme.breakpoints.between('xs', 'sm')]: {
-			fontSize: 12,
-		},
-		[theme.breakpoints.between('sm', 'md')]: {
-			fontSize: 12,
-		}
+	btnColor3:{
+		paddingTop:0,
+		paddingBottom:0
 	},
 	logo: {
 		marginLeft: 12,
 		marginRight: 24,
 		objectFit: 'contain',
 		content: 'url(' + fullLogo + ')',
-		width: '120px',
-		height: '40px',
+		height: 'auto',
+		[theme.breakpoints.between('sm', 'md')]: {
+			width:'80px',
+		},
+		[theme.breakpoints.between('md', 'lg')]: {
+			width:'96px',
+		},
+		[theme.breakpoints.between('lg', 'xl')]: {
+			width:'116px',
+		},
+		[theme.breakpoints.up('xl')]: {
+			width:'138px',
+		},
+		['@media (min-width:3200px)']:{
+			width:'276px'
+		},
 		[theme.breakpoints.down('sm')]: {
 			width: '30px',
 			transform: 'scale(2.0,2.0)',
 			content: 'url(' + sLogo + ')'
-		}
+		},
 	},
 })
 
@@ -594,7 +580,7 @@ class TopBar extends Component {
 		const { isFixed } = this.state
 		const fixStyle = isFixed ? { position: 'fixed', top: 0, zIndex: 9 ,boxShadow: 'rgb(255, 189, 164) 0px 1px 4px'} : {}
 		const fixStyleBlank = isFixed ? { display:'block',width:'100vw',height:this.state.topbarHeight,maxWidth: '100vw'} : {display:'none',maxWidth: '100vw'}
-		const menuStyle = isMobile ? {display:'block'} : {display:'none'}
+		const menuStyle = (window.innerWidth<=1000) ? {display:'block'} : {display:'none'}
 		let open = false;
 		if(this.state.anchorEl){
 			open = Boolean(this.state.anchorEl)
@@ -659,93 +645,83 @@ class TopBar extends Component {
 					}}
 				>
 					<MenuItem onClick={handleMenuClose}>
-						<Button size="medium" style={{width: '100%'}} className={classes.btnColor3} href="/#/">
+						<Button size="medium" style={{width: '100%'}} className={classes.btnItem} href="/#/">
 							{t('index')}
 						</Button>						
 					</MenuItem>
 					<MenuItem onClick={handleMenuClose}>
-						<Button size="medium" style={{width: '100%'}}  className={classes.btnColor3} href="/#/introPublish">
+						<Button size="medium" style={{width: '100%'}}  className={classes.btnItem} href="/#/introPublish">
 							{t('publish')}
 						</Button>
 					</MenuItem>
 					<MenuItem onClick={handleMenuClose}>
-						<Button size="medium" style={{width: '100%'}}  className={classes.btnColor3} href="/#/collections">
+						<Button size="medium" style={{width: '100%'}}  className={classes.btnItem} href="/#/collections">
 							{t('collection')}
 						</Button>
 					</MenuItem>
 					<MenuItem onClick={handleMenuClose}>
-						<Button size="medium" style={{width: '100%'}}  className={classes.btnColor3} href="https://docs.sparklink.io/">
+						<Button size="medium" style={{width: '100%'}}  className={classes.btnItem} href="https://docs.sparklink.io/">
 							Wiki
 						</Button>
 					</MenuItem>
 					<MenuItem onClick={handleMenuClose}>
-						<Button size="medium" style={{width: '100%'}}  className={classes.btnColor3} href="/#/buy">
+						<Button size="medium" style={{width: '100%'}}  className={classes.btnItem} href="/#/buy">
 							{t('market')}
 						</Button>
 					</MenuItem>
 				</Menu>				
-				<Toolbar className={classes.noPadding}>
+				<Toolbar className={classes.noPadding} style={{minHeight:'0px'}}>
 					<div style={fixStyleBlank}></div>
 					<Grid style={fixStyle} id='topbar' className={classes.Toolbar} container direction="row"  wrap="nowrap">
 						<Grid item className={classes.titleGrid}>
 							<a href="/#/" className={classes.logo} />
 							<div className={classes.btngroup}>
-								<Button size="medium" className={classes.btn} href="/#/">
-									{t('index')}
+								<Button size="medium" className={classes.btnTopbar} href="/#/">
+									<b>{t('index')}</b>
 								</Button>
-								<Button size="medium" className={classes.btn} href="/#/introPublish">
-									{t('publish')}
+								<Button size="medium" className={classes.btnTopbar} href="/#/introPublish">
+									<b>{t('publish')}</b>
 								</Button>
-								<Button size="medium" className={classes.btn} href="/#/collections">
-									{t('collection')}
+								<Button size="medium" className={classes.btnTopbar} href="/#/collections">
+									<b>{t('collection')}</b>
 								</Button>
-								<Button size="medium" className={classes.btn} href="https://docs.sparklink.io/">
-									Wiki
+								<Button size="medium" className={classes.btnTopbar} href="https://docs.sparklink.io/">
+									<b>Wiki</b>
 								</Button>
-								<Button size="medium" className={classes.btn} href="/#/buy">
-									{t('market')}
+								<Button size="medium" className={classes.btnTopbar} href="/#/buy">
+									<b>{t('market')}</b>
 								</Button>
 							</div>
-						</Grid>
-						<div style={{flex: '1'}}></div>
-						<Grid item className={classes.btnGrid}>
-							<Button style={menuStyle} className={classes.btnColor3} aria-controls="basic-menu" aria-haspopup="true" aria-expanded={open ? 'true' : undefined} onClick={handleMenuClick}>
-								<Typography component="" color="inherit" noWrap className={classes.h3}>
+							<div style={{flex: '1'}}></div>
+							<Grid item className={classes.btnGrid}>
+								<Button style={menuStyle} className={classes.btnColor3} aria-controls="basic-menu" aria-haspopup="true" aria-expanded={open ? 'true' : undefined} onClick={handleMenuClick}>
 									<b> ...</b>
-								</Typography>
-							</Button>
-
-
-
-							{this.state.isConnected ? (
-								// <Button onClick={this.getAccount}>
-								//   <WalletTwoTone className={classes.icon} />
-								// </Button>
-								<Button
-									size="small"
-									variant="contained"
-									className={classes.btnColor3}
-									onClick={this.handleTokenButtonOnClick}
-								>
-									<Typography component="" color="inherit" noWrap className={classes.h3}>
+								</Button>
+								{this.state.isConnected ? (
+									// <Button onClick={this.getAccount}>
+									//   <WalletTwoTone className={classes.icon} />
+									// </Button>
+									<Button
+										className={classes.btnTopBarMenu}
+										onClick={this.handleTokenButtonOnClick}
+									>
 										{this.state.userAddress.substring(0, 6)}...
 										{this.state.userAddress.substring(this.state.userAddress.length - 5, this.state.userAddress.length)}
-									</Typography>
-								</Button>
-							) : (
-								// <Button onClick={this.getAccount}>
-								//   <WalletFilled className={classes.icon} />
-								// </Button>
-								<Button variant="contained" className={classes.btnColor3} onClick={this.handleDialogOpen}>
-									<Typography component="" color="inherit" noWrap className={classes.h3}>
+									</Button>
+								) : (
+									// <Button onClick={this.getAccount}>
+									//   <WalletFilled className={classes.icon} />
+									// </Button>
+									<Button className={classes.btnTopBarMenu} onClick={this.handleDialogOpen}>
 										<b> Connect Wallet</b>
-									</Typography>
-								</Button>
-							)}
-
-							<LanguageBtn />
-							{/* <Button onClick={this.disconnect}> akdalk</Button> */}
+									</Button>
+								)}
+								<LanguageBtn />
+								{/* <Button onClick={this.disconnect}> akdalk</Button> */}
+							</Grid>
 						</Grid>
+						
+
 					</Grid>
 				</Toolbar>
 			</div>

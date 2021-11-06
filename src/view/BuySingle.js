@@ -58,7 +58,7 @@ const styles = (theme) => ({
 		width: 100,
 	},
 	content: {
-		fontFamily: 'Teko',
+		fontFamily: 'ANC',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			justifyContent: 'flex-start',
 			alignItems: 'flex-start',
@@ -117,7 +117,7 @@ const styles = (theme) => ({
 		},
 	},
 	content2: {
-		fontFamily: 'Teko',
+		fontFamily: 'ANC',
 		textAlign: 'center',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			maxWidth: 500,
@@ -529,14 +529,14 @@ class BuySingle extends Component {
 											color="textSecondary"
 											noWrap
 											style={{
-												fontFamily: 'Teko',
+												fontFamily: 'ANC',
 												fontSize: 16,
 												marginTop: '2%',
 											}}
 										>
 											#{this.state.NFTId}
 										</Typography>
-										<Typography color="inherit" align="left" noWrap style={{ fontFamily: 'Teko', fontSize: 34 }}>
+										<Typography color="inherit" align="left" noWrap style={{ fontFamily: 'ANC', fontSize: 34 }}>
 											<b>{this.state.name}</b>
 										</Typography>
 										<Typography

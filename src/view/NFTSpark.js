@@ -69,7 +69,7 @@ const styles = (theme) => ({
 		maxWidth: 1400,
 	},
 	content: {
-		fontFamily: 'Teko',
+		fontFamily: 'ANC',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			justifyContent: 'flex-start',
 			alignItems: 'flex-start',
@@ -153,7 +153,7 @@ const styles = (theme) => ({
 		},
 	},
 	content2: {
-		fontFamily: 'Teko',
+		fontFamily: 'ANC',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			marginLeft: 10,
 			maxWidth: 500,
@@ -176,7 +176,7 @@ const styles = (theme) => ({
 		},
 	},
 	title: {
-		fontFamily: 'Teko',
+		fontFamily: 'ANC',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			fontSize: 48,
 		},
@@ -879,7 +879,7 @@ class NFTSpark extends Component {
 												color="textSecondary"
 												noWrap
 												style={{
-													fontFamily: 'Teko',
+													fontFamily: 'ANC',
 													fontSize: 16,
 													marginTop: '2%',
 												}}
@@ -891,7 +891,7 @@ class NFTSpark extends Component {
 												align="left"
 												noWrap
 												style={{
-													fontFamily: 'Teko',
+													fontFamily: 'ANC',
 													fontSize: 34,
 													marginTop: '2%',
 												}}
