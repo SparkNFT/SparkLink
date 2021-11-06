@@ -140,7 +140,7 @@ class Footer extends Component {
 							<Button className={classes.btnImgRound} href='' ><img className={classes.btnImg} src={logoIns} /></Button>
 							<Button className={classes.btnImgRound} href='https://t.me/SparkLink_io' ><img className={classes.btnImg} src={logoTele} /></Button>
 						</Grid>
-						<Grid item xs={12} sm={3}>
+						<Grid className={classes.PaddingT5} item xs={12} sm={3}>
 							<a  style={{display:'flex',justifyContent:'flex-end'}} className={classes.helpimga} href='https://docs.sparklink.io/product/chan-pin'>
 								<img src={help} className={classes.helpimg} />
 							</a>

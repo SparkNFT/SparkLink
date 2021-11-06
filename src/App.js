@@ -308,7 +308,7 @@ class App extends Component {
 											<img style={{marginTop: '10%' ,marginLeft:'0%',marginRight:'10%'}} className={classes.img} src={home2} />
 										</Grid>
 										<Grid className={classes.PaddingT5} item xs={10} sm={10} md={4} lg={4} xl={4}>
-											<Typography className={classes.MarginT5 + ' ' +classes.Display7} style={{color: '#FF7744'}}>
+											<Typography className={classes.MarginT5 + ' ' +classes.Display7 +' '+classes.MarginB5} style={{color: '#FF7744'}}>
 												{t('index_message_1')}
 											</Typography>
 											<Typography style={{color: '#000000', marginBottom: '1vw'}} className={classes.Display8}>
@@ -323,7 +323,8 @@ class App extends Component {
 										</Grid>
 									</Grid>
 									<Grid container className={classes.p23} justifyContent="center">
-										<Grid className={classes.PaddingL2+' '+classes.PaddingT0 +' ' +classes.PaddingB1} item xs={10} sm={6} md={6} lg={6} xl={6}>
+										<Grid xs={10} sm={1} md={1} lg={1} xl={1}></Grid>
+										<Grid className={classes.PaddingT0 +' ' +classes.PaddingB1} item xs={10} sm={6} md={6} lg={6} xl={6}>
 											<Button
 												className={classes.btnBig+' ' +classes.MarginT5}
 												style={{ marginBottom: '2vw',marginTop: '2vw'}}
@@ -335,7 +336,7 @@ class App extends Component {
 												{t('index_message_3')}<span style={{color: 'red'}}>{t('index_message_4')}</span>{t('index_message_5')}
 											</Typography>
 										</Grid>
-										<Grid item xs={false} sm={6} md={6} lg={6} xl={6}>
+										<Grid item xs={false} sm={5} md={5} lg={5} xl={5}>
 											<img style={{marginTop: '10%' ,}} className={classes.img} src={home3} />
 										</Grid>
 									</Grid>
