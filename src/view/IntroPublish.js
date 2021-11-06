@@ -95,21 +95,21 @@ class IntroPublish extends Component {
 							<Typography color="inherit" noWrap className={classes.shouldKnow}>
 								<b>{t('introPublish')}</b>
 							</Typography>
-							<Typography variant="h4" paragraph className={classes.content}>
+							<Typography variant="h4" paragraph className={classes.Display8}>
 								{t('introPublish1')}
 							</Typography>
-							<Typography color="textSecondary" paragraph className={classes.content}>
+							<Typography color="textSecondary" paragraph className={classes.Display9}>
 								<b>1.</b> {t('introPublish2')}
 							</Typography>
-							<Typography color="textSecondary" paragraph className={classes.content}>
+							<Typography color="textSecondary" paragraph className={classes.Display9}>
 								<b>2.</b>{t('introPublish3')}
 								<br />
 							</Typography>
-							<Typography color="textSecondary" paragraph className={classes.content}>
+							<Typography color="textSecondary" paragraph className={classes.Display9}>
 								<b>3.</b>{t('introPublish4')}
 								<br />
 							</Typography>
-							<Typography color="textSecondary" paragraph className={classes.content}>
+							<Typography color="textSecondary" paragraph className={classes.Display9}>
 								<b>4.</b>{t('introPublish5')}
 								<br />
 								<br />

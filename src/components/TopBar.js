@@ -171,18 +171,28 @@ const styles = (theme) => ({
 		},
 		[theme.breakpoints.between('xs', 'sm')]: {
 			fontSize: 12,
+			paddingLeft:6,
+			paddingRight:6
 		},
 		[theme.breakpoints.between('sm', 'md')]: {
 			fontSize: 14,
+			paddingLeft:7,
+			paddingRight:7
 		},
 		[theme.breakpoints.between('md', 'xl')]: {
 			fontSize: 16,
+			paddingLeft:8,
+			paddingRight:8
 		},
 		[theme.breakpoints.up('xl')]: {
 			fontSize: 20,
+			paddingLeft:10,
+			paddingRight:10
 		},
 		['@media (min-width:3200px)']: {
 			fontSize: 40,
+			paddingLeft:20,
+			paddingRight:20
 		},
 	},
 	btnColor3:{

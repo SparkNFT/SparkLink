@@ -2515,6 +2515,7 @@ let styleCommon = (theme) => {
 				fontSize: 14,
 				paddingLeft: 10,
 				paddingRight: 10,
+				
 			},
 			[theme.breakpoints.between('sm', 'md')]: {
 				fontSize: 16,
