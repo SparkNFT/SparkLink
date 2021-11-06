@@ -223,7 +223,7 @@ class App extends Component {
 					<div className={classes.page}>
 						<TopBar onRef={this.onRef} />
 						<Container component="main" className={classes.container}>
-							<Grid className={classes.p1} container style={{}}>
+							<Grid className={classes.p1+' '+classes.PaddingB1} container style={{}}>
 								<Grid item xs={10} sm={5} md={5} lg={5} xl={5}>
 									<Grid style={{color:'white'}} className={classes.MarginL1 +' ' + classes.PaddingT1+' ' +classes.PaddingB1}>
 										<img src={bigLogo} className={classes.bigLogo}/>
