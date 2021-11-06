@@ -169,6 +169,9 @@ const styles = (theme) => ({
 		'&:active':{
 			color:'#fafafa'
 		},
+		'&:focus':{
+			color:'#fafafa'
+		},
 		[theme.breakpoints.between('xs', 'sm')]: {
 			fontSize: 12,
 			paddingLeft:6,
@@ -680,9 +683,9 @@ class TopBar extends Component {
 						</Button>
 					</MenuItem>
 				</Menu>				
-				<Toolbar className={classes.noPadding} style={{minHeight:'0px'}}>
+				<Toolbar id='topbar' className={classes.noPadding} style={{minHeight:'0px'}}>
 					<div style={fixStyleBlank}></div>
-					<Grid style={fixStyle} id='topbar' className={classes.Toolbar} container direction="row"  wrap="nowrap">
+					<Grid style={fixStyle}  className={classes.Toolbar} container direction="row"  wrap="nowrap">
 						<Grid item className={classes.titleGrid}>
 							<a href="/#/" className={classes.logo} />
 							<div className={classes.btngroup}>

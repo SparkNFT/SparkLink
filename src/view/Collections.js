@@ -330,7 +330,7 @@ class Collections extends Component {
   							<Typography className={classes.h5} style={{color:'black'}}  >{obj.renderDescription(card.description)}</Typography>
   						</CardContent>
   						<CardActions>
-  							<Button size="small" className={classes.btnColor3} href={'/#/NFT/' + card.id}>
+  							<Button size="small" className={classes.btnColor3Mini} href={'/#/NFT/' + card.id}>
   								<b>{t('查看')}</b>
   							</Button>
   							<Typography variant="body2" style={{color:'black'}} gutterBottom className={classes.h5}>
@@ -340,7 +340,7 @@ class Collections extends Component {
   					</Card>
   				) : (
   					<Card className={classes.card}>
-  						<Skeleton variant="rect" style={{ marginLeft: 70 }} width={260} height={288} />
+  						<Skeleton variant="rect" style={{ marginLeft: 10 }} width={290} height={288} />
   						<Skeleton width="60%" style={{ marginTop: 40 }} height={33} />
   						<Skeleton height={33} />
   						<Skeleton height={33} />
@@ -361,10 +361,10 @@ class Collections extends Component {
   					<div className={classes.paper}>
   						<Grid container justifyContent="center">
   							<Grid item xs={10}>
-  								<Typography color="inherit" noWrap className={classes.title}>
+  								<Typography color="inherit" noWrap className={classes.Display7}>
   									<b>{t('collection')}</b>
   								</Typography>
-  								<Typography color="inherit" noWrap className={classes.h2}>
+  								<Typography color="inherit" className={classes.Display8}>
   									<b>An ERC721 Token Trying to Solve Existing Publishing Dilemma</b>
   								</Typography>
   							</Grid>

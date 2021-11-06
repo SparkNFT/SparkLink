@@ -45,7 +45,6 @@ const theme = createTheme({
 
 const styles = (theme) => ({
 	container: {
-		maxWidth: 1500,
 		justifyContent:'center',
 		display:'flex'
 	},
@@ -98,86 +97,25 @@ const styles = (theme) => ({
 	paper: {
 		marginTop: theme.spacing(1),
 		textAlign: 'center',
-		maxWidth: 1370,
+		width:'100%'
 		// backgroundColor: "green"
 	},
 	imagePapaer: {
-		[theme.breakpoints.between('xs', 'sm')]: {
-			backgroundColor: '#EFEBE9',
-			width: 330,
-		},
-		[theme.breakpoints.between('sm', 'md')]: {
-			backgroundColor: '#EFEBE9',
-			width: 340,
-		},
-		[theme.breakpoints.between('md', 'lg')]: {
-			backgroundColor: '#EFEBE9',
-			width: 350,
-		},
-		[theme.breakpoints.between('lg', 'xl')]: {
-			backgroundColor: '#EFEBE9',
-			width: 350,
-		},
-		[theme.breakpoints.up('xl')]: {
-			backgroundColor: '#EFEBE9',
-			width: 350,
-		},
+		backgroundColor: '#EFEBE9',
+		width:'100%'
 	},
 	imageStyle: {
 		objectFit: 'contain',
 		// object- fit: cover
-		[theme.breakpoints.between('xs', 'sm')]: {
-			width: 280,
-			height: 365,
-			marginTop: 20,
-			marginBottom: 50,
-		},
-		[theme.breakpoints.between('sm', 'md')]: {
-			width: 290,
-			height: 385,
-			marginTop: 20,
-			marginBottom: 50,
-		},
-		[theme.breakpoints.between('md', 'lg')]: {
-			width: 300,
-			height: 420,
-			marginTop: 20,
-			marginBottom: 50,
-		},
-		[theme.breakpoints.between('lg', 'xl')]: {
-			width: 300,
-			marginTop: 20,
-			marginBottom: 50,
-		},
-		[theme.breakpoints.up('xl')]: {
-			width: 300,
-			marginTop: 20,
-			marginBottom: 50,
-		},
+		width:'80%',
+		marginLeft:'10%',
+		marginRight:'10%',
+		marginTop:'10%',
+		marginBottom:'10%'
 	},
 	content2: {
 		fontFamily: 'ANC',
 		marginLeft:15,
-		[theme.breakpoints.between('xs', 'sm')]: {
-			marginLeft: 10,
-			maxWidth: 500,
-		},
-		[theme.breakpoints.between('sm', 'md')]: {
-			marginLeft: 90,
-			maxWidth: 500,
-		},
-		[theme.breakpoints.between('md', 'lg')]: {
-			marginLeft: 80,
-			maxWidth: 500,
-		},
-		[theme.breakpoints.between('lg', 'xl')]: {
-			marginLeft: 50,
-			maxWidth: 500,
-		},
-		[theme.breakpoints.up('xl')]: {
-			marginLeft: 60,
-			maxWidth: 500,
-		},
 	},
 	cbutton2: {
 		fontFamily: 'ANC',
@@ -743,11 +681,12 @@ class NFTInfo extends Component {
 						<Container component="main" className={classes.container}>
 							<Grid container item xs={11} md={10} sm={10} lg={10} xl={10}>
 								<Button
-									startIcon={<ArrowLeftOutlined style={{ fontSize: '2rem' }} />}
+									startIcon={<ArrowLeftOutlined style={{fontSize:'100%'}} />}
 									href="/#/collections"
-									style={{ marginTop: 20, marginBottom: 10, fontSize: '2rem' }}
+									className={classes.Display8}
+									style={{ marginTop: 20, marginBottom: 10}}
 								>
-									{t('回到我的收藏馆')}
+									<b>{t('回到我的收藏馆')}</b>
 								</Button>
 								<Grid container item direction="row" justifyContent="center" alignContent="flex-start">
 									<Grid container direction="row" className={classes.cbutton}>
@@ -755,12 +694,13 @@ class NFTInfo extends Component {
 											<Typography
 												color="textPrimary"
 												gutterBottom
-												style={{ marginRight: 50, marginTop: 20, fontSize: 14 }}
+												style={{ marginRight: 50, marginTop: 20 }}
+												className={classes.Display10}
 											>
 												<b>{t('目前收益：')} {this.state.Profit}</b>
 											</Typography>
 										</Grid>
-										<Grid item xs={12} container  md={6} lg={6} xl={6}>
+										<Grid item xs={12} container sm={6}  md={6} lg={6} xl={6}>
 											<Grid item>
 												<Button
 													style={{
@@ -769,39 +709,30 @@ class NFTInfo extends Component {
 														marginLeft: 10,
 														marginBottom: 20,
 													}}
-													size="large"
-													variant="contained"
 													color="primary"
 													className={classes.btnColor2}
-													startIcon={<MoneyCollectOutlined />}
+													startIcon={<MoneyCollectOutlined style={{fontSize:'100%'}} />}
 													onClick={this.claim}
 												>
-													<Typography id="isSpark">
-														<font size="3">
-															{t('领收益')}
-														</font>
-													</Typography>
+													{t('领收益')}
 												</Button>
 											</Grid>
 
 											<Grid item>
 												<Button
 													style={{ marginTop: 10, marginBottom: 20 }}
-													size="large"
 													className={classes.btnColor2}
-													startIcon={<DollarCircleOutlined />}
+													startIcon={<DollarCircleOutlined style={{fontSize:'100%'}} />}
 													href={'/#/sellSingle/' + this.props.match.params.id}
 												>
-													<Typography>
-														<font size="3">{t('售卖')}</font>
-													</Typography>
+													{t('售卖')}
 												</Button>
 											</Grid>
 										</Grid>
 									</Grid>
 								</Grid>
 
-								<div className={classes.paper}>
+								<div className={classes.paper+' '+classes.PaddingT5}>
 									{this.state.loadItem ? (
 										<Grid container className={classes.content} spacing={5}>
 											<Grid item xs={10} sm={5} md={5} lg={5} xl={5}>
@@ -825,15 +756,13 @@ class NFTInfo extends Component {
 											direction="row"
 											className={classes.content}
 										>
-											<Grid item xs={10} sm={5} md={5} lg={5} xl={5}>
+											<Grid container justifyContent='center' item xs={12} sm={5} md={5} lg={5} xl={5}>
 												<Paper className={classes.imagePapaer}>
-
 													<img className={classes.imageStyle} src={this.state.Cover} onError={() => this.setFlag('isCoverLoaded')} id="cover" crossOrigin="anonymous" ></img>
-
 												</Paper >
 											</Grid >
 
-											<Grid item xs={10} sm={5} md={5} lg={5} className={classes.content2}>
+											<Grid item xs={10} sm={6} md={6} lg={6} className={classes.content2 +' ' +classes.PaddingL2}>
 												<Typography
 													color="inherit"
 													align="left"
@@ -841,11 +770,6 @@ class NFTInfo extends Component {
 													// eslint-disable-next-line react/jsx-no-duplicate-props
 													color="textSecondary"
 													noWrap
-													style={{
-														fontFamily: 'ANC',
-														fontSize: 16,
-														marginTop: '2%',
-													}}
 												>
 													#{this.props.match.params.id}
 												</Typography>
@@ -886,10 +810,10 @@ class NFTInfo extends Component {
 												>
 													{t('分红比例：')} {this.state.BonusFee} %
 												</Typography>
-												<Typography align="left" className={classes.Display10} color="textPrimary" paragraph style={{ maxWidth: '65%'}}>
+												<Typography align="left" className={classes.Display10} color="textPrimary" paragraph>
 													{t('当前拥有的子节点数量：')} {this.state.childrenNum}
 												</Typography>
-												<Typography align="left" className={classes.Display10} color="textPrimary" paragraph style={{ maxWidth: '65%'}}>
+												<Typography align="left" className={classes.Display10} color="textPrimary" paragraph>
 													{t('NFT是否加密：')} {this.state.encrypted}
 												</Typography>
 
@@ -901,18 +825,15 @@ class NFTInfo extends Component {
 														color="primary"
 														target="_blank"
 														className={classes.btnColor3}
-														startIcon={<DownloadOutlined />}
+														startIcon={<DownloadOutlined style={{fontSize:'100%'}} />}
 														onClick={this.downloadIPFS}
 													>
-														<font size="3" >
-															{t('下载')}
-																
-														</font>
+														{t('下载')}
 													</Button>
 												</Grid>
 
 												<Grid container  className={classes.cbutton2+' '+classes.MarginT7} >
-													<Grid item xs={12} sm={12} md={5}  lg={5} xl={5}>
+													<Grid item>
 														<CopyToClipboard 
 															style={{marginRight: 10,marginTop:5,marginBottom:5}}
 															text={ t('欢迎来到SparkLink查看并购买我的NFT作品：') + toUrl}
@@ -924,26 +845,24 @@ class NFTInfo extends Component {
 																target="_blank"
 																
 																className={classes.btnColor}
-																startIcon={<FireOutlined />}
+																startIcon={<FireOutlined   style={{fontSize:'100%'}}/>}
 															>
-																<font size="3">{t('链接分享')}</font>
+																{t('链接分享')}
 															</Button>
 														</CopyToClipboard>
-													</Grid>
-
-													<Grid item xs={12} sm={12} md={5} lg={6} xl={6}>
 														<Button item
 															size="small"
 															target="_blank"
 															style={{marginRight: 10,marginTop:5,marginBottom:5}}
 															className={classes.btnColor2}
-															startIcon={<FireOutlined />}
+															startIcon={<FireOutlined  style={{fontSize:'100%'}}/>}
 															onClick={() => this.setFlag('spark')}
 															disabled={!this.state.isCoverLoaded}
 														>
-															<font size="3">{t('海报分享')}</font>
+															{t('海报分享')}
 														</Button>
 													</Grid>
+
 
 												</Grid>
 												<Grid item xs={12} sm={12} lg={12} xl={12}>

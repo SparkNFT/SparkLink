@@ -1108,10 +1108,10 @@ let styleCommon = (theme) => {
 		Display9:{
 			fontFamily:'ANC',
 			[theme.breakpoints.between('xs', 'sm')]: {
-				fontSize: 14,
+				fontSize: 16,
 			},
 			[theme.breakpoints.between('sm', 'md')]: {
-				fontSize: 16,
+				fontSize: 19,
 			},
 			[theme.breakpoints.between('md', 'lg')]: {
 				fontSize: 21,
@@ -1130,10 +1130,10 @@ let styleCommon = (theme) => {
 		Display10:{
 			fontFamily:'ANC',
 			[theme.breakpoints.between('xs', 'sm')]: {
-				fontSize: 12,
+				fontSize: 14,
 			},
 			[theme.breakpoints.between('sm', 'md')]: {
-				fontSize: 14,
+				fontSize: 16,
 			},
 			[theme.breakpoints.between('md', 'xl')]: {
 				fontSize: 20,
@@ -2453,8 +2453,8 @@ let styleCommon = (theme) => {
 			paddingLeft: 32,
 			paddingRight: 32,
 			color: 'rgb(255,119,68)',
-			paddingTop: 6,
-			paddingBottom: 6,
+			paddingTop: 4,
+			paddingBottom: 4,
 			marginRight: 5,
 			'&:hover':{
 				color: '#FFFFFF',
@@ -2489,6 +2489,56 @@ let styleCommon = (theme) => {
 			},
 			['@media (min-width:3200px)']: {
 				fontSize: 56,
+				paddingRight: 64,
+				paddingLeft: 64,
+			},
+		},
+		btnColor3Mini:{
+			whiteSpace:'nowrap',
+			fontFamily: 'ANC',
+			backgroundColor: '#FFFFFF',
+			borderWidth: 2,
+			borderRadius: '100vw',
+			borderColor :'rgb(255,119,68)',
+			paddingLeft: 32,
+			paddingRight: 32,
+			color: 'rgb(255,119,68)',
+			paddingTop: 3,
+			paddingBottom: 3,
+			marginRight: 5,
+			'&:hover':{
+				color: '#FFFFFF',
+				backgroundColor: 'rgb(255,182,164)',
+				boxShadow: '0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%)',
+				borderWidth: 2,
+			},
+			[theme.breakpoints.between('xs', 'sm')]: {
+				fontSize: 14,
+				paddingRight: 16,
+				paddingLeft: 16,
+			},
+			[theme.breakpoints.between('sm', 'md')]: {
+				fontSize: 16,
+				paddingRight: 20,
+				paddingLeft: 20,
+			},
+			[theme.breakpoints.between('md', 'lg')]: {
+				fontSize: 18,
+				paddingRight: 24,
+				paddingLeft: 24,
+			},
+			[theme.breakpoints.between('lg', 'xl')]: {
+				fontSize: 20,
+				paddingRight: 28,
+				paddingLeft: 28,
+			},
+			[theme.breakpoints.up('xl')]: {
+				fontSize: 22,
+				paddingRight: 34,
+				paddingLeft: 34,
+			},
+			['@media (min-width:3200px)']: {
+				fontSize: 44,
 				paddingRight: 64,
 				paddingLeft: 64,
 			},
