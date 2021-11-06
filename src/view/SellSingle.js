@@ -48,7 +48,7 @@ const styles = (theme) => ({
 		width: 100,
 	},
 	content: {
-		fontFamily: 'ANC',
+		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			justifyContent: 'flex-start',
 			alignItems: 'flex-start',
@@ -90,7 +90,7 @@ const styles = (theme) => ({
 		},
 	},
 	content2: {
-		fontFamily: 'ANC',
+		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
 		textAlign: 'center',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			maxWidth: 500,
@@ -113,7 +113,7 @@ const styles = (theme) => ({
 		},
 	},
 	share: {
-		fontFamily: 'ANC',
+		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
 		marginBottom: '10%',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			fontSize: 14,
@@ -499,7 +499,7 @@ class SellSingle extends Component {
 											color="textSecondary"
 											noWrap
 											style={{
-												fontFamily: 'ANC',
+												fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
 												fontSize: 16,
 												marginTop: '2%',
 											}}
@@ -511,7 +511,7 @@ class SellSingle extends Component {
 											align="left"
 											noWrap
 											style={{
-												fontFamily: 'ANC',
+												fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
 												fontSize: 30,
 												marginTop: '2%',
 											}}

@@ -49,7 +49,7 @@ const styles = (theme) => ({
 		display:'flex'
 	},
 	cbutton: {
-		fontFamily: 'ANC',
+		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			justifyContent: 'center',
 			alignItems: 'flex-start',
@@ -72,7 +72,7 @@ const styles = (theme) => ({
 		},
 	},
 	content: {
-		fontFamily: 'ANC',
+		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			justifyContent: 'flex-start',
 			alignItems: 'flex-start',
@@ -114,11 +114,11 @@ const styles = (theme) => ({
 		marginBottom:'10%'
 	},
 	content2: {
-		fontFamily: 'ANC',
+		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
 		marginLeft:15,
 	},
 	cbutton2: {
-		fontFamily: 'ANC',
+		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
 		justifyContent: 'flex-start',
 		alignItems: 'center',
 		[theme.breakpoints.between('xs', 'sm')]: {
@@ -127,7 +127,7 @@ const styles = (theme) => ({
 		},
 	},
 	share: {
-		fontFamily: 'ANC',
+		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
 		marginBottom: '10%',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			fontSize: 14,
@@ -779,7 +779,7 @@ class NFTInfo extends Component {
 													noWrap
 													className={classes.Display8}
 													style={{
-														fontFamily: 'ANC',
+														fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
 														marginTop: '2%',
 													}}
 												>

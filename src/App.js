@@ -28,16 +28,10 @@ import isMobile from './utils/isMobile'
 let styles = (theme) => ({
 	title4box: {
 		inherit:'PaddingL10,PaddingR10,PaddingB10,PaddingT10',
-		letterSpacing: -2,
+		letterSpacing: -1,
 		textAlign: 'center',
 		wordSpacing: 5,
-		borderRadius: '100vw',
-		backgroundColor: '#FFFFFF',
-		paddingLeft: 50,
-		paddingRight: 50,
-		paddingTop: 10,
-		paddingBottom: 5,
-		fontFamily: 'ANC',
+		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
 		marginTop: '1vw',
 		color: 'rgb(255,90,39)',
 		lineHeight: 1,
@@ -129,13 +123,13 @@ let styles = (theme) => ({
 		textTransform:'uppercase'
 	},
 	miniBoxLogo:{
+		textAlign:'center',
 		width: '50%',
 		marginLeft: '25%'
 	},
 	p1:{
 		backgroundImage: 'url('+bg+')',
 		backgroundSize:'100% 100%',
-		inherit:'PaddingB1',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			backgroundImage: 'url('+bg_mobile+')',
 		},
@@ -158,23 +152,24 @@ let styles = (theme) => ({
 
 	},
 	p3:{
+
+	},
+	p31:{
 		backgroundImage: 'url('+bg3+')',
 		backgroundSize:'100% 100%',
 		inherit:'PaddingB4',
-	},
-	p31:{
-
 	},
 	p32:{
 
 	},
 	img:{
-		inherit:'MarginT9',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			display:'none'
 		},
 		[theme.breakpoints.up('sm')]: {
-			width:'80%'
+			width:'80%',
+			marginLeft:'10%',
+			marginTop:'10%'
 		},
 	},
 	btnImg:{
@@ -229,22 +224,19 @@ class App extends Component {
 						<TopBar onRef={this.onRef} />
 						<Container component="main" className={classes.container}>
 							<Grid className={classes.p1} container style={{}}>
-								<Grid item xs={10} sm={6} md={6} lg={6} xl={6}>
-									<Grid style={{color:'white'}} className={classes.MarginL1 +' ' + classes.MarginB9}>
+								<Grid item xs={10} sm={5} md={5} lg={5} xl={5}>
+									<Grid style={{color:'white'}} className={classes.MarginL1 +' ' + classes.PaddingT1+' ' +classes.PaddingB1}>
 										<img src={bigLogo} className={classes.bigLogo}/>
-										<div >
-											<Typography color="inherit" className={classes.Display8}>
-												<b>{t('index_slogan')}<br />{t('index_slogan2')}</b>
+										<div className={classes.PaddingL10}>
+											<Typography color="inherit" className={classes.Display9} style={{lineHeight:'1.25'}}>
+												<b>{t('index_slogan')}</b>
 											</Typography>
-											<Typography color="inherit" className={classes.Display9}>
+											<Typography color="inherit" className={classes.Display10} style={{color:'rgb(255,112,67)'}}>
 												{t('index_slogan_bottom')}
 											</Typography>
 											<Grid container className={classes.MarginT5} justifyContent="flex-start" spacing={2}>
 												<Grid item>
 													<Button
-														size="large"
-														variant="contained"
-														color="secondary"
 														className={classes.btn}
 														href="/#/introPublish"
 													>
@@ -253,9 +245,6 @@ class App extends Component {
 												</Grid>
 												<Grid item>
 													<Button
-														size="large"
-														variant="outlined"
-														color="secondary"
 														className={classes.btnOutline}
 														href="/#/buy"
 													>
@@ -266,7 +255,7 @@ class App extends Component {
 										</div>
 									</Grid>
 							    </Grid>
-								<Grid item  sm={6} md={6} lg={6} xl={6}>
+								<Grid item  sm={7} md={7} lg={7} xl={7}>
 									<img className={classes.img} src={home1} />
 								</Grid>
 							</Grid>
@@ -288,7 +277,7 @@ class App extends Component {
 											<Grid item xs={3} sm={3} md={2} lg={2} xl={2}>
 												<div className={classes.miniBox}>
 													<img src={miniBoxLogo1} className={classes.miniBoxLogo}/>
-													<Typography className={classes.Display9}>
+													<Typography className={classes.Display9} style={{textAlign:'center'}}>
 														{t('index_miniBox_1')}
 													</Typography>
 												</div>
@@ -297,7 +286,7 @@ class App extends Component {
 											<Grid item xs={3} sm={3} md={2} lg={2} xl={2}>
 												<div className={classes.miniBox}>
 													<img src={miniBoxLogo2} className={classes.miniBoxLogo}/>
-													<Typography className={classes.Display9}>
+													<Typography className={classes.Display9} style={{textAlign:'center'}}>
 														{t('index_miniBox_2')}
 													</Typography>
 												</div>
@@ -306,7 +295,7 @@ class App extends Component {
 											<Grid item xs={3} sm={3} md={2} lg={2} xl={2}>
 												<div className={classes.miniBox}>
 													<img src={miniBoxLogo3} className={classes.miniBoxLogo}/>
-													<Typography className={classes.Display9}>
+													<Typography className={classes.Display9} style={{textAlign:'center'}}>
 														{t('index_miniBox_3')}
 													</Typography>
 												</div>
@@ -316,17 +305,17 @@ class App extends Component {
 									</Grid>
 									<Grid container className={classes.p22} justifyContent="center">
 										<Grid item xs={false} sm={5} md={5} lg={5} xl={5}>
-											<img style={{marginTop: '10%' ,}} className={classes.img} src={home2} />
+											<img style={{marginTop: '10%' ,marginLeft:'0%',marginRight:'10%'}} className={classes.img} src={home2} />
 										</Grid>
 										<Grid className={classes.PaddingT5} item xs={10} sm={10} md={4} lg={4} xl={4}>
-											<Typography className={classes.MarginT5 + ' ' +classes.Display7} style={{color: '#F08080'}}>
+											<Typography className={classes.MarginT5 + ' ' +classes.Display7} style={{color: '#FF7744'}}>
 												{t('index_message_1')}
 											</Typography>
 											<Typography style={{color: '#000000', marginBottom: '1vw'}} className={classes.Display8}>
 												{t('index_message_2')}
 											</Typography>
 											<Button
-												className={classes.btnColor}
+												className={classes.btnBig}
 												href="https://docs.sparklink.io/tutorial/chuang-jian-qian-bao"
 											>
 												{t('learn')}
@@ -334,18 +323,19 @@ class App extends Component {
 										</Grid>
 									</Grid>
 									<Grid container className={classes.p23} justifyContent="center">
-										<Grid className={classes.PaddingT5 +' ' +classes.PaddingB2} item xs={10} sm={10} md={5} lg={5} xl={5}>
-											<Typography style={{color: '#FFFFFF' , marginBottom: '2vw',marginTop: '2vw'}} className={classes.Display7 +' ' +classes.MarginT5}>
-												{t('index_message_3')}<span style={{color: 'red'}}>{t('index_message_4')}</span>{t('index_message_5')}
-											</Typography>
+										<Grid className={classes.PaddingL2+' '+classes.PaddingT0 +' ' +classes.PaddingB1} item xs={10} sm={6} md={6} lg={6} xl={6}>
 											<Button
-												className={classes.btnColor2}
+												className={classes.btnBig+' ' +classes.MarginT5}
+												style={{ marginBottom: '2vw',marginTop: '2vw'}}
 												href="/#/introPublish"
 											>
 												{t('share')}
 											</Button>
+											<Typography style={{color: '#FFFFFF'}} className={classes.Display7 +' ' +classes.MarginT5}>
+												{t('index_message_3')}<span style={{color: 'red'}}>{t('index_message_4')}</span>{t('index_message_5')}
+											</Typography>
 										</Grid>
-										<Grid item xs={false} sm={4} md={4} lg={4} xl={4}>
+										<Grid item xs={false} sm={6} md={6} lg={6} xl={6}>
 											<img style={{marginTop: '10%' ,}} className={classes.img} src={home3} />
 										</Grid>
 									</Grid>
@@ -371,7 +361,7 @@ class App extends Component {
 											<div style={{display: 'flex', justifyContent: 'center'}}>
 												<Button
 													onClick={this.onConnetWallet}
-													className={classes.btnColor}
+													className={classes.btn}
 												>
 													{t('connect_wallet')}
 												</Button>
@@ -381,10 +371,10 @@ class App extends Component {
 								</Grid>
 								<Grid className={classes.MarginT2} container style={{justifyContent:'center'}}>
 									<Grid item xs={false} sm={5} md={5} lg={5} xl={5}>
-										<img className={classes.img} style={{width: '100%'}} src={index1} />
+										<img className={classes.img} style={{marginTop: '10%' ,marginLeft:'0%',marginRight:'10%'}} src={index1} />
 									</Grid>
-									<Grid className={classes.MarginT2+' '+classes.PaddingT2} item xs={10} sm={10} md={6} lg={6} xl={6}>
-										<Typography style={{color: '#F08080'}} className={classes.Display8 + ' ' +classes.MarginT3}>
+									<Grid  item xs={10} sm={10} md={6} lg={6} xl={6}>
+										<Typography style={{color: '#FF774A'}} className={classes.Display8 + ' ' +classes.MarginT3}>
 											{t('index_message_9')}
 										</Typography>
 										<Button className={classes.btnImgRound} href='https://t.me/SparkLink_io' ><img className={classes.btnImg} src={logoTele} /></Button>

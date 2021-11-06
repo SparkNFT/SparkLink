@@ -1,4 +1,5 @@
 import withCommon from '../styles/common'
+import fullLogo from '../imgs/logowhite.png'
 import { withStyles } from '@material-ui/styles'
 import React, { Component } from 'react'
 import Grid from '@material-ui/core/Grid'
@@ -10,9 +11,31 @@ import logoDis from '../imgs/logoRed.png'
 import logoTele from '../imgs/logoTele.png'
 import logoGit from '../imgs/logoGit.png'
 import logoIns from '../imgs/logoIns.png'
-
+import { Container, Divider } from '@material-ui/core'
 import Button from '@material-ui/core/Button'
 let styles = (theme) => ({
+	logo: {
+		marginRight: 24,
+		height: 'auto',
+		[theme.breakpoints.between('xs', 'sm')]: {
+			height:'25px',
+		},
+		[theme.breakpoints.between('sm', 'md')]: {
+			height:'25px',
+		},
+		[theme.breakpoints.between('md', 'lg')]: {
+			height:'30px',
+		},
+		[theme.breakpoints.between('lg', 'xl')]: {
+			height:'40px',
+		},
+		[theme.breakpoints.up('xl')]: {
+			height:'60px',
+		},
+		['@media (min-width:3200px)']:{
+			height:'80px',
+		},
+	},
 	footer:{
 		[theme.breakpoints.between('xs', 'sm')]: {
 			
@@ -20,6 +43,12 @@ let styles = (theme) => ({
 		[theme.breakpoints.up('sm')]: {
 			
 		},
+	},
+	btnImg:{
+		filter: 'grayscale(50%)',
+		'&:hover':{
+			filter: 'grayscale(0%)',
+		}
 	},
 	botimg:{
 		[theme.breakpoints.between('xs', 'sm')]: {
@@ -31,11 +60,17 @@ let styles = (theme) => ({
 		[theme.breakpoints.up('xl')]: {
 			width: '10vh'
 		},
+		marginRight:'0.5vw',
 	},
 	helpimg:{
-		[theme.breakpoints.between('xs', 'sm')]: {width:'50%'},
+		[theme.breakpoints.between('xs', 'sm')]: {
+			width: '50px'
+		},
 		[theme.breakpoints.up('sm')]: {
-			width:'30%'
+			width: '170px'
+		},
+		[theme.breakpoints.up('xl')]: {
+			width: '200px'
 		},
 	},
 	Display9:{
@@ -55,51 +90,61 @@ class Footer extends Component {
 		const { t } = this.props
 		const { classes } = this.props
 		return (
-			<div>
-				<div style={{height:'15vh'}}></div>
-				<Grid className={classes.footer + ' ' + classes.PaddingB2} container style={{backgroundColor: '#E9DDD5' }}>
-					<Grid direction='column' container item style={{color: 'white' ,paddingTop: '5vw'}} xs={12} sm={7} md={7} lg={7} xl={7} >
-						<div style={{display :'flex', width:'100%'}}>
-							<div className={classes.MarginL6} style={{display: 'flex' ,flexDirection: 'column'}}>
-								<span className={classes.Display8} style={{paddingLeft: '0px'}}>{t('resources')}</span>
-								<a href='' className={classes.Display9}>Conditions</a>
-								<a href='' className={classes.Display9}>Privacy Policy</a>
-								<a href='' className={classes.Display9}>People</a>
+			<div  style={{backgroundColor: '#878787' ,marginTop:'15vh'}}>
+				
+				<Container justifyContent='center'>
+					<Grid xs={12} item className={classes.footer + ' ' + classes.PaddingB2} container style={{backgroundColor: '#878787' }}>
+						<Grid direction='column' container item style={{color: 'white' ,paddingTop: '5vw'}} xs={12} sm={7} md={7} lg={7} xl={7} >
+							<div style={{display :'flex', width:'100%'}}>
+								<div className={classes.MarginL6} style={{display: 'flex' ,flexDirection: 'column'}}>
+									<span className={classes.Display8} style={{paddingLeft: '0px'}}>{t('resources')}</span>
+									<a href='' className={classes.Display9}>Conditions</a>
+									<a href='' className={classes.Display9}>Privacy Policy</a>
+									<a href='' className={classes.Display9}>People</a>
+								</div>
+								<div style={{flex:'1'}} />
+								<div style={{display: 'flex' ,flexDirection: 'column'}}>
+									<span className={classes.Display8} style={{paddingLeft: '0px'}}>{t('market')}</span>
+									<a href='https://sparklink.io/#/buy' className={classes.Display9}>SparkLink-Market</a>
+									<a href='https://opensea.io/' className={classes.Display9}>OpenSea</a>
+								</div>
+								<div style={{flex:'1'}} />
+								<div style={{flex:'1'}} />
 							</div>
-							<div style={{flex:'1'}} />
-							<div style={{display: 'flex' ,flexDirection: 'column'}}>
-								<span className={classes.Display8} style={{paddingLeft: '0px'}}>{t('market')}</span>
-								<a href='https://sparklink.io/#/buy' className={classes.Display9}>SparkLink-Market</a>
-								<a href='https://opensea.io/' className={classes.Display9}>OpenSea</a>
+						</Grid>
+						<Grid direction="column" container item style={{color: 'white' ,paddingTop: '5vw'}} xs={12} sm={5} md={5} lg={5} xl={5} >
+							<div style={{display: 'flex', justifyContent:'center',alignItems:'center'}}>
+								
+								<div>
+									<Button style={{marginLeft:'20px' , lineHeight :'200%'}} className={classes.btn}>
+										<img src={bot} className={classes.botimg} />
+										<span style={{textTransform:'normal'}}>SparkLink Telegram Bot</span>
+									</Button>
+								</div>
 							</div>
-							<div style={{flex:'1'}} />
-							<div style={{flex:'1'}} />
-						</div>
-						<div className={classes.MarginL6 +' '+classes.MarginT6} style={{display:'flex'}}>
+
+							
+						</Grid>
+					</Grid>
+					<Divider />
+					<Grid container style={{backgroundColor:'#878787',flexDirection:'row'}}  >
+						<div className={classes.MarginL6 +' '+classes.MarginT6+' '+classes.MarginB6} style={{display:'flex',width:'100%'}}>
 							<Button style={{marginLeft:0}} className={classes.btnImgRound} href='https://twitter.com/SparkLink_io'><img className={classes.btnImg} src={logoTwi} /></Button>
 							<Button className={classes.btnImgRound} href='https://t.co/lh0TzLZdEo?amp=1' ><img className={classes.btnImg} src={logoDis} /></Button>
 							<Button className={classes.btnImgRound} href='https://github.com/SparkNFT' ><img className={classes.btnImg} src={logoGit} /></Button>
 							<Button className={classes.btnImgRound} href='' ><img className={classes.btnImg} src={logoIns} /></Button>
 							<Button className={classes.btnImgRound} href='https://t.me/SparkLink_io' ><img className={classes.btnImg} src={logoTele} /></Button>
-						</div>
-					</Grid>
-					<Grid direction="column" container item style={{color: 'white' ,paddingTop: '5vw'}} xs={12} sm={5} md={5} lg={5} xl={5} >
-						<div style={{display: 'flex', justifyContent:'center',alignItems:'center'}}>
-							<img src={bot} className={classes.botimg} />
-							<div>
-								<Button style={{marginLeft:'20px' , lineHeight :'200%'}} className={classes.btnColor}>
-									<span style={{textTransform:'normal'}}>SparkLink Telegram Bot</span>
-								</Button>
-							</div>
-						</div>
-						<div className={classes.MarginT7} style={{display: 'flex', justifyContent:'flex-end'}}>
-							<a className={classes.PaddingR8} style={{display:'flex',justifyContent:'flex-end'}} href='https://docs.sparklink.io/product/chan-pin'>
+							<div style={{flex:'1'}}></div>
+							<Button href='https://docs.sparklink.io/product/chan-pin'>
 								<img src={help} className={classes.helpimg} />
-							</a>
+							</Button>
 						</div>
-						
 					</Grid>
-				</Grid>               
+					<Divider />      
+					<Grid container style={{backgroundColor:'#878787',flexDirection:'row'}}  >
+						<img src={fullLogo} className={classes.logo+' '+classes.MarginT6+' '+classes.MarginB6+' '+classes.MarginL6}></img>
+					</Grid>
+				</Container>         
 			</div>
 		)
 	}

@@ -15,7 +15,7 @@ const styles = (theme) => ({
 		marginRight: theme.spacing(2),
 	},
 	titleFont: {
-		fontFamily: 'ANC',
+		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
 	},
 	btn: {
 		color: '#424949',
@@ -31,7 +31,7 @@ const styles = (theme) => ({
 	},
 
 	content: {
-		fontFamily: 'ANC',
+		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
 		marginTop: 20,
 		lineHeight: 1.5,
 		[theme.breakpoints.between('xs', 'sm')]: {
@@ -114,7 +114,7 @@ class IntroPublish extends Component {
 								<br />
 								<br />
 							</Typography>
-							<Grid container justifyContent="center" style={{ fontFamily: 'ANC', marginTop: 40 }}>
+							<Grid container justifyContent="center" style={{ fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif', marginTop: 40 }}>
 								<Grid container item style={{ display: 'flex' }} justifyContent="center" xl={12} xs={12} >
 									<Button
 										size="large"

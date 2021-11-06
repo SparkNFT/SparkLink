@@ -44,7 +44,7 @@ const styles = (theme) => ({
 		marginRight: theme.spacing(2),
 	},
 	titleFont: {
-		fontFamily: 'ANC',
+		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
 	},
 	btn: {
 		color: '#424949',
@@ -99,7 +99,7 @@ const styles = (theme) => ({
 		width: 150,
 	},
 	title: {
-		fontFamily: 'ANC',
+		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
 		marginTop: '5%',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			fontSize: 35,
@@ -118,7 +118,7 @@ const styles = (theme) => ({
 		},
 	},
 	title2: {
-		fontFamily: 'ANC',
+		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			fontSize: 16,
 		},

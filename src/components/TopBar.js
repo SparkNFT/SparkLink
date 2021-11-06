@@ -74,8 +74,6 @@ const styles = (theme) => ({
 		maxWidth:'100vw',
 		overflow:'hidden',
 		minHeight:'0px',
-		paddingTop:'10px',
-		paddingBottom:'10px'
 	},
 	icon: {
 		[theme.breakpoints.down('xl')]: {
@@ -92,7 +90,7 @@ const styles = (theme) => ({
 	},
 	titleToken: {
 		fontSize: 22,
-		fontFamily: 'ANC',
+		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			fontSize: 15,
 		},
@@ -112,7 +110,7 @@ const styles = (theme) => ({
 	title: {
 		minWidth: 100,
 		fontSize: 25,
-		fontFamily: 'ANC',
+		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			fontSize: 25,
 		},
@@ -156,15 +154,18 @@ const styles = (theme) => ({
 		},
 	},
 	btnTopbar: {
-		fontFamily: 'ANC',
+		fontWeight: 500,
+		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
 		color: '#FFFFFF',
 		borderColor: '#FFFFFF',
 		borderWidth: 2,
 		borderRadius: '100vw',
-		paddingTop: 3,
-		paddingBottom: 3,
+		inherit:'MarginL10',
+		paddingTop: 10,
+		paddingBottom: 0,
 		'&:hover':{
-			color:'rgb(255,112,67)'
+			color:'rgb(255,112,67)',
+			backgroundColor:'transparent'
 		},
 		'&:active':{
 			color:'#fafafa'
@@ -174,27 +175,22 @@ const styles = (theme) => ({
 		},
 		[theme.breakpoints.between('xs', 'sm')]: {
 			fontSize: 12,
-			paddingLeft:6,
 			paddingRight:6
 		},
 		[theme.breakpoints.between('sm', 'md')]: {
 			fontSize: 14,
-			paddingLeft:7,
 			paddingRight:7
 		},
 		[theme.breakpoints.between('md', 'xl')]: {
 			fontSize: 16,
-			paddingLeft:8,
 			paddingRight:8
 		},
 		[theme.breakpoints.up('xl')]: {
 			fontSize: 20,
-			paddingLeft:10,
 			paddingRight:10
 		},
 		['@media (min-width:3200px)']: {
 			fontSize: 40,
-			paddingLeft:20,
 			paddingRight:20
 		},
 	},
@@ -203,25 +199,24 @@ const styles = (theme) => ({
 		paddingBottom:0
 	},
 	logo: {
-		marginLeft: 12,
 		marginRight: 24,
 		objectFit: 'contain',
 		content: 'url(' + fullLogo + ')',
 		height: 'auto',
 		[theme.breakpoints.between('sm', 'md')]: {
-			width:'80px',
+			height:'25px',
 		},
 		[theme.breakpoints.between('md', 'lg')]: {
-			width:'96px',
+			height:'30px',
 		},
 		[theme.breakpoints.between('lg', 'xl')]: {
-			width:'116px',
+			height:'40px',
 		},
 		[theme.breakpoints.up('xl')]: {
-			width:'138px',
+			height:'60px',
 		},
 		['@media (min-width:3200px)']:{
-			width:'276px'
+			height:'80px',
 		},
 		[theme.breakpoints.down('sm')]: {
 			width: '30px',
@@ -685,25 +680,27 @@ class TopBar extends Component {
 				</Menu>				
 				<Toolbar id='topbar' className={classes.noPadding} style={{minHeight:'0px'}}>
 					<div style={fixStyleBlank}></div>
-					<Grid style={fixStyle}  className={classes.Toolbar} container direction="row"  wrap="nowrap">
+					<Grid style={fixStyle}  className={classes.Toolbar+' '+classes.PaddingT10 + ' '+ classes.PaddingB10} container direction="row"  wrap="nowrap">
 						<Grid item className={classes.titleGrid}>
-							<a href="/#/" className={classes.logo} />
-							<div className={classes.btngroup}>
-								<Button size="medium" className={classes.btnTopbar} href="/#/">
-									<b>{t('index')}</b>
-								</Button>
-								<Button size="medium" className={classes.btnTopbar} href="/#/introPublish">
-									<b>{t('publish')}</b>
-								</Button>
-								<Button size="medium" className={classes.btnTopbar} href="/#/collections">
-									<b>{t('collection')}</b>
-								</Button>
-								<Button size="medium" className={classes.btnTopbar} href="https://docs.sparklink.io/">
-									<b>Wiki</b>
-								</Button>
-								<Button size="medium" className={classes.btnTopbar} href="/#/buy">
-									<b>{t('market')}</b>
-								</Button>
+							<a href="/#/" className={classes.logo +' '+classes.PaddingL10} />
+							<div style={{display:'flex',flexDirection:'column',justifyContent:'flex-end',height:'100%'}}>
+								<div className={classes.btngroup}>
+									<a size="medium" className={classes.btnTopbar} href="/#/">
+										{t('index')}
+									</a>
+									<a size="medium" className={classes.btnTopbar} href="/#/introPublish">
+										{t('publish')}
+									</a>
+									<a size="medium" className={classes.btnTopbar} href="/#/collections">
+										{t('collection')}
+									</a>
+									<a size="medium" className={classes.btnTopbar} href="https://docs.sparklink.io/">
+										Wiki
+									</a>
+									<a size="medium" className={classes.btnTopbar} href="/#/buy">
+										{t('market')}
+									</a>
+								</div>
 							</div>
 							<div style={{flex: '1'}}></div>
 							<Grid item className={classes.btnGrid}>
@@ -715,7 +712,7 @@ class TopBar extends Component {
 									//   <WalletTwoTone className={classes.icon} />
 									// </Button>
 									<Button
-										className={classes.btnTopBarMenu}
+										className={classes.btnTopBarMenu +' '+classes.MarginR8}
 										onClick={this.handleTokenButtonOnClick}
 									>
 										{this.state.userAddress.substring(0, 6)}...
@@ -725,7 +722,7 @@ class TopBar extends Component {
 									// <Button onClick={this.getAccount}>
 									//   <WalletFilled className={classes.icon} />
 									// </Button>
-									<Button className={classes.btnTopBarMenu} onClick={this.handleDialogOpen}>
+									<Button className={classes.btnTopBarMenu+' '+classes.MarginR8} onClick={this.handleDialogOpen}>
 										<b> Connect Wallet</b>
 									</Button>
 								)}

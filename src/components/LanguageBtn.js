@@ -38,7 +38,7 @@ function LanguageBtn({ classes }) {
 
 	return (
 		<>
-			<Button className={classes.btnTopBarMenu} aria-haspopup="true" onClick={handleClick}>
+			<Button className={classes.btnTopBarMenu+' '+classes.MarginR8} aria-haspopup="true" onClick={handleClick}>
 				<span>{options[selectedIndex].toUpperCase()}</span>
 			</Button>
 			<Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
