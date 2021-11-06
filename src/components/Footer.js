@@ -62,9 +62,14 @@ let styles = (theme) => ({
 		},
 		marginRight:'0.5vw',
 	},
+	helpimga:{
+		[theme.breakpoints.between('xs', 'sm')]: {
+			width:'100%'
+		},
+	},
 	helpimg:{
 		[theme.breakpoints.between('xs', 'sm')]: {
-			width: '50px'
+			width: '150px'
 		},
 		[theme.breakpoints.up('sm')]: {
 			width: '170px'
@@ -127,18 +132,19 @@ class Footer extends Component {
 						</Grid>
 					</Grid>
 					<Divider />
-					<Grid container style={{backgroundColor:'#878787',flexDirection:'row'}}  >
-						<div className={classes.MarginL6 +' '+classes.MarginT6+' '+classes.MarginB6} style={{display:'flex',width:'100%'}}>
+					<Grid container style={{backgroundColor:'#878787',flexDirection:'row'}}  className={classes.MarginT6+' '+classes.MarginB6} >
+				 		<Grid item xs={12} sm={9}>
 							<Button style={{marginLeft:0}} className={classes.btnImgRound} href='https://twitter.com/SparkLink_io'><img className={classes.btnImg} src={logoTwi} /></Button>
 							<Button className={classes.btnImgRound} href='https://t.co/lh0TzLZdEo?amp=1' ><img className={classes.btnImg} src={logoDis} /></Button>
 							<Button className={classes.btnImgRound} href='https://github.com/SparkNFT' ><img className={classes.btnImg} src={logoGit} /></Button>
 							<Button className={classes.btnImgRound} href='' ><img className={classes.btnImg} src={logoIns} /></Button>
 							<Button className={classes.btnImgRound} href='https://t.me/SparkLink_io' ><img className={classes.btnImg} src={logoTele} /></Button>
-							<div style={{flex:'1'}}></div>
-							<Button href='https://docs.sparklink.io/product/chan-pin'>
+						</Grid>
+						<Grid item xs={12} sm={3}>
+							<a  style={{display:'flex',justifyContent:'flex-end'}} className={classes.helpimga} href='https://docs.sparklink.io/product/chan-pin'>
 								<img src={help} className={classes.helpimg} />
-							</Button>
-						</div>
+							</a>
+						</Grid>
 					</Grid>
 					<Divider />      
 					<Grid container style={{backgroundColor:'#878787',flexDirection:'row'}}  >

@@ -361,7 +361,7 @@ class App extends Component {
 											<div style={{display: 'flex', justifyContent: 'center'}}>
 												<Button
 													onClick={this.onConnetWallet}
-													className={classes.btn}
+													className={classes.btnBig}
 												>
 													{t('connect_wallet')}
 												</Button>
