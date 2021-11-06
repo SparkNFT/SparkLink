@@ -231,7 +231,7 @@ class App extends Component {
 											<Typography color="inherit" className={classes.Display9} style={{lineHeight:'1.25'}}>
 												<b>{t('index_slogan')}</b>
 											</Typography>
-											<Typography color="inherit" className={classes.Display10} style={{color:'rgb(255,112,67)'}}>
+											<Typography color="inherit" className={classes.Display10 + ' ' +classes.MarginT8} style={{color:'rgb(255,112,67)'}}>
 												{t('index_slogan_bottom')}
 											</Typography>
 											<Grid container className={classes.MarginT5} justifyContent="flex-start" spacing={2}>

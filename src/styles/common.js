@@ -2297,12 +2297,12 @@ let styleCommon = (theme) => {
 				paddingLeft: 20,
 			},
 			[theme.breakpoints.between('md', 'lg')]: {
-				fontSize: 21,
+				fontSize: 20,
 				paddingRight: 24,
 				paddingLeft: 24,
 			},
 			[theme.breakpoints.between('lg', 'xl')]: {
-				fontSize: 24,
+				fontSize: 22,
 				paddingRight: 28,
 				paddingLeft: 28,
 			},
@@ -2402,7 +2402,7 @@ let styleCommon = (theme) => {
 				paddingLeft: 24,
 			},
 			[theme.breakpoints.between('lg', 'xl')]: {
-				fontSize: 24,
+				fontSize: 22,
 				paddingRight: 28,
 				paddingLeft: 28,
 			},
