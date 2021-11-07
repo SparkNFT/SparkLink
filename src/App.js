@@ -92,7 +92,7 @@ let styles = (theme) => ({
 	},
 	bigLogo: {
 		[theme.breakpoints.between('xs', 'sm')]: {
-			width:'133px',
+			width:'153px',
 		},
 		[theme.breakpoints.between('sm', 'md')]: {
 			width:'199px',
@@ -187,6 +187,24 @@ let styles = (theme) => ({
 			width:'50px',
 			marginLeft:'2px',
 		},
+	},
+	Display10:{
+		fontWeight:500,
+	},
+	Display11:{
+		fontWeight:500,
+	},
+	Display11x:{
+		fontWeight:500,
+	},
+	Display8:{
+		fontWeight:500,
+	},
+	Display7:{
+		fontWeight:500,
+	},
+	Display9:{
+		fontWeight:500,
 	}
 	
 })
@@ -226,7 +244,7 @@ class App extends Component {
 										<img src={bigLogo} className={classes.bigLogo}/>
 										<div className={classes.PaddingL10}>
 											<Typography color="inherit" className={classes.Display9} style={{lineHeight:'1.25'}}>
-												<b>{t('index_slogan')}</b>
+												{t('index_slogan')}
 											</Typography>
 											<Typography color="inherit" className={classes.Display10 + ' ' +classes.MarginT8} style={{color:'rgb(255,112,67)'}}>
 												{t('index_slogan_bottom')}
