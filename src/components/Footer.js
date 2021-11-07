@@ -139,7 +139,7 @@ class Footer extends Component {
 					</Grid>
 					<Divider style={{backgroundColor:'rgba(254, 248, 248, 0.12)'}} />
 					<Grid container style={{backgroundColor:'#878787',flexDirection:'row'}}  className={classes.MarginT6+' '+classes.MarginB6} >
-				 		<Grid item xs={12} sm={9} className={classes.PaddingL6}>
+				 		<Grid item xs={12} sm={9} className={classes.PaddingL6} style={{display:'flex',alignItems:'center'}}>
 							<a style={{marginLeft:0}} className={classes.btnImgRound} href='https://twitter.com/SparkLink_io'><img className={classes.btnImg} src={logoTwi} /></a>
 							<a className={classes.btnImgRound} href='https://t.co/lh0TzLZdEo?amp=1' ><img className={classes.btnImg} src={logoDis} /></a>
 							<a className={classes.btnImgRound} href='https://github.com/SparkNFT' ><img className={classes.btnImg} src={logoGit} /></a>

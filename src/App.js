@@ -273,7 +273,7 @@ class App extends Component {
 											<Grid item xs={3} sm={3} md={2} lg={2} xl={2}>
 												<div className={classes.miniBox}>
 													<img src={miniBoxLogo1} className={classes.miniBoxLogo}/>
-													<Typography className={classes.Display10} style={{textAlign:'center'}}>
+													<Typography className={classes.Display11x} style={{textAlign:'center'}}>
 														{t('index_miniBox_1')}
 													</Typography>
 												</div>
@@ -282,7 +282,7 @@ class App extends Component {
 											<Grid item xs={3} sm={3} md={2} lg={2} xl={2}>
 												<div className={classes.miniBox}>
 													<img src={miniBoxLogo2} className={classes.miniBoxLogo}/>
-													<Typography className={classes.Display10} style={{textAlign:'center'}}>
+													<Typography className={classes.Display11x} style={{textAlign:'center'}}>
 														{t('index_miniBox_2')}
 													</Typography>
 												</div>
@@ -291,7 +291,7 @@ class App extends Component {
 											<Grid item xs={3} sm={3} md={2} lg={2} xl={2}>
 												<div className={classes.miniBox}>
 													<img src={miniBoxLogo3} className={classes.miniBoxLogo}/>
-													<Typography className={classes.Display10} style={{textAlign:'center'}}>
+													<Typography className={classes.Display11x} style={{textAlign:'center'}}>
 														{t('index_miniBox_3')}
 													</Typography>
 												</div>

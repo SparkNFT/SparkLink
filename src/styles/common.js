@@ -1163,6 +1163,24 @@ let styleCommon = (theme) => {
 				fontSize: 48,
 			},
 		},
+		Display11x:{
+			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			[theme.breakpoints.between('xs', 'sm')]: {
+				fontSize: 14,
+			},
+			[theme.breakpoints.between('sm', 'md')]: {
+				fontSize: 18,
+			},
+			[theme.breakpoints.between('md', 'xl')]: {
+				fontSize: 20,
+			},
+			[theme.breakpoints.up('xl')]: {
+				fontSize: 22,
+			},
+			['@media (min-width:3200px)']: {
+				fontSize: 44,
+			},
+		},
 		PaddingL0:{
 			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
