@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import fullLogo from '../imgs/logowhite.png'
 import sLogo from '../imgs/sparkLink.png'
-import bg from '../imgs/bg.png'
 import TPpic from '../imgs/TP.png'
 import metamaskpic from '../imgs/metamask.png'
 import mathwalletpic from '../imgs/mathwallet.png'
@@ -65,12 +64,7 @@ const styles = (theme) => ({
 
 	},
 	Toolbar: {
-		backgroundImage: 'url(' + bg + ')',
-		backgroundSize: 'cover',
-		[theme.breakpoints.down('sm')]: {
-			backgroundRepeat: 'repeat-y',
-			backgroundSize: 'auto',
-		},
+		backgroundColor:'rgb(255,137,106)',
 		maxWidth:'100vw',
 		overflow:'hidden',
 		minHeight:'0px',
