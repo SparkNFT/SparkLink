@@ -127,7 +127,7 @@ class Footer extends Component {
 							<div style={{display: 'flex', justifyContent:'center',alignItems:'center'}}>
 								
 								<div>
-									<Button style={{marginLeft:'20px' , lineHeight :'200%'}} className={classes.btn}>
+									<Button style={{ lineHeight :'200%'}} className={classes.btn}>
 										<img src={bot} className={classes.botimg} />
 										<span style={{textTransform:'normal'}}>SparkLink Telegram Bot</span>
 									</Button>

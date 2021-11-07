@@ -22,3 +22,34 @@ code {
 	font-family:'ANC';
 	src: url('Mada-Bold.ttf');
 }
+@media (min-width:3200px){
+  .ant-input{
+    font-size: 50px !important;
+  }
+  .ant-input-number-input{
+    font-size: 50px !important;
+    height: 100px !important;
+  }
+  .ant-select-selection-search-input{
+    font-size: 50px !important;
+    height: 100px !important;
+  }
+  .ant-select-selector{
+    height: 100px !important;
+  }
+  .ant-select-item .ant-select-item-option{
+    font-size: 50px !important;
+    height: 100px !important;
+  }
+  .ant-select-item-option-content{
+    font-size: 50px !important;
+    height: 100px !important;
+  }
+  .ant-select-selection-placeholder{
+    font-size: 50px !important;
+    height: 100px !important;
+    line-height: 80px !important;
+  }
+  
+}
+

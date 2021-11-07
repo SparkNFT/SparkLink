@@ -362,10 +362,10 @@ class Collections extends Component {
   						<Grid container justifyContent="center">
   							<Grid item xs={10}>
   								<Typography color="inherit" noWrap className={classes.Display7}>
-  									<b>{t('collection')}</b>
+  									{t('collection')}
   								</Typography>
   								<Typography color="inherit" className={classes.Display8}>
-  									<b>{t('解决出版困境，源自ERC21支持')}</b>
+  									{t('解决出版困境，源自ERC21支持')}
   								</Typography>
   							</Grid>
   						</Grid>
