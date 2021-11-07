@@ -23,7 +23,7 @@
 	"art_desc": "作品描述",
 	"art_desc_tip": "请用简单的话语对您的作品进行描述，精准有效的描述能帮助其他用户更准确得了解您的作品",
 	"pic_cover": "封面图片",
-	"pic_cover_tip": "请在下方区域上传您的封面图片 <br />封面文件支持这些格式：JPEG/JPG/PNG",
+	"pic_cover_tip": "请在下方区域上传您的封面图片 \n封面文件支持这些格式：JPEG/JPG/PNG",
 	"upload_file_tip1": "上传文件请点击或者拖拽文件到此处",
 	"upload_file_tip2": "仅支持单个文件的上传，支持多种类型文件的上传",
 	"art_file": "作品文件",
