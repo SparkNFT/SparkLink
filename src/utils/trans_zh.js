@@ -53,7 +53,7 @@ let lng_zh={
 	'index_miniBox_2': 'N+\n代币支持',
 	'index_miniBox_3': '99% 最高\n分享回馈',
 	'index_message_1': '免费使用\n无需注册， 免去烦恼',
-	'index_message_2': '马上发布和分享你的NFT作品，只需通过链接你的钱包',
+	'index_message_2': '只需连接你的钱包，便可马上发布和分享你的NFT作品',
 	'index_message_3': '通过 ',
 	'index_message_4': '创作 & 分享',
 	'index_message_5': '获得收益\n分享内容， 获得收入',
