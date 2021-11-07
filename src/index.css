@@ -42,16 +42,21 @@ code {
   .ant-select-item .ant-select-item-option{
     font-size: 50px !important;
     height: 100px !important;
+    
   }
   .ant-select-item-option-content{
     font-size: 50px !important;
     height: 100px !important;
+    line-height: 50px !important;
   }
   .ant-select-selection-placeholder{
     font-size: 50px !important;
     height: 100px !important;
-    line-height: 80px !important;
+    line-height: 100px !important;
   }
-  
+  .ant-select-selection-item{
+    font-size: 50px !important;
+    line-height: 100px !important;
+  }
 }
 
