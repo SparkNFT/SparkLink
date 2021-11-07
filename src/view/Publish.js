@@ -45,17 +45,18 @@ const theme = createTheme({
 })
 
 const styles = (theme) => ({
+	h5:{
+		color:'#757575'
+	},
+	h3:{
+		marginTop:20
+	},
 	main: {
-		[theme.breakpoints.between('xs', 'sm')]: {
-			width: '60%',
-		},
-		[theme.breakpoints.up('sm')]: {
-			width: 500,
-		},
+		maxWidth:'100vw'
 	},
 	titleCon: {
 		marginTop: 50,
-		fontFamily: 'ANC',
+		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			fontSize: 30,
 		},
@@ -89,7 +90,7 @@ const styles = (theme) => ({
 	},
 	titlePub: {
 		marginTop: '3%',
-		fontFamily: 'ANC',
+		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			fontSize: 20,
 		},
@@ -98,17 +99,14 @@ const styles = (theme) => ({
 		},
 	},
 	btn: {
-		color: '#424949',
-		borderWidth: 2,
-		borderColor: '#e3f2fd',
-		fontSize: 16,
+		inherit:'MarginT5'
 	},
 	paper: {
 		marginTop: theme.spacing(8),
 		display: 'flex',
 		flexDirection: 'column',
 		alignItems: 'center',
-		fontFamily: 'ANC',
+		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
 	},
 	avatar: {
 		margin: theme.spacing(1),
@@ -117,7 +115,7 @@ const styles = (theme) => ({
 		height: 60,
 	},
 	form: {
-		width: '150%',
+		width: '80%',
 		marginTop: theme.spacing(7),
 	},
 	submit: {
@@ -141,12 +139,18 @@ const styles = (theme) => ({
 		height: 40,
 		borderRadius: 3,
 		width: '100%',
+		['@media (min-width:3200px)']:{
+			height: 100
+		}
 	},
 	inputNum: {
 		height: 40,
 		borderRadius: 3,
 		width: '100%',
 		fontSize: 20,
+		['@media (min-width:3200px)']:{
+			height: 100
+		}
 	},
 })
 
@@ -634,13 +638,13 @@ class Publish extends Component {
 						<Container component="main" maxWidth="xs" className={classes.main}>
 							<div className={classes.paper}>
 								{/* {showLoading()} */}
-								<Typography className={classes.titlePub}>
+								<Typography className={classes.Display7}>
 									<b>{t('art_info')}</b>
 								</Typography>
 								<form className={classes.form} noValidate>
 									<Grid container spacing={2}>
 										<Grid item style={{ width: '100%' }}>
-											<label style={{ fontSize: 18, marginBottom: 10 }}>
+											<label className={classes.Display9}>
 												{t('art_name')} <span style={{ color: 'red' }}>*</span>
 											</label>
 											<Input
@@ -653,10 +657,10 @@ class Publish extends Component {
 											/>
 										</Grid>
 										<Grid item style={{ width: '100%' }}>
-											<label style={{ fontSize: 18, marginTop: 20 }}>
+											<label className={classes.Display9}>
 												{t('fit_rate')} <span style={{ color: 'red' }}>*</span>
 											</label>
-											<p style={{ fontSize: 14 }}>{t('fit_rate_tip')}</p>
+											<p className={classes.Display11}>{t('fit_rate_tip')}</p>
 											<InputNumber
 												id="bonusFee"
 												defaultValue={0}
@@ -669,10 +673,10 @@ class Publish extends Component {
 											/>
 										</Grid>
 										<Grid item style={{ width: '100%' }}>
-											<label style={{ fontSize: 18, marginTop: 20 }}>
+											<label className={classes.Display9}>
 												{t('access_coin')} <span style={{ color: 'red' }}>*</span>
 											</label>
-											<p style={{ fontSize: 14 }}>{t('access_coin_tip')}</p>
+											<p className={classes.Display11}>{t('access_coin_tip')}</p>
 											<Select
 												showSearch
 												value={this.state.token_addr}
@@ -691,7 +695,7 @@ class Publish extends Component {
 											</Select>
 										</Grid>
 										<Grid item style={{ width: '100%' }}>
-											<label style={{ fontSize: 18, marginTop: 20 }}>
+											<label className={classes.Display9}>
 												{t('price')} ({this.state.token_symbol})<span style={{ color: 'red' }}>*</span>
 											</label>
 											<InputNumber
@@ -703,11 +707,11 @@ class Publish extends Component {
 											/>
 										</Grid>
 										<Grid item style={{ width: '100%' }}>
-											<label style={{ fontSize: 18, marginTop: 20 }}>
+											<label className={classes.Display9}>
 												{t('max_share')} (MAX： 65535)
 												<span style={{ color: 'red' }}>*</span>
 											</label>
-											<p style={{ fontSize: 14 }}>{t('max_share_tip')}</p>
+											<p className={classes.Display11}>{t('max_share_tip')}</p>
 											<InputNumber
 												id="shareTimes"
 												defaultValue={0}
@@ -718,47 +722,40 @@ class Publish extends Component {
 											/>
 										</Grid>
 										<Grid item style={{ width: '100%' }}>
-											<label style={{ fontSize: 18, marginTop: 20 }}>
+											<label className={classes.Display9}>
 												{t('art_desc')} <span style={{ color: 'red' }}>*</span>
 											</label>
-											<p style={{ fontSize: 14 }}>{t('art_desc_tip')}</p>
+											<p className={classes.Display11}>{t('art_desc_tip')}</p>
 											<TextArea rows={6} id="Description" onChange={this.handleGetDescription} />
 										</Grid>
 									</Grid>
-									<label style={{ fontSize: 18, marginTop: 50 }}>
+									<label className={classes.Display9}>
 										{t('pic_cover')} <span style={{ color: 'red' }}>*</span>
 									</label>
-									<p style={{ fontSize: 14 }}>{t('pic_cover_tip')}</p>
+									<p className={classes.Display11}>{t('pic_cover_tip')}</p>
 									<Dragger {...prop} style={{ width: '100%', minHeight: 200 }} id="Uploader" maxCount='1' accept="image/*">
 										<p className="ant-upload-drag-icon">
 											<InboxOutlined />
 										</p>
-										<p className="ant-upload-text">{t('upload_file_tip1')}</p>
-										<p className="ant-upload-hint">{t('upload_file_tip2')}</p>
+										<p className={classes.Display11}>{t('upload_file_tip1')}</p>
+										<p className={classes.Display11}>{t('upload_file_tip2')}</p>
 									</Dragger>
 
-									<label style={{ fontSize: 18, marginTop: 50 }}>
+									<label className={classes.Display9}>
 										{t('art_file')} <span style={{ color: 'red' }}>*</span>
 									</label>
-									<p style={{ fontSize: 14 }}> {t('art_file_tip')}</p>
+									<p className={classes.Display11}> {t('art_file_tip')}</p>
 									<Dragger {...propFile} style={{ width: '100%', minHeight: 200 }} maxCount='1' id="Uploader2">
 										<p className="ant-upload-drag-icon">
 											<InboxOutlined />
 										</p>
-										<p className="ant-upload-text">{t('upload_file_tip1')}</p>
-										<p className="ant-upload-hint">{t('upload_file_tip2')}</p>
+										<p className={classes.Display11}>{t('upload_file_tip1')}</p>
+										<p className={classes.Display11}>{t('upload_file_tip2')}</p>
 									</Dragger>
 								</form>
 								<Button
-									variant="contained"
-									className={classes.btnColor2}
+									className={classes.btn}
 									startIcon={<CloudUploadOutlined />}
-									style={{
-										marginTop: 50,
-										width: 200,
-										height: 50,
-										marginBottom: 50,
-									}}
 									onClick={this.submit}
 								>
 									{t('submit')}

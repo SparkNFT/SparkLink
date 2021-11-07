@@ -44,17 +44,18 @@ const theme = createTheme({
 })
 
 const styles = (theme) => ({
+	h3:{
+		marginTop:20
+	},
+	h5:{
+		color:'#757575'
+	},
 	main: {
-		[theme.breakpoints.between('xs', 'sm')]: {
-			width: '60%',
-		},
-		[theme.breakpoints.up('sm')]: {
-			width: 500,
-		},
+		maxWidth:'100vw'
 	},
 	titleCon: {
 		marginTop: 50,
-		fontFamily: 'ANC',
+		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			fontSize: 30,
 		},
@@ -64,7 +65,7 @@ const styles = (theme) => ({
 	},
 	titlePub: {
 		marginTop: '3%',
-		fontFamily: 'ANC',
+		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			fontSize: 20,
 		},
@@ -117,18 +118,16 @@ const styles = (theme) => ({
 			width: '30%',
 		},
 	},
-	btn: {
-		color: '#424949',
-		borderWidth: 2,
-		borderColor: '#e3f2fd',
-		fontSize: 16,
+	Display9:{
+		inherit:'MarginT9'
 	},
 	paper: {
 		marginTop: theme.spacing(8),
 		display: 'flex',
 		flexDirection: 'column',
 		alignItems: 'center',
-		fontFamily: 'ANC'
+		maxWidth:'100vw',
+		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif'
 	},
 	avatar: {
 		margin: theme.spacing(1),
@@ -136,8 +135,11 @@ const styles = (theme) => ({
 		width: 60,
 		height: 60,
 	},
+	btn:{
+		inherit:'MarginT5'
+	},
 	form: {
-		width: '150%',
+		width: '80%',
 		marginTop: theme.spacing(7),
 	},
 	submit: {
@@ -160,12 +162,18 @@ const styles = (theme) => ({
 	input: {
 		height: 40,
 		borderRadius: 5,
+		['@media (min-width:3200px)']:{
+			height: 100
+		}
 	},
 	inputNum: {
 		height: 40,
 		borderRadius: 5,
 		width: '100%',
 		fontSize: 20,
+		['@media (min-width:3200px)']:{
+			height: 100
+		}
 	},
 })
 class EncryptedPublish extends Component {
@@ -775,7 +783,7 @@ class EncryptedPublish extends Component {
 								{this.state.jumped ? (
 									<div>
 										<Grid item style={{ width: '100%' }}>
-											<label style={{ fontSize: 18, marginBottom: 10 }}>{t('art_name')} *</label>
+											<label className={classes.h3}>{t('art_name')} *</label>
 											<Input
 												placeholder={t('art_name')}
 												allowClear
@@ -786,41 +794,40 @@ class EncryptedPublish extends Component {
 											/>
 										</Grid>
 										<Grid item style={{ width: '100%' }}>
-											<label style={{ fontSize: 18, marginTop: 20 }}>{t('art_desc')} *</label>
-											<p style={{ fontSize: 14 }}>{t('art_desc_tip')}</p>
+											<label style={{ marginTop: 20 }} className={classes.Display9}>{t('art_desc')} *</label>
+											<p className={classes.Display11}>{t('art_desc_tip')}</p>
 											<TextArea rows={4} id="Description" onChange={this.handleGetDescription} />
 										</Grid>
 									</div>
 								) : (
 									<div></div>
 								)}
-								<label style={{ fontSize: 18, marginTop: 50 }}>{t('pic_cover')} *</label>
-								<p style={{ fontSize: 12 }}>{t('pic_cover_tip')}</p>
+								<label className={classes.Display9}>{t('pic_cover')} *</label>
+								<p className={classes.Display11}>{t('pic_cover_tip')}</p>
 								<Dragger {...prop} style={{ width: '100%', minHeight: 100 }} id="Uploader" maxCount='1' accept="image/*">
 									<p className="ant-upload-drag-icon">
 										<InboxOutlined />
 									</p>
-									<p className="ant-upload-text">{t('upload_file_tip1')}</p>
-									<p className="ant-upload-hint">{t('upload_file_tip2')}</p>
+									<p className={classes.Display9}>{t('upload_file_tip1')}</p>
+									<p className={classes.Display11}>{t('upload_file_tip2')}</p>
 								</Dragger>
 
-								<label style={{ fontSize: 18, marginTop: 50 }}>{t('art_file')} *</label>
-								<p style={{ fontSize: 12 }}>{t('art_file_tip')} </p>
+								<label className={classes.Display9}>{t('art_file')} *</label>
+								<p className={classes.Display11}>{t('art_file_tip')} </p>
 								<Dragger {...propFile} style={{ width: '100%', minHeight: 100 }} maxCount='1' id="Uploader2">
 									<p className="ant-upload-drag-icon">
 										<InboxOutlined />
 									</p>
-									<p className="ant-upload-text">{t('upload_file_tip1')}</p>
-									<p className="ant-upload-hint">{t('upload_file_tip2')}</p>
+									<p className={classes.Display9}>{t('upload_file_tip1')}</p>
+									<p className={classes.Display11}>{t('upload_file_tip2')}</p>
 								</Dragger>
 								<div style={{ textAlign: 'center' }}>
 									<Button
-										variant="contained"
 										startIcon={<CloudUploadOutlined />}
-										className={classes.btnPub}
+										className={classes.btn}
 										onClick={this.submitWork}
 									>
-										发布作品
+										{t('发布作品')}
 									</Button>
 								</div>
 							</form>
@@ -871,13 +878,13 @@ class EncryptedPublish extends Component {
 						<TopBar />
 						<Container component="main" maxWidth="xs" className={classes.main}>
 							<div className={classes.paper}>
-								<Typography className={classes.titlePub}>
+								<Typography className={classes.Display6}>
 									<b>{t('art_info')}</b>
 								</Typography>
 								<form className={classes.form} noValidate>
 									<Grid container spacing={2}>
 										<Grid item style={{ width: '100%' }}>
-											<label style={{ fontSize: 18, marginBottom: 10 }}>{t('art_name')} *</label>
+											<label className={classes.Display9}>{t('art_name')} *</label>
 											<Input
 												placeholder={t('art_name')}
 												allowClear
@@ -888,8 +895,8 @@ class EncryptedPublish extends Component {
 											/>
 										</Grid>
 										<Grid item style={{ width: '100%' }}>
-											<label style={{ fontSize: 18, marginTop: 20 }}>{t('fit_rate')} *</label>
-											<p style={{ fontSize: 14 }}>{t('fit_rate_tip')}</p>
+											<label className={classes.Display9}>{t('fit_rate')} *</label>
+											<p className={classes.Display11}>{t('fit_rate_tip')}</p>
 											<InputNumber
 												id="bonusFee"
 												defaultValue={0}
@@ -902,13 +909,13 @@ class EncryptedPublish extends Component {
 											/>
 										</Grid>
 										<Grid item style={{ width: '100%' }}>
-											<label style={{ fontSize: 18, marginTop: 20 }}>{t('access_coin')} *</label>
-											<p style={{ fontSize: 14 }}>{t('access_coin_tip')}</p>
+											<label className={classes.Display9}>{t('access_coin')} *</label>
+											<p className={classes.Display11}>{t('access_coin_tip')}</p>
 											<Select
 												showSearch
 												value={this.state.token_addr}
 												placeholder={t('please_input_coin')}
-												// className={classes.input}
+												className={classes.input}
 												style={{ width: '100%' }}
 												size="large"
 												defaultActiveFirstOption={false}
@@ -922,7 +929,7 @@ class EncryptedPublish extends Component {
 											</Select>
 										</Grid>
 										<Grid item style={{ width: '100%' }}>
-											<label style={{ fontSize: 18, marginTop: 20 }}>
+											<label className={classes.Display9}>
 												{t('price')} ({this.state.token_symbol})*
 											</label>
 											<InputNumber
@@ -934,8 +941,8 @@ class EncryptedPublish extends Component {
 											/>
 										</Grid>
 										<Grid item style={{ width: '100%' }}>
-											<label style={{ fontSize: 18, marginTop: 20 }}>{t('max_share')} (MAX： 65535)*</label>
-											<p style={{ fontSize: 14 }}>{t('max_share_tip')}</p>
+											<label className={classes.Display9}>{t('max_share')} (MAX： 65535)*</label>
+											<p className={classes.Display11}>{t('max_share_tip')}</p>
 											<InputNumber
 												id="shareTimes"
 												defaultValue={0}
@@ -946,8 +953,8 @@ class EncryptedPublish extends Component {
 											/>
 										</Grid>
 										<Grid item style={{ width: '100%' }}>
-											<label style={{ fontSize: 18, marginTop: 20 }}>{t('art_desc')} *</label>
-											<p style={{ fontSize: 14 }}>{t('art_desc_tip')}</p>
+											<label className={classes.Display9}>{t('art_desc')} *</label>
+											<p className={classes.Display11}>{t('art_desc_tip')}</p>
 											<TextArea rows={4} id="Description" onChange={this.handleGetDescription} />
 										</Grid>
 									</Grid>
@@ -955,23 +962,16 @@ class EncryptedPublish extends Component {
 								<Grid container alignItems="center" direction="column" spacing={4} style={{ marginTop: 20, marginBottom: 50 }}>
 									<Grid item xs style={{ textAlign: 'center' }}>
 										<Button
-											variant="contained"
-											className={classes.btnColor2}
-											startIcon={<CloudUploadOutlined />}
-											style={{
-												width: 200,
-												height: 50,
-												marginBottom: 20,
-												marginTop: 20,
-											}}
+											className={classes.btn}
+											startIcon={<CloudUploadOutlined style={{fontSize:'100%'}}/>}
 											onClick={this.submit}
 										>
 											{t('submit')}
 										</Button>
 									</Grid>
 									<Grid item xs style={{ textAlign: 'center' }}>
-										<Button className={classes.btnColor3} onClick={this.handleClickOpen} style={{ fontSize: 15, textDecoration: 'underline' }}>
-											<span> {t('have_submit')} </span>
+										<Button className={classes.btn} onClick={this.handleClickOpen}>
+											<span className={classes.Display10}> {t('have_submit')} </span>
 										</Button>
 									</Grid>
 								</Grid>

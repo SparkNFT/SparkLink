@@ -38,16 +38,17 @@ function LanguageBtn({ classes }) {
 
 	return (
 		<>
-			<Button className={classes.btnColor3} aria-haspopup="true" onClick={handleClick}>
-				<span className={classes.h3}>{options[selectedIndex].toUpperCase()}</span>
+			<Button className={classes.btnTopBarMenu+' '+classes.MarginR8} aria-haspopup="true"  onClick={handleClick}>
+				<span>{options[selectedIndex].toUpperCase()}</span>
 			</Button>
 			<Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
 				{options.map((option, index) => (
-					<MenuItem style={{ fontSize: 20}} key={option} selected={index === selectedIndex} onClick={handleCloseProfile(index)} value={index}>
-						<Button  className={classes.btnColor3}>{option}</Button>
+					<MenuItem key={option} selected={index === selectedIndex} onClick={handleCloseProfile(index)} value={index}>
+						<Button style={{width: '100%'}}  className={classes.btnItem}>{option}</Button>
 					</MenuItem>
 				))}
 			</Menu>
+			
 		</>
 	)
 }
@@ -55,7 +56,7 @@ function LanguageBtn({ classes }) {
 LanguageBtn.propTypes = {
 	classes: PropTypes.object,
 }
-let style = ()=>{
-	return {}
-};
+let style = ()=>({
+
+});
 export default withStyles(withCommon(style))(LanguageBtn)

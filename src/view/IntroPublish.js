@@ -15,13 +15,7 @@ const styles = (theme) => ({
 		marginRight: theme.spacing(2),
 	},
 	titleFont: {
-		fontFamily: 'ANC',
-	},
-	btn: {
-		color: '#424949',
-		borderWidth: 2,
-		borderColor: '#e3f2fd',
-		fontSize: 16,
+		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
 	},
 	paper: {
 		paddingLeft: '10%',
@@ -31,7 +25,7 @@ const styles = (theme) => ({
 	},
 
 	content: {
-		fontFamily: 'ANC',
+		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
 		marginTop: 20,
 		lineHeight: 1.5,
 		[theme.breakpoints.between('xs', 'sm')]: {
@@ -95,46 +89,40 @@ class IntroPublish extends Component {
 							<Typography color="inherit" noWrap className={classes.shouldKnow}>
 								<b>{t('introPublish')}</b>
 							</Typography>
-							<Typography variant="h4" paragraph className={classes.content}>
+							<Typography variant="h4" paragraph className={classes.Display8}>
 								{t('introPublish1')}
 							</Typography>
-							<Typography color="textSecondary" paragraph className={classes.content}>
+							<Typography color="textSecondary" paragraph className={classes.Display9}>
 								<b>1.</b> {t('introPublish2')}
 							</Typography>
-							<Typography color="textSecondary" paragraph className={classes.content}>
+							<Typography color="textSecondary" paragraph className={classes.Display9}>
 								<b>2.</b>{t('introPublish3')}
 								<br />
 							</Typography>
-							<Typography color="textSecondary" paragraph className={classes.content}>
+							<Typography color="textSecondary" paragraph className={classes.Display9}>
 								<b>3.</b>{t('introPublish4')}
 								<br />
 							</Typography>
-							<Typography color="textSecondary" paragraph className={classes.content}>
+							<Typography color="textSecondary" paragraph className={classes.Display9}>
 								<b>4.</b>{t('introPublish5')}
 								<br />
 								<br />
 							</Typography>
-							<Grid container justifyContent="center" style={{ fontFamily: 'ANC', marginTop: 40 }}>
-								<Grid container item style={{ display: 'flex' }} justifyContent="center" xl={6} xs={12} >
+							<Grid container justifyContent="center" style={{ fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif', marginTop: 40 }}>
+								<Grid container item style={{ display: 'flex' }} justifyContent="center" xl={12} xs={12} >
 									<Button
-										size="large"
-										variant="contained"
-										color="secondary"
-										className={classes.btnColor}
+										className={classes.btn}
 										href="/#/encryptedPublish"
 									>
-										<b>{t('publish_encry')}</b>
+										{t('publish_encry')}
 									</Button>
 								</Grid>
-								<Grid container item style={{ display: 'flex', marginTop: 20 }} justifyContent="center" xl={6} xs={12} >
+								<Grid container item style={{ display: 'flex', marginTop: 20 }} justifyContent="center" xl={12} xs={12} >
 									<Button
-										size="large"
-										variant="contained"
-										color="secondary"
-										className={classes.btnColor2}
+										className={classes.btnOutline}
 										href="/#/publish"
 									>
-										<b>{t('publish_open')}</b>
+										{t('publish_open')}
 									</Button>
 								</Grid>
 							</Grid>

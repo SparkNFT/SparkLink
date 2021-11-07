@@ -1,20 +1,57 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   max-width: 100vw;
   overflow-x: hidden;
+  
+}
+::selection{
+  color:white !important;
+  background:tomato !important;
+
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
+.MuiPaper-rounded{
+  border-radius: 20px !important;
+}
 @font-face {
 	font-family:'ANC';
 	src: url('Mada-Bold.ttf');
 }
+@media (min-width:3200px){
+  .ant-input{
+    font-size: 50px !important;
+  }
+  .ant-input-number-input{
+    font-size: 50px !important;
+    height: 100px !important;
+  }
+  .ant-select-selection-search-input{
+    font-size: 50px !important;
+    height: 100px !important;
+  }
+  .ant-select-selector{
+    height: 100px !important;
+  }
+  .ant-select-item .ant-select-item-option{
+    font-size: 50px !important;
+    height: 100px !important;
+  }
+  .ant-select-item-option-content{
+    font-size: 50px !important;
+    height: 100px !important;
+  }
+  .ant-select-selection-placeholder{
+    font-size: 50px !important;
+    height: 100px !important;
+    line-height: 80px !important;
+  }
+  
+}
+
