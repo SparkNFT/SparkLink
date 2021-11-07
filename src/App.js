@@ -24,7 +24,6 @@ import Container from '@material-ui/core/Container'
 import TopBar from './components/TopBar'
 import withCommon from './styles/common.js'
 import { withTranslation } from 'react-i18next'
-import isMobile from './utils/isMobile'
 let styles = (theme) => ({
 	title4box: {
 		inherit:'PaddingL10,PaddingR10,PaddingB10,PaddingT10',
@@ -206,7 +205,6 @@ const theme = createTheme({
 
 class App extends Component {
 	onRef = (ref) => {
-		console.log(ref)
 		this.topbar = ref;
 	}
 	onConnetWallet = () => {
@@ -215,8 +213,6 @@ class App extends Component {
 	render() {
 		const { t } = this.props
 		const { classes } = this.props
-		const bgsrc = isMobile ? bg_mobile : bg
-		console.log(bgsrc)
 		return (
 			<div>
 				<ThemeProvider theme={theme}>

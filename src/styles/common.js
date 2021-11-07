@@ -2519,10 +2519,10 @@ let styleCommon = (theme) => {
 			backgroundColor: '#FFFFFF',
 			borderWidth: 2,
 			borderRadius: '100vw',
-			borderColor :'rgb(255,119,68)',
+			borderColor :'#FF774A',
 			paddingLeft: 32,
 			paddingRight: 32,
-			color: 'rgb(255,119,68)',
+			color: '#FF774A',
 			paddingTop: 4,
 			paddingBottom: 4,
 			marginRight: 5,
@@ -2620,15 +2620,15 @@ let styleCommon = (theme) => {
 			backgroundColor: '#FFFFFF',
 			borderWidth: 2,
 			borderRadius: '100vw',
-			borderColor :'rgb(255,119,68)',
+			borderColor :'#FF774A',
 
-			color: 'rgb(255,119,68)',
+			color: '#FF774A',
 			paddingTop: 0,
 			paddingBottom: 0,
 			'&:hover':{
 				color: '#FFFFFF',
-				backgroundColor: 'rgb(255,182,164)',
-				boxShadow: '0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%)',
+				backgroundColor: '#FF774A',
+			
 				borderWidth: 2,
 			},
 			[theme.breakpoints.between('xs', 'sm')]: {
