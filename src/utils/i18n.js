@@ -15,7 +15,7 @@ i18next
 			useSuspense: false,
 		},
 		fallbackLng: 'en',
-		preload: ['en', 'zh', 'zh-cn'],
+		preload: ['en', 'zh'],
 		keySeparator: false,
 		interpolation: {
 			escapeValue: false,
