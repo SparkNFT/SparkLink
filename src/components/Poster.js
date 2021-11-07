@@ -103,9 +103,9 @@ const Poster = (props) => {
 			ctx.drawImage(res[2],...coverPos)
 			circleImg(ctx,res[3],182,365,13)
 			
-			ctx.font = '18px Consolas';
+			ctx.font = '18px Mada-Bold';
 			ctx.fillText(price, 122, 384);
-			ctx.font = '12px Consolas';
+			ctx.font = '12px Mada-Bold';
 			ctx.fillText(currency, 210, 382);
 			ctx.strokeRect(30, 50, 364, 260);
 			setTimeout(()=>{
