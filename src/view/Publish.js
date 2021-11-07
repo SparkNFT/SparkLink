@@ -823,15 +823,11 @@ class Publish extends Component {
 										className={classes.btn}	
 										disabled ={this.state.uploadBtnDisable}
 										style={{
-											fontSize: '12px',
-											width: 130,
-											height: 30,
-											marginBottom: 50,
 											float: 'right',
 										}}
 										onClick={this.uploadFiles}
 									>
-										打包并上传
+										{t('打包并上传')}
 									</Button>
 								</form>
 								<Button

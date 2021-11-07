@@ -24,6 +24,9 @@ code {
 	font-family:'ANC';
 	src: url('Mada-Bold.ttf');
 }
+.walletDialog{
+
+}
 @media (min-width:3200px){
   .ant-input{
     font-size: 50px !important;
@@ -57,6 +60,9 @@ code {
   .ant-select-selection-item{
     font-size: 50px !important;
     line-height: 100px !important;
+  }
+  .MuiDialog-paperWidthSm{
+    max-width: 2000px !important;
   }
 }
 

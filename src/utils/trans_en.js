@@ -128,6 +128,7 @@ let lng_en={
 	'作品基本信息已提交成功':'The basic information of the work has been submitted successfully.',
 	'账户发生变化,请切换回原账户':'The account has changed,please switch back to the original account',
 	'铸造':'cast',
-	'解决出版困境，源自ERC21支持':'An ERC721 Token Trying to Solve Existing Publishing Dilemma'
+	'解决出版困境，源自ERC21支持':'An ERC721 Token Trying to Solve Existing Publishing Dilemma',
+	'打包并上传':'Pack and Upload'
 }
 export default lng_en;
