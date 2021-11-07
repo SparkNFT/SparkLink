@@ -177,11 +177,11 @@ const styles = (theme) => ({
 		},
 		[theme.breakpoints.between('md', 'xl')]: {
 			fontSize: 18,
-			paddingRight:8
+			paddingRight:9
 		},
 		[theme.breakpoints.up('xl')]: {
-			fontSize: 20,
-			paddingRight:10
+			fontSize: 24,
+			paddingRight:12
 		},
 		['@media (min-width:3200px)']: {
 			fontSize: 40,
