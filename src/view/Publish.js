@@ -820,8 +820,7 @@ class Publish extends Component {
 									</Dragger>
 									<Button
 										variant="contained"
-										className={classes.btn}
-										
+										className={classes.btn}	
 										disabled ={this.state.uploadBtnDisable}
 										style={{
 											fontSize: '12px',
