@@ -178,6 +178,7 @@ class Publish extends Component {
 		token_symbol: 'MATIC',
 		decimal: 0,
 		fileList: [],
+		uploadBtnDisable: false,
 	}
 
 	async componentDidMount() {
@@ -484,6 +485,9 @@ class Publish extends Component {
 	 */
 	uploadFiles = async () => {
 		if( this.state.fileList.length !== 0 ) {
+			this.setState({
+				uploadBtnDisable: true,
+			})
 			const zipedFiles = await generateZipFile(this.state.name, this.state.fileList);
 			const params = new FormData()
 			params.append('file',zipedFiles)
@@ -816,17 +820,19 @@ class Publish extends Component {
 									</Dragger>
 									<Button
 										variant="contained"
-										className={classes.button}
-										startIcon={<CloudUploadOutlined />}
+										className={classes.btn}
+										
+										disabled ={this.state.uploadBtnDisable}
 										style={{
-											marginTop: 50,
-											width: 200,
-											height: 50,
+											fontSize: '12px',
+											width: 130,
+											height: 30,
 											marginBottom: 50,
+											float: 'right',
 										}}
 										onClick={this.uploadFiles}
 									>
-										打包文件并上传
+										打包并上传
 									</Button>
 								</form>
 								<Button
