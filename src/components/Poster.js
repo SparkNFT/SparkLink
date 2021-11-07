@@ -5,6 +5,7 @@ import matic from '../imgs/matic.png';
 import error from '../imgs/error.png';
 import list from '../imgs/assets/info.json';
 import QRCode from 'qrcode';
+import Button from '@material-ui/core/Button'
 
 const bgPos = [0, 0, 424, 600]
 const qrPos = [307, 331, 73, 73]
@@ -153,9 +154,33 @@ const Poster = (props) => {
 	//			}, 700);
 	//		});
 	//	});
+	
+
+	const save = () => {
+		console.log('save')
+	}
 
 	return (
-		<img alt="poster" width="424" height="600" ref={imgRef} src={loading} />
+		<div>
+			<img alt="poster" width="424" height="600" ref={imgRef} src={loading} />
+			<div style={{display: 'flex', width: '100%',marginTop: 50}}>
+				<Button variant="contained"
+					style={{
+						width: 100,
+						height: 40,
+						margin: '0 auto',
+						backgroundColor: '#FF7744',
+						color:'#FFFFFF',
+						borderColor: '#FF774A',
+						borderWidth: 2,
+						borderStyle:'solid',
+						borderRadius: '100vw'
+					}}
+					onClick={save} >
+					Save
+				</Button>
+			</div>
+		</div>
 	);
 };
 

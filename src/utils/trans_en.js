@@ -67,6 +67,7 @@ let lng_en={
 	'social_media': 'Socila Media',
 	'market': 'Market',
 	'resources': 'Resources',
+	'save': 'save',
 	'您已经连接MathWallet,当前账户： ':'You have connected MathWallet ,account:  ',
 	'您已经连接tokenpocket,当前账户： ':'You have connected tokenpocket ,account:  ',
 	'您已经连接metamask,当前账户： ':'You have connected metamask ,account:  ',

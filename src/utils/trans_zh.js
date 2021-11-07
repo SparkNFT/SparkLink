@@ -68,6 +68,7 @@ let lng_zh={
 	'social_media': '社交媒体',
 	'market': '商城',
 	'resources': '资源',
+	'save': '保存',
 	'您已经连接MathWallet, 当前账户： ':'您已经连接MathWallet， 当前账户：  ',
 	'您已经连接tokenpocket, 当前账户： ':'您已经连接tokenpocket， 当前账户：  ',
 	'您已经连接metamask, 当前账户： ':'您已经连接metamask， 当前账户： ',
