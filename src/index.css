@@ -17,7 +17,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
+.MuiPaper-rounded{
+  border-radius: 20px !important;
+}
 @font-face {
 	font-family:'ANC';
 	src: url('Mada-Bold.ttf');

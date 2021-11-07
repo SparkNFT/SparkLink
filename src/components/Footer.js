@@ -45,7 +45,7 @@ let styles = (theme) => ({
 		},
 	},
 	btnImg:{
-		filter: 'grayscale(50%)',
+		filter: 'grayscale(0%)',
 		'&:hover':{
 			filter: 'grayscale(0%)',
 		}
@@ -85,7 +85,7 @@ let styles = (theme) => ({
 		},
 	},
 	Display9:{
-		color:'rgba(255,255,255,0.6)',
+		color:'rgba(255,255,255,1.0)',
 		'&:hover':{
 			color:'rgb(255,112,67)'
 		}

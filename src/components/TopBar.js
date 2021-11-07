@@ -176,7 +176,7 @@ const styles = (theme) => ({
 			paddingRight:7
 		},
 		[theme.breakpoints.between('md', 'xl')]: {
-			fontSize: 16,
+			fontSize: 18,
 			paddingRight:8
 		},
 		[theme.breakpoints.up('xl')]: {

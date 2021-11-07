@@ -10,6 +10,7 @@ import home3 from './imgs/home3.png'
 import bigLogo from './imgs/bigLogo.png'
 import logoTele from './imgs/logoTele_color.png'
 import logoTwi from './imgs/logoTwi_color.png'
+import logoDis from './imgs/logoDis_color.png'
 import miniBoxLogo1 from './imgs/miniBoxLogo1.png'
 import miniBoxLogo2 from './imgs/miniBoxLogo2.png'
 import miniBoxLogo3 from './imgs/miniBoxLogo3.png'
@@ -351,7 +352,6 @@ class App extends Component {
 											<div style={{marginTop: '2vw',marginBottom: '2vw', textAlign: 'center',display:'flex',justifyContent:'center'}} className={classes.Display7}>
 												<div>
 													<a href='https://docs.sparklink.io/tutorial/fa-bu-zuo-pin' style={{color:'white'}}>{t('index_message_8')}
-														<div style={{backgroundColor:'white',height:'5px',width:'100%',borderRadius:'2px'}}></div>
 													</a>
 												</div>	
 											</div>
@@ -371,11 +371,17 @@ class App extends Component {
 										<img className={classes.img} style={{marginTop: '10%' ,marginLeft:'0%',marginRight:'10%'}} src={index1} />
 									</Grid>
 									<Grid  item xs={10} sm={10} md={6} lg={6} xl={6}>
-										<Typography style={{color: '#FF774A'}} className={classes.Display8 + ' ' +classes.MarginT3}>
-											{t('index_message_9')}
-										</Typography>
-										<Button className={classes.btnImgRound} href='https://t.me/SparkLink_io' ><img className={classes.btnImg} src={logoTele} /></Button>
-										<Button className={classes.btnImgRound} href='https://twitter.com/SparkLink_io'><img className={classes.btnImg} src={logoTwi} /></Button>
+										<div style={{width:'100%',display:'flex',justifyContent:'center'}}>
+											<Typography style={{color: '#FF774A'}} className={classes.Display8 + ' ' +classes.MarginT3}>
+												{t('index_message_9')}
+											</Typography>
+										</div>
+										<div style={{width:'100%',display:'flex',justifyContent:'center'}}>
+											<Button className={classes.btnImgRound} href='https://t.me/SparkLink_io' ><img className={classes.btnImg} src={logoTele} /></Button>
+											<Button className={classes.btnImgRound} href='https://twitter.com/SparkLink_io'><img className={classes.btnImg} src={logoTwi} /></Button>
+											<Button className={classes.btnImgRound} href='https://t.co/lh0TzLZdEo?amp=1'><img className={classes.btnImg} src={logoDis} /></Button>
+										</div>
+										
 									</Grid>
 								</Grid>
 

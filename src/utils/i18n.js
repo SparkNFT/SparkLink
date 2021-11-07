@@ -1,25 +1,27 @@
 import i18next from 'i18next'
 import { initReactI18next } from 'react-i18next'
-import XHR from 'i18next-xhr-backend'
 import LanguageDetector from 'i18next-browser-languagedetector'
-
+import lng_en from './trans_en'
+import lng_zh from './trans_zh'
 i18next
-	.use(XHR)
 	.use(LanguageDetector)
 	.use(initReactI18next)
 	.init({
-		backend: {
-			loadPath: './locales/{{lng}}.json',
-		},
 		react: {
 			useSuspense: false,
 		},
 		fallbackLng: 'en',
-		preload: ['en', 'zh'],
-		keySeparator: false,
 		interpolation: {
 			escapeValue: false,
 		},
+		resources:{
+			en:{
+				translation:lng_en
+			},
+			zh:{
+				translation:lng_zh
+			}
+		}
 	})
 
 export default i18next

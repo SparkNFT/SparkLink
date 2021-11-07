@@ -2301,7 +2301,7 @@ let styleCommon = (theme) => {
 			fontWeight:500,
 			'&:hover':{
 				color: '#FF774A',
-				borderColor: '#FFFFFF',
+				borderColor: '#FF774A',
 				borderWidth: 2,
 			},
 			[theme.breakpoints.between('xs', 'sm')]: {
