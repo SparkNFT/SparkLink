@@ -124,10 +124,10 @@ const styles = (theme) => ({
 			width: 100,
 		},
 		[theme.breakpoints.between('sm', 'md')]: {
-			width: 150,
+			width: 120,
 		},
 		[theme.breakpoints.between('md', 'lg')]: {
-			width: 150,
+			width: 120,
 		},
 		[theme.breakpoints.up('xl')]: {
 			width: 180,
@@ -213,10 +213,10 @@ const styles = (theme) => ({
 			width: 100,
 		},
 		[theme.breakpoints.between('sm', 'md')]: {
-			width: 150,
+			width: 120,
 		},
 		[theme.breakpoints.between('md', 'lg')]: {
-			width: 150,
+			width: 120,
 		},
 		[theme.breakpoints.up('xl')]: {
 			width: 180,
@@ -226,7 +226,7 @@ const styles = (theme) => ({
 		},
 	},
 	btnBox:{
-		inherit:'PaddingL7,PaddingT7,PaddingB10,PaddingR7'
+		inherit:'PaddingL7,PaddingT7,PaddingB7,PaddingR7'
 	}
 })
 
