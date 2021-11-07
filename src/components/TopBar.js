@@ -160,7 +160,7 @@ const styles = (theme) => ({
 		borderColor: '#FFFFFF',
 		borderWidth: 2,
 		borderRadius: '100vw',
-		inherit:'MarginL10',
+		inherit:'MarginL8',
 		paddingTop: 10,
 		paddingBottom: 0,
 		'&:hover':{

@@ -17,12 +17,6 @@ const styles = (theme) => ({
 	titleFont: {
 		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
 	},
-	btn: {
-		color: '#424949',
-		borderWidth: 2,
-		borderColor: '#e3f2fd',
-		fontSize: 16,
-	},
 	paper: {
 		paddingLeft: '10%',
 		paddingRight: '10%',
@@ -117,24 +111,18 @@ class IntroPublish extends Component {
 							<Grid container justifyContent="center" style={{ fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif', marginTop: 40 }}>
 								<Grid container item style={{ display: 'flex' }} justifyContent="center" xl={12} xs={12} >
 									<Button
-										size="large"
-										variant="contained"
-										color="secondary"
-										className={classes.btnColor}
+										className={classes.btn}
 										href="/#/encryptedPublish"
 									>
-										<b>{t('publish_encry')}</b>
+										{t('publish_encry')}
 									</Button>
 								</Grid>
 								<Grid container item style={{ display: 'flex', marginTop: 20 }} justifyContent="center" xl={12} xs={12} >
 									<Button
-										size="large"
-										variant="contained"
-										color="secondary"
-										className={classes.btnColor2}
+										className={classes.btnOutline}
 										href="/#/publish"
 									>
-										<b>{t('publish_open')}</b>
+										{t('publish_open')}
 									</Button>
 								</Grid>
 							</Grid>

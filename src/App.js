@@ -8,8 +8,8 @@ import home1 from './imgs/home1.png'
 import home2 from './imgs/home2.png'
 import home3 from './imgs/home3.png'
 import bigLogo from './imgs/bigLogo.png'
-import logoTele from './imgs/logoTele.png'
-import logoTwi from './imgs/logoTwi.png'
+import logoTele from './imgs/logoTele_color.png'
+import logoTwi from './imgs/logoTwi_color.png'
 import miniBoxLogo1 from './imgs/miniBoxLogo1.png'
 import miniBoxLogo2 from './imgs/miniBoxLogo2.png'
 import miniBoxLogo3 from './imgs/miniBoxLogo3.png'
@@ -124,8 +124,8 @@ let styles = (theme) => ({
 	},
 	miniBoxLogo:{
 		textAlign:'center',
-		width: '50%',
-		marginLeft: '25%'
+		width: '70%',
+		marginLeft: '15%'
 	},
 	p1:{
 		backgroundImage: 'url('+bg+')',
@@ -277,7 +277,7 @@ class App extends Component {
 											<Grid item xs={3} sm={3} md={2} lg={2} xl={2}>
 												<div className={classes.miniBox}>
 													<img src={miniBoxLogo1} className={classes.miniBoxLogo}/>
-													<Typography className={classes.Display9} style={{textAlign:'center'}}>
+													<Typography className={classes.Display10} style={{textAlign:'center'}}>
 														{t('index_miniBox_1')}
 													</Typography>
 												</div>
@@ -286,7 +286,7 @@ class App extends Component {
 											<Grid item xs={3} sm={3} md={2} lg={2} xl={2}>
 												<div className={classes.miniBox}>
 													<img src={miniBoxLogo2} className={classes.miniBoxLogo}/>
-													<Typography className={classes.Display9} style={{textAlign:'center'}}>
+													<Typography className={classes.Display10} style={{textAlign:'center'}}>
 														{t('index_miniBox_2')}
 													</Typography>
 												</div>
@@ -295,7 +295,7 @@ class App extends Component {
 											<Grid item xs={3} sm={3} md={2} lg={2} xl={2}>
 												<div className={classes.miniBox}>
 													<img src={miniBoxLogo3} className={classes.miniBoxLogo}/>
-													<Typography className={classes.Display9} style={{textAlign:'center'}}>
+													<Typography className={classes.Display10} style={{textAlign:'center'}}>
 														{t('index_miniBox_3')}
 													</Typography>
 												</div>
@@ -307,7 +307,7 @@ class App extends Component {
 										<Grid item xs={false} sm={5} md={5} lg={5} xl={5}>
 											<img style={{marginTop: '10%' ,marginLeft:'0%',marginRight:'10%'}} className={classes.img} src={home2} />
 										</Grid>
-										<Grid className={classes.PaddingT5} item xs={10} sm={10} md={4} lg={4} xl={4}>
+										<Grid className={classes.PaddingT5+' '+classes.PaddingB5} item xs={10} sm={10} md={4} lg={4} xl={4}>
 											<Typography className={classes.MarginT5 + ' ' +classes.Display7 +' '+classes.MarginB5} style={{color: '#FF7744'}}>
 												{t('index_message_1')}
 											</Typography>
@@ -370,7 +370,7 @@ class App extends Component {
 										</div>
 									</Grid>	
 								</Grid>
-								<Grid className={classes.MarginT2} container style={{justifyContent:'center'}}>
+								<Grid className={classes.MarginT9} container style={{justifyContent:'center',alignItems:'center'}}>
 									<Grid item xs={false} sm={5} md={5} lg={5} xl={5}>
 										<img className={classes.img} style={{marginTop: '10%' ,marginLeft:'0%',marginRight:'10%'}} src={index1} />
 									</Grid>

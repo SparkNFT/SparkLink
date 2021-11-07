@@ -686,7 +686,7 @@ class NFTInfo extends Component {
 									className={classes.Display8}
 									style={{ marginTop: 20, marginBottom: 10}}
 								>
-									<b>{t('回到我的收藏馆')}</b>
+									{t('回到我的收藏馆')}
 								</Button>
 								<Grid container item direction="row" justifyContent="center" alignContent="flex-start">
 									<Grid container direction="row" className={classes.cbutton}>
@@ -697,7 +697,7 @@ class NFTInfo extends Component {
 												style={{ marginRight: 50, marginTop: 20 }}
 												className={classes.Display10}
 											>
-												<b>{t('目前收益：')} {this.state.Profit}</b>
+												{t('目前收益：')} {this.state.Profit}
 											</Typography>
 										</Grid>
 										<Grid item xs={12} container sm={6}  md={6} lg={6} xl={6}>
@@ -841,20 +841,15 @@ class NFTInfo extends Component {
 																message.success(t('分享链接复制成功'))
 															}}>
 															<Button item
-																size="small"
-																target="_blank"
-																
-																className={classes.btnColor}
+																className={classes.btn}
 																startIcon={<FireOutlined   style={{fontSize:'100%'}}/>}
 															>
 																{t('链接分享')}
 															</Button>
 														</CopyToClipboard>
 														<Button item
-															size="small"
-															target="_blank"
 															style={{marginRight: 10,marginTop:5,marginBottom:5}}
-															className={classes.btnColor2}
+															className={classes.btnOutline}
 															startIcon={<FireOutlined  style={{fontSize:'100%'}}/>}
 															onClick={() => this.setFlag('spark')}
 															disabled={!this.state.isCoverLoaded}

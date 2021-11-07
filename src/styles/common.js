@@ -232,7 +232,7 @@ let styleCommon = (theme) => {
 		MarginL0:{
 			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
-				marginLeft: 112,
+				marginLeft: 72,
 			},
 			[theme.breakpoints.between('sm', 'md')]: {
 				marginLeft: 134,
@@ -253,7 +253,7 @@ let styleCommon = (theme) => {
 		MarginL1:{
 			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
-				marginLeft: 72,
+				marginLeft: 43,
 			},
 			[theme.breakpoints.between('sm', 'md')]: {
 				marginLeft: 86,
@@ -274,7 +274,7 @@ let styleCommon = (theme) => {
 		MarginL2:{
 			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
-				marginLeft: 56,
+				marginLeft: 34,
 			},
 			[theme.breakpoints.between('sm', 'md')]: {
 				marginLeft: 68,
@@ -1108,7 +1108,7 @@ let styleCommon = (theme) => {
 		Display9:{
 			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
-				fontSize: 16,
+				fontSize: 19,
 			},
 			[theme.breakpoints.between('sm', 'md')]: {
 				fontSize: 19,
@@ -1130,7 +1130,7 @@ let styleCommon = (theme) => {
 		Display10:{
 			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
-				fontSize: 14,
+				fontSize: 16,
 			},
 			[theme.breakpoints.between('sm', 'md')]: {
 				fontSize: 16,
@@ -1148,7 +1148,7 @@ let styleCommon = (theme) => {
 		Display11:{
 			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
-				fontSize: 12,
+				fontSize: 14,
 			},
 			[theme.breakpoints.between('sm', 'md')]: {
 				fontSize: 14,
@@ -1166,7 +1166,7 @@ let styleCommon = (theme) => {
 		PaddingL0:{
 			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
-				paddingLeft: 112,
+				paddingLeft: 72,
 			},
 			[theme.breakpoints.between('sm', 'md')]: {
 				paddingLeft: 134,
@@ -1187,7 +1187,7 @@ let styleCommon = (theme) => {
 		PaddingL1:{
 			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
-				paddingLeft: 72,
+				paddingLeft: 43,
 			},
 			[theme.breakpoints.between('sm', 'md')]: {
 				paddingLeft: 86,
@@ -1208,7 +1208,7 @@ let styleCommon = (theme) => {
 		PaddingL2:{
 			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
-				paddingLeft: 56,
+				paddingLeft: 34,
 			},
 			[theme.breakpoints.between('sm', 'md')]: {
 				paddingLeft: 68,
@@ -1229,7 +1229,7 @@ let styleCommon = (theme) => {
 		PaddingL3:{
 			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
-				paddingLeft: 44,
+				paddingLeft: 26,
 			},
 			[theme.breakpoints.between('sm', 'md')]: {
 				paddingLeft: 52,
@@ -1250,7 +1250,7 @@ let styleCommon = (theme) => {
 		PaddingL4:{
 			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
-				paddingLeft: 34,
+				paddingLeft: 21,
 			},
 			[theme.breakpoints.between('sm', 'md')]: {
 				paddingLeft: 42,
@@ -1271,7 +1271,7 @@ let styleCommon = (theme) => {
 		PaddingL5:{
 			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
-				paddingLeft: 28,
+				paddingLeft: 17,
 			},
 			[theme.breakpoints.between('sm', 'md')]: {
 				paddingLeft: 34,
@@ -1292,7 +1292,7 @@ let styleCommon = (theme) => {
 		PaddingL6:{
 			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
-				paddingLeft: 28,
+				paddingLeft: 17,
 			},
 			[theme.breakpoints.between('sm', 'md')]: {
 				paddingLeft: 34,
@@ -1313,7 +1313,7 @@ let styleCommon = (theme) => {
 		PaddingL7:{
 			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
-				paddingLeft: 20,
+				paddingLeft: 12,
 			},
 			[theme.breakpoints.between('sm', 'md')]: {
 				paddingLeft: 24,
@@ -1334,7 +1334,7 @@ let styleCommon = (theme) => {
 		PaddingL8:{
 			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
-				paddingLeft: 16,
+				paddingLeft: 10,
 			},
 			[theme.breakpoints.between('sm', 'md')]: {
 				paddingLeft: 20,
@@ -1355,7 +1355,7 @@ let styleCommon = (theme) => {
 		PaddingL9:{
 			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
-				paddingLeft: 14,
+				paddingLeft: 8,
 			},
 			[theme.breakpoints.between('sm', 'md')]: {
 				paddingLeft: 16,
@@ -1377,7 +1377,7 @@ let styleCommon = (theme) => {
 		PaddingL10:{
 			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
-				paddingLeft: 12,
+				paddingLeft: 9,
 			},
 			[theme.breakpoints.between('sm', 'md')]: {
 				paddingLeft: 18,
@@ -2379,8 +2379,8 @@ let styleCommon = (theme) => {
 			borderStyle:'solid',
 			paddingBottom: 2,
 			'&:hover':{
-				color: '#FF886A',
-				backgroundColor: '#FFFFFF',
+				color: '#FFFFFF',
+				backgroundColor: '#FF774A',
 				borderColor: '#FFFFFF',
 				borderWidth: 2,
 				paddingTop: 2,
@@ -2704,26 +2704,31 @@ let styleCommon = (theme) => {
 			marginRight: theme.spacing(2),
 		},
 		btnImg:{
-			width:'100%',
-			height:'100%',
+			width:'50px',
 			[theme.breakpoints.between('xs', 'sm')]: {
-				width:'30px',
+				width:'26px',
+			},
+			[theme.breakpoints.up('xl')]: {
+				width:'100px',
+			},
+			['@media (min-width:3200px)']: {
+				width:'180px',
 			},
 		},
 		btnImgRound:{
 			width:'50px',
-			marginLeft:'25px',
+			marginLeft:'45px',
 			[theme.breakpoints.between('xs', 'sm')]: {
-				width:'30px',
-				marginLeft:'2px',
+				width:'26px',
+				marginLeft:'15px',
 			},
 			[theme.breakpoints.up('xl')]: {
 				width:'80px',
-				marginLeft:'20px',
+				marginLeft:'40px',
 			},
 			['@media (min-width:3200px)']: {
-				width:'120px',
-				marginLeft:'40px',
+				width:'180px',
+				marginLeft:'90px',
 			},
 		}
 

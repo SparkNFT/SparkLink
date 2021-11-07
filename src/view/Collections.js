@@ -330,8 +330,8 @@ class Collections extends Component {
   							<Typography className={classes.h5} style={{color:'black'}}  >{obj.renderDescription(card.description)}</Typography>
   						</CardContent>
   						<CardActions>
-  							<Button size="small" className={classes.btnColor3Mini} href={'/#/NFT/' + card.id}>
-  								<b>{t('查看')}</b>
+  							<Button className={classes.btnColor3Mini} href={'/#/NFT/' + card.id}>
+  								{t('查看')}
   							</Button>
   							<Typography variant="body2" style={{color:'black'}} gutterBottom className={classes.h5}>
   								<b>NFT id: {card.id} </b>
@@ -365,7 +365,7 @@ class Collections extends Component {
   									<b>{t('collection')}</b>
   								</Typography>
   								<Typography color="inherit" className={classes.Display8}>
-  									<b>An ERC721 Token Trying to Solve Existing Publishing Dilemma</b>
+  									<b>{t('解决出版困境，源自ERC21支持')}</b>
   								</Typography>
   							</Grid>
   						</Grid>
