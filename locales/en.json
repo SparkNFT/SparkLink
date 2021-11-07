@@ -50,7 +50,7 @@
 	"index_slogan4": "SparkLink has the most unique and moneyback model \nof any decentralized platform.\n\nAnd the users are allowed to create and share them NFT items, \ngain revenue through sales and sharing.",
 	"index_miniBox_1": "197+\nCountries user",
 	"index_miniBox_2": "N+\nToken  support",
-	"index_miniBox_3": "99.9% MAX \n moneyback",
+	"index_miniBox_3": "99% MAX \n moneyback",
 	"index_message_1": "Free to use\nNo registration, no hassle",
 	"index_message_2": "Quickly publish and share your NFT items just by connecting your wallet.",
 	"index_message_3": "Earn passive income with ",
@@ -127,5 +127,6 @@
 	"似乎遇到了些小问题：":"There seems to be some minor problem:",
 	"作品基本信息已提交成功":"The basic information of the work has been submitted successfully.",
 	"账户发生变化,请切换回原账户":"The account has changed, please switch back to the original account",
-	"铸造":"cast"
+	"铸造":"cast",
+	"解决出版困境，源自ERC21支持":"An ERC721 Token Trying to Solve Existing Publishing Dilemma"
 }
