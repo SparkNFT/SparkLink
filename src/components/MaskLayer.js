@@ -19,17 +19,16 @@ const MaskLayer = (props) => {
 		cross: {
 			width: 500,
 			height: 50,
-			weight: 'bold',
+			weight: '1000',
 			display: 'flex',
-			justifyContent: 'flex-end'
+			justifyContent: 'flex-end',
+			alignItems: 'center'
 		},
 		border: {
 			width: '28px',
 			height: '28px',
-			border: '1px solid',
-			lineHeight: '20px',
+			lineHeight: '25px',
 			fontSize: '20px',
-			borderRadius: '50%',
 			textAlign: 'center'
 		}
 	}

@@ -7,6 +7,7 @@ import list from '../imgs/assets/info.json';
 import QRCode from 'qrcode';
 import Button from '@material-ui/core/Button'
 
+const tp = require('tp-js-sdk')
 const bgPos = [0, 0, 424, 424]
 const qrPos = [303, 331, 73, 73]
 
@@ -72,7 +73,8 @@ const circleImg = (ctx,img,x,y,r) => {
 const Poster = (props) => {
 	
 	const [canvas, ctx] = initCanvas()
-	const { str, addr, share, coverImg } = props;
+	const { str, addr, share, coverImg, env } = props;
+	console.log(env)
 	let tokenUrl = 'https://raw.githubusercontent.com/TP-Lab/tokens/master/bsc/' + addr + '/logo.png'
 	if(addr === '0x0000000000000000000000000000000000000000'){
 		tokenUrl = matic
@@ -164,6 +166,9 @@ const Poster = (props) => {
 		a.download = 'poster.png'
 		a.href = url
 		a.dispatchEvent(e)
+		if(env === 'TokenPocket'){
+			tp.saveImage(url)
+		}
 	}
 
 	return (
