@@ -302,178 +302,185 @@ class Publish extends Component {
 		 * then call backend to get a secret key. Then encrypt the pdf file and upload it to IPFS
 		 * Finally, form a new metadata json file and send its ipfs hash to backend and publish it
 		 */
-		const {t} = this.props;
-		let obj = this
-		if (
-			this.state.price === 0 ||
+		const lastConnect = localStorage.getItem(LASTCONNECT);
+		if(lastConnect) {
+			const {t} = this.props;
+			let obj = this
+			if (
+				this.state.price === 0 ||
 			this.state.bonusFee === 0 ||
 			this.state.shareTimes === 0 ||
 			this.state.ipfsHashCover === '' ||
 			this.state.fileIpfs === '' ||
 			this.state.token_addr === null
-		) {
-			message.error({
-				content: t('你有信息尚未填写'),
-				className: 'custom-class',
-				style: {
-					marginTop: '10vh',
-				},
-			})
-		} else {
-			this.setState({
-				onLoading: true,
-			})
-			let img_url = 'https://coldcdn.com/api/cdn/v5ynur/ipfs/' + this.state.ipfsHashCover
-			this.setState({
-				coverURL: img_url,
-			})
-			console.debug('coverURL: ', this.state.coverURL)
-			let trimmed_des = this.state.description.replace(/(\r\n\t|\n|\r\t)/gm, ' ')
-			// const accounts = await window.ethereum.request({
-			// 	method: 'eth_requestAccounts',
-			// })
-			// const account = accounts[0]
-			// let account = null;
-			//alert(account);
-			let value, accounts, account;
-			const lastConnect = localStorage.getItem(LASTCONNECT);
-			switch (lastConnect) {
-			case TOKENPOCKET:
-				value = await tp.getCurrentWallet()
-				account = value.data.address;
-				break;
-			case MATHWALLET:
-				value = await mathwallet.getCurrentWallet()
-				account = value.address;
-				break;
-			case METAMASK:
-				accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
-				account = accounts[0];
-				//alert("hello")
-				break;
-			default:
-				// accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
-				// account = accounts[0];
-				break;
-			}
-			//alert(account)
-			this.setState({
-				userAccount: account,
-			})
-			let file_url = 'https://coldcdn.com/api/cdn/v5ynur/ipfs/' + this.state.fileIpfs
-			let JSONBody = {
-				name: this.state.name,
-				description: trimmed_des,
-				image: this.state.coverURL,
-				attributes: [
-					{
-						display_type: 'boost_percentage',
-						trait_type: 'Bonuse Percentage',
-						value: this.state.bonusFee,
-					},
-					{
-						trait_type: 'File Address',
-						value: file_url,
-					},
-					{
-						value: this.state.fileType,
-					},
-					{
-						trait_type: 'Encrypted',
-						value: 'FALSE',
-					},
-				],
-			}
-
-			const url = 'https://api.pinata.cloud/pinning/pinJSONToIPFS'
-
-			try {
-				const response = await axios.post(url, JSONBody, {
-					headers: {
-						pinata_api_key: pinata_api_key,
-						pinata_secret_api_key: pinata_secret_api_key,
-					},
-				})
-				console.debug('metadata: ', response.data.IpfsHash)
-				const bytes = bs58.decode(response.data.IpfsHash)
-				const bytesToContract = bytes.toString('hex').substring(4)
-				this.setState({
-					ipfsMeta: bytesToContract,
-				})
-
-				let price_with_decimal = this.state.price * 10 ** this.state.decimal
-				price_with_decimal = price_with_decimal.toString()
-				console.debug('price_with_decimal: ', price_with_decimal)
-				let ipfsToContract = '0x' + bytesToContract
-
-				let gasPrice = await web3.eth.getGasPrice()
-				let new_gas_price = Math.floor(parseInt(gasPrice) * 1.5).toString()
-				contract.methods
-					.publish(
-						price_with_decimal,
-						this.state.bonusFee,
-						this.state.shareTimes,
-						ipfsToContract,
-						this.state.token_addr
-					)
-					.send({
-						from: this.state.userAccount,
-						gasPrice: new_gas_price,
-					})
-					.on('receipt', function (receipt) {
-						console.log(receipt)
-						let publish_event = receipt.events.Publish
-						let returned_values = publish_event.returnValues
-						let root_nft_id = returned_values.rootNFTId
-						let issue_id = returned_values.issue_id
-						obj.setState({
-							onLoading: false,
-							rootNFTId: root_nft_id,
-							issueId: issue_id,
-							finished: true,
-						})
-						message.success({
-							content: t('已经成功发布作品'),
-							className: 'custom-class',
-							style: {
-								marginTop: '10vh',
-							},
-						})
-					})
-					.on('error', function (error) {
-						obj.setState({
-							onLoading: false,
-						})
-						if (error.message.includes('not mined')) {
-							message.warning({
-								content: t('交易已提交，当前网络较拥堵，请稍等后去我的收藏中查看'),
-								className: 'custom-class',
-								style: {
-									marginTop: '10vh',
-								},
-							})
-						} else {
-							console.debug(error.message)
-							message.error({
-								content: `Error: ${error.message}`,
-								className: 'custom-class',
-								style: {
-									marginTop: '10vh',
-								},
-							})
-						}
-					})
-			} catch (error) {
-				console.debug(error)
+			) {
 				message.error({
-					content: t('似乎遇到了些小问题：')+` ${error}`,
+					content: t('你有信息尚未填写'),
 					className: 'custom-class',
 					style: {
 						marginTop: '10vh',
 					},
 				})
+			} else {
+				this.setState({
+					onLoading: true,
+				})
+				let img_url = 'https://coldcdn.com/api/cdn/v5ynur/ipfs/' + this.state.ipfsHashCover
+				this.setState({
+					coverURL: img_url,
+				})
+				console.debug('coverURL: ', this.state.coverURL)
+				let trimmed_des = this.state.description.replace(/(\r\n\t|\n|\r\t)/gm, ' ')
+				// const accounts = await window.ethereum.request({
+				// 	method: 'eth_requestAccounts',
+				// })
+				// const account = accounts[0]
+				// let account = null;
+				//alert(account);
+				let value, accounts, account;
+				switch (lastConnect) {
+				case TOKENPOCKET:
+					value = await tp.getCurrentWallet()
+					account = value.data.address;
+					break;
+				case MATHWALLET:
+					value = await mathwallet.getCurrentWallet()
+					account = value.address;
+					break;
+				case METAMASK:
+					accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+					account = accounts[0];
+					//alert("hello")
+					break;
+				default:
+				// accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+				// account = accounts[0];
+					break;
+				}
+				//alert(account)
+				this.setState({
+					userAccount: account,
+				})
+				let file_url = 'https://coldcdn.com/api/cdn/v5ynur/ipfs/' + this.state.fileIpfs
+				let JSONBody = {
+					name: this.state.name,
+					description: trimmed_des,
+					image: this.state.coverURL,
+					attributes: [
+						{
+							display_type: 'boost_percentage',
+							trait_type: 'Bonuse Percentage',
+							value: this.state.bonusFee,
+						},
+						{
+							trait_type: 'File Address',
+							value: file_url,
+						},
+						{
+							value: this.state.fileType,
+						},
+						{
+							trait_type: 'Encrypted',
+							value: 'FALSE',
+						},
+					],
+				}
+
+				const url = 'https://api.pinata.cloud/pinning/pinJSONToIPFS'
+
+				try {
+					const response = await axios.post(url, JSONBody, {
+						headers: {
+							pinata_api_key: pinata_api_key,
+							pinata_secret_api_key: pinata_secret_api_key,
+						},
+					})
+					console.debug('metadata: ', response.data.IpfsHash)
+					const bytes = bs58.decode(response.data.IpfsHash)
+					const bytesToContract = bytes.toString('hex').substring(4)
+					this.setState({
+						ipfsMeta: bytesToContract,
+					})
+
+					let price_with_decimal = this.state.price * 10 ** this.state.decimal
+					price_with_decimal = price_with_decimal.toString()
+					console.debug('price_with_decimal: ', price_with_decimal)
+					let ipfsToContract = '0x' + bytesToContract
+
+					let gasPrice = await web3.eth.getGasPrice()
+					let new_gas_price = Math.floor(parseInt(gasPrice) * 1.5).toString()
+					contract.methods
+						.publish(
+							price_with_decimal,
+							this.state.bonusFee,
+							this.state.shareTimes,
+							ipfsToContract,
+							this.state.token_addr
+						)
+						.send({
+							from: this.state.userAccount,
+							gasPrice: new_gas_price,
+						})
+						.on('receipt', function (receipt) {
+							console.log(receipt)
+							let publish_event = receipt.events.Publish
+							let returned_values = publish_event.returnValues
+							let root_nft_id = returned_values.rootNFTId
+							let issue_id = returned_values.issue_id
+							obj.setState({
+								onLoading: false,
+								rootNFTId: root_nft_id,
+								issueId: issue_id,
+								finished: true,
+							})
+							message.success({
+								content: t('已经成功发布作品'),
+								className: 'custom-class',
+								style: {
+									marginTop: '10vh',
+								},
+							})
+						})
+						.on('error', function (error) {
+							obj.setState({
+								onLoading: false,
+							})
+							if (error.message.includes('not mined')) {
+								message.warning({
+									content: t('交易已提交，当前网络较拥堵，请稍等后去我的收藏中查看'),
+									className: 'custom-class',
+									style: {
+										marginTop: '10vh',
+									},
+								})
+							} else {
+								console.debug(error.message)
+								message.error({
+									content: `Error: ${error.message}`,
+									className: 'custom-class',
+									style: {
+										marginTop: '10vh',
+									},
+								})
+							}
+						})
+				} catch (error) {
+					console.debug(error)
+					message.error({
+						content: t('似乎遇到了些小问题：')+` ${error}`,
+						className: 'custom-class',
+						style: {
+							marginTop: '10vh',
+						},
+					})
+				}
 			}
+
 		}
+		else {
+			message.error('请先连接钱包');
+		}
+		
 	}
 
 	checkDetail = async () => {
