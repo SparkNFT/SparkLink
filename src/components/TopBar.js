@@ -21,6 +21,7 @@ import web3 from '../utils/web3';
 import withCommon from '../styles/common.js'
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import { message } from 'antd'
 //import WalletBtn from './WalletBtn'
 
 //TP钱包支持
@@ -305,7 +306,6 @@ class TopBar extends Component {
 		if (this.props.onRef) {
 			this.props.onRef(this)
 		}
-
 		//todo 从本地获取登陆状态（登陆记录）
 		let lastConnect = localStorage.getItem(LASTCONNECT)
 		console.log('lastconnect:  ' + lastConnect)
@@ -382,14 +382,18 @@ class TopBar extends Component {
 	//handleWalletMenu(for disconnect)
 	handleWalletMenuClick = (event) => {
 		//setAnchorEl(event.currentTarget)
-
+		console.log('current: ')
 		console.log(event.currentTarget)
-		this.setState({
-			walletAnchorEl: event.currentTarget,
-		})
-		this.setState({
-			walletMenuDisplay: true,
-		})
+		// this.setState({
+		// 	walletAnchorEl: event.currentTarget,
+		// })
+		if(event.currentTarget.id === 'connectedBtn' && this.state.isConnected){
+			this.setState({
+				walletMenuDisplay: true,
+				walletAnchorEl: event.currentTarget,
+			})
+		}
+		
 	}
 	handleWalletMenuClose = () => {
 		//setAnchorEl(null)
@@ -478,6 +482,7 @@ class TopBar extends Component {
 		this.getTokenPocketAccount()
 		this.setState({
 			dialogOpen: false,
+			walletMenuDisplay: false,
 		})
 	}
 
@@ -486,6 +491,7 @@ class TopBar extends Component {
 		this.getMetaMaskAccount()
 		this.setState({
 			dialogOpen: false,
+			walletMenuDisplay: false,
 		})
 	}
 
@@ -494,6 +500,7 @@ class TopBar extends Component {
 		this.getMathWalletAccount();
 		this.setState({
 			dialogOpen: false,
+			walletMenuDisplay: false,
 		})
 	}
 
@@ -522,7 +529,7 @@ class TopBar extends Component {
 				method: 'eth_requestAccounts',
 			})
 			const account = accounts[0]
-			alert(t('您已经连接metamask, 当前账户： ') + account)
+			message.success(t('您已经连接metamask, 当前账户： ') + account)
 			this.setState({ isConnected: true })
 			this.setState({ userAddress: account })
 			//localStorage.setItem(USERADDRESS, account);
@@ -537,7 +544,7 @@ class TopBar extends Component {
 	getTokenPocketAccount = async () => {
 		const { t } = this.props
 		if (this.state.isConnected) {
-			alert(t('您已经连接tokenpocket, 当前账户： ') + this.state.userAddress)
+			message.success(t('您已经连接tokenpocket, 当前账户： ') + this.state.userAddress)
 		} else {
 			try {
 				//todo 使用TP链接
@@ -545,7 +552,7 @@ class TopBar extends Component {
 				await tp.getWallet({ walletTypes: ['matic'], switch: false }).then((value) => {
 					account = value.data.address
 				})
-				alert(t('您已经连接tokenpocket, 当前账户： ') + account)
+				message.success(t('您已经连接tokenpocket, 当前账户： ') + account)
 				this.setState({ isConnected: true })
 				this.setState({ userAddress: account })
 				//localStorage.setItem(USERADDRESS, account); //储存用户address
@@ -561,7 +568,7 @@ class TopBar extends Component {
 	getMathWalletAccount = async () => {
 		const { t } = this.props
 		if (this.state.isConnected) {
-			alert(t('您已经连接MathWallet, 当前账户： ') + this.state.userAddress)
+			message.success(t('您已经连接MathWallet, 当前账户： ') + this.state.userAddress)
 		}
 		else {
 			try {
@@ -572,7 +579,7 @@ class TopBar extends Component {
 						account = value.address;
 					}
 				)
-				alert(t('您已经连接MathWallet, 当前账户： ') + account)
+				message.success(t('您已经连接MathWallet, 当前账户： ') + account)
 				this.setState({ isConnected: true, });
 				this.setState({ userAddress: account });
 				//localStorage.setItem(USERADDRESS, account); //储存用户address
@@ -729,6 +736,7 @@ class TopBar extends Component {
 									// </Button>
 									<React.Fragment>
 										<Button
+											id='connectedBtn'
 											className={classes.btnTopBarMenu +' '+classes.MarginR8}
 											onClick={this.handleWalletMenuClick}
 										>
@@ -746,7 +754,7 @@ class TopBar extends Component {
 									// <Button onClick={this.getAccount}>
 									//   <WalletFilled className={classes.icon} />
 									// </Button>
-									<Button className={classes.btnTopBarMenu+' '+classes.MarginR8} onClick={this.handleDialogOpen}>
+									<Button id='unConnectedBtn' className={classes.btnTopBarMenu+' '+classes.MarginR8} onClick={this.handleDialogOpen}>
 										<b> Connect Wallet</b>
 									</Button>
 								)}
