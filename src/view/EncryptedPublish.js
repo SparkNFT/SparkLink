@@ -75,15 +75,23 @@ const styles = (theme) => ({
 	},
 	paperImg: {
 		backgroundColor: '#EFEBE9',
+		inherit:'PaddingL5,PaddingR5,PaddingT5,PaddingB5'
 	},
 	coverImg:{
-		width:'70%',
-		marginLeft:'10%',
-		marginRight:'10%',
-		marginTop:'10%',
-		marginBottom:'10%',
 		[theme.breakpoints.between('xs', 'sm')]: {
-			width:'60%',
+			width:'80vw'
+		},
+		[theme.breakpoints.between('sm', 'md')]: {
+			width:'30vw'
+		},
+		[theme.breakpoints.between('md', 'lg')]: {
+			width:'30vw'
+		},
+		[theme.breakpoints.between('lg', 'xl')]: {
+			width:'30vw'
+		},
+		[theme.breakpoints.up('xl')]: {
+			width:'30vw'
 		},
 	},
 	btnPub: {
