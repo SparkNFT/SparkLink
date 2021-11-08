@@ -825,7 +825,7 @@ class Publish extends Component {
 										<p className={classes.Display11}>{t('upload_file_tip1')}</p>
 										<p className={classes.Display11}>{t('upload_file_tip2')}</p>
 									</Dragger>
-									<Button
+									{/* <Button
 										variant="contained"
 										className={classes.btn}	
 										disabled ={this.state.uploadBtnDisable}
@@ -839,7 +839,7 @@ class Publish extends Component {
 										onClick={this.uploadFiles}
 									>
 										打包并上传
-									</Button>
+									</Button> */}
 								</form>
 								<Button
 									className={classes.btn}
