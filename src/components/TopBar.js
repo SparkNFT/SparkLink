@@ -21,10 +21,14 @@ import web3 from '../utils/web3';
 import withCommon from '../styles/common.js'
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+//import WalletBtn from './WalletBtn'
+
 //TP钱包支持
 const tp = require('tp-js-sdk')
 //麦子钱包支持
 const mathwallet = require('math-js-sdk');
+
+//const [anchorEl, setAnchorEl] = React.useState(null)
 
 // const theme = createTheme({
 // 	breakpoints: {
@@ -240,7 +244,9 @@ class TopBar extends Component {
 		isFixed: false,
 		isPCFixed: false,
 		topbarHeight: 0,
-		anchorEl: null
+		anchorEl: null,
+		walletMenuDisplay: false,
+		walletAnchorEl: null,
 	}
 	onScroll() {
 		if(this.state.topbarHeight == 0){
@@ -299,8 +305,6 @@ class TopBar extends Component {
 		if (this.props.onRef) {
 			this.props.onRef(this)
 		}
-
-		
 
 		//todo 从本地获取登陆状态（登陆记录）
 		let lastConnect = localStorage.getItem(LASTCONNECT)
@@ -374,6 +378,25 @@ class TopBar extends Component {
 	//   console.log(Web3.givenProvider);
 	//   console.log(this.state.isConnected)
 	// }
+
+	//handleWalletMenu(for disconnect)
+	handleWalletMenuClick = (event) => {
+		//setAnchorEl(event.currentTarget)
+
+		console.log(event.currentTarget)
+		this.setState({
+			walletAnchorEl: event.currentTarget,
+		})
+		this.setState({
+			walletMenuDisplay: true,
+		})
+	}
+	handleWalletMenuClose = () => {
+		//setAnchorEl(null)
+		this.setState({
+			walletMenuDisplay: false,
+		})
+	}
 
 
 	//check小狐狸账户
@@ -704,13 +727,21 @@ class TopBar extends Component {
 									// <Button onClick={this.getAccount}>
 									//   <WalletTwoTone className={classes.icon} />
 									// </Button>
-									<Button
-										className={classes.btnTopBarMenu +' '+classes.MarginR8}
-										onClick={this.handleTokenButtonOnClick}
-									>
-										{this.state.userAddress.substring(0, 6)}...
-										{this.state.userAddress.substring(this.state.userAddress.length - 5, this.state.userAddress.length)}
-									</Button>
+									<React.Fragment>
+										<Button
+											className={classes.btnTopBarMenu +' '+classes.MarginR8}
+											onClick={this.handleWalletMenuClick}
+										>
+											{this.state.userAddress.substring(0, 6)}...
+											{this.state.userAddress.substring(this.state.userAddress.length - 5, this.state.userAddress.length)}
+										</Button>
+										<Menu id="menu" keepMounted open={this.state.walletMenuDisplay} anchorEl={this.state.walletAnchorEl} onClose={this.handleWalletMenuClose}>				
+											<MenuItem key='Disconnect' onClick={this.disconnect}>
+												<Button style={{width: '100%'}}  className={classes.btnItem}>Disconnect</Button>
+											</MenuItem>				
+										</Menu>
+									</React.Fragment>
+									
 								) : (
 									// <Button onClick={this.getAccount}>
 									//   <WalletFilled className={classes.icon} />
