@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import bgImg from '../imgs/poster.png';
+import bgImg from '../imgs/poster_1.png';
 import loading from '../imgs/imgloading.png';
 import matic from '../imgs/matic.png';
 import error from '../imgs/error.png';
@@ -7,8 +7,8 @@ import list from '../imgs/assets/info.json';
 import QRCode from 'qrcode';
 import Button from '@material-ui/core/Button'
 
-const bgPos = [0, 0, 424, 600]
-const qrPos = [307, 331, 73, 73]
+const bgPos = [0, 0, 424, 424]
+const qrPos = [303, 331, 73, 73]
 
 
 const loadImage = url => {
@@ -28,7 +28,7 @@ const loadImage = url => {
 const initCanvas = () => {
 	const cvs = document.createElement('canvas');
 	cvs.width = 424;
-	cvs.height = 600;
+	cvs.height = 424;
 	const ctx = cvs.getContext('2d');
 	//const ratio = getPixelRatio(ctx);
 	cvs.style.width = cvs.width + 'px';
@@ -157,12 +157,18 @@ const Poster = (props) => {
 	
 
 	const save = () => {
-		console.log('save')
+		const url = imgRef.current.src
+		console.log(url)
+		const a = document.createElement('a')
+		const e = new MouseEvent('click')
+		a.download = 'poster.png'
+		a.href = url
+		a.dispatchEvent(e)
 	}
 
 	return (
 		<div>
-			<img alt="poster" width="424" height="600" ref={imgRef} src={loading} />
+			<img alt="poster" width="424" height="424" ref={imgRef} src={loading} />
 			<div style={{display: 'flex', width: '100%',marginTop: 50}}>
 				<Button variant="contained"
 					style={{
