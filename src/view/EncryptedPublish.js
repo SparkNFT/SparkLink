@@ -75,26 +75,15 @@ const styles = (theme) => ({
 	},
 	paperImg: {
 		backgroundColor: '#EFEBE9',
-		width: 330,
+	},
+	coverImg:{
+		width:'70%',
+		marginLeft:'10%',
+		marginRight:'10%',
+		marginTop:'10%',
+		marginBottom:'10%',
 		[theme.breakpoints.between('xs', 'sm')]: {
-			marginLeft: '5%',
-			marginTop: 30,
-		},
-		[theme.breakpoints.between('sm', 'md')]: {
-			marginLeft: '30%',
-			marginTop: 30,
-		},
-		[theme.breakpoints.between('md', 'lg')]: {
-			marginLeft: '30%',
-			marginTop: 30,
-		},
-		[theme.breakpoints.between('lg', 'xl')]: {
-			marginLeft: '40%',
-			marginTop: 30,
-		},
-		[theme.breakpoints.up('xl')]: {
-			marginLeft: '45%',
-			marginTop: 30,
+			width:'60%',
 		},
 	},
 	btnPub: {
@@ -203,6 +192,7 @@ class EncryptedPublish extends Component {
 		token_addr: null,
 		token_symbol: 'MATIC',
 		decimal: 0,
+		submitBtnDisable: true,
 	}
 
 	async componentDidMount() {
@@ -764,6 +754,9 @@ class EncryptedPublish extends Component {
 					})
 					console.debug('encrypted file hash: ', info.file.response.IpfsHash)
 					message.success(`${info.file.name} file uploaded successfully.`)
+					obj.setState({
+						submitBtnDisable: false,
+					})
 				}
 			},
 			onDrop(e) {
@@ -776,14 +769,14 @@ class EncryptedPublish extends Component {
 				<Spin spinning={this.state.onLoading} size="large">
 					<Container component="main" maxWidth="xs" className={classes.main}>
 						<div className={classes.paper}>
-							<Typography className={classes.titlePub}>
+							<Typography className={classes.Display6}>
 								<b>{t('up_file')}</b>
 							</Typography>
 							<form className={classes.form} noValidate>
 								{this.state.jumped ? (
 									<div>
 										<Grid item style={{ width: '100%' }}>
-											<label className={classes.h3}>{t('art_name')} *</label>
+											<label className={classes.Display9}>{t('art_name')} *</label>
 											<Input
 												placeholder={t('art_name')}
 												allowClear
@@ -823,6 +816,7 @@ class EncryptedPublish extends Component {
 								</Dragger>
 								<div style={{ textAlign: 'center' }}>
 									<Button
+										disabled ={this.state.submitBtnDisable}
 										startIcon={<CloudUploadOutlined />}
 										className={classes.btn}
 										onClick={this.submitWork}
@@ -841,33 +835,26 @@ class EncryptedPublish extends Component {
 					<ThemeProvider theme={theme}>
 						<TopBar />
 						<div style={{ textAlign: 'center' }}>
-							<Typography className={classes.titleCon}>
-								<b> {t('pulish_success')}</b>
+							<Typography className={classes.titleCon+' '+classes.MarginB5}>
+								<b>{t('pulish_success')}</b>
 							</Typography>
-
-							<Paper className={classes.paperImg}>
-								<img style={{ width: 300, marginTop: 20, marginBottom: 50 }} src={this.state.coverURL}></img>
-							</Paper>
-							<Typography variant="h4" style={{ marginTop: 20, fontFamily: 'Ubuntu' }}>
-								<b>
-									{t('you_gain_nft')} #{this.state.rootNFTId}
-								</b>
+							<div style={{display:'flex',justifyContent:'center'}}>
+								<Paper className={classes.paperImg}>
+									<img className={classes.coverImg} src={this.state.coverURL}></img>
+								</Paper>
+							</div>
+							<Typography className={classes.Display9+' '+classes.MarginT10}>
+								{t('you_gain_nft')} #{this.state.rootNFTId}
 							</Typography>
 
 							<Button
-								variant="contained"
-								className={classes.button}
-								style={{
-									marginTop: 50,
-									width: 200,
-									height: 50,
-									marginBottom: 50,
-								}}
+								className={classes.btn + ' ' +classes.MarginB5}
 								onClick={this.checkDetail}
 							>
 								{t('show_detail')}
 							</Button>
 						</div>
+						<Footer></Footer>
 					</ThemeProvider>
 				</Spin>
 			)

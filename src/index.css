@@ -61,6 +61,12 @@ code {
     font-size: 50px !important;
     line-height: 100px !important;
   }
+  .ant-upload-list-item-name{
+    font-size: 28px !important;
+  }
+  .anticon-inbox{
+    font-size: 95px !important;
+  }
   .MuiDialog-paperWidthSm{
     max-width: 2000px !important;
   }

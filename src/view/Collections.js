@@ -365,7 +365,7 @@ class Collections extends Component {
   									{t('collection')}
   								</Typography>
   								<Typography color="inherit" className={classes.Display8}>
-  									{t('解决出版困境，源自ERC21支持')}
+  									{t('解决出版困境，源自ERC721支持')}
   								</Typography>
   							</Grid>
   						</Grid>
