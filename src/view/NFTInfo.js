@@ -602,6 +602,7 @@ class NFTInfo extends Component {
 		const { t } = this.props
 		const url = window.location.host
 		const toUrl = 'https://' + url + '/#/NFT/Spark/' + this.props.match.params.id
+		const lastConnect = localStorage.getItem(LASTCONNECT);
 		const sell_info = () => {
 			// let share = '分享复制链接：' + toUrl
 			// this.state.onSale
@@ -618,6 +619,7 @@ class NFTInfo extends Component {
 									coverImg={coverRef.src}
 									str={this.state.price}
 									share={toUrl}
+									env={lastConnect}
 								/>
 							</MaskLayer>
 						) : null}

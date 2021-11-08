@@ -21,6 +21,7 @@ import web3 from '../utils/web3';
 import withCommon from '../styles/common.js'
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import { message } from 'antd'
 //import WalletBtn from './WalletBtn'
 
 //TP钱包支持
@@ -109,21 +110,7 @@ const styles = (theme) => ({
 		minWidth: 100,
 		fontSize: 25,
 		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
-		[theme.breakpoints.between('xs', 'sm')]: {
-			fontSize: 25,
-		},
-		[theme.breakpoints.between('sm', 'md')]: {
-			fontSize: 25,
-		},
-		[theme.breakpoints.between('md', 'lg')]: {
-			fontSize: 35,
-		},
-		[theme.breakpoints.between('lg', 'xl')]: {
-			fontSize: 35,
-		},
-		[theme.breakpoints.up('xl')]: {
-			fontSize: 45,
-		},
+		inherit:'Display7,MarginL7,MarginT7,MarginB10,MarginR7'
 	},
 
 	btnGrid: {
@@ -142,13 +129,16 @@ const styles = (theme) => ({
 			width: 100,
 		},
 		[theme.breakpoints.between('sm', 'md')]: {
-			width: 150,
+			width: 120,
 		},
 		[theme.breakpoints.between('md', 'lg')]: {
-			width: 150,
+			width: 120,
 		},
 		[theme.breakpoints.up('xl')]: {
-			width: 150,
+			width: 180,
+		},
+		['@media (min-width:3200px)']: {
+			width: 280,
 		},
 	},
 	btnTopbar: {
@@ -222,6 +212,27 @@ const styles = (theme) => ({
 			content: 'url(' + sLogo + ')'
 		},
 	},
+	btnWallet:{
+		inherit:'MarginL9,MarginR9',
+		[theme.breakpoints.between('xs', 'sm')]: {
+			width: 100,
+		},
+		[theme.breakpoints.between('sm', 'md')]: {
+			width: 120,
+		},
+		[theme.breakpoints.between('md', 'lg')]: {
+			width: 120,
+		},
+		[theme.breakpoints.up('xl')]: {
+			width: 180,
+		},
+		['@media (min-width:3200px)']: {
+			width: 280,
+		},
+	},
+	btnBox:{
+		inherit:'PaddingL7,PaddingT7,PaddingB7,PaddingR7'
+	}
 })
 
 class TopBar extends Component {
@@ -295,7 +306,6 @@ class TopBar extends Component {
 		if (this.props.onRef) {
 			this.props.onRef(this)
 		}
-
 		//todo 从本地获取登陆状态（登陆记录）
 		let lastConnect = localStorage.getItem(LASTCONNECT)
 		console.log('lastconnect:  ' + lastConnect)
@@ -372,14 +382,18 @@ class TopBar extends Component {
 	//handleWalletMenu(for disconnect)
 	handleWalletMenuClick = (event) => {
 		//setAnchorEl(event.currentTarget)
-
+		console.log('current: ')
 		console.log(event.currentTarget)
-		this.setState({
-			walletAnchorEl: event.currentTarget,
-		})
-		this.setState({
-			walletMenuDisplay: true,
-		})
+		// this.setState({
+		// 	walletAnchorEl: event.currentTarget,
+		// })
+		if(event.currentTarget.id === 'connectedBtn' && this.state.isConnected){
+			this.setState({
+				walletMenuDisplay: true,
+				walletAnchorEl: event.currentTarget,
+			})
+		}
+		
 	}
 	handleWalletMenuClose = () => {
 		//setAnchorEl(null)
@@ -468,6 +482,7 @@ class TopBar extends Component {
 		this.getTokenPocketAccount()
 		this.setState({
 			dialogOpen: false,
+			walletMenuDisplay: false,
 		})
 	}
 
@@ -476,6 +491,7 @@ class TopBar extends Component {
 		this.getMetaMaskAccount()
 		this.setState({
 			dialogOpen: false,
+			walletMenuDisplay: false,
 		})
 	}
 
@@ -484,6 +500,7 @@ class TopBar extends Component {
 		this.getMathWalletAccount();
 		this.setState({
 			dialogOpen: false,
+			walletMenuDisplay: false,
 		})
 	}
 
@@ -512,7 +529,7 @@ class TopBar extends Component {
 				method: 'eth_requestAccounts',
 			})
 			const account = accounts[0]
-			alert(t('您已经连接metamask, 当前账户： ') + account)
+			message.success(t('您已经连接metamask, 当前账户： ') + account)
 			this.setState({ isConnected: true })
 			this.setState({ userAddress: account })
 			//localStorage.setItem(USERADDRESS, account);
@@ -527,7 +544,7 @@ class TopBar extends Component {
 	getTokenPocketAccount = async () => {
 		const { t } = this.props
 		if (this.state.isConnected) {
-			alert(t('您已经连接tokenpocket, 当前账户： ') + this.state.userAddress)
+			message.success(t('您已经连接tokenpocket, 当前账户： ') + this.state.userAddress)
 		} else {
 			try {
 				//todo 使用TP链接
@@ -535,7 +552,7 @@ class TopBar extends Component {
 				await tp.getWallet({ walletTypes: ['matic'], switch: false }).then((value) => {
 					account = value.data.address
 				})
-				alert(t('您已经连接tokenpocket, 当前账户： ') + account)
+				message.success(t('您已经连接tokenpocket, 当前账户： ') + account)
 				this.setState({ isConnected: true })
 				this.setState({ userAddress: account })
 				//localStorage.setItem(USERADDRESS, account); //储存用户address
@@ -551,7 +568,7 @@ class TopBar extends Component {
 	getMathWalletAccount = async () => {
 		const { t } = this.props
 		if (this.state.isConnected) {
-			alert(t('您已经连接MathWallet, 当前账户： ') + this.state.userAddress)
+			message.success(t('您已经连接MathWallet, 当前账户： ') + this.state.userAddress)
 		}
 		else {
 			try {
@@ -562,7 +579,7 @@ class TopBar extends Component {
 						account = value.address;
 					}
 				)
-				alert(t('您已经连接MathWallet, 当前账户： ') + account)
+				message.success(t('您已经连接MathWallet, 当前账户： ') + account)
 				this.setState({ isConnected: true, });
 				this.setState({ userAddress: account });
 				//localStorage.setItem(USERADDRESS, account); //储存用户address
@@ -622,14 +639,14 @@ class TopBar extends Component {
 		};
 		return (
 			<div>
-				<Dialog className={classes.dialog} onClose={this.handleDialogClose} open={this.state.dialogOpen}>
+				<Dialog id="walletDialog" className={classes.dialog} onClose={this.handleDialogClose} open={this.state.dialogOpen}>
 					<DialogTitle className={console.title}>
-						<Typography component="h1" color="inherit" noWrap className={classes.title}>
+						<Typography noWrap className={classes.title}>
 							Connect Wallet
 						</Typography>
 					</DialogTitle>
 					<DialogContent>
-						<Grid container spacing={1}>
+						<Grid container spacing={1} className={classes.btnBox} style={{justifyContent:'center'}}>
 							<Button size="large" className={classes.btnWallet} id="MetaMask" onClick={this.handleSelectMetaMask}>
 								<img className={classes.btnImg} src={metamaskpic}></img>
 							</Button>
@@ -646,17 +663,6 @@ class TopBar extends Component {
 							>
 								<img className={classes.btnImg} src={mathwalletpic}></img>
 							</Button>
-						</Grid>
-						<Grid>
-							<Typography
-								component="h1"
-								color="inherit"
-								style={{ textAlign: 'center' }}
-								noWrap
-								className={classes.title}
-							>
-								. . .
-							</Typography>
 						</Grid>
 					</DialogContent>
 				</Dialog>
@@ -730,6 +736,7 @@ class TopBar extends Component {
 									// </Button>
 									<React.Fragment>
 										<Button
+											id='connectedBtn'
 											className={classes.btnTopBarMenu +' '+classes.MarginR8}
 											onClick={this.handleWalletMenuClick}
 										>
@@ -747,7 +754,7 @@ class TopBar extends Component {
 									// <Button onClick={this.getAccount}>
 									//   <WalletFilled className={classes.icon} />
 									// </Button>
-									<Button className={classes.btnTopBarMenu+' '+classes.MarginR8} onClick={this.handleDialogOpen}>
+									<Button id='unConnectedBtn' className={classes.btnTopBarMenu+' '+classes.MarginR8} onClick={this.handleDialogOpen}>
 										<b> Connect Wallet</b>
 									</Button>
 								)}

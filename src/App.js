@@ -40,6 +40,11 @@ let styles = (theme) => ({
 		marginTop: theme.spacing(7),
 		textAlign: 'center',
 	},
+	slogan:{
+		[theme.breakpoints.between('xs', 'sm')]: {
+			marginTop:'25px'
+		},	
+	},
 	container: {
 		maxWidth: '100%',
 		paddingLeft: '0px',
@@ -243,7 +248,7 @@ class App extends Component {
 									<Grid style={{color:'white'}} className={classes.MarginL1 +' ' + classes.PaddingT1+' ' +classes.PaddingB1}>
 										<img src={bigLogo} className={classes.bigLogo}/>
 										<div className={classes.PaddingL10}>
-											<Typography color="inherit" className={classes.Display9} style={{lineHeight:'1.25'}}>
+											<Typography color="inherit" className={classes.Display9 +' '+classes.slogan} style={{lineHeight:'1.25'}}>
 												{t('index_slogan')}
 											</Typography>
 											<Typography color="inherit" className={classes.Display10 + ' ' +classes.MarginT8} style={{color:'rgb(255,112,67)'}}>

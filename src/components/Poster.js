@@ -1,13 +1,15 @@
 import React, { useRef } from 'react';
-import bgImg from '../imgs/poster.png';
+import bgImg from '../imgs/poster_1.png';
 import loading from '../imgs/imgloading.png';
 import matic from '../imgs/matic.png';
 import error from '../imgs/error.png';
 import list from '../imgs/assets/info.json';
 import QRCode from 'qrcode';
+import Button from '@material-ui/core/Button'
 
-const bgPos = [0, 0, 424, 600]
-const qrPos = [307, 331, 73, 73]
+const tp = require('tp-js-sdk')
+const bgPos = [0, 0, 424, 424]
+const qrPos = [303, 331, 73, 73]
 
 
 const loadImage = url => {
@@ -27,7 +29,7 @@ const loadImage = url => {
 const initCanvas = () => {
 	const cvs = document.createElement('canvas');
 	cvs.width = 424;
-	cvs.height = 600;
+	cvs.height = 424;
 	const ctx = cvs.getContext('2d');
 	//const ratio = getPixelRatio(ctx);
 	cvs.style.width = cvs.width + 'px';
@@ -71,7 +73,8 @@ const circleImg = (ctx,img,x,y,r) => {
 const Poster = (props) => {
 	
 	const [canvas, ctx] = initCanvas()
-	const { str, addr, share, coverImg } = props;
+	const { str, addr, share, coverImg, env } = props;
+	console.log(env)
 	let tokenUrl = 'https://raw.githubusercontent.com/TP-Lab/tokens/master/bsc/' + addr + '/logo.png'
 	if(addr === '0x0000000000000000000000000000000000000000'){
 		tokenUrl = matic
@@ -103,9 +106,9 @@ const Poster = (props) => {
 			ctx.drawImage(res[2],...coverPos)
 			circleImg(ctx,res[3],182,365,13)
 			
-			ctx.font = '18px Consolas';
+			ctx.font = '18px Mada-Bold';
 			ctx.fillText(price, 122, 384);
-			ctx.font = '12px Consolas';
+			ctx.font = '12px Mada-Bold';
 			ctx.fillText(currency, 210, 382);
 			ctx.strokeRect(30, 50, 364, 260);
 			setTimeout(()=>{
@@ -153,9 +156,42 @@ const Poster = (props) => {
 	//			}, 700);
 	//		});
 	//	});
+	
+
+	const save = () => {
+		const url = imgRef.current.src
+		console.log(url)
+		const a = document.createElement('a')
+		const e = new MouseEvent('click')
+		a.download = 'poster.png'
+		a.href = url
+		a.dispatchEvent(e)
+		if(env === 'TokenPocket'){
+			tp.saveImage(url)
+		}
+	}
 
 	return (
-		<img alt="poster" width="424" height="600" ref={imgRef} src={loading} />
+		<div>
+			<img alt="poster" width="424" height="424" ref={imgRef} src={loading} />
+			<div style={{display: 'flex', width: '100%',marginTop: 50}}>
+				<Button variant="contained"
+					style={{
+						width: 100,
+						height: 40,
+						margin: '0 auto',
+						backgroundColor: '#FF7744',
+						color:'#FFFFFF',
+						borderColor: '#FF774A',
+						borderWidth: 2,
+						borderStyle:'solid',
+						borderRadius: '100vw'
+					}}
+					onClick={save} >
+					Save
+				</Button>
+			</div>
+		</div>
 	);
 };
 

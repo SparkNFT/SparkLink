@@ -2778,6 +2778,7 @@ let withCommon = function(style){
 								for(let i of Object.keys(commonStyle[inkey][style])){
 									retObject[styleKey][style][i] = commonStyle[inkey][style][i]
 								}
+								//console.log(retObject);
 							}else{
 								retObject[styleKey][style] = commonStyle[inkey][style]
 							}	
