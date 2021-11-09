@@ -23,6 +23,9 @@ code {
 @font-face {
 	font-family:'ANC';
 	src: url('Mada-Bold.ttf');
+
+  /* font-family: 'SourceHanSansCN-Light';
+  src: url('SourceHanSansCN-Light.otf') */
 }
 .walletDialog{
 

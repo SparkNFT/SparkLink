@@ -48,6 +48,7 @@ const styles = (theme) => ({
 	shouldKnow: {
 		fontFamily: 'AMC',
 		textAlign: 'center',
+		//marginTop: 100,
 		[theme.breakpoints.between('xs', 'sm')]: {
 			fontSize: 16,
 		},
@@ -86,25 +87,28 @@ class IntroPublish extends Component {
 					<TopBar />
 					<Container component="main" className={classes.container}>
 						<div className={classes.paper}>
-							<Typography color="inherit" noWrap className={classes.shouldKnow}>
+							<Typography color="inherit" noWrap className={classes.shouldKnow + ' ' + classes.MarginT3}>
 								<b>{t('introPublish')}</b>
 							</Typography>
-							<Typography variant="h4" paragraph className={classes.Display8}>
+							<br />
+							<br />
+							<Typography variant="h4" paragraph className={classes.Display13}>
 								{t('introPublish1')}
 							</Typography>
-							<Typography color="textSecondary" paragraph className={classes.Display9}>
-								<b>1.</b> {t('introPublish2')}
+							<br />
+							<Typography color="textSecondary" paragraph className={classes.Display12}>
+								<b>1. </b> {t('introPublish2')}
 							</Typography>
-							<Typography color="textSecondary" paragraph className={classes.Display9}>
-								<b>2.</b>{t('introPublish3')}
+							<Typography color="textSecondary" paragraph className={classes.Display12}>
+								<b>2. </b>{t('introPublish3')}
 								<br />
 							</Typography>
-							<Typography color="textSecondary" paragraph className={classes.Display9}>
-								<b>3.</b>{t('introPublish4')}
+							<Typography color="textSecondary" paragraph className={classes.Display12}>
+								<b>3. </b>{t('introPublish4')}
 								<br />
 							</Typography>
-							<Typography color="textSecondary" paragraph className={classes.Display9}>
-								<b>4.</b>{t('introPublish5')}
+							<Typography color="textSecondary" paragraph className={classes.Display12}>
+								<b>4. </b>{t('introPublish5')}
 								<br />
 								<br />
 							</Typography>
@@ -130,7 +134,7 @@ class IntroPublish extends Component {
 							<br />
 						</div>
 					</Container>
-					<Footer/>
+					<Footer />
 				</ThemeProvider>
 			</div>
 		)
