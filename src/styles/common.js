@@ -1107,6 +1107,7 @@ let styleCommon = (theme) => {
 		},
 		Display9:{
 			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			//fontFamily:'ANC,SourceHanSansCN-Light, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 19,
 			},
@@ -1179,6 +1180,52 @@ let styleCommon = (theme) => {
 			},
 			['@media (min-width:3200px)']: {
 				fontSize: 44,
+			},
+		},
+		Display12:{
+			//fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'source-han-sans-traditional, sans-serif',
+			textIndent: '-1em',
+			[theme.breakpoints.between('xs', 'sm')]: {
+				fontSize: 19,
+			},
+			[theme.breakpoints.between('sm', 'md')]: {
+				fontSize: 19,
+			},
+			[theme.breakpoints.between('md', 'lg')]: {
+				fontSize: 21,
+			},
+			[theme.breakpoints.between('lg', 'xl')]: {
+				fontSize: 24,
+			},
+			[theme.breakpoints.up('xl')]: {
+				fontSize: 28,
+			},
+			['@media (min-width:3200px)']: {
+				fontSize: 56,
+			},
+		},
+		Display13:{
+			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			marginTop: '20px',
+			textIndent: '0',
+			[theme.breakpoints.between('xs', 'sm')]: {
+				fontSize: 20,
+			},
+			[theme.breakpoints.between('sm', 'md')]: {
+				fontSize: 20,
+			},
+			[theme.breakpoints.between('md', 'lg')]: {
+				fontSize: 24,
+			},
+			[theme.breakpoints.between('lg', 'xl')]: {
+				fontSize: 28,
+			},
+			[theme.breakpoints.up('xl')]: {
+				fontSize: 34,
+			},
+			['@media (min-width:3200px)']: {
+				fontSize: 64,
 			},
 		},
 		PaddingL0:{
