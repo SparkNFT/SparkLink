@@ -657,6 +657,7 @@ class EncryptedPublish extends Component {
 				})
 				//TODO: 默认所有文件都为zip类型（单文件同样打包）
 				this.setState({
+					submitBtnDisable: false,
 					fileIpfs: response.data.IpfsHash,
 					fileType: 'zip',
 				})
