@@ -1183,8 +1183,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		Display12:{
-			//fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
-			fontFamily:'source-han-sans-traditional, sans-serif',
+			fontFamily:'source-han-sans-simplified-c, sans-serif',
 			textIndent: '-1em',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 19,

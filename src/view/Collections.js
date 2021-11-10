@@ -135,6 +135,21 @@ const styles = (theme) => ({
 			fontSize: 55,
 		},
 	},
+	gridBox:{
+		inherit:'PaddingL5,PaddingR5,MarginT4',
+		display:'grid',
+		gridGap:'45px',
+		gridTemplateColumns:'repeat(auto-fill, minmax(270px, 1fr))',
+		[theme.breakpoints.up('xl')]: {
+			gridTemplateColumns:'repeat(auto-fill, minmax(320px, 1fr))',
+			gridGap:'65px',
+		},
+		['@media (min-width:3200px)']: {
+			gridTemplateColumns:'repeat(auto-fill, minmax(520px, 1fr))',
+			gridGap:'105px',
+		},
+		listStyle:'none'
+	}
 })
 class Collections extends Component {
 	constructor(props) {
@@ -319,26 +334,29 @@ class Collections extends Component {
 
   	function showCard (card, index, t,classes) {
   		let res = (
-  			<Grid item key={index} xs={12} sm={6} md={4}>
+  			<Grid item key={index}>
   				{card ? (
+					  <li>
   					<Card className={classes.card}>
   						<CardMedia className={classes.cardMedia} image={card.image} title="Image title" />
   						<CardContent className={classes.cardContent}>
-  							<Typography gutterBottom className={classes.h3}>
+  							<Typography gutterBottom className={classes.Display9}>
   								<b>{card.title}</b>
   							</Typography>
-  							<Typography className={classes.h5} style={{color:'black'}}  >{obj.renderDescription(card.description)}</Typography>
+  							<Typography className={classes.Display10} style={{color:'black'}}  >{obj.renderDescription(card.description)}</Typography>
   						</CardContent>
   						<CardActions>
   							<Button className={classes.btnColor3Mini} href={'/#/NFT/' + card.id}>
   								{t('查看')}
   							</Button>
-  							<Typography variant="body2" style={{color:'black'}} gutterBottom className={classes.h5}>
+  							<Typography variant="body2" style={{color:'black'}} gutterBottom className={classes.Display11}>
   								<b>NFT id: {card.id} </b>
   							</Typography>
   						</CardActions>
   					</Card>
+					  </li>
   				) : (
+					  <li>
   					<Card className={classes.card}>
   						<Skeleton variant="rect" style={{ marginLeft: 10 }} width={290} height={288} />
   						<Skeleton width="60%" style={{ marginTop: 40 }} height={33} />
@@ -346,6 +364,7 @@ class Collections extends Component {
   						<Skeleton height={33} />
   						<Skeleton height={33} />
   					</Card>
+					  </li>
   				)}
   			</Grid>
   		)
@@ -360,7 +379,7 @@ class Collections extends Component {
   				<Container component="main" className={classes.container}>
   					<div className={classes.paper}>
   						<Grid container justifyContent="center">
-  							<Grid item xs={10}>
+  							<Grid item xs={12}>
   								<Typography color="inherit" noWrap className={classes.Display7}>
   									{t('collection')}
   								</Typography>
@@ -374,24 +393,34 @@ class Collections extends Component {
 				  {this.state.noNFT ? (
   				<Empty
   					description={
-  						<span style={{ color:'black'}} className={classes.h4}>
-  							<b>{t('暂无可展示NFT')}</b>
+						  <div style={{justifyContent:'center',display:'flex',flexDirection:'column'}}>
+  						<span style={{ color:'black'}} className={classes.Display7}>
+  						{t('暂无可展示NFT')}
   						</span>
+						  <div style={{display:'flex',justifyContent:'center'}}>
+						  <Button className={classes.btn+' '+classes.MarginT9} href={'/#/introPublish' }>
+  								{t('去发布')}
+  							</Button>
+						  </div>
+						  </div>
+						  
   					}
   					style={{ marginTop: 100 }}
   				/>
   			) : (
   				<main>
   					{
-  						<Container className={classes.cardGrid} maxWidth="md">
-  							<Grid container spacing={4}>
-  								{(this.state.onloading ? Array.from(new Array(this.state.SkeletoNumber)) : this.state.cards).map(
-  									(card, index) => {
-  										return showCard(card, index , t ,classes)
-  									}
-  								)}
-  							</Grid>
-  						</Container>
+						  <Container style={{justifyContent:'center',width:'100%',maxWidth:'100vw'}}>
+							  <Grid item xs={12} md={12}>
+  						<ol className={classes.gridBox}>
+  							{(this.state.onloading ? Array.from(new Array(this.state.SkeletoNumber)) : this.state.cards).map(
+  								(card, index) => {
+  									return showCard(card, index , t ,classes)
+  								}
+  							)}
+  						</ol>
+						  </Grid>
+						  </Container>
   					}
   				</main>
   			)}

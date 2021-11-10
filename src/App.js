@@ -348,7 +348,7 @@ class App extends Component {
 											<Button
 												className={classes.btnBig+' ' +classes.MarginT5}
 												style={{ marginBottom: '2vw',marginTop: '2vw'}}
-												href="/#/introPublish"
+												href="/#/collections"
 											>
 												{t('share')}
 											</Button>
