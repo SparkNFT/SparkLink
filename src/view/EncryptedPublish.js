@@ -23,6 +23,9 @@ import { withTranslation } from 'react-i18next'
 import config from '../global/config'
 import withCommon from '../styles/common'
 import Footer from '../components/Footer'
+import { generateZipFile } from '../utils/zipFile.js'
+import getWalletAccount from '../utils/getWalletAccount'
+
 
 const { backend } = config
 const { pinata_api_key, pinata_secret_api_key } = require('../project.secret.js')
@@ -44,14 +47,14 @@ const theme = createTheme({
 })
 
 const styles = (theme) => ({
-	h3:{
-		marginTop:20
+	h3: {
+		marginTop: 20
 	},
-	h5:{
-		color:'#757575'
+	h5: {
+		color: '#757575'
 	},
 	main: {
-		maxWidth:'100vw'
+		maxWidth: '100vw'
 	},
 	titleCon: {
 		marginTop: 50,
@@ -118,15 +121,15 @@ const styles = (theme) => ({
 			width: '30%',
 		},
 	},
-	Display9:{
-		inherit:'MarginT9'
+	Display9: {
+		inherit: 'MarginT9'
 	},
 	paper: {
 		marginTop: theme.spacing(8),
 		display: 'flex',
 		flexDirection: 'column',
 		alignItems: 'center',
-		maxWidth:'100vw',
+		maxWidth: '100vw',
 		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif'
 	},
 	avatar: {
@@ -135,8 +138,8 @@ const styles = (theme) => ({
 		width: 60,
 		height: 60,
 	},
-	btn:{
-		inherit:'MarginT5'
+	btn: {
+		inherit: 'MarginT5'
 	},
 	form: {
 		width: '80%',
@@ -162,7 +165,7 @@ const styles = (theme) => ({
 	input: {
 		height: 40,
 		borderRadius: 5,
-		['@media (min-width:3200px)']:{
+		['@media (min-width:3200px)']: {
 			height: 100
 		}
 	},
@@ -171,11 +174,12 @@ const styles = (theme) => ({
 		borderRadius: 5,
 		width: '100%',
 		fontSize: 20,
-		['@media (min-width:3200px)']:{
+		['@media (min-width:3200px)']: {
 			height: 100
 		}
 	},
 })
+
 class EncryptedPublish extends Component {
 	state = {
 		name: '',
@@ -193,16 +197,20 @@ class EncryptedPublish extends Component {
 		rootNFTId: '',
 		issueId: '',
 		allowSubmitPDF: false,
+		// allowSubmitPDF: true,
 		usedAcc: '',
 		sig: '',
 		finished: false,
 		open: false,
 		coverURL: '',
 		jumped: false,
+		// jumped: true,
 		data: [],
 		token_addr: null,
 		token_symbol: 'MATIC',
 		decimal: 0,
+		fileList: [],
+		zipedFilesForm: null,
 	}
 
 	async componentDidMount() {
@@ -341,29 +349,41 @@ class EncryptedPublish extends Component {
 
 	jump = async () => {
 		const { t } = this.props
-		const accounts = await window.ethereum.request({
-			method: 'eth_requestAccounts',
-		})
-		const account = accounts[0]
-		this.setState({
-			usedAcc: account,
-		})
-
-		const owner = await contract.methods.ownerOf(this.state.rootNFTId).call()
-		let issueId = await contract.methods.getIssueIdByNFTId(this.state.rootNFTId).call()
-
-		let bonus = await contract.methods.getRoyaltyFeeByIssueId(issueId).call()
-
-		if (account == owner.toLowerCase()) {
+		// const accounts = await window.ethereum.request({
+		// 	method: 'eth_requestAccounts',
+		// })
+		// const account = accounts[0]
+		const account = await getWalletAccount();
+		if (account !== -1) {
 			this.setState({
-				onLoading: false,
-				allowSubmitPDF: true,
-				jumped: true,
-				bonusFee: bonus,
+				usedAcc: account,
 			})
-		} else {
-			message.warning({
-				content: t('no_NFT_owner'),
+
+			const owner = await contract.methods.ownerOf(this.state.rootNFTId).call()
+			let issueId = await contract.methods.getIssueIdByNFTId(this.state.rootNFTId).call()
+
+			let bonus = await contract.methods.getRoyaltyFeeByIssueId(issueId).call()
+
+			if (account == owner.toLowerCase()) {
+				this.setState({
+					onLoading: false,
+					allowSubmitPDF: true,
+					jumped: true,
+					bonusFee: bonus,
+				})
+			} else {
+				message.warning({
+					content: t('no_NFT_owner'),
+					className: 'custom-class',
+					style: {
+						marginTop: '10vh',
+					},
+				})
+			}
+		}
+		else {
+			message.error({
+				content: '请先连接钱包',
 				className: 'custom-class',
 				style: {
 					marginTop: '10vh',
@@ -377,88 +397,106 @@ class EncryptedPublish extends Component {
 		 * then call backend to get a secret key. Then encrypt the pdf file and upload it to IPFS
 		 * Finally, form a new metadata json file and send its ipfs hash to backend and publish it
 		 */
-		const accounts = await window.ethereum.request({
-			method: 'eth_requestAccounts',
-		})
-		const account = accounts[0]
-		this.setState({
-			usedAcc: account,
-		})
-		let obj = this
-		if (
-			this.state.price === 0 ||
-			this.state.bonusFee === 0 ||
-			this.state.shareTimes === 0 ||
-			this.state.token_addr === null
-		) {
+		const account = await getWalletAccount();
+		// console.log('account: ' + account);
+		// console.log(account);
+
+		if (account !== -1) {
+			// const accounts = await window.ethereum.request({
+			// 	method: 'eth_requestAccounts',
+			// })
+			// const account = accounts[0]
+			this.setState({
+				usedAcc: account,
+			})
+
+			let obj = this
+			if (
+				this.state.price === 0 ||
+				this.state.bonusFee === 0 ||
+				this.state.shareTimes === 0 ||
+				this.state.token_addr === null
+			) {
+				message.error({
+					content: '你有信息尚未填写',
+					className: 'custom-class',
+					style: {
+						marginTop: '10vh',
+					},
+				})
+			} else {
+				this.setState({
+					onLoading: true,
+				})
+				let price_with_decimal = this.state.price * 10 ** this.state.decimal
+				price_with_decimal = price_with_decimal.toString()
+				let ipfsToContract = '0x0000000000000000000000000000000000000000000000000000000000000000'
+				console.debug('price_with_decimal: ', price_with_decimal)
+				let gasPrice = await web3.eth.getGasPrice()
+				let new_gas_price = Math.floor(parseInt(gasPrice) * 1.5).toString()
+				contract.methods
+					.publish(price_with_decimal, this.state.bonusFee, this.state.shareTimes, ipfsToContract, this.state.token_addr)
+					.send({
+						from: this.state.usedAcc,
+						gasPrice: new_gas_price,
+					})
+					.on('receipt', function (receipt) {
+						// console.log(receipt)
+						let publish_event = receipt.events.Publish
+						let returned_values = publish_event.returnValues
+						let root_nft_id = String(returned_values.rootNFTId)
+						console.debug(typeof root_nft_id)
+						let issue_id = returned_values.issue_id
+						obj.setState({
+							onLoading: false,
+							rootNFTId: root_nft_id,
+							issueId: issue_id,
+							allowSubmitPDF: true,
+						})
+						message.success({
+							content: '作品基本信息已提交成功',
+							className: 'custom-class',
+							style: {
+								marginTop: '10vh',
+							},
+						})
+					})
+					.on('error', function (error) {
+						obj.setState({
+							onLoading: false,
+						})
+						if (error.message.includes('not mined')) {
+							message.warning({
+								content: '交易已提交，当前网络较拥堵，请稍等后去我的收藏中查看',
+								className: 'custom-class',
+								style: {
+									marginTop: '10vh',
+								},
+							})
+						} else {
+							console.debug(error.message)
+							message.error({
+								content: `Error: ${error.message}`,
+								className: 'custom-class',
+								style: {
+									marginTop: '10vh',
+								},
+							})
+						}
+					})
+			}
+		}
+		else {
 			message.error({
-				content: '你有信息尚未填写',
+				content: '请先连接钱包',
 				className: 'custom-class',
 				style: {
 					marginTop: '10vh',
 				},
 			})
-		} else {
-			this.setState({
-				onLoading: true,
-			})
-			let price_with_decimal = this.state.price * 10 ** this.state.decimal
-			price_with_decimal = price_with_decimal.toString()
-			let ipfsToContract = '0x0000000000000000000000000000000000000000000000000000000000000000'
-			console.debug('price_with_decimal: ', price_with_decimal)
-			let gasPrice = await web3.eth.getGasPrice()
-			let new_gas_price = Math.floor(parseInt(gasPrice) * 1.5).toString()
-			contract.methods
-				.publish(price_with_decimal, this.state.bonusFee, this.state.shareTimes, ipfsToContract, this.state.token_addr)
-				.send({
-					from: this.state.usedAcc,
-					gasPrice: new_gas_price,
-				})
-				.on('receipt', function (receipt) {
-					console.log(receipt)
-					let publish_event = receipt.events.Publish
-					let returned_values = publish_event.returnValues
-					let root_nft_id = String(returned_values.rootNFTId)
-					console.debug(typeof root_nft_id)
-					let issue_id = returned_values.issue_id
-					obj.setState({
-						onLoading: false,
-						rootNFTId: root_nft_id,
-						issueId: issue_id,
-						allowSubmitPDF: true,
-					})
-					message.success({
-						content: '作品基本信息已提交成功',
-						className: 'custom-class',
-						style: {
-							marginTop: '10vh',
-						},
-					})
-				})
-				.on('error', function (error) {
-					obj.setState({
-						onLoading: false,
-					})
-					if (error.message.includes('not mined')) {
-						message.warning({
-							content: '交易已提交，当前网络较拥堵，请稍等后去我的收藏中查看',
-							className: 'custom-class',
-							style: {
-								marginTop: '10vh',
-							},
-						})
-					} else {
-						console.debug(error.message)
-						message.error({
-							content: `Error: ${error.message}`,
-							className: 'custom-class',
-							style: {
-								marginTop: '10vh',
-							},
-						})
-					}
-				})
 		}
+
+
 	}
 
 	checkDetail = async () => {
@@ -467,7 +505,7 @@ class EncryptedPublish extends Component {
 	}
 
 	submitWork = async () => {
-		const {t} = this.props
+		const { t } = this.props
 		if (this.state.ipfsHashCover === '' || this.state.fileIpfs === '') {
 			message.error({
 				content: t('你有信息尚未填写'),
@@ -483,10 +521,11 @@ class EncryptedPublish extends Component {
 			})
 			console.debug('coverURL: ', this.state.coverURL)
 			let trimmed_des = this.state.description.replace(/(\r\n\t|\n|\r\t)/gm, ' ')
-			const accounts = await window.ethereum.request({
-				method: 'eth_requestAccounts',
-			})
-			const account = accounts[0]
+			// const accounts = await window.ethereum.request({
+			// 	method: 'eth_requestAccounts',
+			// })
+			// const account = accounts[0]
+			const account = await getWalletAccount();
 			if (account !== this.state.usedAcc) {
 				message.warning({
 					content: t('账户发生变化，请切换回原账户'),
@@ -538,8 +577,8 @@ class EncryptedPublish extends Component {
 				console.debug('metadata: ', response.data.IpfsHash)
 				const bytes = bs58.decode(response.data.IpfsHash)
 				const bytesToContract = bytes.toString('hex').substring(4)
-				console.log(bytesToContract)
-				console.log(response.data.IpfsHash)
+				// console.log(bytesToContract)
+				// console.log(response.data.IpfsHash)
 				this.setState({
 					ipfsMeta: bytesToContract,
 				})
@@ -594,10 +633,197 @@ class EncryptedPublish extends Component {
 		}
 	}
 
+
+	postFiles2IPFS = async (zipedFilesForm) => {
+		const pinFileUrl = 'https://api.pinata.cloud/pinning/pinFileToIPFS';
+		try {
+			// console.log('Form: ');
+			// console.log(zipedFilesForm)
+			const response = await axios.post(
+				pinFileUrl,
+				zipedFilesForm,
+				{
+					maxBodyLength: 'infinity',
+					headers: {
+						'Content-Type': 'multipart/form-data;',
+						pinata_api_key: pinata_api_key,
+						pinata_secret_api_key: pinata_secret_api_key,
+					}
+				})
+			// console.log(response)
+			if (response.statusText === 'OK') {
+				message.success('文件打包上传成功!');
+				this.setState({
+					onLoading: false,
+				})
+				//TODO: 默认所有文件都为zip类型（单文件同样打包）
+				this.setState({
+					fileIpfs: response.data.IpfsHash,
+					fileType: 'zip',
+				})
+			}
+			else {
+				message.error({
+					content: '文件打包上传失败,请重新上传',
+					className: 'custom-class',
+					style: {
+						marginTop: '10vh',
+					},
+				})
+				this.setState({
+					onLoading: false,
+				})
+			}
+
+			if (this.state.fileIpfs === '') {
+				this.setState({
+					uploadBtnDisable: false,
+				})
+			}
+		} catch (e) {
+			console.log(e.response);
+		}
+	}
+
+	/* Get ziped files and upload ziped files to IPFS
+	 */
+	uploadFiles = async () => {
+		const { t } = this.props;
+		if (this.state.fileList.length !== 0) {
+			this.setState({
+				uploadBtnDisable: true,
+				onLoading: true,
+			})
+			// console.log('fileList: ')
+			// console.log(this.state.fileList);
+			const zipedFiles = await generateZipFile(this.state.name, this.state.fileList);
+			// console.log('zipedFiles: ')
+			// console.log(zipedFiles);
+			const account = await getWalletAccount()
+			if (account !== -1) {
+				try {
+					const signer = account;
+					let message = {
+						account: signer,
+						nft_id: this.state.rootNFTId,
+					}
+					const sig = await web3.eth.personal.sign(JSON.stringify(message), signer)
+					console.debug(sig)
+					let payload = {
+						nft_id: this.state.rootNFTId,
+						account: signer,
+						signature: sig,
+					}
+					let payload_str = JSON.stringify(payload)
+					// console.log(payload_str)
+					let req_key_url = backend + '/api/v1/key/claim'
+
+					try {
+						const res = await axios.post(req_key_url, payload_str, {
+							headers: {
+								'Content-Type': 'application/json',
+							},
+						})
+						let secret_key = res.data.key //res.data.key
+						console.debug(secret_key)
+						let zipedFilesBlob;
+						const reader = new FileReader()
+						reader.readAsArrayBuffer(zipedFiles)
+						reader.onload = (e) => {
+							let b = e.target.result
+							let wordArray = CryptoJS.lib.WordArray.create(b)
+							const str = CryptoJS.enc.Hex.stringify(wordArray)
+							let cipher_text = CryptoJS.AES.encrypt(str, secret_key).toString()
+							zipedFilesBlob = new Blob([cipher_text])
+							const params = new FormData()
+							params.append('file', zipedFilesBlob)
+							this.postFiles2IPFS(params)
+						}
+
+					} catch (error) {
+						if (error.response.status == 400) {
+							if (error.response.data.message.includes('signature invalid')) {
+								message.error({
+									content: t('您的签名有误，请查看签名账号是否正确'),
+									className: 'custom-class',
+									style: {
+										marginTop: '10vh',
+									},
+								})
+							} else if (error.response.data.message.includes('param invalid')) {
+								message.error({
+									content: t('参数错误'),
+									className: 'custom-class',
+									style: {
+										marginTop: '10vh',
+									},
+								})
+							} else if (error.response.data.message.includes('not owned')) {
+								message.error({
+									content: t('您并不拥有此nft'),
+									className: 'custom-class',
+									style: {
+										marginTop: '10vh',
+									},
+								})
+							} else if (error.response.data.message.includes('not found')) {
+								message.error({
+									content: t('此nft还未生成'),
+									className: 'custom-class',
+									style: {
+										marginTop: '10vh',
+									},
+								})
+							}
+						} else {
+							message.error({
+								content: t('请求文件加密密钥失败'),
+								className: 'custom-class',
+								style: {
+									marginTop: '10vh',
+								},
+							})
+						}
+					}
+				}
+				catch (e) {
+					message.error({
+						content: 'Read file error',
+						className: 'custom-class',
+						style: {
+							marginTop: '10vh',
+						},
+					})
+				}
+			}
+			else {
+				message.error({
+					content: '请先连接钱包',
+					className: 'custom-class',
+					style: {
+						marginTop: '10vh',
+					},
+				})
+			}
+		}
+		else {
+			message.error({
+				content: '上传文件不能为空！',
+				className: 'custom-class',
+				style: {
+					marginTop: '10vh',
+				},
+			})
+		}
+
+
+	}
+
 	render() {
 		const { t } = this.props
 		const { classes } = this.props
-		console.log(t, classes)
+		const { fileList } = this.state;
+		//console.log(t, classes)
 		let obj = this
 		const { TextArea } = Input
 		const options = this.state.data.map((d) => <Option key={d.value}>{d.text}</Option>)
@@ -648,127 +874,145 @@ class EncryptedPublish extends Component {
 		}
 
 		const propFile = {
-			name: 'file',
-			action: 'https://api.pinata.cloud/pinning/pinFileToIPFS',
-			headers: {
-				pinata_api_key: pinata_api_key,
-				pinata_secret_api_key: pinata_secret_api_key,
+			onRemove: file => {
+				this.setState(state => {
+					const index = state.fileList.indexOf(file);
+					const newFileList = state.fileList.slice();
+					newFileList.splice(index, 1);
+					return {
+						fileList: newFileList,
+					};
+				});
 			},
-			beforeUpload: (file) => {
-				const {t} = this.props;
-				// eslint-disable-next-line no-async-promise-executor
-				return new Promise(async (resolve, reject) => {
-					try {
-						const accounts = await window.ethereum.request({
-							method: 'eth_requestAccounts',
-						})
-						const signer = accounts[0]
-						let message = {
-							account: signer,
-							nft_id: obj.state.rootNFTId,
-						}
-						const sig = await web3.eth.personal.sign(JSON.stringify(message), signer)
-						console.debug(sig)
-						let payload = {
-							nft_id: obj.state.rootNFTId,
-							account: signer,
-							signature: sig,
-						}
-						let payload_str = JSON.stringify(payload)
-						console.log(payload_str)
-						let req_key_url = backend + '/api/v1/key/claim'
-						try {
-							const res = await axios.post(req_key_url, payload_str, {
-								headers: {
-									'Content-Type': 'application/json',
-								},
-							})
-							let secret_key = res.data.key //res.data.key
-							console.debug(secret_key)
-							// if (file.type === 'text/plain') {
-							const reader = new FileReader()
-							reader.readAsArrayBuffer(file)
-							reader.onload = (e) => {
-								let b = e.target.result
-								let wordArray = CryptoJS.lib.WordArray.create(b)
-								const str = CryptoJS.enc.Hex.stringify(wordArray)
-								let cipher_text = CryptoJS.AES.encrypt(str, secret_key).toString()
-								let myblob = new Blob([cipher_text])
-								resolve(myblob)
-							}
-						} catch (error) {
-							if (error.response.status == 400) {
-								if (error.response.data.message.includes('signature invalid')) {
-									message.error({
-										content: t('您的签名有误，请查看签名账号是否正确'),
-										className: 'custom-class',
-										style: {
-											marginTop: '10vh',
-										},
-									})
-								} else if (error.response.data.message.includes('param invalid')) {
-									message.error({
-										content: t('参数错误'),
-										className: 'custom-class',
-										style: {
-											marginTop: '10vh',
-										},
-									})
-								} else if (error.response.data.message.includes('not owned')) {
-									message.error({
-										content: t('您并不拥有此nft'),
-										className: 'custom-class',
-										style: {
-											marginTop: '10vh',
-										},
-									})
-								} else if (error.response.data.message.includes('not found')) {
-									message.error({
-										content: t('此nft还未生成'),
-										className: 'custom-class',
-										style: {
-											marginTop: '10vh',
-										},
-									})
-								}
-							} else {
-								message.error({
-									content: t('请求文件加密密钥失败'),
-									className: 'custom-class',
-									style: {
-										marginTop: '10vh',
-									},
-								})
-							}
-						}
-					} catch (e) {
-						message.error({
-							content: 'Read file error',
-							className: 'custom-class',
-							style: {
-								marginTop: '10vh',
-							},
-						})
-						reject()
-					}
-				})
+			beforeUpload: file => {
+				this.setState(state => ({
+					fileList: [...state.fileList, file],
+				}));
+				//console.log(this.state.fileList)
+				return false;
 			},
-			onChange(info) {
-				const { status } = info.file
-				if (status === 'done') {
-					let file_type = info.file.name.split('.')
-					let file_suffix = file_type[file_type.length - 1]
-					obj.setState({
-						fileIpfs: info.file.response.IpfsHash,
-						fileType: file_suffix,
-					})
-					console.debug('encrypted file hash: ', info.file.response.IpfsHash)
-					message.success(`${info.file.name} file uploaded successfully.`)
-				}
-			},
-			onDrop(e) {
-				console.log('Dropped files', e.dataTransfer.files)
-			},
+			fileList,
+			// name: 'file',
+			// action: 'https://api.pinata.cloud/pinning/pinFileToIPFS',
+			// headers: {
+			// 	pinata_api_key: pinata_api_key,
+			// 	pinata_secret_api_key: pinata_secret_api_key,
+			// },
+			// beforeUpload: (file) => {
+			// 	const { t } = this.props;
+			// 	// eslint-disable-next-line no-async-promise-executor
+			// 	return new Promise(async (resolve, reject) => {
+			// 		try {
+			// 			const accounts = await window.ethereum.request({
+			// 				method: 'eth_requestAccounts',
+			// 			})
+			// 			const signer = accounts[0]
+			// 			let message = {
+			// 				account: signer,
+			// 				nft_id: obj.state.rootNFTId,
+			// 			}
+			// 			const sig = await web3.eth.personal.sign(JSON.stringify(message), signer)
+			// 			console.debug(sig)
+			// 			let payload = {
+			// 				nft_id: obj.state.rootNFTId,
+			// 				account: signer,
+			// 				signature: sig,
+			// 			}
+			// 			let payload_str = JSON.stringify(payload)
+			// 			console.log(payload_str)
+			// 			let req_key_url = backend + '/api/v1/key/claim'
+			// 			try {
+			// 				const res = await axios.post(req_key_url, payload_str, {
+			// 					headers: {
+			// 						'Content-Type': 'application/json',
+			// 					},
+			// 				})
+			// 				let secret_key = res.data.key //res.data.key
+			// 				console.debug(secret_key)
+			// 				// if (file.type === 'text/plain') {
+			// 				const reader = new FileReader()
+			// 				reader.readAsArrayBuffer(file)
+			// 				reader.onload = (e) => {
+			// 					let b = e.target.result
+			// 					let wordArray = CryptoJS.lib.WordArray.create(b)
+			// 					const str = CryptoJS.enc.Hex.stringify(wordArray)
+			// 					let cipher_text = CryptoJS.AES.encrypt(str, secret_key).toString()
+			// 					let myblob = new Blob([cipher_text])
+			// 					resolve(myblob)
+			// 				}
+			// 			} catch (error) {
+			// 				if (error.response.status == 400) {
+			// 					if (error.response.data.message.includes('signature invalid')) {
+			// 						message.error({
+			// 							content: t('您的签名有误，请查看签名账号是否正确'),
+			// 							className: 'custom-class',
+			// 							style: {
+			// 								marginTop: '10vh',
+			// 							},
+			// 						})
+			// 					} else if (error.response.data.message.includes('param invalid')) {
+			// 						message.error({
+			// 							content: t('参数错误'),
+			// 							className: 'custom-class',
+			// 							style: {
+			// 								marginTop: '10vh',
+			// 							},
+			// 						})
+			// 					} else if (error.response.data.message.includes('not owned')) {
+			// 						message.error({
+			// 							content: t('您并不拥有此nft'),
+			// 							className: 'custom-class',
+			// 							style: {
+			// 								marginTop: '10vh',
+			// 							},
+			// 						})
+			// 					} else if (error.response.data.message.includes('not found')) {
+			// 						message.error({
+			// 							content: t('此nft还未生成'),
+			// 							className: 'custom-class',
+			// 							style: {
+			// 								marginTop: '10vh',
+			// 							},
+			// 						})
+			// 					}
+			// 				} else {
+			// 					message.error({
+			// 						content: t('请求文件加密密钥失败'),
+			// 						className: 'custom-class',
+			// 						style: {
+			// 							marginTop: '10vh',
+			// 						},
+			// 					})
+			// 				}
+			// 			}
+			// 		} catch (e) {
+			// 			message.error({
+			// 				content: 'Read file error',
+			// 				className: 'custom-class',
+			// 				style: {
+			// 					marginTop: '10vh',
+			// 				},
+			// 			})
+			// 			reject()
+			// 		}
+			// 	})
+			// },
+			// onChange(info) {
+			// 	const { status } = info.file
+			// 	if (status === 'done') {
+			// 		let file_type = info.file.name.split('.')
+			// 		let file_suffix = file_type[file_type.length - 1]
+			// 		obj.setState({
+			// 			fileIpfs: info.file.response.IpfsHash,
+			// 			fileType: file_suffix,
+			// 		})
+			// 		console.debug('encrypted file hash: ', info.file.response.IpfsHash)
+			// 		message.success(`${info.file.name} file uploaded successfully.`)
+			// 	}
+			// },
+			// onDrop(e) {
+			// 	console.log('Dropped files', e.dataTransfer.files)
+			// },
 		}
 
 		if (this.state.allowSubmitPDF) {
@@ -814,13 +1058,25 @@ class EncryptedPublish extends Component {
 
 								<label className={classes.Display9}>{t('art_file')} *</label>
 								<p className={classes.Display11}>{t('art_file_tip')} </p>
-								<Dragger {...propFile} style={{ width: '100%', minHeight: 100 }} maxCount='1' id="Uploader2">
+								<Dragger {...propFile} style={{ width: '100%', minHeight: 100 }} id="Uploader2">
 									<p className="ant-upload-drag-icon">
 										<InboxOutlined />
 									</p>
 									<p className={classes.Display9}>{t('upload_file_tip1')}</p>
 									<p className={classes.Display11}>{t('upload_file_tip2')}</p>
 								</Dragger>
+								<Button
+									variant="contained"
+									className={classes.btn}
+									disabled={this.state.uploadBtnDisable}
+									style={{
+										float: 'right',
+										//fontSize: '14px',
+									}}
+									onClick={this.uploadFiles}
+								>
+									{t('打包并上传')}
+								</Button>
 								<div style={{ textAlign: 'center' }}>
 									<Button
 										startIcon={<CloudUploadOutlined />}
@@ -963,7 +1219,7 @@ class EncryptedPublish extends Component {
 									<Grid item xs style={{ textAlign: 'center' }}>
 										<Button
 											className={classes.btn}
-											startIcon={<CloudUploadOutlined style={{fontSize:'100%'}}/>}
+											startIcon={<CloudUploadOutlined style={{ fontSize: '100%' }} />}
 											onClick={this.submit}
 										>
 											{t('submit')}

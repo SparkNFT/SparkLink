@@ -20,13 +20,14 @@ import web3 from '../utils/web3'
 import Paper from '@material-ui/core/Paper'
 import * as tokens from '../global/tokens_list.json'
 import { withTranslation } from 'react-i18next'
-import { TOKENPOCKET, METAMASK, LASTCONNECT, MATHWALLET } from '../global/globalsString'
+//import { TOKENPOCKET, METAMASK, LASTCONNECT, MATHWALLET } from '../global/globalsString'
 import withCommon from '../styles/common'
 import Footer from '../components/Footer'
 import { generateZipFile } from '../utils/zipFile.js'
+import getWalletAccount from '../utils/getWalletAccount'
 
-const mathwallet = require('math-js-sdk');
-const tp = require('tp-js-sdk');
+// const mathwallet = require('math-js-sdk');
+// const tp = require('tp-js-sdk');
 const { pinata_api_key, pinata_secret_api_key } = require('../project.secret.js')
 
 const FormData = require('form-data')
@@ -46,14 +47,14 @@ const theme = createTheme({
 })
 
 const styles = (theme) => ({
-	h5:{
-		color:'#757575'
+	h5: {
+		color: '#757575'
 	},
-	h3:{
-		marginTop:20
+	h3: {
+		marginTop: 20
 	},
 	main: {
-		maxWidth:'100vw'
+		maxWidth: '100vw'
 	},
 	titleCon: {
 		marginTop: 50,
@@ -100,7 +101,7 @@ const styles = (theme) => ({
 		},
 	},
 	btn: {
-		inherit:'MarginT5'
+		inherit: 'MarginT5'
 	},
 	paper: {
 		marginTop: theme.spacing(8),
@@ -140,7 +141,7 @@ const styles = (theme) => ({
 		height: 40,
 		borderRadius: 3,
 		width: '100%',
-		['@media (min-width:3200px)']:{
+		['@media (min-width:3200px)']: {
 			height: 100
 		}
 	},
@@ -149,7 +150,7 @@ const styles = (theme) => ({
 		borderRadius: 3,
 		width: '100%',
 		fontSize: 20,
-		['@media (min-width:3200px)']:{
+		['@media (min-width:3200px)']: {
 			height: 100
 		}
 	},
@@ -302,17 +303,17 @@ class Publish extends Component {
 		 * then call backend to get a secret key. Then encrypt the pdf file and upload it to IPFS
 		 * Finally, form a new metadata json file and send its ipfs hash to backend and publish it
 		 */
-		const lastConnect = localStorage.getItem(LASTCONNECT);
-		if(lastConnect) {
-			const {t} = this.props;
+		const account = await getWalletAccount();
+		if (account !== -1) {
+			const { t } = this.props;
 			let obj = this
 			if (
 				this.state.price === 0 ||
-			this.state.bonusFee === 0 ||
-			this.state.shareTimes === 0 ||
-			this.state.ipfsHashCover === '' ||
-			this.state.fileIpfs === '' ||
-			this.state.token_addr === null
+				this.state.bonusFee === 0 ||
+				this.state.shareTimes === 0 ||
+				this.state.ipfsHashCover === '' ||
+				this.state.fileIpfs === '' ||
+				this.state.token_addr === null
 			) {
 				message.error({
 					content: t('你有信息尚未填写'),
@@ -329,35 +330,8 @@ class Publish extends Component {
 				this.setState({
 					coverURL: img_url,
 				})
-				console.debug('coverURL: ', this.state.coverURL)
+				//console.debug('coverURL: ', this.state.coverURL)
 				let trimmed_des = this.state.description.replace(/(\r\n\t|\n|\r\t)/gm, ' ')
-				// const accounts = await window.ethereum.request({
-				// 	method: 'eth_requestAccounts',
-				// })
-				// const account = accounts[0]
-				// let account = null;
-				//alert(account);
-				let value, accounts, account;
-				switch (lastConnect) {
-				case TOKENPOCKET:
-					value = await tp.getCurrentWallet()
-					account = value.data.address;
-					break;
-				case MATHWALLET:
-					value = await mathwallet.getCurrentWallet()
-					account = value.address;
-					break;
-				case METAMASK:
-					accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
-					account = accounts[0];
-					//alert("hello")
-					break;
-				default:
-				// accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
-				// account = accounts[0];
-					break;
-				}
-				//alert(account)
 				this.setState({
 					userAccount: account,
 				})
@@ -385,9 +359,7 @@ class Publish extends Component {
 						},
 					],
 				}
-
 				const url = 'https://api.pinata.cloud/pinning/pinJSONToIPFS'
-
 				try {
 					const response = await axios.post(url, JSONBody, {
 						headers: {
@@ -422,7 +394,7 @@ class Publish extends Component {
 							gasPrice: new_gas_price,
 						})
 						.on('receipt', function (receipt) {
-							console.log(receipt)
+							//console.log(receipt)
 							let publish_event = receipt.events.Publish
 							let returned_values = publish_event.returnValues
 							let root_nft_id = returned_values.rootNFTId
@@ -467,7 +439,7 @@ class Publish extends Component {
 				} catch (error) {
 					console.debug(error)
 					message.error({
-						content: t('似乎遇到了些小问题：')+` ${error}`,
+						content: t('似乎遇到了些小问题：') + ` ${error}`,
 						className: 'custom-class',
 						style: {
 							marginTop: '10vh',
@@ -480,7 +452,7 @@ class Publish extends Component {
 		else {
 			message.error('请先连接钱包');
 		}
-		
+
 	}
 
 	checkDetail = async () => {
@@ -491,20 +463,21 @@ class Publish extends Component {
 	/* Get ziped files and upload ziped files to IPFS
 	 */
 	uploadFiles = async () => {
-		if( this.state.fileList.length !== 0 ) {
+		if (this.state.fileList.length !== 0) {
 			this.setState({
 				uploadBtnDisable: true,
+				onLoading: true,
 			})
 			const zipedFiles = await generateZipFile(this.state.name, this.state.fileList);
 			const params = new FormData()
-			params.append('file',zipedFiles)
-			console.log('binary: ')
+			params.append('file', zipedFiles)
+			//console.log('binary: ')
 			const pinFileUrl = 'https://api.pinata.cloud/pinning/pinFileToIPFS';
-			
+
 			try {
 				const response = await axios.post(
 					pinFileUrl,
-					params, 
+					params,
 					{
 						maxBodyLength: 'infinity',
 						headers: {
@@ -513,23 +486,43 @@ class Publish extends Component {
 							pinata_secret_api_key: pinata_secret_api_key,
 						}
 					})
-				console.log(response)
-				if(response.statusText === 'OK') {
+				//console.log(response)
+				if (response.statusText === 'OK') {
 					message.success('文件打包上传成功!');
+					this.setState({
+						onLoading: false,
+					})
+					//TODO: 默认所有文件都为zip类型（单文件同样打包）
+					this.setState({
+						fileIpfs: response.data.IpfsHash,
+						fileType: 'zip',
+					})
 				}
-				//TODO: 默认所有文件都为zip类型（单文件同样打包）
-				this.setState({
-					fileIpfs: response.data.IpfsHash,
-					fileType: 'zip',
-				})
-			}catch (e) {
+				else {
+					message.error({
+						content: '文件打包上传失败,请重新上传',
+						className: 'custom-class',
+						style: {
+							marginTop: '10vh',
+						},
+					})
+					this.setState({
+						onLoading: false,
+					})
+				}
+				if (this.state.fileIpfs === '') {
+					this.setState({
+						uploadBtnDisable: false,
+					})
+				}
+			} catch (e) {
 				console.log(e.response);
 			}
 		}
-		else{
+		else {
 			message.error('上传文件不能为空！')
 		}
-		
+
 	}
 
 	render() {
@@ -649,7 +642,7 @@ class Publish extends Component {
 				this.setState(state => ({
 					fileList: [...state.fileList, file],
 				}));
-				console.log(this.state.fileList)
+				//console.log(this.state.fileList)
 				return false;
 			},
 			fileList,
@@ -818,7 +811,7 @@ class Publish extends Component {
 										{t('art_file')} <span style={{ color: 'red' }}>*</span>
 									</label>
 									<p className={classes.Display11}> {t('art_file_tip')}</p>
-									<Dragger {...propFile} style={{ width: '100%', minHeight: 200 }} maxCount='1' id="Uploader2">
+									<Dragger {...propFile} style={{ width: '100%', minHeight: 200 }} id="Uploader2">
 										<p className="ant-upload-drag-icon">
 											<InboxOutlined />
 										</p>
@@ -827,8 +820,8 @@ class Publish extends Component {
 									</Dragger>
 									<Button
 										variant="contained"
-										className={classes.btn}	
-										disabled ={this.state.uploadBtnDisable}
+										className={classes.btn}
+										disabled={this.state.uploadBtnDisable}
 										style={{
 											float: 'right',
 											//fontSize: '14px',
