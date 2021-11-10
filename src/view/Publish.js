@@ -68,26 +68,23 @@ const styles = (theme) => ({
 	},
 	paperImg: {
 		backgroundColor: '#EFEBE9',
-		width: 330,
+		inherit:'PaddingL5,PaddingR5,PaddingT5,PaddingB5'
+	},
+	coverImg:{
 		[theme.breakpoints.between('xs', 'sm')]: {
-			marginLeft: '5%',
-			marginTop: 30,
+			width:'80vw'
 		},
 		[theme.breakpoints.between('sm', 'md')]: {
-			marginLeft: '30%',
-			marginTop: 30,
+			width:'30vw'
 		},
 		[theme.breakpoints.between('md', 'lg')]: {
-			marginLeft: '30%',
-			marginTop: 30,
+			width:'30vw'
 		},
 		[theme.breakpoints.between('lg', 'xl')]: {
-			marginLeft: '40%',
-			marginTop: 30,
+			width:'30vw'
 		},
 		[theme.breakpoints.up('xl')]: {
-			marginLeft: '45%',
-			marginTop: 30,
+			width:'30vw'
 		},
 	},
 	titlePub: {
@@ -180,6 +177,7 @@ class Publish extends Component {
 		decimal: 0,
 		fileList: [],
 		uploadBtnDisable: false,
+		submitBtnDisable: true,
 	}
 
 	async componentDidMount() {
@@ -486,6 +484,7 @@ class Publish extends Component {
 							pinata_secret_api_key: pinata_secret_api_key,
 						}
 					})
+
 				//console.log(response)
 				if (response.statusText === 'OK') {
 					message.success('文件打包上传成功!');
@@ -666,33 +665,26 @@ class Publish extends Component {
 					<ThemeProvider theme={theme}>
 						<TopBar />
 						<div style={{ textAlign: 'center' }}>
-							<Typography className={classes.titleCon}>
+							<Typography className={classes.titleCon+' '+classes.MarginB5}>
 								<b>{t('pulish_success')}</b>
 							</Typography>
-
-							<Paper className={classes.paperImg}>
-								<img style={{ width: 300, marginTop: 20, marginBottom: 50 }} src={this.state.coverURL}></img>
-							</Paper>
-							<Typography variant="h4" style={{ marginTop: 20, fontFamily: 'Ubuntu' }}>
-								<b>
-									{t('you_gain_nft')} #{this.state.rootNFTId}
-								</b>
+							<div style={{display:'flex',justifyContent:'center'}}>
+								<Paper className={classes.paperImg}>
+									<img className={classes.coverImg} src={this.state.coverURL}></img>
+								</Paper>
+							</div>
+							<Typography className={classes.Display9+' '+classes.MarginT10}>
+								{t('you_gain_nft')} #{this.state.rootNFTId}
 							</Typography>
 
 							<Button
-								variant="contained"
-								className={classes.button}
-								style={{
-									marginTop: 50,
-									width: 200,
-									height: 50,
-									marginBottom: 50,
-								}}
+								className={classes.btn + ' ' +classes.MarginB5}
 								onClick={this.checkDetail}
 							>
 								{t('show_detail')}
 							</Button>
 						</div>
+						<Footer></Footer>
 					</ThemeProvider>
 				</Spin>
 			)
@@ -822,6 +814,7 @@ class Publish extends Component {
 										variant="contained"
 										className={classes.btn}
 										disabled={this.state.uploadBtnDisable}
+
 										style={{
 											float: 'right',
 											//fontSize: '14px',
@@ -832,6 +825,7 @@ class Publish extends Component {
 									</Button>
 								</form>
 								<Button
+									disabled ={this.state.submitBtnDisable}
 									className={classes.btn}
 									startIcon={<CloudUploadOutlined />}
 									onClick={this.submit}
