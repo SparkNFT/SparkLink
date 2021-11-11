@@ -1018,65 +1018,68 @@ class EncryptedPublish extends Component {
 		if (this.state.allowSubmitPDF) {
 			return (
 				<Spin spinning={this.state.onLoading} size="large">
-					<Container component="main" maxWidth="xs" className={classes.main}>
-						<div className={classes.paper}>
-							<Typography className={classes.Display6}>
-								<b>{t('up_file')}</b>
-							</Typography>
-							<form className={classes.form} noValidate>
-								{this.state.jumped ? (
-									<div>
-										<Grid item style={{ width: '100%' }}>
-											<label className={classes.Display9}>{t('art_name')} *</label>
-											<Input
-												placeholder={t('art_name')}
-												allowClear
-												id="pubName"
-												onChange={this.handleGetPubName}
-												value={this.state.name}
-												className={classes.input}
-											/>
-										</Grid>
-										<Grid item style={{ width: '100%' }}>
-											<label style={{ marginTop: 20 }} className={classes.Display9}>{t('art_desc')} *</label>
-											<p className={classes.Display11}>{t('art_desc_tip')}</p>
-											<TextArea rows={4} id="Description" onChange={this.handleGetDescription} />
-										</Grid>
-									</div>
-								) : (
-									<div></div>
-								)}
-								<label className={classes.Display9}>{t('pic_cover')} *</label>
-								<p className={classes.Display11}>{t('pic_cover_tip')}</p>
-								<Dragger {...prop} style={{ width: '100%', minHeight: 100 }} id="Uploader" maxCount='1' accept="image/*">
-									<p className="ant-upload-drag-icon">
-										<InboxOutlined />
-									</p>
-									<p className={classes.Display9}>{t('upload_file_tip1')}</p>
-									<p className={classes.Display11}>{t('upload_file_tip2')}</p>
-								</Dragger>
+					<ThemeProvider theme={theme}>
+						<TopBar />
+						<Container component="main" maxWidth="xs" className={classes.main}>
+							<div className={classes.paper}>
+								<Typography className={classes.Display6}>
+									<b>{t('up_file')}</b>
+								</Typography>
+								<form className={classes.form} noValidate>
+									{this.state.jumped ? (
+										<div>
+											<Grid item style={{ width: '100%' }}>
+												<label className={classes.Display9}>{t('art_name')} *</label>
+												<Input
+													placeholder={t('art_name')}
+													allowClear
+													id="pubName"
+													onChange={this.handleGetPubName}
+													value={this.state.name}
+													className={classes.input}
+												/>
+											</Grid>
+											<Grid item style={{ width: '100%' }}>
+												<label style={{ marginTop: 20 }} className={classes.Display9}>{t('art_desc')} *</label>
+												<p className={classes.Display11}>{t('art_desc_tip')}</p>
+												<TextArea rows={4} id="Description" onChange={this.handleGetDescription} />
+											</Grid>
+										</div>
+									) : (
+										<div></div>
+									)}
+									<label className={classes.Display9}>{t('pic_cover')} *</label>
+									<p className={classes.Display11}>{t('pic_cover_tip')}</p>
+									<Dragger {...prop} style={{ width: '100%', minHeight: 100 }} id="Uploader" maxCount='1' accept="image/*">
+										<p className="ant-upload-drag-icon">
+											<InboxOutlined />
+										</p>
+										<p className={classes.Display9}>{t('upload_file_tip1')}</p>
+										<p className={classes.Display11}>{t('upload_file_tip2')}</p>
+									</Dragger>
 
-								<label className={classes.Display9}>{t('art_file')} *</label>
-								<p className={classes.Display11}>{t('art_file_tip')} </p>
-								<Dragger {...propFile} style={{ width: '100%', minHeight: 100 }} id="Uploader2">
-									<p className="ant-upload-drag-icon">
-										<InboxOutlined />
-									</p>
-									<p className={classes.Display9}>{t('upload_file_tip1')}</p>
-									<p className={classes.Display11}>{t('upload_file_tip2')}</p>
-								</Dragger>
-								<Button
-									variant="contained"
-									className={classes.btn}
-									disabled={this.state.uploadBtnDisable}
-									style={{
-										float: 'right',
-										//fontSize: '14px',
-									}}
-									onClick={this.uploadFiles}
-								>
-									{t('打包并上传')}
-								</Button>
+									<label className={classes.Display9}>{t('art_file')} *</label>
+									<p className={classes.Display11}>{t('art_file_tip')} </p>
+									<Dragger {...propFile} style={{ width: '100%', minHeight: 100 }} id="Uploader2">
+										<p className="ant-upload-drag-icon">
+											<InboxOutlined />
+										</p>
+										<p className={classes.Display9}>{t('upload_file_tip1')}</p>
+										<p className={classes.Display11}>{t('upload_file_tip2')}</p>
+									</Dragger>
+									<Button
+										variant="contained"
+										className={classes.btn}
+										disabled={this.state.uploadBtnDisable}
+										style={{
+											float: 'right',
+											//fontSize: '14px',
+										}}
+										onClick={this.uploadFiles}
+									>
+										{t('打包并上传')}
+									</Button>
+								</form>
 								<div style={{ textAlign: 'center' }}>
 									<Button
 										disabled ={this.state.submitBtnDisable}
@@ -1087,9 +1090,10 @@ class EncryptedPublish extends Component {
 										{t('发布作品')}
 									</Button>
 								</div>
-							</form>
-						</div>
-					</Container>
+							</div>
+						</Container>
+						<Footer></Footer>
+					</ThemeProvider>
 				</Spin>
 			)
 		} else if (this.state.finished) {
