@@ -22,14 +22,22 @@ code {
 }
 @font-face {
 	font-family:'ANC';
-	src: url('Mada-Bold.ttf');
-
-  /* font-family: 'SourceHanSansCN-Light';
-  src: url('SourceHanSansCN-Light.otf') */
-}
-.walletDialog{
+	src: url('Poppins-Regular.ttf');
 
 }
+@font-face {
+	font-family:'ANC-SeBold';
+	src: url('Poppins-SemiBold.ttf');
+}
+@font-face {
+	font-family:'ANC-Bold';
+	src: url('Poppins-Bold.ttf');
+}
+@font-face {
+	font-family:'ANC-Light';
+	src: url('Poppins-Light.ttf');
+}
+
 @media (min-width:3200px){
   .ant-input{
     font-size: 50px !important;
@@ -72,6 +80,16 @@ code {
   }
   .MuiDialog-paperWidthSm{
     max-width: 2000px !important;
+  }
+  .ant-empty-img-default{
+    width:400px !important;
+    height:400px !important;
+  }
+  .ant-empty-image{
+    height:400px !important;
+  }
+  .MuiPaper-rounded{
+    border-radius: 40px !important;
   }
 }
 

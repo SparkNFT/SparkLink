@@ -1,5 +1,4 @@
 import withCommon from '../styles/common'
-import fullLogo from '../imgs/logowhite.png'
 import { withStyles } from '@material-ui/styles'
 import React, { Component } from 'react'
 import Grid from '@material-ui/core/Grid'
@@ -12,7 +11,7 @@ import logoTele from '../imgs/logoTele.png'
 import logoGit from '../imgs/logoGit.png'
 import logoIns from '../imgs/logoIns.png'
 import { Container, Divider } from '@material-ui/core'
-import Button from '@material-ui/core/Button'
+
 let styles = (theme) => ({
 	logo: {
 		marginRight: 24,
@@ -45,9 +44,10 @@ let styles = (theme) => ({
 		},
 	},
 	btnImg:{
-		filter: 'grayscale(0%)',
+		transition:'margin-bottom 1s',
 		'&:hover':{
-			filter: 'grayscale(0%)',
+			
+			marginBottom: 10
 		}
 	},
 	botimg:{
@@ -55,13 +55,13 @@ let styles = (theme) => ({
 			width: '50px'
 		},
 		[theme.breakpoints.up('sm')]: {
-			width: '80px'
+			width: '66px'
 		},
 		[theme.breakpoints.up('xl')]: {
-			width: '100px'
+			width: '80px'
 		},
 		['@media (min-width:3200px)']:{
-			width: '220px'
+			width: '160px'
 		},
 		marginRight:'0.5vw',
 	},
@@ -71,28 +71,58 @@ let styles = (theme) => ({
 		},
 	},
 	helpimg:{
+		inherit:'MarginL10',
+		width:'9vw',
 		[theme.breakpoints.between('xs', 'sm')]: {
-			width: '200px'
-		},
-		[theme.breakpoints.up('sm')]: {
-			width: '270px'
-		},
-		[theme.breakpoints.up('xl')]: {
-			width: '350px'
-		},
-		['@media (min-width:3200px)']:{
-			width: '680px'
+			width: '40%'
 		},
 	},
-	Display9:{
+	DisplayLight12s:{
+		whiteSpace:'nowrap',
 		color:'rgba(255,255,255,1.0)',
 		'&:hover':{
 			color:'rgb(255,112,67)'
-		}
+		},
+		inherit:'MarginT10',
+		
 	},
 	Display8:{
 		color:'rgb(255,112,67)',
 
+	},
+	btnImgRound:{
+		flex:'1'
+	},
+	DisplaySeBold10:{
+		color:'rgba(255,255,255,1.0)',
+		'&:hover':{
+			color:'rgb(255,112,67)'
+		},
+		whiteSpace:'nowrap'
+	},
+	DisplaySeBold11s:{
+		color:'rgba(255,255,255,1.0)',
+		'&:hover':{
+			color:'rgb(255,112,67)'
+		},
+		whiteSpace:'nowrap'
+	},
+	DisplaySeBold8:{
+		color:'rgba(255,255,255,1.0)',
+		'&:hover':{
+			color:'rgb(255,112,67)'
+		},
+		whiteSpace:'nowrap'
+	},
+	btnRoundGroup:{
+		[theme.breakpoints.between('xs', 'sm')]: {
+			marginTop:'20px'
+		},
+	},
+	driver:{
+		[theme.breakpoints.between('xs', 'sm')]: {
+			display:'none'
+		},
 	}
 	
 })
@@ -101,61 +131,48 @@ class Footer extends Component {
 		const { t } = this.props
 		const { classes } = this.props
 		return (
-			<div  style={{backgroundColor: '#878787' ,marginTop:'15vh'}}>
+			<div  style={{backgroundColor: '#EF8F71' ,marginTop:'15vh'}}>
 				
-				<Container style={{maxWidth:'100vw'}}>
-					<Grid xs={12} item className={classes.footer + ' ' + classes.PaddingB2} container style={{backgroundColor: '#878787' }}>
-						<Grid direction='column' container item style={{color: 'white' ,paddingTop: '5vw'}} xs={12} sm={7} md={7} lg={7} xl={7} >
-							<div style={{display :'flex', width:'100%'}}>
-								<div className={classes.MarginL6} style={{display: 'flex' ,flexDirection: 'column'}}>
-									<span className={classes.Display8} style={{paddingLeft: '0px'}}>{t('resources')}</span>
-									<a href='' className={classes.Display9}>Conditions</a>
-									<a href='' className={classes.Display9}>Privacy Policy</a>
-									<a href='' className={classes.Display9}>People</a>
+				<Container style={{maxWidth:'100vw',paddingLeft:'0px',paddingRight:'0px'}}>
+					<Grid xs={12} item className={classes.footer + ' ' + classes.PaddingB3+' '+classes.PaddingL6+' '+classes.PaddingR6} container>
+						<Grid className={classes.MarginT3} container item style={{color: 'white',flexGrow:'0'}} xs={12} sm={true} >
+							<Grid item xs={12} style={{display: 'flex', justifyContent:'center',alignItems:'center'}}>
+								<div style={{display: 'flex',alignItems:'center'}}>
+									<img src={bot} className={classes.botimg} />
+									<a className={classes.DisplaySeBold11s}  style={{textTransform:'normal',whiteSpace:'nowrap'}}>SparkLink Telegram Bot</a>
 								</div>
-								<div style={{flex:'1'}} />
+							</Grid>
+							<Grid item xs={12} className={classes.btnRoundGroup}  style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
+								<a className={classes.btnImgRound} href='https://twitter.com/SparkLink_io'><img className={classes.btnImg} src={logoTwi} /></a>
+								<a className={classes.btnImgRound} href='https://t.co/lh0TzLZdEo?amp=1' ><img className={classes.btnImg} src={logoDis} /></a>
+								<a className={classes.btnImgRound} href='https://github.com/SparkNFT' ><img className={classes.btnImg} src={logoGit} /></a>
+								<a className={classes.btnImgRound} href='' ><img className={classes.btnImg} src={logoIns} /></a>
+								<a className={classes.btnImgRound} href='https://t.me/SparkLink_io' ><img className={classes.btnImg} src={logoTele} /></a>
+							</Grid>
+						</Grid>
+						<Divider className={classes.MarginL6+' '+classes.MarginT3+' '+classes.driver}  orientation="vertical" variant="middle" flexItem style={{backgroundColor:'rgba(254, 248, 248, 0.42)'}} />
+						<Grid item className={classes.MarginT3} direction='column' container style={{color: 'white' }} xs={12} sm={true} >
+							<div style={{display :'flex'}}>
+								<div className={classes.MarginL7+' '+classes.MarginR3} style={{display: 'flex' ,flexDirection: 'column'}}>
+									<span className={classes.DisplaySeBold11} style={{paddingLeft: '0px'}}>{t('resources')}</span>
+									<a href='' className={classes.DisplayLight12s}>Conditions</a>
+									<a href='' className={classes.DisplayLight12s}>Privacy Policy</a>
+									<a href='' className={classes.DisplayLight12s}>People</a>
+								</div>
 								<div style={{display: 'flex' ,flexDirection: 'column'}}>
-									<span className={classes.Display8} style={{paddingLeft: '0px'}}>{t('market')}</span>
-									<a href='https://sparklink.io/#/buy' className={classes.Display9}>SparkLink-Market</a>
-									<a href='https://opensea.io/' className={classes.Display9}>OpenSea</a>
-								</div>
-								<div style={{flex:'1'}} />
-								<div style={{flex:'1'}} />
-							</div>
-						</Grid>
-						<Grid direction="column" container item style={{color: 'white' ,paddingTop: '5vw'}} xs={12} sm={5} md={5} lg={5} xl={5} >
-							<div style={{display: 'flex', justifyContent:'center',alignItems:'center'}}>
-								
-								<div>
-									<Button style={{ lineHeight :'200%'}} className={classes.btn}>
-										<img src={bot} className={classes.botimg} />
-										<span style={{textTransform:'normal'}}>SparkLink Telegram Bot</span>
-									</Button>
+									<span className={classes.DisplaySeBold11} style={{paddingLeft: '0px'}}>{t('market')}</span>
+									<a href='https://sparklink.io/#/buy' className={classes.DisplayLight12s}>SparkLink-Market</a>
+									<a href='https://opensea.io/' className={classes.DisplayLight12s}>OpenSea</a>
 								</div>
 							</div>
-
-							
 						</Grid>
-					</Grid>
-					<Divider style={{backgroundColor:'rgba(254, 248, 248, 0.12)'}} />
-					<Grid container style={{backgroundColor:'#878787',flexDirection:'row'}}  className={classes.MarginT6+' '+classes.MarginB6} >
-				 		<Grid item xs={12} sm={9} className={classes.PaddingL6} style={{display:'flex',alignItems:'center'}}>
-							<a style={{marginLeft:0}} className={classes.btnImgRound} href='https://twitter.com/SparkLink_io'><img className={classes.btnImg} src={logoTwi} /></a>
-							<a className={classes.btnImgRound} href='https://t.co/lh0TzLZdEo?amp=1' ><img className={classes.btnImg} src={logoDis} /></a>
-							<a className={classes.btnImgRound} href='https://github.com/SparkNFT' ><img className={classes.btnImg} src={logoGit} /></a>
-							<a className={classes.btnImgRound} href='' ><img className={classes.btnImg} src={logoIns} /></a>
-							<a className={classes.btnImgRound} href='https://t.me/SparkLink_io' ><img className={classes.btnImg} src={logoTele} /></a>
+						<div style={{flex:'1'}}></div>
+						<Grid item xs={12} className={classes.MarginT3} sm={true} style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
+							<a className={classes.DisplaySeBold8}> Need Help? </a><img src={help} className={classes.helpimg} />
 						</Grid>
-						<Grid  item xs={12} sm={3}>
-							<a  style={{display:'flex',justifyContent:'flex-end'}} className={classes.helpimga} href='https://docs.sparklink.io/product/chan-pin'>
-								<img src={help} className={classes.helpimg} />
-							</a>
-						</Grid>
+						
 					</Grid>
-					<Divider style={{backgroundColor:'rgba(254, 248, 248, 0.12)'}} />      
-					<Grid container style={{backgroundColor:'#878787',flexDirection:'row'}}  >
-						<img src={fullLogo} className={classes.logo+' '+classes.MarginT6+' '+classes.MarginB6+' '+classes.MarginL6}></img>
-					</Grid>
+					
 				</Container>         
 			</div>
 		)

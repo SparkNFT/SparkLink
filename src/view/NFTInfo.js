@@ -23,14 +23,15 @@ import { Progress, Spin, message } from 'antd'
 import axios from 'axios'
 import web3 from '../utils/web3'
 import config from '../global/config'
-import { TOKENPOCKET, METAMASK, LASTCONNECT, MATHWALLET } from '../global/globalsString'
+import { LASTCONNECT } from '../global/globalsString'
 import { withTranslation } from 'react-i18next'
 import withCommon from '../styles/common'
 import Footer from '../components/Footer'
+import {getWalletAccount } from '../utils/getWalletAccountandChainID'
 const { gateway, backend } = config
 
-const mathwallet = require('math-js-sdk');
-const tp = require('tp-js-sdk')
+// const mathwallet = require('math-js-sdk');
+// const tp = require('tp-js-sdk')
 const FileSaver = require('file-saver')
 const CryptoJS = require('crypto-js')
 const abi = require('erc-20-abi')
@@ -115,7 +116,25 @@ const styles = (theme) => ({
 	},
 	content2: {
 		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
-		marginLeft:15,
+		
+		[theme.breakpoints.between('xs', 'sm')]: {
+			marginLeft:15,
+		},
+		[theme.breakpoints.between('sm', 'md')]: {
+			marginLeft:25,
+		},
+		[theme.breakpoints.between('md', 'lg')]: {
+			marginLeft:45,
+		},
+		[theme.breakpoints.between('lg', 'xl')]: {
+			marginLeft:55,
+		},
+		[theme.breakpoints.up('xl')]: {
+			marginLeft:75,
+		},
+		['@media (min-width:3200px)']: {
+			marginLeft:140,
+		},
 	},
 	cbutton2: {
 		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
@@ -179,18 +198,18 @@ class NFTInfo extends Component {
 			return
 		}
 
-		const chainId = await window.ethereum.request({ method: 'eth_chainId' })
-		if (chainId !== '0x89') {
-			alert(t('请切换至Polygon 主网络'))
-			await window.ethereum.request({
-				method: 'wallet_switchEthereumChain',
-				params: [
-					{
-						chainId: '0x89',
-					},
-				],
-			})
-		}
+		// const chainId = await window.ethereum.request({ method: 'eth_chainId' })
+		// if (chainId !== '0x89') {
+		// 	alert(t('请切换至Polygon 主网络'))
+		// 	await window.ethereum.request({
+		// 		method: 'wallet_switchEthereumChain',
+		// 		params: [
+		// 			{
+		// 				chainId: '0x89',
+		// 			},
+		// 		],
+		// 	})
+		// }
 
 		const price = await contract.methods.getShillPriceByNFTId(this.props.match.params.id).call()
 		const owner = await contract.methods.ownerOf(this.props.match.params.id).call()
@@ -213,27 +232,28 @@ class NFTInfo extends Component {
 		// 		})
 		// 	}
 		// }
-		var account = null;
-		var value, accounts;
-		const lastConnect = localStorage.getItem(LASTCONNECT);
-		switch (lastConnect) {
-		case TOKENPOCKET:
-			value = await tp.getCurrentWallet()
-			account = value.data.address;
-			break;
-		case MATHWALLET:
-			value = await mathwallet.getCurrentWallet()
-			account = value.address;
-			break;
-		case METAMASK:
-			accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
-			account = accounts[0];
-			break;
-		default:
-			// accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
-			// account = accounts[0];
-			break;
-		}
+		const account = await getWalletAccount()
+		// var account = null;
+		// var value, accounts;
+		// const lastConnect = localStorage.getItem(LASTCONNECT);
+		// switch (lastConnect) {
+		// case TOKENPOCKET:
+		// 	value = await tp.getCurrentWallet()
+		// 	account = value.data.address;
+		// 	break;
+		// case MATHWALLET:
+		// 	value = await mathwallet.getCurrentWallet()
+		// 	account = value.address;
+		// 	break;
+		// case METAMASK:
+		// 	accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+		// 	account = accounts[0];
+		// 	break;
+		// default:
+		// 	// accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+		// 	// account = accounts[0];
+		// 	break;
+		// }
 		if (account === null) {
 			alert(t('请先连接钱包'))
 			window.location.href = '/#/';
@@ -253,7 +273,7 @@ class NFTInfo extends Component {
 			})
 			window.location.href = '/#/'
 		}
-
+		console.log(this.props.match.params.id)
 		const token_addr = await contract.methods.getTokenAddrByNFTId(this.props.match.params.id).call()
 		const res = await contract.methods.getProfitByNFTId(this.props.match.params.id).call()
 		if (token_addr == '0x0000000000000000000000000000000000000000') {
@@ -283,10 +303,10 @@ class NFTInfo extends Component {
 			})
 		}
 		const meta = await contract.methods.tokenURI(this.props.match.params.id).call()
+		console.log('meta',meta)
 		// https://coldcdn.com/api/cdn/v5ynur/ipfs/QmV7s3xrtwxfBa7VDcqHGFKcSjKdLZL7offiC31yM2NSqz
 		let hash = meta.split('/')
-		const issue = await contract.methods.getIssueIdByNFTId(this.props.match.params.id).call()
-		const royalty = await contract.methods.getRoyaltyFeeByIssueId(issue).call()
+		const royalty = await contract.methods.getRoyaltyFeeByNFTId(this.props.match.params.id).call()
 		let file_hash = hash[hash.length - 1]
 		let request_url = 'https://coldcdn.com/api/cdn/v5ynur/ipfs/' + file_hash
 
@@ -344,7 +364,10 @@ class NFTInfo extends Component {
 			this.setState({ dataUrl: 'fileAddr_PlaceHolder', loadItem: false })
 		}
 
-		const leafUrl = backend + '/api/v1/nft/info?nft_id=' + this.props.match.params.id
+		//多链
+		// const chainName = await getChainName()
+		// const leafUrl = backend + '/api/v1/nft/info?nft_id=' + this.props.match.params.id + '&chain=' + chainName;
+		const leafUrl = backend + '/api/v1/nft/info?nft_id=' + this.props.match.params.id;
 		axios
 			.get(leafUrl)
 			.then((res) => {
@@ -765,7 +788,7 @@ class NFTInfo extends Component {
 												</Paper >
 											</Grid >
 
-											<Grid item xs={10} sm={6} md={6} lg={6} className={classes.content2 +' ' +classes.PaddingL2}>
+											<Grid item xs={10} sm={6} md={6} lg={6} className={classes.content2 +' ' +classes.PaddingT9}>
 												<Typography
 													color="inherit"
 													align="left"

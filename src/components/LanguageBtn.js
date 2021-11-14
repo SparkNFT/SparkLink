@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import MenuItem from '@material-ui/core/MenuItem'
-import Button from '@material-ui/core/Button'
 import Menu from '@material-ui/core/Menu'
+import { Button } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { reactLocalStorage } from 'reactjs-localstorage'
 import i18next from 'i18next'
 import { withStyles } from '@material-ui/styles'
 import withCommon from '../styles/common'
-
+import LanguageIcon from '@material-ui/icons/Language';
+import IconButton from '@material-ui/core/IconButton';
 const tokenId = 'multilanguage_demo'
 const options = ['EN', '中文']
 const lngOptions = ['en', 'zh']
@@ -38,9 +39,9 @@ function LanguageBtn({ classes }) {
 
 	return (
 		<>
-			<Button className={classes.btnTopBarMenu+' '+classes.MarginR8} aria-haspopup="true"  onClick={handleClick}>
-				<span>{options[selectedIndex].toUpperCase()}</span>
-			</Button>
+			<IconButton className={classes.btnLan+' '+classes.MarginR10} aria-haspopup="true"  onClick={handleClick}>
+				<LanguageIcon style={{fontSize:'inherit'}} />
+			</IconButton>
 			<Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
 				{options.map((option, index) => (
 					<MenuItem key={option} selected={index === selectedIndex} onClick={handleCloseProfile(index)} value={index}>
@@ -56,7 +57,25 @@ function LanguageBtn({ classes }) {
 LanguageBtn.propTypes = {
 	classes: PropTypes.object,
 }
-let style = ()=>({
-
+let style = (theme)=>({
+	btnLan:{
+		padding:'0',
+		color:'white',
+		[theme.breakpoints.between('xs', 'sm')]: {
+			fontSize: 26,
+		},
+		[theme.breakpoints.between('sm', 'md')]: {
+			fontSize: 26,
+		},
+		[theme.breakpoints.between('md', 'xl')]: {
+			fontSize: 28,
+		},
+		[theme.breakpoints.up('xl')]: {
+			fontSize: 36,
+		},
+		['@media (min-width:3200px)']: {
+			fontSize: 72,
+		},
+	}
 });
 export default withStyles(withCommon(style))(LanguageBtn)

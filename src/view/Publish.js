@@ -6,7 +6,7 @@ import { blue } from '@material-ui/core/colors'
 import Typography from '@material-ui/core/Typography'
 import Container from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid'
-import { message } from 'antd'
+import { message, Checkbox } from 'antd'
 import { InboxOutlined } from '@ant-design/icons'
 import Dragger from 'antd/lib/upload/Dragger'
 import { CloudUploadOutlined } from '@ant-design/icons'
@@ -18,13 +18,15 @@ import axios from 'axios'
 import contract from '../utils/contract'
 import web3 from '../utils/web3'
 import Paper from '@material-ui/core/Paper'
-import * as tokens from '../global/tokens_list.json'
+import * as tokens_matic from '../global/tokens_list_matic.json'
+import * as tokens_bsc from '../global/tokens_list_bsc.json'
+import * as tokens_eth from '../global/tokens_list_eth.json'
 import { withTranslation } from 'react-i18next'
 //import { TOKENPOCKET, METAMASK, LASTCONNECT, MATHWALLET } from '../global/globalsString'
 import withCommon from '../styles/common'
 import Footer from '../components/Footer'
 import { generateZipFile } from '../utils/zipFile.js'
-import getWalletAccount from '../utils/getWalletAccount'
+import { getWalletAccount } from '../utils/getWalletAccountandChainID'
 
 // const mathwallet = require('math-js-sdk');
 // const tp = require('tp-js-sdk');
@@ -68,23 +70,23 @@ const styles = (theme) => ({
 	},
 	paperImg: {
 		backgroundColor: '#EFEBE9',
-		inherit:'PaddingL5,PaddingR5,PaddingT5,PaddingB5'
+		inherit: 'PaddingL5,PaddingR5,PaddingT5,PaddingB5'
 	},
-	coverImg:{
+	coverImg: {
 		[theme.breakpoints.between('xs', 'sm')]: {
-			width:'80vw'
+			width: '80vw'
 		},
 		[theme.breakpoints.between('sm', 'md')]: {
-			width:'30vw'
+			width: '30vw'
 		},
 		[theme.breakpoints.between('md', 'lg')]: {
-			width:'30vw'
+			width: '30vw'
 		},
 		[theme.breakpoints.between('lg', 'xl')]: {
-			width:'30vw'
+			width: '30vw'
 		},
 		[theme.breakpoints.up('xl')]: {
-			width:'30vw'
+			width: '30vw'
 		},
 	},
 	titlePub: {
@@ -151,6 +153,13 @@ const styles = (theme) => ({
 			height: 100
 		}
 	},
+	btnMini:{
+		inherit:'MarginT10'
+	},
+	Display9:{
+		inherit: 'MarginT9,DisplaySeBold9'
+
+	}
 })
 
 class Publish extends Component {
@@ -173,11 +182,35 @@ class Publish extends Component {
 		coverURL: '',
 		data: [],
 		token_addr: null,
-		token_symbol: 'MATIC',
+		token_symbol: '',
 		decimal: 0,
 		fileList: [],
+		isNC: true,
+		isND: true,
 		uploadBtnDisable: false,
 		submitBtnDisable: true,
+	}
+	UNSAFE_componentWillMount() {
+		switch (localStorage.getItem('chainId')) {
+		case '0x89':
+			this.tokens = tokens_matic;
+			this.setState({
+				token_symbol: 'MATIC',
+			})
+			break;
+		case '0x38':
+			this.tokens = tokens_bsc;
+			this.setState({
+				token_symbol: 'BNB',
+			})
+			break;
+		default:
+			this.tokens = tokens_eth;
+			this.setState({
+				token_symbol: 'ETH',
+			})
+			break;
+		}
 	}
 
 	async componentDidMount() {
@@ -187,19 +220,22 @@ class Publish extends Component {
 			window.location.href = '/#/introPublish'
 			return
 		}
+
+
+
 		// const chainId = await window.ethereum.request({ method: 'eth_chainId' })
-		const chainId = await window.ethereum.request({ method: 'eth_chainId' })
-		if (chainId !== '0x89') {
-			alert(t('please_set_polygon'))
-			await window.ethereum.request({
-				method: 'wallet_switchEthereumChain',
-				params: [
-					{
-						chainId: '0x89',
-					},
-				],
-			})
-		}
+		// const chainId = await window.ethereum.request({ method: 'eth_chainId' })
+		// if (chainId !== '0x89') {
+		// 	alert(t('please_set_polygon'))
+		// 	await window.ethereum.request({
+		// 		method: 'wallet_switchEthereumChain',
+		// 		params: [
+		// 			{
+		// 				chainId: '0x89',
+		// 			},
+		// 		],
+		// 	})
+		// }
 	}
 
 	handleGetPubName = (event) => {
@@ -235,7 +271,9 @@ class Publish extends Component {
 	handleSearch = async (value) => {
 		if (value) {
 			let values = value.toLowerCase()
-			let tokens_list = tokens.tokens
+			let tokens_list = this.tokens.default.tokens
+			console.log(this.tokens)
+			console.log(tokens_list)
 			let matched_data = []
 			let reg = new RegExp(values)
 			for (let token of tokens_list) {
@@ -267,7 +305,7 @@ class Publish extends Component {
 
 	handleSelectChange = async (value) => {
 		const { t } = this.props
-		let tokens_list = tokens.tokens
+		let tokens_list = this.tokens.default.tokens
 		let address
 		let token_symbol
 		let token_decimal
@@ -385,7 +423,9 @@ class Publish extends Component {
 							this.state.bonusFee,
 							this.state.shareTimes,
 							ipfsToContract,
-							this.state.token_addr
+							this.state.token_addr,
+							this.state.isNC,
+							this.state.isND,
 						)
 						.send({
 							from: this.state.userAccount,
@@ -523,6 +563,21 @@ class Publish extends Component {
 			message.error('上传文件不能为空！')
 		}
 
+	}
+	onCheckBoxChange(e) {
+		console.log(`checked = ${e.target.checked}`);
+		switch (e.target.id) {
+		case 'isNC':
+			this.setState({
+				isNC: e.target.checked,
+			});
+			break;
+		case 'isND':
+			this.setState({
+				isND: e.target.checked,
+			})
+			break;
+		}
 	}
 
 	render() {
@@ -666,20 +721,20 @@ class Publish extends Component {
 					<ThemeProvider theme={theme}>
 						<TopBar />
 						<div style={{ textAlign: 'center' }}>
-							<Typography className={classes.titleCon+' '+classes.MarginB5}>
+							<Typography className={classes.titleCon + ' ' + classes.MarginB5}>
 								<b>{t('pulish_success')}</b>
 							</Typography>
-							<div style={{display:'flex',justifyContent:'center'}}>
+							<div style={{ display: 'flex', justifyContent: 'center' }}>
 								<Paper className={classes.paperImg}>
 									<img className={classes.coverImg} src={this.state.coverURL}></img>
 								</Paper>
 							</div>
-							<Typography className={classes.Display9+' '+classes.MarginT10}>
+							<Typography className={classes.Display9 + ' ' + classes.MarginT10}>
 								{t('you_gain_nft')} #{this.state.rootNFTId}
 							</Typography>
 
 							<Button
-								className={classes.btn + ' ' +classes.MarginB5}
+								className={classes.btn + ' ' + classes.MarginB5}
 								onClick={this.checkDetail}
 							>
 								{t('show_detail')}
@@ -782,13 +837,23 @@ class Publish extends Component {
 										</Grid>
 										<Grid item style={{ width: '100%' }}>
 											<label className={classes.Display9}>
+												{'is_NC & is_ND'} <span style={{ color: 'red' }}>*</span>
+											</label>
+											<br />
+											{/* <p className={classes.Display11}>{'is_NC & is_ND'}</p> */}
+											<Checkbox id='isNC' defaultChecked onChange={this.onCheckBoxChange}>is_NC</Checkbox>
+											<Checkbox id='isND' defaultChecked onChange={this.onCheckBoxChange}>is_ND</Checkbox>
+										</Grid>
+
+										<Grid item style={{ width: '100%' }}>
+											<label className={classes.Display9}>
 												{t('art_desc')} <span style={{ color: 'red' }}>*</span>
 											</label>
 											<p className={classes.Display11}>{t('art_desc_tip')}</p>
 											<TextArea rows={6} id="Description" onChange={this.handleGetDescription} />
 										</Grid>
 									</Grid>
-									<label className={classes.Display9}>
+									<label className={classes.Display9+' '+classes.MarginT10}>
 										{t('pic_cover')} <span style={{ color: 'red' }}>*</span>
 									</label>
 									<p className={classes.Display11}>{t('pic_cover_tip')}</p>
@@ -800,7 +865,7 @@ class Publish extends Component {
 										<p className={classes.Display11}>{t('upload_file_tip2')}</p>
 									</Dragger>
 
-									<label className={classes.Display9}>
+									<label className={classes.Display9+' '+classes.MarginT10}>
 										{t('art_file')} <span style={{ color: 'red' }}>*</span>
 									</label>
 									<p className={classes.Display11}> {t('art_file_tip')}</p>
@@ -813,7 +878,7 @@ class Publish extends Component {
 									</Dragger>
 									<Button
 										variant="contained"
-										className={classes.btn}
+										className={classes.btnMini}
 										disabled={this.state.uploadBtnDisable}
 
 										style={{
@@ -826,7 +891,7 @@ class Publish extends Component {
 									</Button>
 								</form>
 								<Button
-									disabled ={this.state.submitBtnDisable}
+									disabled={this.state.submitBtnDisable}
 									className={classes.btn}
 									startIcon={<CloudUploadOutlined />}
 									onClick={this.submit}
