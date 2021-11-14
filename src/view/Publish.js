@@ -893,7 +893,7 @@ class Publish extends Component {
 								<Button
 									disabled={this.state.submitBtnDisable}
 									className={classes.btn}
-									startIcon={<CloudUploadOutlined />}
+									startIcon={<CloudUploadOutlined style={{fontSize:'100%'}} />}
 									onClick={this.submit}
 								>
 									{t('submit')}
