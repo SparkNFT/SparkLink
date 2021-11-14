@@ -327,6 +327,7 @@ class TopBar extends Component {
 	}
 	// eslint-disable-next-line react/no-deprecated
 	async componentDidMount() {
+		
 		this.scrollEvent()
 		if (this.props.onRef) {
 			this.props.onRef(this)
@@ -349,6 +350,10 @@ class TopBar extends Component {
 			}
 		}
 		console.log('lastconnect:  ' + lastConnect)
+		if(localStorage.getItem('hasSetHttpProvider')=='true'){
+			web3.setProvider(window.ethereum);
+			localStorage.setItem('hasSetHttpProvider','false')
+		}
 		switch (lastConnect) {
 		case METAMASK:
 			this.checkMetaMask();

@@ -3479,7 +3479,16 @@ let styleCommon = (theme) => {
 		},
 		btnImgRound:{
 			display:'flex',
-			justifyContent:'center'
+			justifyContent:'center',
+			[theme.breakpoints.between('xs', 'sm')]: {
+				width:'36px',
+			},
+			[theme.breakpoints.up('xl')]: {
+				width:'48px',
+			},
+			['@media (min-width:3200px)']: {
+				width:'96px',
+			},
 		}
 
 	}
