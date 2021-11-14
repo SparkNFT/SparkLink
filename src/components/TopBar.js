@@ -713,7 +713,8 @@ class TopBar extends Component {
 		const fixStyle = isFixed ? { position: 'fixed', top: 0, zIndex: 9, boxShadow: 'rgb(255, 189, 164) 0px 1px 4px' } : {}
 		const fixStyleBlank = isFixed ? { display: 'block', width: '100vw', height: this.state.topbarHeight, maxWidth: '100vw' } : { display: 'none', maxWidth: '100vw' }
 		const menuStyle = (window.innerWidth <= 1000) ? { display: 'block' } : { display: 'none' }
-		const logoImg = (this.state.chainName == 'BSC')?(logoBSC):(((this.state.chainName == 'ETH')?(logoETH):(logoMatic)))
+		const chainId = localStorage.getItem('chainId')
+		const logoImg = (chainId == '0x38')?(logoBSC):(((chainId == '0x1')?(logoETH):(logoMatic)))
 		let open = false;
 		if (this.state.anchorEl) {
 			open = Boolean(this.state.anchorEl)
