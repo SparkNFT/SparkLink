@@ -620,6 +620,7 @@ class NFTInfo extends Component {
 									str={this.state.price}
 									share={toUrl}
 									env={lastConnect}
+									name={this.state.Name}
 								/>
 							</MaskLayer>
 						) : null}
