@@ -28,6 +28,8 @@ import { withTranslation } from 'react-i18next'
 import withCommon from '../styles/common'
 import Footer from '../components/Footer'
 import {getWalletAccount } from '../utils/getWalletAccountandChainID'
+import {getChainNameByChainId} from '../utils/getWalletAccountandChainID'
+
 const { gateway, backend } = config
 
 // const mathwallet = require('math-js-sdk');
@@ -277,14 +279,16 @@ class NFTInfo extends Component {
 		const token_addr = await contract.methods.getTokenAddrByNFTId(this.props.match.params.id).call()
 		const res = await contract.methods.getProfitByNFTId(this.props.match.params.id).call()
 		if (token_addr == '0x0000000000000000000000000000000000000000') {
+			const chainId = localStorage.getItem('chainId')
+			const name = getChainNameByChainId(chainId)
 			let price_with_decimal = res / 10 ** 18
-			let profit = price_with_decimal + ' MATIC'
+			let profit = price_with_decimal + ' ' + name
 			let price_poster = price / 10 ** 18
-			price_poster = price_poster + ' MATIC'
+			price_poster = price_poster + ' ' + name
 			this.setState({
 				price: price_poster,
 				tokenAddr: '0x0000000000000000000000000000000000000000',
-				tokenSymbol: 'MATIC',
+				tokenSymbol: name,
 				Profit: profit,
 			})
 		} else {
@@ -626,6 +630,7 @@ class NFTInfo extends Component {
 		const url = window.location.host
 		const toUrl = 'https://' + url + '/#/NFT/Spark/' + this.props.match.params.id
 		const lastConnect = localStorage.getItem(LASTCONNECT);
+		
 		const sell_info = () => {
 			// let share = '分享复制链接：' + toUrl
 			// this.state.onSale
@@ -642,7 +647,7 @@ class NFTInfo extends Component {
 									coverImg={coverRef.src}
 									str={this.state.price}
 									share={toUrl}
-									env={lastConnect}
+									env={lastConnect+' '+this.state.tokenSymbol}
 									name={this.state.Name}
 								/>
 							</MaskLayer>

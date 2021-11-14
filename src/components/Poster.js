@@ -2,7 +2,9 @@ import React, { useRef } from 'react';
 import zhBg from '../imgs/poster_zh.png'
 import enBg from '../imgs/poster_en.png'
 import loading from '../imgs/imgloading.png';
-import matic from '../imgs/matic.png';
+import logoETH from '../imgs/chainLogo/ETH.png'
+import logoBSC from '../imgs/chainLogo/BSC.png'
+import logoMatic from '../imgs/chainLogo/matic.png'
 import error from '../imgs/error.png';
 import list from '../imgs/assets/info.json';
 import QRCode from 'qrcode';
@@ -85,13 +87,23 @@ const Poster = (props) => {
 	
 	const [canvas, ctx] = initCanvas()
 	const { str, addr, share, coverImg, env, name } = props;
+	const splited = env.split(' ')
+	const wallet = splited[0]
+	const chain = splited[1]
 	console.log(name.length)
 	let tokenUrl = 'https://raw.githubusercontent.com/TP-Lab/tokens/master/bsc/' + addr + '/logo.png'
 	if(addr === '0x0000000000000000000000000000000000000000'){
-		tokenUrl = matic
+		if(chain == 'matic'){
+			tokenUrl = logoMatic
+		}
+		if(chain == 'eth'){
+			tokenUrl = logoETH
+		}
+		if(chain == 'bsc'){
+			tokenUrl = logoBSC
+		}
 	} else if(list.indexOf(addr) !== -1){
 		tokenUrl = require(`../imgs/assets/${addr}/logo.png`).default
-		console.log(matic);
 	}
 	let bgImg
 	const lng = i18next.language
@@ -191,7 +203,7 @@ const Poster = (props) => {
 		a.download = 'poster.png'
 		a.href = url
 		a.dispatchEvent(e)
-		if(env === 'TokenPocket'){
+		if(wallet === 'TokenPocket'){
 			tp.saveImage(url)
 		}
 	}
@@ -210,7 +222,8 @@ const Poster = (props) => {
 						borderColor: '#FF774A',
 						borderWidth: 2,
 						borderStyle:'solid',
-						borderRadius: '100vw'
+						borderRadius: '100vw',
+						display: 'none'
 					}}
 					onClick={save} >
 					Save
