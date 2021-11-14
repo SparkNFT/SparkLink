@@ -22,6 +22,11 @@ import withCommon from '../styles/common.js'
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { message } from 'antd'
+import { getChainId, getChainIdByChainName, getChainName, switchChain } from '../utils/getWalletAccountandChainID'
+import logoETH from '../imgs/chainLogo/ETH.png'
+import logoBSC from '../imgs/chainLogo/BSC.png'
+import logoMatic from '../imgs/chainLogo/matic.png'
+import { IconButton } from '@material-ui/core'
 //import WalletBtn from './WalletBtn'
 
 //TP钱包支持
@@ -53,26 +58,26 @@ const mathwallet = require('math-js-sdk');
 
 //todo theme传参无用
 const styles = (theme) => ({
-	btngroup:{
+	btngroup: {
 		display: 'flex',
 		[theme.breakpoints.down('sm')]: {
 			display: 'none'
 		},
-		['@media (min-width:600px) and (max-width:1279.95px) and (min-height:768px) and (max-height:1024px)']:{
+		['@media (min-width:600px) and (max-width:1279.95px) and (min-height:768px) and (max-height:1024px)']: {
 			display: 'none'
 		}
 
 	},
-	noPadding:{
+	noPadding: {
 		paddingLeft: 0,
 		paddingRight: 0
 
 	},
 	Toolbar: {
-		backgroundColor:'rgb(255,137,106)',
-		maxWidth:'100vw',
-		overflow:'hidden',
-		minHeight:'0px',
+		backgroundColor: '#EF8F71',
+		maxWidth: '100vw',
+		overflow: 'hidden',
+		minHeight: '0px',
 	},
 	icon: {
 		[theme.breakpoints.down('xl')]: {
@@ -85,7 +90,7 @@ const styles = (theme) => ({
 	titleGrid: {
 		display: 'flex',
 		alignItems: 'center',
-		width:'100vw',
+		width: '100vw',
 	},
 	titleToken: {
 		fontSize: 22,
@@ -110,7 +115,7 @@ const styles = (theme) => ({
 		minWidth: 100,
 		fontSize: 25,
 		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
-		inherit:'Display7,MarginL7,MarginT7,MarginB10,MarginR7'
+		inherit: 'Display7,MarginL7,MarginT7,MarginB10,MarginR7'
 	},
 
 	btnGrid: {
@@ -148,43 +153,43 @@ const styles = (theme) => ({
 		borderColor: '#FFFFFF',
 		borderWidth: 2,
 		borderRadius: '100vw',
-		inherit:'MarginL8',
+		inherit: 'MarginL8',
 		paddingTop: 10,
 		paddingBottom: 0,
-		'&:hover':{
-			color:'rgb(255,112,67)',
-			backgroundColor:'transparent'
+		'&:hover': {
+			color: 'rgb(255,112,67)',
+			backgroundColor: 'transparent'
 		},
-		'&:active':{
-			color:'#fafafa'
+		'&:active': {
+			color: '#fafafa'
 		},
-		'&:focus':{
-			color:'#fafafa'
+		'&:focus': {
+			color: '#fafafa'
 		},
 		[theme.breakpoints.between('xs', 'sm')]: {
 			fontSize: 12,
-			paddingRight:6
+			paddingRight: 6
 		},
 		[theme.breakpoints.between('sm', 'md')]: {
 			fontSize: 14,
-			paddingRight:7
+			paddingRight: 7
 		},
 		[theme.breakpoints.between('md', 'xl')]: {
 			fontSize: 18,
-			paddingRight:9
+			paddingRight: 9
 		},
 		[theme.breakpoints.up('xl')]: {
 			fontSize: 24,
-			paddingRight:12
+			paddingRight: 20
 		},
 		['@media (min-width:3200px)']: {
 			fontSize: 40,
-			paddingRight:20
+			paddingRight: 40
 		},
 	},
-	btnColor3:{
-		paddingTop:0,
-		paddingBottom:0
+	btnColor3: {
+		paddingTop: 0,
+		paddingBottom: 0
 	},
 	logo: {
 		marginRight: 24,
@@ -192,19 +197,19 @@ const styles = (theme) => ({
 		content: 'url(' + fullLogo + ')',
 		height: 'auto',
 		[theme.breakpoints.between('sm', 'md')]: {
-			height:'25px',
+			height: '25px',
 		},
 		[theme.breakpoints.between('md', 'lg')]: {
-			height:'30px',
+			height: '30px',
 		},
 		[theme.breakpoints.between('lg', 'xl')]: {
-			height:'40px',
+			height: '40px',
 		},
 		[theme.breakpoints.up('xl')]: {
-			height:'60px',
+			height: '60px',
 		},
-		['@media (min-width:3200px)']:{
-			height:'80px',
+		['@media (min-width:3200px)']: {
+			height: '80px',
 		},
 		[theme.breakpoints.down('sm')]: {
 			width: '30px',
@@ -212,8 +217,8 @@ const styles = (theme) => ({
 			content: 'url(' + sLogo + ')'
 		},
 	},
-	btnWallet:{
-		inherit:'MarginL9,MarginR9',
+	btnWallet: {
+		inherit: 'MarginL9,MarginR9',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			width: 100,
 		},
@@ -230,8 +235,25 @@ const styles = (theme) => ({
 			width: 280,
 		},
 	},
-	btnBox:{
-		inherit:'PaddingL7,PaddingT7,PaddingB7,PaddingR7'
+	btnBox: {
+		inherit: 'PaddingL7,PaddingT7,PaddingB7,PaddingR7'
+	},
+	chainLogo:{
+		[theme.breakpoints.between('xs', 'sm')]: {
+			width: 26,
+		},
+		[theme.breakpoints.between('sm', 'md')]: {
+			width: 26,
+		},
+		[theme.breakpoints.between('md', 'xl')]: {
+			width: 28,
+		},
+		[theme.breakpoints.up('xl')]: {
+			width: 36,
+		},
+		['@media (min-width:3200px)']: {
+			width: 72,
+		},
 	}
 })
 
@@ -248,9 +270,12 @@ class TopBar extends Component {
 		anchorEl: null,
 		walletMenuDisplay: false,
 		walletAnchorEl: null,
+		networkMenuDisplay: false,
+		networkMenuAnchorEl: null,
+		chainName: '',
 	}
 	onScroll() {
-		if(this.state.topbarHeight == 0){
+		if (this.state.topbarHeight == 0) {
 			this.setState({
 				topbarHeight: document.getElementById('topbar').offsetHeight
 			})
@@ -263,9 +288,9 @@ class TopBar extends Component {
 				document.documentElement.scrollTop,
 				window.pageYOffset
 			);
-			if ((scrollTop > fixedTop)&&(!this.state.isFixed)) {
+			if ((scrollTop > fixedTop) && (!this.state.isFixed)) {
 				this.setState({ isFixed: true });
-			} else if ((scrollTop <= fixedTop)&&(this.state.isFixed)) {
+			} else if ((scrollTop <= fixedTop) && (this.state.isFixed)) {
 				this.setState({ isFixed: false });
 			}
 		};
@@ -275,12 +300,12 @@ class TopBar extends Component {
 				document.documentElement.scrollTop,
 				window.pageYOffset
 			);
-			if ((scrollTop > fixedTop)&&(!this.state.isFixed)) {
+			if ((scrollTop > fixedTop) && (!this.state.isFixed)) {
 				this.setState({
 					isFixed: true,
 					isPCFixed: true
 				});
-			} else if ((scrollTop <= fixedTop)&&(this.state.isFixed)) {
+			} else if ((scrollTop <= fixedTop) && (this.state.isFixed)) {
 				this.setState({
 					isFixed: false,
 					isPCFixed: false
@@ -295,7 +320,7 @@ class TopBar extends Component {
 	scrollEvent() {
 		window.addEventListener('scroll', this.onScroll);
 	}
-	componentWillUnmount(){
+	componentWillUnmount() {
 		window.removeEventListener('scroll', this.onScroll);
 		clearTimeout(this.onScroll);
 		clearTimeout(this.scrollEvent);
@@ -307,7 +332,22 @@ class TopBar extends Component {
 			this.props.onRef(this)
 		}
 		//todo 从本地获取登陆状态（登陆记录）
-		let lastConnect = localStorage.getItem(LASTCONNECT)
+		const lastConnect = localStorage.getItem(LASTCONNECT)
+		if (lastConnect) {
+			const chainId = await getChainId();
+			const chainName = await getChainName();
+			//console.log(chainName);
+			if (chainId === '0x89' || chainId === '0x38' || chainId === '0x1') {
+				localStorage.setItem('chainId', chainId);
+				this.setState({
+					chainName: chainName,
+				})
+			}
+			else {
+				alert('请切换网络');
+				switchChain('0x1');
+			}
+		}
 		console.log('lastconnect:  ' + lastConnect)
 		switch (lastConnect) {
 		case METAMASK:
@@ -327,7 +367,7 @@ class TopBar extends Component {
 		default:
 			break;
 		}
-
+		
 	}
 
 	// //在Web端仅检测小狐狸登陆状态
@@ -379,22 +419,37 @@ class TopBar extends Component {
 	//   console.log(this.state.isConnected)
 	// }
 
+	handleSwitchNetworkClick = (event) => {
+		if (event.currentTarget.id === 'switchNetworkBtn') {
+			this.setState({
+				networkMenuDisplay: true,
+				networkMenuAnchorEl: event.currentTarget,
+			})
+		}
+	}
+
+	handleNetworkMenuClose = () => {
+		this.setState({
+			networkMenuDisplay: false,
+		})
+	}
+
 	//handleWalletMenu(for disconnect)
 	handleWalletMenuClick = (event) => {
 		//setAnchorEl(event.currentTarget)
-		console.log('current: ')
-		console.log(event.currentTarget)
+		//console.log('current: ')
+		//console.log(event.currentTarget)
 		// this.setState({
 		// 	walletAnchorEl: event.currentTarget,
 		// })
-		if(event.currentTarget.id === 'connectedBtn' && this.state.isConnected){
+		if (event.currentTarget.id === 'connectedBtn' && this.state.isConnected) {
 			this.setState({
 				walletMenuDisplay: true,
 				walletAnchorEl: event.currentTarget,
 			})
 		}
-		
 	}
+
 	handleWalletMenuClose = () => {
 		//setAnchorEl(null)
 		this.setState({
@@ -409,7 +464,7 @@ class TopBar extends Component {
 			//console.log(Web3.givenProvider)
 			//let web3 = new Web3(window.ethereum);
 			//let web3 = new Web3(window.web3.currentProvider)
-			const accounts = await web3.eth.getAccounts()
+			const accounts = await web3.eth.getAccounts();
 			console.log('accounts: ' + accounts)
 			if (accounts.length == 0) {
 				this.setState({
@@ -424,7 +479,7 @@ class TopBar extends Component {
 				})
 				this.setState({ userAddress: account })
 				//localStorage.setItem(USERADDRESS, account);
-				localStorage.setItem(LASTCONNECT, METAMASK)
+				localStorage.setItem(LASTCONNECT, METAMASK);
 			}
 			console.log(Web3.givenProvider)
 			console.log(this.state.isConnected)
@@ -534,6 +589,9 @@ class TopBar extends Component {
 			this.setState({ userAddress: account })
 			//localStorage.setItem(USERADDRESS, account);
 			localStorage.setItem(LASTCONNECT, METAMASK)
+			const chainId = await window.ethereum.request({ method: 'eth_chainId' })
+			localStorage.setItem('chainId', chainId);
+
 		} catch (error) {
 			console.debug(error)
 			this.setState({ isConnected: false })
@@ -548,15 +606,20 @@ class TopBar extends Component {
 		} else {
 			try {
 				//todo 使用TP链接
-				let account
+				let account, chainName;
 				await tp.getWallet({ walletTypes: ['matic'], switch: false }).then((value) => {
-					account = value.data.address
+					account = value.data.address;
+					chainName = value.data.blockchain;
 				})
 				message.success(t('您已经连接tokenpocket, 当前账户： ') + account)
 				this.setState({ isConnected: true })
 				this.setState({ userAddress: account })
 				//localStorage.setItem(USERADDRESS, account); //储存用户address
 				localStorage.setItem(LASTCONNECT, TOKENPOCKET) //储存上次登陆的信息
+				const chainId = getChainIdByChainName(chainName);
+				//alert(chainId)
+				localStorage.setItem('chainId', chainId);
+				//alert(localStorage.getItem('chainId'))
 			} catch (error) {
 				console.debug(error)
 				this.setState({ isConnected: false })
@@ -591,40 +654,68 @@ class TopBar extends Component {
 		}
 	}
 
-	//登陆后点击token按钮
-	handleTokenButtonOnClick = () => {
-		switch (localStorage.getItem(LASTCONNECT)) {
-		case METAMASK:
-			this.getMetaMaskAccount();
+	handleSwitchNetwork = async (e) => {
+		//console.log(e.target.id)
+		console.log(e)
+		let switchResponse;
+		switch(e){
+		case 'maticBtn':
+			switchResponse = await switchChain('0x89');
+			if(switchResponse) this.setState({chainName: 'matic'})
+			this.handleNetworkMenuClose();
 			break;
-		case TOKENPOCKET:
-			this.getTokenPocketAccount()
+		case 'bscBtn':
+			switchResponse = await switchChain('0x38');
+			if(switchResponse) this.setState({chainName: 'BSC'})
+			this.handleNetworkMenuClose();
 			break;
-		case MATHWALLET:
-			this.getMathWalletAccount();
-			break;
-		default:
+		case 'ethBtn':
+			switchResponse = await switchChain('0x1');
+			if(switchResponse) this.setState({chainName: 'ETH'})
+			this.handleNetworkMenuClose();
 			break;
 		}
 	}
 
+	//登陆后点击token按钮
+	// handleTokenButtonOnClick = () => {
+	// 	switch (localStorage.getItem(LASTCONNECT)) {
+	// 	case METAMASK:
+	// 		this.getMetaMaskAccount();
+	// 		break;
+	// 	case TOKENPOCKET:
+	// 		this.getTokenPocketAccount()
+	// 		break;
+	// 	case MATHWALLET:
+	// 		this.getMathWalletAccount();
+	// 		break;
+	// 	default:
+	// 		break;
+	// 	}
+	// }
+
 	//logout
 	//todo 未做登出
 	disconnect = () => {
-		this.setState({ isConnected: false })
+		this.setState({ 
+			isConnected: false,
+			chainName: '',
+		})
 		//localStorage.removeItem(USERADDRESS);
 		localStorage.removeItem(LASTCONNECT)
+		localStorage.removeItem('chainId');
 	}
 
 	render() {
 		const { classes } = this.props
 		const { t } = this.props
 		const { isFixed } = this.state
-		const fixStyle = isFixed ? { position: 'fixed', top: 0, zIndex: 9 ,boxShadow: 'rgb(255, 189, 164) 0px 1px 4px'} : {}
-		const fixStyleBlank = isFixed ? { display:'block',width:'100vw',height:this.state.topbarHeight,maxWidth: '100vw'} : {display:'none',maxWidth: '100vw'}
-		const menuStyle = (window.innerWidth<=1000) ? {display:'block'} : {display:'none'}
+		const fixStyle = isFixed ? { position: 'fixed', top: 0, zIndex: 9, boxShadow: 'rgb(255, 189, 164) 0px 1px 4px' } : {}
+		const fixStyleBlank = isFixed ? { display: 'block', width: '100vw', height: this.state.topbarHeight, maxWidth: '100vw' } : { display: 'none', maxWidth: '100vw' }
+		const menuStyle = (window.innerWidth <= 1000) ? { display: 'block' } : { display: 'none' }
+		const logoImg = (this.state.chainName == 'BSC')?(logoBSC):(((this.state.chainName == 'ETH')?(logoETH):(logoMatic)))
 		let open = false;
-		if(this.state.anchorEl){
+		if (this.state.anchorEl) {
 			open = Boolean(this.state.anchorEl)
 		}
 		const handleMenuClick = (event) => {
@@ -646,7 +737,7 @@ class TopBar extends Component {
 						</Typography>
 					</DialogTitle>
 					<DialogContent>
-						<Grid container spacing={1} className={classes.btnBox} style={{justifyContent:'center'}}>
+						<Grid container spacing={1} className={classes.btnBox} style={{ justifyContent: 'center' }}>
 							<Button size="large" className={classes.btnWallet} id="MetaMask" onClick={this.handleSelectMetaMask}>
 								<img className={classes.btnImg} src={metamaskpic}></img>
 							</Button>
@@ -676,37 +767,37 @@ class TopBar extends Component {
 					}}
 				>
 					<MenuItem onClick={handleMenuClose}>
-						<Button size="medium" style={{width: '100%'}} className={classes.btnItem} href="/#/">
+						<Button size="medium" style={{ width: '100%' }} className={classes.btnItem} href="/#/">
 							{t('index')}
-						</Button>						
+						</Button>
 					</MenuItem>
 					<MenuItem onClick={handleMenuClose}>
-						<Button size="medium" style={{width: '100%'}}  className={classes.btnItem} href="/#/introPublish">
+						<Button size="medium" style={{ width: '100%' }} className={classes.btnItem} href="/#/introPublish">
 							{t('publish')}
 						</Button>
 					</MenuItem>
 					<MenuItem onClick={handleMenuClose}>
-						<Button size="medium" style={{width: '100%'}}  className={classes.btnItem} href="/#/collections">
+						<Button size="medium" style={{ width: '100%' }} className={classes.btnItem} href="/#/collections">
 							{t('collection')}
 						</Button>
 					</MenuItem>
 					<MenuItem onClick={handleMenuClose}>
-						<Button size="medium" style={{width: '100%'}}  className={classes.btnItem} href="https://docs.sparklink.io/">
+						<Button size="medium" style={{ width: '100%' }} className={classes.btnItem} href="https://docs.sparklink.io/">
 							Wiki
 						</Button>
 					</MenuItem>
 					<MenuItem onClick={handleMenuClose}>
-						<Button size="medium" style={{width: '100%'}}  className={classes.btnItem} href="/#/buy">
+						<Button size="medium" style={{ width: '100%' }} className={classes.btnItem} href="/#/buy">
 							{t('market')}
 						</Button>
 					</MenuItem>
-				</Menu>				
-				<Toolbar id='topbar' className={classes.noPadding} style={{minHeight:'0px'}}>
+				</Menu>
+				<Toolbar id='topbar' className={classes.noPadding} style={{ minHeight: '0px' }}>
 					<div style={fixStyleBlank}></div>
-					<Grid style={fixStyle}  className={classes.Toolbar+' '+classes.PaddingT10 + ' '+ classes.PaddingB10} container direction="row"  wrap="nowrap">
+					<Grid style={fixStyle} className={classes.Toolbar + ' ' + classes.PaddingT10 + ' ' + classes.PaddingB10} container direction="row" wrap="nowrap">
 						<Grid item className={classes.titleGrid}>
-							<a href="/#/" className={classes.logo +' '+classes.PaddingL10} />
-							<div style={{display:'flex',flexDirection:'column',justifyContent:'flex-end',height:'100%'}}>
+							<a href="/#/" className={classes.logo + ' ' + classes.PaddingL10} />
+							<div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', height: '100%' }}>
 								<div className={classes.btngroup}>
 									<a size="medium" className={classes.btnTopbar} href="/#/">
 										{t('index')}
@@ -725,11 +816,39 @@ class TopBar extends Component {
 									</a>
 								</div>
 							</div>
-							<div style={{flex: '1'}}></div>
+							<Button style={menuStyle} className={classes.btnColor3} aria-controls="basic-menu" aria-haspopup="true" aria-expanded={open ? 'true' : undefined} onClick={handleMenuClick}>
+								<b> ...</b>
+							</Button>
+							<div style={{ flex: '1' }}></div>
 							<Grid item className={classes.btnGrid}>
-								<Button style={menuStyle} className={classes.btnColor3} aria-controls="basic-menu" aria-haspopup="true" aria-expanded={open ? 'true' : undefined} onClick={handleMenuClick}>
-									<b> ...</b>
-								</Button>
+								<LanguageBtn />
+								<React.Fragment>
+									{this.state.isConnected ? (
+										<IconButton
+											style={{padding:'0'}}
+											id='switchNetworkBtn'
+											className={classes.MarginR10}
+											onClick={this.handleSwitchNetworkClick}
+										>
+											<img className={classes.chainLogo} src={logoImg}/>
+										</IconButton>
+									):(
+										null
+									)
+									}
+									<Menu id="menu" keepMounted open={this.state.networkMenuDisplay} anchorEl={this.state.networkMenuAnchorEl} onClose={this.handleNetworkMenuClose}>
+										<MenuItem key='matic' >
+											<Button id="maticBtn" style={{ width: '100%' }} onClick={this.handleSwitchNetwork.bind(this,'maticBtn')} className={classes.btnItem}>matic</Button>
+										</MenuItem>
+										<MenuItem key='BSC' >
+											<Button id="bscBtn" style={{ width: '100%' }} onClick={this.handleSwitchNetwork.bind(this,'bscBtn')} className={classes.btnItem}>BSC</Button>
+										</MenuItem>
+										<MenuItem key='ETH' >
+											<Button id="ethBtn" style={{ width: '100%' }} onClick={this.handleSwitchNetwork.bind(this,'ethBtn')} className={classes.btnItem}>ETH</Button>
+										</MenuItem>
+									</Menu>
+								</React.Fragment>
+								
 								{this.state.isConnected ? (
 									// <Button onClick={this.getAccount}>
 									//   <WalletTwoTone className={classes.icon} />
@@ -737,32 +856,32 @@ class TopBar extends Component {
 									<React.Fragment>
 										<Button
 											id='connectedBtn'
-											className={classes.btnTopBarMenu +' '+classes.MarginR8}
+											className={classes.btnTopBarMenu + ' ' + classes.MarginR8}
 											onClick={this.handleWalletMenuClick}
 										>
 											{this.state.userAddress.substring(0, 6)}...
 											{this.state.userAddress.substring(this.state.userAddress.length - 5, this.state.userAddress.length)}
 										</Button>
-										<Menu id="menu" keepMounted open={this.state.walletMenuDisplay} anchorEl={this.state.walletAnchorEl} onClose={this.handleWalletMenuClose}>				
+										<Menu id="menu" keepMounted open={this.state.walletMenuDisplay} anchorEl={this.state.walletAnchorEl} onClose={this.handleWalletMenuClose}>
 											<MenuItem key='Disconnect' onClick={this.disconnect}>
-												<Button style={{width: '100%'}}  className={classes.btnItem}>Disconnect</Button>
-											</MenuItem>				
+												<Button style={{ width: '100%' }} className={classes.btnItem}>Disconnect</Button>
+											</MenuItem>
 										</Menu>
 									</React.Fragment>
-									
+
 								) : (
 									// <Button onClick={this.getAccount}>
 									//   <WalletFilled className={classes.icon} />
 									// </Button>
-									<Button id='unConnectedBtn' className={classes.btnTopBarMenu+' '+classes.MarginR8} onClick={this.handleDialogOpen}>
+									<Button id='unConnectedBtn' className={classes.btnTopBarMenu + ' ' + classes.MarginR8} onClick={this.handleDialogOpen}>
 										<b> Connect Wallet</b>
 									</Button>
 								)}
-								<LanguageBtn />
+								
 								{/* <Button onClick={this.disconnect}> akdalk</Button> */}
 							</Grid>
 						</Grid>
-						
+
 
 					</Grid>
 				</Toolbar>

@@ -18,13 +18,15 @@ import contract from '../utils/contract'
 import web3 from '../utils/web3'
 import Paper from '@material-ui/core/Paper'
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core'
-import * as tokens from '../global/tokens_list.json'
+import * as tokens_matic from '../global/tokens_list_matic.json'
+import * as tokens_bsc from '../global/tokens_list_bsc.json'
+import * as tokens_eth from '../global/tokens_list_eth.json'
 import { withTranslation } from 'react-i18next'
 import config from '../global/config'
 import withCommon from '../styles/common'
 import Footer from '../components/Footer'
 import { generateZipFile } from '../utils/zipFile.js'
-import getWalletAccount from '../utils/getWalletAccount'
+import { getWalletAccount } from '../utils/getWalletAccountandChainID'
 
 
 const { backend } = config
@@ -97,6 +99,9 @@ const styles = (theme) => ({
 			width:'30vw'
 		},
 	},
+	btnMini:{
+		inherit:'MarginT10'
+	},
 	btnPub: {
 		margin: theme.spacing(1),
 		borderRadius: 25,
@@ -119,7 +124,7 @@ const styles = (theme) => ({
 		},
 	},
 	Display9: {
-		inherit: 'MarginT9'
+		inherit: 'MarginT9,DisplaySeBold9'
 	},
 	paper: {
 		marginTop: theme.spacing(8),
@@ -136,7 +141,10 @@ const styles = (theme) => ({
 		height: 60,
 	},
 	btn: {
-		inherit: 'MarginT5'
+		inherit: 'MarginT10'
+	},
+	btnOutlineMini: {
+		inherit: 'MarginT10'
 	},
 	form: {
 		width: '80%',
@@ -204,12 +212,35 @@ class EncryptedPublish extends Component {
 		// jumped: true,
 		data: [],
 		token_addr: null,
-		token_symbol: 'MATIC',
+		token_symbol: '',
 		decimal: 0,
 		fileList: [],
 		zipedFilesForm: null,
 		submitBtnDisable: true,
 
+	}
+
+	UNSAFE_componentWillMount() {
+		switch (localStorage.getItem('chainId')) {
+		case '0x89':
+			this.tokens = tokens_matic;
+			this.setState({
+				token_symbol: 'MATIC',
+			})
+			break;
+		case '0x38':
+			this.tokens = tokens_bsc;
+			this.setState({
+				token_symbol: 'BNB',
+			})
+			break;
+		default:
+			this.tokens = tokens_eth;
+			this.setState({
+				token_symbol: 'ETH',
+			})
+			break;
+		}
 	}
 
 	async componentDidMount() {
@@ -220,18 +251,18 @@ class EncryptedPublish extends Component {
 			return
 		}
 
-		const chainId = await window.ethereum.request({ method: 'eth_chainId' })
-		if (chainId !== '0x89') {
-			alert(t('please_set_polygon'))
-			await window.ethereum.request({
-				method: 'wallet_switchEthereumChain',
-				params: [
-					{
-						chainId: '0x89',
-					},
-				],
-			})
-		}
+		// const chainId = await window.ethereum.request({ method: 'eth_chainId' })
+		// if (chainId !== '0x89') {
+		// 	alert(t('please_set_polygon'))
+		// 	await window.ethereum.request({
+		// 		method: 'wallet_switchEthereumChain',
+		// 		params: [
+		// 			{
+		// 				chainId: '0x89',
+		// 			},
+		// 		],
+		// 	})
+		// }
 	}
 
 	handleGetPubName = (event) => {
@@ -285,7 +316,7 @@ class EncryptedPublish extends Component {
 	handleSearch = async (value) => {
 		if (value) {
 			value = value.toLowerCase()
-			let tokens_list = tokens.tokens
+			let tokens_list = this.tokens.default.tokens
 			let matched_data = []
 			let reg = new RegExp(value)
 			for (let token of tokens_list) {
@@ -317,7 +348,7 @@ class EncryptedPublish extends Component {
 
 	handleSelectChange = async (value) => {
 		const { t } = this.props
-		let tokens_list = tokens.tokens
+		let tokens_list = this.tokens.default.tokens
 		let address
 		let token_symbol
 		let token_decimal
@@ -1018,68 +1049,65 @@ class EncryptedPublish extends Component {
 		if (this.state.allowSubmitPDF) {
 			return (
 				<Spin spinning={this.state.onLoading} size="large">
-					<ThemeProvider theme={theme}>
-						<TopBar />
-						<Container component="main" maxWidth="xs" className={classes.main}>
-							<div className={classes.paper}>
-								<Typography className={classes.Display6}>
-									<b>{t('up_file')}</b>
-								</Typography>
-								<form className={classes.form} noValidate>
-									{this.state.jumped ? (
-										<div>
-											<Grid item style={{ width: '100%' }}>
-												<label className={classes.Display9}>{t('art_name')} *</label>
-												<Input
-													placeholder={t('art_name')}
-													allowClear
-													id="pubName"
-													onChange={this.handleGetPubName}
-													value={this.state.name}
-													className={classes.input}
-												/>
-											</Grid>
-											<Grid item style={{ width: '100%' }}>
-												<label style={{ marginTop: 20 }} className={classes.Display9}>{t('art_desc')} *</label>
-												<p className={classes.Display11}>{t('art_desc_tip')}</p>
-												<TextArea rows={4} id="Description" onChange={this.handleGetDescription} />
-											</Grid>
-										</div>
-									) : (
-										<div></div>
-									)}
-									<label className={classes.Display9}>{t('pic_cover')} *</label>
-									<p className={classes.Display11}>{t('pic_cover_tip')}</p>
-									<Dragger {...prop} style={{ width: '100%', minHeight: 100 }} id="Uploader" maxCount='1' accept="image/*">
-										<p className="ant-upload-drag-icon">
-											<InboxOutlined />
-										</p>
-										<p className={classes.Display9}>{t('upload_file_tip1')}</p>
-										<p className={classes.Display11}>{t('upload_file_tip2')}</p>
-									</Dragger>
+					<Container component="main" maxWidth="xs" className={classes.main}>
+						<div className={classes.paper}>
+							<Typography className={classes.Display6}>
+								<b>{t('up_file')}</b>
+							</Typography>
+							<form className={classes.form} noValidate>
+								{this.state.jumped ? (
+									<div>
+										<Grid item style={{ width: '100%' }}>
+											<label className={classes.Display9}>{t('art_name')} *</label>
+											<Input
+												placeholder={t('art_name')}
+												allowClear
+												id="pubName"
+												onChange={this.handleGetPubName}
+												value={this.state.name}
+												className={classes.input}
+											/>
+										</Grid>
+										<Grid item style={{ width: '100%' }}>
+											<label style={{ marginTop: 20 }} className={classes.Display9}>{t('art_desc')} *</label>
+											<p className={classes.Display11}>{t('art_desc_tip')}</p>
+											<TextArea rows={4} id="Description" onChange={this.handleGetDescription} />
+										</Grid>
+									</div>
+								) : (
+									<div></div>
+								)}
+								<label className={classes.Display9+' '+classes.MarginT10}>{t('pic_cover')} *</label>
+								<p className={classes.Display11}>{t('pic_cover_tip')}</p>
+								<Dragger {...prop} style={{ width: '100%', minHeight: 100 }} id="Uploader" maxCount='1' accept="image/*">
+									<p className="ant-upload-drag-icon">
+										<InboxOutlined />
+									</p>
+									<p className={classes.Display9}>{t('upload_file_tip1')}</p>
+									<p className={classes.Display11}>{t('upload_file_tip2')}</p>
+								</Dragger>
 
-									<label className={classes.Display9}>{t('art_file')} *</label>
-									<p className={classes.Display11}>{t('art_file_tip')} </p>
-									<Dragger {...propFile} style={{ width: '100%', minHeight: 100 }} id="Uploader2">
-										<p className="ant-upload-drag-icon">
-											<InboxOutlined />
-										</p>
-										<p className={classes.Display9}>{t('upload_file_tip1')}</p>
-										<p className={classes.Display11}>{t('upload_file_tip2')}</p>
-									</Dragger>
-									<Button
-										variant="contained"
-										className={classes.btn}
-										disabled={this.state.uploadBtnDisable}
-										style={{
-											float: 'right',
-											//fontSize: '14px',
-										}}
-										onClick={this.uploadFiles}
-									>
-										{t('打包并上传')}
-									</Button>
-								</form>
+								<label className={classes.Display9+' '+classes.MarginT10}>{t('art_file')} *</label>
+								<p className={classes.Display11}>{t('art_file_tip')} </p>
+								<Dragger {...propFile} style={{ width: '100%', minHeight: 100 }} id="Uploader2">
+									<p className="ant-upload-drag-icon">
+										<InboxOutlined />
+									</p>
+									<p className={classes.Display9}>{t('upload_file_tip1')}</p>
+									<p className={classes.Display11}>{t('upload_file_tip2')}</p>
+								</Dragger>
+								<Button
+									variant="contained"
+									className={classes.btnMini}
+									disabled={this.state.uploadBtnDisable}
+									style={{
+										float: 'right',
+										//fontSize: '14px',
+									}}
+									onClick={this.uploadFiles}
+								>
+									{t('打包并上传')}
+								</Button>
 								<div style={{ textAlign: 'center' }}>
 									<Button
 										disabled ={this.state.submitBtnDisable}
@@ -1090,10 +1118,9 @@ class EncryptedPublish extends Component {
 										{t('发布作品')}
 									</Button>
 								</div>
-							</div>
-						</Container>
-						<Footer></Footer>
-					</ThemeProvider>
+							</form>
+						</div>
+					</Container>
 				</Spin>
 			)
 		} else if (this.state.finished) {
@@ -1224,23 +1251,23 @@ class EncryptedPublish extends Component {
 										</Button>
 									</Grid>
 									<Grid item xs style={{ textAlign: 'center' }}>
-										<Button className={classes.btn} onClick={this.handleClickOpen}>
+										<Button className={classes.btnMini} onClick={this.handleClickOpen}>
 											<span className={classes.Display10}> {t('have_submit')} </span>
 										</Button>
 									</Grid>
 								</Grid>
 								<Dialog open={this.state.open} onClose={this.handleClose} aria-labelledby="form-dialog-title">
-									<DialogTitle id="form-dialog-title">{t('inpt_NFT_ID')}</DialogTitle>
-									<DialogContent>
-										<DialogContentText>{t('inpt_NFT_ID_tip')}</DialogContentText>
-										<label style={{ fontSize: 14, marginBottom: 10 }}>NFT ID *</label>
-										<InputNumber defaultValue={0} min={0} onChange={this.handleGetNFTId} />
+									<DialogTitle   className={classes.MarginB10+' '+classes.MarginT10+' '+classes.MarginL9+' '+classes.MarginR9} id="form-dialog-title" ><span className={classes.Display9}>{t('inpt_NFT_ID')}</span></DialogTitle>
+									<DialogContent className={classes.MarginL9+' '+classes.MarginR9}>
+										<DialogContentText><span  className={classes.Display11}>{t('inpt_NFT_ID_tip')}</span></DialogContentText>
+										<label style={{marginBottom: 10,marginRight:10}}><span   className={classes.Display11}>NFT ID *</span></label>
+										<InputNumber className={classes.inputNum} defaultValue={0} min={0} onChange={this.handleGetNFTId} />
 									</DialogContent>
-									<DialogActions>
-										<Button onClick={this.handleClose} color="primary">
+									<DialogActions  className={classes.MarginB7+' '+classes.MarginT7+' '+classes.MarginL9+' '+classes.MarginR9}>
+										<Button onClick={this.handleClose} className={classes.btnOutlineMini} color="primary">
 											{t('cancel')}
 										</Button>
-										<Button variant="contained" onClick={this.jump} color="primary">
+										<Button className={classes.btnMini} onClick={this.jump} color="primary">
 											{t('go_upload')}
 										</Button>
 									</DialogActions>

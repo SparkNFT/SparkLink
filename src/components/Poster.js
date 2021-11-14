@@ -1,15 +1,18 @@
 import React, { useRef } from 'react';
-import bgImg from '../imgs/poster_1.png';
+import zhBg from '../imgs/poster_zh.png'
+import enBg from '../imgs/poster_en.png'
 import loading from '../imgs/imgloading.png';
 import matic from '../imgs/matic.png';
 import error from '../imgs/error.png';
 import list from '../imgs/assets/info.json';
 import QRCode from 'qrcode';
 import Button from '@material-ui/core/Button'
+import i18next from 'i18next'
+
 
 const tp = require('tp-js-sdk')
-const bgPos = [0, 0, 424, 424]
-const qrPos = [303, 331, 73, 73]
+const bgPos = [0, 0, 4689, 7363]
+const qrPos = [3590, 6350, 710, 710]
 
 
 const loadImage = url => {
@@ -28,12 +31,10 @@ const loadImage = url => {
 
 const initCanvas = () => {
 	const cvs = document.createElement('canvas');
-	cvs.width = 424;
-	cvs.height = 424;
+	cvs.width = 4689;
+	cvs.height = 7363;
 	const ctx = cvs.getContext('2d');
 	//const ratio = getPixelRatio(ctx);
-	cvs.style.width = cvs.width + 'px';
-	cvs.style.height = cvs.height + 'px';
 
 	return [cvs, ctx]
 }
@@ -41,20 +42,30 @@ const initCanvas = () => {
 const getImgPos = (h, w) => {
 	console.log(h, w);
 	const ratio = h / w;
-	const standardRatio = 260 / 364;
+	const standardRatio = 2930 / 4289;
 	if (ratio - standardRatio < 0.01 && ratio - standardRatio > -0.01) {
-		return [30, 50, 364, 260]
+		return [200, 1200, 4289, 2930]
 	} else if (ratio > standardRatio) {
-		const preWidth = (260 * w) / h;
-		const preX = 212 - preWidth / 2;
-		return [preX, 50, preWidth, 260]
+		const preWidth = (2930 * w) / h;
+		const preX = 2344.5 - preWidth / 2;
+		return [preX, 1200, preWidth, 2930]
 	} else {
-		const preHeight = 364 * ratio;
-		const preY = 180 - preHeight / 2;
-		return [30, preY, 364, preHeight]
+		const preHeight = 4289 * ratio;
+		const preY = 1200+1465 - preHeight / 2;
+		return [200, preY, 4289, preHeight]
 
 	}
 }
+
+/* const getTxtPos = n => {
+	console.log(n)
+	if(n.length <=16){
+		return [n,2344.5-100 * n.length / 2,4500]
+	}else{
+		n=n.substr(0,16)
+		return [n,2344.5 - 1000,4500]
+	}
+} */
 
 
 const circleImg = (ctx,img,x,y,r) => {
@@ -73,20 +84,23 @@ const circleImg = (ctx,img,x,y,r) => {
 const Poster = (props) => {
 	
 	const [canvas, ctx] = initCanvas()
-	const { str, addr, share, coverImg, env } = props;
-	console.log(env)
+	const { str, addr, share, coverImg, env, name } = props;
+	console.log(name.length)
 	let tokenUrl = 'https://raw.githubusercontent.com/TP-Lab/tokens/master/bsc/' + addr + '/logo.png'
 	if(addr === '0x0000000000000000000000000000000000000000'){
 		tokenUrl = matic
 	} else if(list.indexOf(addr) !== -1){
-		
 		tokenUrl = require(`../imgs/assets/${addr}/logo.png`).default
 		console.log(matic);
 	}
-
-	const splited = str.split(' ');
-	let price = splited[0];
-	let currency = splited[1];
+	let bgImg
+	const lng = i18next.language
+	if( lng === 'zh'){
+		bgImg = zhBg	
+	}else {
+		bgImg = enBg
+	}
+	
 	const imgRef = useRef(null);
 	QRCode.toDataURL(share, {
 		errorCorrectionLevel: 'H',
@@ -104,13 +118,24 @@ const Poster = (props) => {
 			const coverPos = getImgPos(res[2].height, res[2].width)
 			console.log(res[2]);
 			ctx.drawImage(res[2],...coverPos)
-			circleImg(ctx,res[3],182,365,13)
+			circleImg(ctx,res[3],3600,5800,150)
 			
-			ctx.font = '18px Mada-Bold';
-			ctx.fillText(price, 122, 384);
-			ctx.font = '12px Mada-Bold';
+			ctx.fillStyle = '#0043a5'
+			ctx.font = 'bold 260px Mada-Bold';
+			ctx.fillText(str, 450, 6050);
+
+			//const txtPos = getTxtPos('测试测试测试测试测试')
+			ctx.fillStyle = 'black'
+			ctx.font = 'bold 200px Mada-Bold';
+			ctx.textAlign = 'center'
+			ctx.fillText(name.substr(0,10),2344.5,4500)
+			/* 
+			ctx.font = '100px Mada-Bold';
 			ctx.fillText(currency, 210, 382);
-			ctx.strokeRect(30, 50, 364, 260);
+			*/
+			ctx.strokeStyle='#ffffff'
+			ctx.lineWidth = 2;
+			ctx.strokeRect(200, 1200, 4289, 2930);
 			setTimeout(()=>{
 				const dataURL = canvas.toDataURL('image/jpeg',1.0)
 				
@@ -138,7 +163,7 @@ const Poster = (props) => {
 	//			ctx.font = '12px serif';
 	//			ctx.fillText(currency, 210, 382);
 	//
-	//			ctx.strokeRect(30, 50, 364, 260);
+	//			ctx.strokeRect(200, 1200, 4289, 2930);
 	//		}
 	//
 	//		QRCode.toDataURL(share, {
@@ -173,7 +198,7 @@ const Poster = (props) => {
 
 	return (
 		<div>
-			<img alt="poster" width="424" height="424" ref={imgRef} src={loading} />
+			<img alt="poster" width="469" height="736" ref={imgRef} src={loading} />
 			<div style={{display: 'flex', width: '100%',marginTop: 50}}>
 				<Button variant="contained"
 					style={{

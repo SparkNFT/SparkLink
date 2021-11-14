@@ -1,7 +1,7 @@
 let styleCommon = (theme) => {
 	let common = {
 		MarginT0:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			
 			[theme.breakpoints.between('xs', 'sm')]: {
 				marginTop: 112,
 			},
@@ -22,7 +22,6 @@ let styleCommon = (theme) => {
 			},
 		},
 		MarginT1:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				marginTop: 72,
 			},
@@ -43,7 +42,6 @@ let styleCommon = (theme) => {
 			},
 		},
 		MarginT2:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				marginTop: 56,
 			},
@@ -64,7 +62,6 @@ let styleCommon = (theme) => {
 			},
 		},
 		MarginT3:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				marginTop: 44,
 			},
@@ -85,7 +82,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		MarginT4:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			
 			[theme.breakpoints.between('xs', 'sm')]: {
 				marginTop: 34,
 			},
@@ -106,7 +103,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		MarginT5:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			
 			[theme.breakpoints.between('xs', 'sm')]: {
 				marginTop: 28,
 			},
@@ -127,7 +124,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		MarginT6:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			
 			[theme.breakpoints.between('xs', 'sm')]: {
 				marginTop: 28,
 			},
@@ -148,7 +145,6 @@ let styleCommon = (theme) => {
 			},
 		},
 		MarginT7:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				marginTop: 20,
 			},
@@ -169,7 +165,6 @@ let styleCommon = (theme) => {
 			},
 		},
 		MarginT8:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				marginTop: 16,
 			},
@@ -190,7 +185,6 @@ let styleCommon = (theme) => {
 			},
 		},
 		MarginT9:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				marginTop: 14,
 			},
@@ -212,7 +206,6 @@ let styleCommon = (theme) => {
 
 		},
 		MarginT10:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				marginTop: 12,
 			},
@@ -230,7 +223,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		MarginL0:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			
 			[theme.breakpoints.between('xs', 'sm')]: {
 				marginLeft: 72,
 			},
@@ -251,7 +244,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		MarginL1:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			
 			[theme.breakpoints.between('xs', 'sm')]: {
 				marginLeft: 43,
 			},
@@ -272,7 +265,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		MarginL2:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			
 			[theme.breakpoints.between('xs', 'sm')]: {
 				marginLeft: 34,
 			},
@@ -293,7 +286,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		MarginL3:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			
 			[theme.breakpoints.between('xs', 'sm')]: {
 				marginLeft: 44,
 			},
@@ -314,7 +307,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		MarginL4:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			
 			[theme.breakpoints.between('xs', 'sm')]: {
 				marginLeft: 34,
 			},
@@ -335,7 +328,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		MarginL5:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			
 			[theme.breakpoints.between('xs', 'sm')]: {
 				marginLeft: 28,
 			},
@@ -356,7 +349,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		MarginL6:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			
 			[theme.breakpoints.between('xs', 'sm')]: {
 				marginLeft: 28,
 			},
@@ -377,7 +370,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		MarginL7:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			
 			[theme.breakpoints.between('xs', 'sm')]: {
 				marginLeft: 20,
 			},
@@ -398,7 +391,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		MarginL8:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			
 			[theme.breakpoints.between('xs', 'sm')]: {
 				marginLeft: 16,
 			},
@@ -419,7 +412,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		MarginL9:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			
 			[theme.breakpoints.between('xs', 'sm')]: {
 				marginLeft: 14,
 			},
@@ -441,7 +434,7 @@ let styleCommon = (theme) => {
 
 		},
 		MarginL10:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			
 			[theme.breakpoints.between('xs', 'sm')]: {
 				marginLeft: 12,
 			},
@@ -459,7 +452,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		MarginR0:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			
 			[theme.breakpoints.between('xs', 'sm')]: {
 				marginRight: 112,
 			},
@@ -480,7 +473,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		MarginR1:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			
 			[theme.breakpoints.between('xs', 'sm')]: {
 				marginRight: 72,
 			},
@@ -501,7 +494,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		MarginR2:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			
 			[theme.breakpoints.between('xs', 'sm')]: {
 				marginRight: 56,
 			},
@@ -522,7 +515,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		MarginR3:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			
 			[theme.breakpoints.between('xs', 'sm')]: {
 				marginRight: 44,
 			},
@@ -543,7 +536,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		MarginR4:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			
 			[theme.breakpoints.between('xs', 'sm')]: {
 				marginRight: 34,
 			},
@@ -564,7 +557,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		MarginR5:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			
 			[theme.breakpoints.between('xs', 'sm')]: {
 				marginRight: 28,
 			},
@@ -585,7 +578,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		MarginR6:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			
 			[theme.breakpoints.between('xs', 'sm')]: {
 				marginRight: 28,
 			},
@@ -606,7 +599,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		MarginR7:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			
 			[theme.breakpoints.between('xs', 'sm')]: {
 				marginRight: 20,
 			},
@@ -627,7 +620,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		MarginR8:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			
 			[theme.breakpoints.between('xs', 'sm')]: {
 				marginRight: 16,
 			},
@@ -648,7 +641,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		MarginR9:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			
 			[theme.breakpoints.between('xs', 'sm')]: {
 				marginRight: 14,
 			},
@@ -670,7 +663,7 @@ let styleCommon = (theme) => {
 
 		},
 		MarginR10:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			
 			[theme.breakpoints.between('xs', 'sm')]: {
 				marginRight: 12,
 			},
@@ -688,7 +681,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		MarginB0:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			
 			[theme.breakpoints.between('xs', 'sm')]: {
 				marginBottom: 112,
 			},
@@ -709,7 +702,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		MarginB1:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			
 			[theme.breakpoints.between('xs', 'sm')]: {
 				marginBottom: 72,
 			},
@@ -730,7 +723,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		MarginB2:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			
 			[theme.breakpoints.between('xs', 'sm')]: {
 				marginBottom: 56,
 			},
@@ -751,7 +744,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		MarginB3:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			
 			[theme.breakpoints.between('xs', 'sm')]: {
 				marginBottom: 44,
 			},
@@ -772,7 +765,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		MarginB4:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			
 			[theme.breakpoints.between('xs', 'sm')]: {
 				marginBottom: 34,
 			},
@@ -793,7 +786,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		MarginB5:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			
 			[theme.breakpoints.between('xs', 'sm')]: {
 				marginBottom: 28,
 			},
@@ -814,7 +807,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		MarginB6:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			
 			[theme.breakpoints.between('xs', 'sm')]: {
 				marginBottom: 28,
 			},
@@ -835,7 +828,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		MarginB7:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			
 			[theme.breakpoints.between('xs', 'sm')]: {
 				marginBottom: 20,
 			},
@@ -856,7 +849,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		MarginB8:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			
 			[theme.breakpoints.between('xs', 'sm')]: {
 				marginBottom: 16,
 			},
@@ -877,7 +870,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		MarginB9:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			
 			[theme.breakpoints.between('xs', 'sm')]: {
 				marginBottom: 14,
 			},
@@ -899,7 +892,7 @@ let styleCommon = (theme) => {
 
 		},
 		MarginB10:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			
 			[theme.breakpoints.between('xs', 'sm')]: {
 				marginBottom: 12,
 			},
@@ -917,12 +910,13 @@ let styleCommon = (theme) => {
 			},
 		},
 		Display0:{
+			fontWeight:400,
 			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
-				fontSize: 112,
+				fontSize: 134,
 			},
 			[theme.breakpoints.between('sm', 'md')]: {
-				fontSize: 134,
+				fontSize: 161,
 			},
 			[theme.breakpoints.between('md', 'lg')]: {
 				fontSize: 161,
@@ -938,12 +932,13 @@ let styleCommon = (theme) => {
 			},
 		},
 		Display1:{
+			fontWeight:400,
 			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
-				fontSize: 72,
+				fontSize: 86,
 			},
 			[theme.breakpoints.between('sm', 'md')]: {
-				fontSize: 86,
+				fontSize: 104,
 			},
 			[theme.breakpoints.between('md', 'lg')]: {
 				fontSize: 104,
@@ -959,12 +954,13 @@ let styleCommon = (theme) => {
 			},
 		},
 		Display2:{
+			fontWeight:400,
 			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
-				fontSize: 56,
+				fontSize: 66,
 			},
 			[theme.breakpoints.between('sm', 'md')]: {
-				fontSize: 68,
+				fontSize: 80,
 			},
 			[theme.breakpoints.between('md', 'lg')]: {
 				fontSize: 80,
@@ -980,12 +976,13 @@ let styleCommon = (theme) => {
 			},
 		},
 		Display3:{
+			fontWeight:400,
 			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
-				fontSize: 44,
+				fontSize: 54,
 			},
 			[theme.breakpoints.between('sm', 'md')]: {
-				fontSize: 52,
+				fontSize: 64,
 			},
 			[theme.breakpoints.between('md', 'lg')]: {
 				fontSize: 64,
@@ -1001,12 +998,13 @@ let styleCommon = (theme) => {
 			},
 		},
 		Display4:{
+			fontWeight:400,
 			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
-				fontSize: 34,
+				fontSize: 40,
 			},
 			[theme.breakpoints.between('sm', 'md')]: {
-				fontSize: 42,
+				fontSize: 48,
 			},
 			[theme.breakpoints.between('md', 'lg')]: {
 				fontSize: 48,
@@ -1022,12 +1020,13 @@ let styleCommon = (theme) => {
 			},
 		},
 		Display5:{
+			fontWeight:400,
 			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
-				fontSize: 28,
+				fontSize: 32,
 			},
 			[theme.breakpoints.between('sm', 'md')]: {
-				fontSize: 34,
+				fontSize: 40,
 			},
 			[theme.breakpoints.between('md', 'lg')]: {
 				fontSize: 40,
@@ -1043,33 +1042,35 @@ let styleCommon = (theme) => {
 			},
 		},
 		Display6:{
+			fontWeight:400,
 			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
-				fontSize: 28,
+				fontSize: 30,
 			},
 			[theme.breakpoints.between('sm', 'md')]: {
-				fontSize: 34,
+				fontSize: 36,
 			},
 			[theme.breakpoints.between('md', 'lg')]: {
-				fontSize: 42,
+				fontSize: 36,
 			},
 			[theme.breakpoints.between('lg', 'xl')]: {
-				fontSize: 50,
+				fontSize: 44,
 			},
 			[theme.breakpoints.up('xl')]: {
-				fontSize: 60,
+				fontSize: 54,
 			},
 			['@media (min-width:3200px)']: {
-				fontSize: 120,
+				fontSize: 106,
 			},
 		},
 		Display7:{
+			fontWeight:400,
 			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 24,
 			},
 			[theme.breakpoints.between('sm', 'md')]: {
-				fontSize: 24,
+				fontSize: 28,
 			},
 			[theme.breakpoints.between('md', 'lg')]: {
 				fontSize: 28,
@@ -1085,43 +1086,45 @@ let styleCommon = (theme) => {
 			},
 		},
 		Display8:{
+			fontWeight:400,
 			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
-				fontSize: 20,
+				fontSize: 22,
 			},
 			[theme.breakpoints.between('sm', 'md')]: {
-				fontSize: 20,
+				fontSize: 26,
 			},
 			[theme.breakpoints.between('md', 'lg')]: {
-				fontSize: 24,
+				fontSize: 26,
 			},
 			[theme.breakpoints.between('lg', 'xl')]: {
 				fontSize: 28,
 			},
 			[theme.breakpoints.up('xl')]: {
-				fontSize: 34,
+				fontSize: 32,
 			},
 			['@media (min-width:3200px)']: {
 				fontSize: 64,
 			},
 		},
 		Display9:{
+			fontWeight:400,
 			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
 			//fontFamily:'ANC,SourceHanSansCN-Light, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
-				fontSize: 19,
+				fontSize: 20,
 			},
 			[theme.breakpoints.between('sm', 'md')]: {
-				fontSize: 19,
+				fontSize: 24,
 			},
 			[theme.breakpoints.between('md', 'lg')]: {
-				fontSize: 21,
+				fontSize: 24,
 			},
 			[theme.breakpoints.between('lg', 'xl')]: {
 				fontSize: 24,
 			},
 			[theme.breakpoints.up('xl')]: {
-				fontSize: 28,
+				fontSize: 30,
 			},
 			['@media (min-width:3200px)']: {
 				fontSize: 56,
@@ -1129,33 +1132,38 @@ let styleCommon = (theme) => {
 
 		},
 		Display10:{
+			fontWeight:400,
 			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
-				fontSize: 16,
+				fontSize: 18,
 			},
 			[theme.breakpoints.between('sm', 'md')]: {
-				fontSize: 16,
+				fontSize: 18,
 			},
 			[theme.breakpoints.between('md', 'xl')]: {
 				fontSize: 20,
 			},
+			[theme.breakpoints.between('lg', 'xl')]: {
+				fontSize: 22,
+			},
 			[theme.breakpoints.up('xl')]: {
-				fontSize: 24,
+				fontSize: 26,
 			},
 			['@media (min-width:3200px)']: {
 				fontSize: 48,
 			},
 		},
 		Display11:{
+			fontWeight:400,
 			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
-				fontSize: 14,
+				fontSize: 16,
 			},
 			[theme.breakpoints.between('sm', 'md')]: {
-				fontSize: 14,
+				fontSize: 18,
 			},
 			[theme.breakpoints.between('md', 'xl')]: {
-				fontSize: 16,
+				fontSize: 20,
 			},
 			[theme.breakpoints.up('xl')]: {
 				fontSize: 24,
@@ -1165,6 +1173,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		Display11x:{
+			fontWeight:400,
 			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 14,
@@ -1176,55 +1185,635 @@ let styleCommon = (theme) => {
 				fontSize: 20,
 			},
 			[theme.breakpoints.up('xl')]: {
+				fontSize: 24,
+			},
+			['@media (min-width:3200px)']: {
+				fontSize: 48,
+			},
+		},
+		Display11s:{
+			fontWeight:400,
+			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			[theme.breakpoints.between('xs', 'sm')]: {
+				fontSize: 16,
+			},
+			[theme.breakpoints.between('sm', 'md')]: {
+				fontSize: 18,
+			},
+			[theme.breakpoints.between('md', 'xl')]: {
+				fontSize: 18,
+			},
+			[theme.breakpoints.up('xl')]: {
 				fontSize: 22,
 			},
 			['@media (min-width:3200px)']: {
-				fontSize: 44,
+				fontSize: 40,
 			},
 		},
-		Display12:{
-			fontFamily:'source-han-sans-simplified-c, sans-serif',
-			textIndent: '-1em',
+		DisplaySeBold0:{
+			fontWeight:600,
+			fontFamily:'ANC-SeBold,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
-				fontSize: 19,
+				fontSize: 134,
 			},
 			[theme.breakpoints.between('sm', 'md')]: {
-				fontSize: 19,
+				fontSize: 161,
 			},
 			[theme.breakpoints.between('md', 'lg')]: {
-				fontSize: 21,
+				fontSize: 161,
 			},
 			[theme.breakpoints.between('lg', 'xl')]: {
-				fontSize: 24,
+				fontSize: 192,
 			},
 			[theme.breakpoints.up('xl')]: {
+				fontSize: 232,
+			},
+			['@media (min-width:3200px)']: {
+				fontSize: 464,
+			},
+		},
+		DisplaySeBold1:{
+			fontWeight:600,
+			fontFamily:'ANC-SeBold,source-han-sans-simplified-c, sans-serif',
+			[theme.breakpoints.between('xs', 'sm')]: {
+				fontSize: 86,
+			},
+			[theme.breakpoints.between('sm', 'md')]: {
+				fontSize: 104,
+			},
+			[theme.breakpoints.between('md', 'lg')]: {
+				fontSize: 104,
+			},
+			[theme.breakpoints.between('lg', 'xl')]: {
+				fontSize: 124,
+			},
+			[theme.breakpoints.up('xl')]: {
+				fontSize: 150,
+			},
+			['@media (min-width:3200px)']: {
+				fontSize: 300,
+			},
+		},
+		DisplaySeBold2:{
+			fontWeight:600,
+			fontFamily:'ANC-SeBold,source-han-sans-simplified-c, sans-serif',
+			[theme.breakpoints.between('xs', 'sm')]: {
+				fontSize: 66,
+			},
+			[theme.breakpoints.between('sm', 'md')]: {
+				fontSize: 80,
+			},
+			[theme.breakpoints.between('md', 'lg')]: {
+				fontSize: 80,
+			},
+			[theme.breakpoints.between('lg', 'xl')]: {
+				fontSize: 96,
+			},
+			[theme.breakpoints.up('xl')]: {
+				fontSize: 116,
+			},
+			['@media (min-width:3200px)']: {
+				fontSize: 232,
+			},
+		},
+		DisplaySeBold3:{
+			fontWeight:600,
+			fontFamily:'ANC-SeBold,source-han-sans-simplified-c, sans-serif',
+			[theme.breakpoints.between('xs', 'sm')]: {
+				fontSize: 54,
+			},
+			[theme.breakpoints.between('sm', 'md')]: {
+				fontSize: 64,
+			},
+			[theme.breakpoints.between('md', 'lg')]: {
+				fontSize: 64,
+			},
+			[theme.breakpoints.between('lg', 'xl')]: {
+				fontSize: 76,
+			},
+			[theme.breakpoints.up('xl')]: {
+				fontSize: 92,
+			},
+			['@media (min-width:3200px)']: {
+				fontSize: 184,
+			},
+		},
+		DisplaySeBold4:{
+			fontWeight:600,
+			fontFamily:'ANC-SeBold,source-han-sans-simplified-c, sans-serif',
+			[theme.breakpoints.between('xs', 'sm')]: {
+				fontSize: 40,
+			},
+			[theme.breakpoints.between('sm', 'md')]: {
+				fontSize: 48,
+			},
+			[theme.breakpoints.between('md', 'lg')]: {
+				fontSize: 48,
+			},
+			[theme.breakpoints.between('lg', 'xl')]: {
+				fontSize: 58,
+			},
+			[theme.breakpoints.up('xl')]: {
+				fontSize: 70,
+			},
+			['@media (min-width:3200px)']: {
+				fontSize: 140,
+			},
+		},
+		DisplaySeBold5:{
+			fontWeight:600,
+			fontFamily:'ANC-SeBold,source-han-sans-simplified-c, sans-serif',
+			[theme.breakpoints.between('xs', 'sm')]: {
+				fontSize: 32,
+			},
+			[theme.breakpoints.between('sm', 'md')]: {
+				fontSize: 40,
+			},
+			[theme.breakpoints.between('md', 'lg')]: {
+				fontSize: 40,
+			},
+			[theme.breakpoints.between('lg', 'xl')]: {
+				fontSize: 48,
+			},
+			[theme.breakpoints.up('xl')]: {
+				fontSize: 58,
+			},
+			['@media (min-width:3200px)']: {
+				fontSize: 116,
+			},
+		},
+		DisplaySeBold6:{
+			fontWeight:600,
+			fontFamily:'ANC-SeBold,source-han-sans-simplified-c, sans-serif',
+			[theme.breakpoints.between('xs', 'sm')]: {
+				fontSize: 30,
+			},
+			[theme.breakpoints.between('sm', 'md')]: {
+				fontSize: 36,
+			},
+			[theme.breakpoints.between('md', 'lg')]: {
+				fontSize: 36,
+			},
+			[theme.breakpoints.between('lg', 'xl')]: {
+				fontSize: 44,
+			},
+			[theme.breakpoints.up('xl')]: {
+				fontSize: 54,
+			},
+			['@media (min-width:3200px)']: {
+				fontSize: 106,
+			},
+		},
+		DisplaySeBold7:{
+			fontWeight:600,
+			fontFamily:'ANC-SeBold,source-han-sans-simplified-c, sans-serif',
+			[theme.breakpoints.between('xs', 'sm')]: {
+				fontSize: 24,
+			},
+			[theme.breakpoints.between('sm', 'md')]: {
 				fontSize: 28,
+			},
+			[theme.breakpoints.between('md', 'lg')]: {
+				fontSize: 28,
+			},
+			[theme.breakpoints.between('lg', 'xl')]: {
+				fontSize: 34,
+			},
+			[theme.breakpoints.up('xl')]: {
+				fontSize: 42,
+			},
+			['@media (min-width:3200px)']: {
+				fontSize: 84,
+			},
+		},
+		DisplaySeBold8:{
+			fontWeight:600,
+			fontFamily:'ANC-SeBold,source-han-sans-simplified-c, sans-serif',
+			[theme.breakpoints.between('xs', 'sm')]: {
+				fontSize: 22,
+			},
+			[theme.breakpoints.between('sm', 'md')]: {
+				fontSize: 26,
+			},
+			[theme.breakpoints.between('md', 'lg')]: {
+				fontSize: 26,
+			},
+			[theme.breakpoints.between('lg', 'xl')]: {
+				fontSize: 28,
+			},
+			[theme.breakpoints.up('xl')]: {
+				fontSize: 32,
+			},
+			['@media (min-width:3200px)']: {
+				fontSize: 64,
+			},
+		},
+		DisplaySeBold9:{
+			fontWeight:600,
+			fontFamily:'ANC-SeBold,source-han-sans-simplified-c, sans-serif',
+			//fontFamily:'ANC-SeBold,SourceHanSansCN-Light, sans-serif',
+			[theme.breakpoints.between('xs', 'sm')]: {
+				fontSize: 20,
+			},
+			[theme.breakpoints.between('sm', 'md')]: {
+				fontSize: 24,
+			},
+			[theme.breakpoints.between('md', 'lg')]: {
+				fontSize: 24,
+			},
+			[theme.breakpoints.between('lg', 'xl')]: {
+				fontSize: 26,
+			},
+			[theme.breakpoints.up('xl')]: {
+				fontSize: 30,
 			},
 			['@media (min-width:3200px)']: {
 				fontSize: 56,
 			},
+
 		},
-		Display13:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
-			marginTop: '20px',
-			textIndent: '0',
+		DisplaySeBold10:{
+			fontWeight:600,
+			fontFamily:'ANC-SeBold,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
-				fontSize: 20,
+				fontSize: 18,
 			},
 			[theme.breakpoints.between('sm', 'md')]: {
+				fontSize: 18,
+			},
+			[theme.breakpoints.between('md', 'xl')]: {
 				fontSize: 20,
 			},
-			[theme.breakpoints.between('md', 'lg')]: {
+			[theme.breakpoints.between('lg', 'xl')]: {
+				fontSize: 22,
+			},
+			[theme.breakpoints.up('xl')]: {
+				fontSize: 26,
+			},
+			['@media (min-width:3200px)']: {
+				fontSize: 48,
+			},
+		},
+		DisplaySeBold11:{
+			fontWeight:600,
+			fontFamily:'ANC-SeBold,source-han-sans-simplified-c, sans-serif',
+			[theme.breakpoints.between('xs', 'sm')]: {
+				fontSize: 16,
+			},
+			[theme.breakpoints.between('sm', 'md')]: {
+				fontSize: 18,
+			},
+			[theme.breakpoints.between('md', 'xl')]: {
+				fontSize: 20,
+			},
+			[theme.breakpoints.up('xl')]: {
 				fontSize: 24,
+			},
+			['@media (min-width:3200px)']: {
+				fontSize: 48,
+			},
+		},
+		DisplaySeBold11x:{
+			fontWeight:600,
+			fontFamily:'ANC-SeBold,source-han-sans-simplified-c, sans-serif',
+			[theme.breakpoints.between('xs', 'sm')]: {
+				fontSize: 14,
+			},
+			[theme.breakpoints.between('sm', 'md')]: {
+				fontSize: 18,
+			},
+			[theme.breakpoints.between('md', 'xl')]: {
+				fontSize: 20,
+			},
+			[theme.breakpoints.up('xl')]: {
+				fontSize: 24,
+			},
+			['@media (min-width:3200px)']: {
+				fontSize: 48,
+			},
+		},
+		DisplaySeBold11s:{
+			fontWeight:600,
+			fontFamily:'ANC-SeBold,source-han-sans-simplified-c, sans-serif',
+			[theme.breakpoints.between('xs', 'sm')]: {
+				fontSize: 16,
+			},
+			[theme.breakpoints.between('sm', 'md')]: {
+				fontSize: 18,
+			},
+			[theme.breakpoints.between('md', 'xl')]: {
+				fontSize: 18,
+			},
+			[theme.breakpoints.up('xl')]: {
+				fontSize: 20,
+			},
+			['@media (min-width:3200px)']: {
+				fontSize: 40,
+			},
+		},
+		DisplayLight0:{
+			fontFamily:'ANC-Light,source-han-sans-simplified-c, sans-serif',
+			[theme.breakpoints.between('xs', 'sm')]: {
+				fontSize: 134,
+			},
+			[theme.breakpoints.between('sm', 'md')]: {
+				fontSize: 161,
+			},
+			[theme.breakpoints.between('md', 'lg')]: {
+				fontSize: 161,
+			},
+			[theme.breakpoints.between('lg', 'xl')]: {
+				fontSize: 192,
+			},
+			[theme.breakpoints.up('xl')]: {
+				fontSize: 232,
+			},
+			['@media (min-width:3200px)']: {
+				fontSize: 464,
+			},
+		},
+		DisplayLight1:{
+			fontFamily:'ANC-Light,source-han-sans-simplified-c, sans-serif',
+			[theme.breakpoints.between('xs', 'sm')]: {
+				fontSize: 86,
+			},
+			[theme.breakpoints.between('sm', 'md')]: {
+				fontSize: 104,
+			},
+			[theme.breakpoints.between('md', 'lg')]: {
+				fontSize: 104,
+			},
+			[theme.breakpoints.between('lg', 'xl')]: {
+				fontSize: 124,
+			},
+			[theme.breakpoints.up('xl')]: {
+				fontSize: 150,
+			},
+			['@media (min-width:3200px)']: {
+				fontSize: 300,
+			},
+		},
+		DisplayLight2:{
+			fontFamily:'ANC-Light,source-han-sans-simplified-c, sans-serif',
+			[theme.breakpoints.between('xs', 'sm')]: {
+				fontSize: 66,
+			},
+			[theme.breakpoints.between('sm', 'md')]: {
+				fontSize: 80,
+			},
+			[theme.breakpoints.between('md', 'lg')]: {
+				fontSize: 80,
+			},
+			[theme.breakpoints.between('lg', 'xl')]: {
+				fontSize: 96,
+			},
+			[theme.breakpoints.up('xl')]: {
+				fontSize: 116,
+			},
+			['@media (min-width:3200px)']: {
+				fontSize: 232,
+			},
+		},
+		DisplayLight3:{
+			fontFamily:'ANC-Light,source-han-sans-simplified-c, sans-serif',
+			[theme.breakpoints.between('xs', 'sm')]: {
+				fontSize: 54,
+			},
+			[theme.breakpoints.between('sm', 'md')]: {
+				fontSize: 64,
+			},
+			[theme.breakpoints.between('md', 'lg')]: {
+				fontSize: 64,
+			},
+			[theme.breakpoints.between('lg', 'xl')]: {
+				fontSize: 76,
+			},
+			[theme.breakpoints.up('xl')]: {
+				fontSize: 92,
+			},
+			['@media (min-width:3200px)']: {
+				fontSize: 184,
+			},
+		},
+		DisplayLight4:{
+			fontFamily:'ANC-Light,source-han-sans-simplified-c, sans-serif',
+			[theme.breakpoints.between('xs', 'sm')]: {
+				fontSize: 40,
+			},
+			[theme.breakpoints.between('sm', 'md')]: {
+				fontSize: 48,
+			},
+			[theme.breakpoints.between('md', 'lg')]: {
+				fontSize: 48,
+			},
+			[theme.breakpoints.between('lg', 'xl')]: {
+				fontSize: 58,
+			},
+			[theme.breakpoints.up('xl')]: {
+				fontSize: 70,
+			},
+			['@media (min-width:3200px)']: {
+				fontSize: 140,
+			},
+		},
+		DisplayLight5:{
+			fontFamily:'ANC-Light,source-han-sans-simplified-c, sans-serif',
+			[theme.breakpoints.between('xs', 'sm')]: {
+				fontSize: 32,
+			},
+			[theme.breakpoints.between('sm', 'md')]: {
+				fontSize: 40,
+			},
+			[theme.breakpoints.between('md', 'lg')]: {
+				fontSize: 40,
+			},
+			[theme.breakpoints.between('lg', 'xl')]: {
+				fontSize: 48,
+			},
+			[theme.breakpoints.up('xl')]: {
+				fontSize: 58,
+			},
+			['@media (min-width:3200px)']: {
+				fontSize: 116,
+			},
+		},
+		DisplayLight6:{
+			fontFamily:'ANC-Light,source-han-sans-simplified-c, sans-serif',
+			[theme.breakpoints.between('xs', 'sm')]: {
+				fontSize: 30,
+			},
+			[theme.breakpoints.between('sm', 'md')]: {
+				fontSize: 36,
+			},
+			[theme.breakpoints.between('md', 'lg')]: {
+				fontSize: 36,
+			},
+			[theme.breakpoints.between('lg', 'xl')]: {
+				fontSize: 44,
+			},
+			[theme.breakpoints.up('xl')]: {
+				fontSize: 54,
+			},
+			['@media (min-width:3200px)']: {
+				fontSize: 106,
+			},
+		},
+		DisplayLight7:{
+			fontFamily:'ANC-Light,source-han-sans-simplified-c, sans-serif',
+			[theme.breakpoints.between('xs', 'sm')]: {
+				fontSize: 24,
+			},
+			[theme.breakpoints.between('sm', 'md')]: {
+				fontSize: 28,
+			},
+			[theme.breakpoints.between('md', 'lg')]: {
+				fontSize: 28,
+			},
+			[theme.breakpoints.between('lg', 'xl')]: {
+				fontSize: 34,
+			},
+			[theme.breakpoints.up('xl')]: {
+				fontSize: 42,
+			},
+			['@media (min-width:3200px)']: {
+				fontSize: 84,
+			},
+		},
+		DisplayLight8:{
+			fontFamily:'ANC-Light,source-han-sans-simplified-c, sans-serif',
+			[theme.breakpoints.between('xs', 'sm')]: {
+				fontSize: 22,
+			},
+			[theme.breakpoints.between('sm', 'md')]: {
+				fontSize: 26,
+			},
+			[theme.breakpoints.between('md', 'lg')]: {
+				fontSize: 26,
 			},
 			[theme.breakpoints.between('lg', 'xl')]: {
 				fontSize: 28,
 			},
 			[theme.breakpoints.up('xl')]: {
-				fontSize: 34,
+				fontSize: 32,
 			},
 			['@media (min-width:3200px)']: {
 				fontSize: 64,
+			},
+		},
+		DisplayLight9:{
+			fontFamily:'ANC-Light,source-han-sans-simplified-c, sans-serif',
+			//fontFamily:'ANC-Light,SourceHanSansCN-Light, sans-serif',
+			[theme.breakpoints.between('xs', 'sm')]: {
+				fontSize: 20,
+			},
+			[theme.breakpoints.between('sm', 'md')]: {
+				fontSize: 24,
+			},
+			[theme.breakpoints.between('md', 'lg')]: {
+				fontSize: 24,
+			},
+			[theme.breakpoints.between('lg', 'xl')]: {
+				fontSize: 26,
+			},
+			[theme.breakpoints.up('xl')]: {
+				fontSize: 30,
+			},
+			['@media (min-width:3200px)']: {
+				fontSize: 56,
+			},
+
+		},
+		DisplayLight10:{
+			fontFamily:'ANC-Light,source-han-sans-simplified-c, sans-serif',
+			[theme.breakpoints.between('xs', 'sm')]: {
+				fontSize: 18,
+			},
+			[theme.breakpoints.between('sm', 'md')]: {
+				fontSize: 18,
+			},
+			[theme.breakpoints.between('md', 'xl')]: {
+				fontSize: 20,
+			},
+			[theme.breakpoints.between('lg', 'xl')]: {
+				fontSize: 22,
+			},
+			[theme.breakpoints.up('xl')]: {
+				fontSize: 26,
+			},
+			['@media (min-width:3200px)']: {
+				fontSize: 48,
+			},
+		},
+		DisplayLight11:{
+			fontFamily:'ANC-Light,source-han-sans-simplified-c, sans-serif',
+			[theme.breakpoints.between('xs', 'sm')]: {
+				fontSize: 16,
+			},
+			[theme.breakpoints.between('sm', 'md')]: {
+				fontSize: 18,
+			},
+			[theme.breakpoints.between('md', 'xl')]: {
+				fontSize: 20,
+			},
+			[theme.breakpoints.up('xl')]: {
+				fontSize: 24,
+			},
+			['@media (min-width:3200px)']: {
+				fontSize: 48,
+			},
+		},
+		DisplayLight11x:{
+			fontFamily:'ANC-Light,source-han-sans-simplified-c, sans-serif',
+			[theme.breakpoints.between('xs', 'sm')]: {
+				fontSize: 14,
+			},
+			[theme.breakpoints.between('sm', 'md')]: {
+				fontSize: 18,
+			},
+			[theme.breakpoints.between('md', 'xl')]: {
+				fontSize: 20,
+			},
+			[theme.breakpoints.up('xl')]: {
+				fontSize: 24,
+			},
+			['@media (min-width:3200px)']: {
+				fontSize: 48,
+			},
+		},
+		DisplayLight11s:{
+			fontFamily:'ANC-Light,source-han-sans-simplified-c, sans-serif',
+			[theme.breakpoints.between('xs', 'sm')]: {
+				fontSize: 16,
+			},
+			[theme.breakpoints.between('sm', 'md')]: {
+				fontSize: 18,
+			},
+			[theme.breakpoints.between('md', 'xl')]: {
+				fontSize: 18,
+			},
+			[theme.breakpoints.up('xl')]: {
+				fontSize: 22,
+			},
+			['@media (min-width:3200px)']: {
+				fontSize: 40,
+			},
+		},
+		DisplayLight12s:{
+			fontFamily:'ANC-Light,source-han-sans-simplified-c, sans-serif',
+			[theme.breakpoints.between('xs', 'sm')]: {
+				fontSize: 14,
+			},
+			[theme.breakpoints.between('sm', 'md')]: {
+				fontSize: 16,
+			},
+			[theme.breakpoints.between('md', 'xl')]: {
+				fontSize: 16,
+			},
+			[theme.breakpoints.up('xl')]: {
+				fontSize: 16,
+			},
+			['@media (min-width:3200px)']: {
+				fontSize: 32,
 			},
 		},
 		PaddingL0:{
@@ -1362,16 +1951,16 @@ let styleCommon = (theme) => {
 				paddingLeft: 34,
 			},
 			[theme.breakpoints.between('md', 'lg')]: {
-				paddingLeft: 42,
+				paddingLeft: 38,
 			},
 			[theme.breakpoints.between('lg', 'xl')]: {
-				paddingLeft: 50,
+				paddingLeft: 42,
 			},
 			[theme.breakpoints.up('xl')]: {
-				paddingLeft: 60,
+				paddingLeft: 50,
 			},
 			['@media (min-width:3200px)']: {
-				paddingLeft: 120,
+				paddingLeft: 100,
 			},
 		},
 		PaddingL7:{
@@ -2334,24 +2923,75 @@ let styleCommon = (theme) => {
 				fontSize: 45,
 			},
 		},
-		btn: {
+		btnMini: {
 			fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
-			backgroundColor: '#FF7744',
+			backgroundColor: '#EF8F71',
 			color:'#FFFFFF',
-			borderColor: '#FF774A',
+			borderColor: '#EF8F71',
 			borderWidth: 2,
 			borderStyle:'solid',
 			borderRadius: '100vw',
-			paddingTop: 2,
-			paddingBottom: 2,
-			fontWeight:500,
+			paddingTop: 10,
+			paddingBottom: 10,
+			fontWeight:400,
+			lineHeight:1,
+			'&:hover':{
+				color: '#EF8F71',
+				borderColor: '#FF774A',
+				borderWidth: 2,
+			},
+			[theme.breakpoints.between('xs', 'sm')]: {
+				fontSize: 14,
+				paddingRight: 12,
+				paddingLeft: 12,
+			},
+			[theme.breakpoints.between('sm', 'md')]: {
+				fontSize: 16,
+				paddingRight: 14,
+				paddingLeft: 14,
+			},
+			[theme.breakpoints.between('md', 'lg')]: {
+				fontSize: 16,
+				paddingRight: 14,
+				paddingLeft: 14,
+			},
+			[theme.breakpoints.between('lg', 'xl')]: {
+				fontSize: 20,
+				paddingRight: 20,
+				paddingLeft: 20,
+			},
+			[theme.breakpoints.up('xl')]: {
+				fontSize: 22,
+				paddingRight: 20,
+				paddingLeft: 20,
+			},
+			['@media (min-width:3200px)']: {
+				fontSize: 48,
+				paddingRight: 40,
+				paddingLeft: 40,
+				paddingBottom: 20,
+				paddingTop: 20,
+			},
+		},
+		btn: {
+			fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+			backgroundColor: '#EF8F71',
+			color:'#FFFFFF',
+			borderColor: '#EF8F71',
+			borderWidth: 2,
+			borderStyle:'solid',
+			borderRadius: '100vw',
+			paddingTop: 10,
+			paddingBottom: 10,
+			fontWeight:400,
+			lineHeight:1,
 			'&:hover':{
 				color: '#FF774A',
 				borderColor: '#FF774A',
 				borderWidth: 2,
 			},
 			[theme.breakpoints.between('xs', 'sm')]: {
-				fontSize: 14,
+				fontSize: 16,
 				paddingRight: 16,
 				paddingLeft: 16,
 			},
@@ -2366,7 +3006,7 @@ let styleCommon = (theme) => {
 				paddingLeft: 24,
 			},
 			[theme.breakpoints.between('lg', 'xl')]: {
-				fontSize: 22,
+				fontSize: 24,
 				paddingRight: 28,
 				paddingLeft: 28,
 			},
@@ -2379,6 +3019,9 @@ let styleCommon = (theme) => {
 				fontSize: 56,
 				paddingRight: 64,
 				paddingLeft: 64,
+				paddingTop: 20,
+				paddingBottom: 20,
+
 			},
 		},
 		btnBig: {
@@ -2389,9 +3032,10 @@ let styleCommon = (theme) => {
 			borderWidth: 2,
 			borderStyle:'solid',
 			borderRadius: '100vw',
-			paddingTop: 2,
-			paddingBottom: 2,
-			fontWeight:500,
+			paddingTop: 10,
+			paddingBottom: 10,
+			fontWeight:400,
+			lineHeight:1,
 			'&:hover':{
 				color: '#FF774A',
 				borderColor: '#FFFFFF',
@@ -2426,6 +3070,61 @@ let styleCommon = (theme) => {
 				fontSize: 78,
 				paddingRight: 78,
 				paddingLeft: 78,
+				paddingBottom: 20,
+				paddingTop: 20,
+			},
+		},
+		btnOutlineMini: {
+			whiteSpace:'nowrap',
+			// marginTop: theme.spacing(3),
+			fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+			color: '#FF774A',
+			borderColor: '#FF774A',
+			borderWidth: 2,
+			borderRadius: '100vw',
+			paddingLeft: 20,
+			paddingRight: 20,
+			fontWeight:400,
+			paddingTop: 10,
+			borderStyle:'solid',
+			paddingBottom: 10,
+			lineHeight:1,
+			'&:hover':{
+				color: '#FF774A',
+				borderColor: '#FF774A',
+				borderWidth: 2,
+			},
+			[theme.breakpoints.between('xs', 'sm')]: {
+				fontSize: 14,
+				paddingRight: 12,
+				paddingLeft: 12,
+			},
+			[theme.breakpoints.between('sm', 'md')]: {
+				fontSize: 16,
+				paddingRight: 14,
+				paddingLeft: 14,
+			},
+			[theme.breakpoints.between('md', 'lg')]: {
+				fontSize: 16,
+				paddingRight: 14,
+				paddingLeft: 14,
+			},
+			[theme.breakpoints.between('lg', 'xl')]: {
+				fontSize: 18,
+				paddingRight: 18,
+				paddingLeft: 18,
+			},
+			[theme.breakpoints.up('xl')]: {
+				fontSize: 22,
+				paddingRight: 20,
+				paddingLeft: 20,
+			},
+			['@media (min-width:3200px)']: {
+				fontSize: 48,
+				paddingRight: 40,
+				paddingLeft: 40,
+				paddingBottom: 20,
+				paddingTop: 20,
 			},
 		},
 		btnOutline: {
@@ -2439,19 +3138,18 @@ let styleCommon = (theme) => {
 			paddingLeft: 20,
 			paddingRight: 20,
 			fontWeight:500,
-			paddingTop: 2,
+			paddingTop: 10,
 			borderStyle:'solid',
-			paddingBottom: 2,
+			paddingBottom: 10,
+			lineHeight:1,
 			'&:hover':{
 				color: '#FFFFFF',
 				backgroundColor: '#FF774A',
 				borderColor: '#FFFFFF',
 				borderWidth: 2,
-				paddingTop: 2,
-				paddingBottom: 2
 			},
 			[theme.breakpoints.between('xs', 'sm')]: {
-				fontSize: 14,
+				fontSize: 16,
 				paddingRight: 16,
 				paddingLeft: 16,
 			},
@@ -2466,7 +3164,7 @@ let styleCommon = (theme) => {
 				paddingLeft: 24,
 			},
 			[theme.breakpoints.between('lg', 'xl')]: {
-				fontSize: 22,
+				fontSize: 24,
 				paddingRight: 28,
 				paddingLeft: 28,
 			},
@@ -2479,6 +3177,8 @@ let styleCommon = (theme) => {
 				fontSize: 56,
 				paddingRight: 64,
 				paddingLeft: 64,
+				paddingBottom: 20,
+				paddingTop: 20,
 			},
 		},
 		btnColor:{
@@ -2766,32 +3466,20 @@ let styleCommon = (theme) => {
 			marginRight: theme.spacing(2),
 		},
 		btnImg:{
-			width:'50px',
+			width:'36px',
 			[theme.breakpoints.between('xs', 'sm')]: {
-				width:'26px',
+				width:'36px',
 			},
 			[theme.breakpoints.up('xl')]: {
-				width:'100px',
+				width:'48px',
 			},
 			['@media (min-width:3200px)']: {
-				width:'180px',
+				width:'96px',
 			},
 		},
 		btnImgRound:{
-			width:'50px',
-			marginLeft:'45px',
-			[theme.breakpoints.between('xs', 'sm')]: {
-				width:'26px',
-				marginLeft:'15px',
-			},
-			[theme.breakpoints.up('xl')]: {
-				width:'80px',
-				marginLeft:'40px',
-			},
-			['@media (min-width:3200px)']: {
-				width:'180px',
-				marginLeft:'90px',
-			},
+			display:'flex',
+			justifyContent:'center'
 		}
 
 	}

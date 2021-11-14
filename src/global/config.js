@@ -7,7 +7,7 @@
  */
 const config = {
 	gateway: 'https://coldcdn.com/api/cdn/v5ynur/ipfs/',
-	backend: 'https://api.sparklink.io',
+	backend: 'https://staging.sparklink.io',
 	sparkAddr: '0xb42d4525841008A69E427026DF354067fD6A524f',
 }
 

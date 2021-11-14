@@ -13,7 +13,6 @@ import EncryptedPublish from '../view/EncryptedPublish';
 import Buy from '../view/Buy';
 import ScrollToTop from '../components/ScrollToTop';
 
-
 const BasicRoute = () => (
 	<HashRouter>
 		<ScrollToTop>

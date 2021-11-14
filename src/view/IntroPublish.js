@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
 import { createTheme, ThemeProvider, withStyles } from '@material-ui/core/styles'
-import Typography from '@material-ui/core/Typography'
 import Container from '@material-ui/core/Container'
 import TopBar from '../components/TopBar'
 import { withTranslation } from 'react-i18next'
@@ -45,26 +44,29 @@ const styles = (theme) => ({
 		},
 	},
 
-	shouldKnow: {
-		fontFamily: 'AMC',
+	DisplaySeBold6: {
 		textAlign: 'center',
-		//marginTop: 100,
+	},
+	Display11:{
+		textIndent:'-1em',
+		marginLeft:'1em',
+		lineHeight:1.25
+	},
+	DisplaySeBold10:{
+		lineHeight:1.35
+	},
+	btnBox:{
+		alignItems:'center',
 		[theme.breakpoints.between('xs', 'sm')]: {
-			fontSize: 16,
+			flexDirection:'column'
 		},
-		[theme.breakpoints.between('sm', 'md')]: {
-			fontSize: 20,
-		},
-		[theme.breakpoints.between('md', 'lg')]: {
-			fontSize: 40,
-		},
-		[theme.breakpoints.between('lg', 'xl')]: {
-			fontSize: 40,
-		},
-		[theme.breakpoints.up('xl')]: {
-			fontSize: 60,
+		[theme.breakpoints.up('sm')]: {
+			flexDirection:'row'
 		},
 	},
+	btnMini:{
+		inherit:'MarginT10,MarginL10,MarginR10',
+	}
 })
 
 const theme = createTheme({
@@ -87,47 +89,55 @@ class IntroPublish extends Component {
 					<TopBar />
 					<Container component="main" className={classes.container}>
 						<div className={classes.paper}>
-							<Typography color="inherit" noWrap className={classes.shouldKnow + ' ' + classes.MarginT3}>
-								<b>{t('introPublish')}</b>
-							</Typography>
+							<div color="inherit"  noWrap className={classes.DisplaySeBold6 + ' ' + classes.MarginT3}>
+								{t('introPublish')}
+							</div>
 							<br />
 							<br />
-							<Typography variant="h4" paragraph className={classes.Display13}>
+							<div className={classes.DisplaySeBold10}>
 								{t('introPublish1')}
-							</Typography>
+							</div>
 							<br />
-							<Typography color="textSecondary" paragraph className={classes.Display12}>
-								<b>1. </b> {t('introPublish2')}
-							</Typography>
-							<Typography color="textSecondary" paragraph className={classes.Display12}>
-								<b>2. </b>{t('introPublish3')}
-								<br />
-							</Typography>
-							<Typography color="textSecondary" paragraph className={classes.Display12}>
-								<b>3. </b>{t('introPublish4')}
-								<br />
-							</Typography>
-							<Typography color="textSecondary" paragraph className={classes.Display12}>
-								<b>4. </b>{t('introPublish5')}
+							<br />
+							<div className={classes.Display11}>
+								1. {t('introPublish2')}
 								<br />
 								<br />
-							</Typography>
-							<Grid container justifyContent="center" style={{ fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif', marginTop: 40 }}>
-								<Grid container item style={{ display: 'flex' }} justifyContent="center" xl={12} xs={12} >
-									<Button
-										className={classes.btn}
-										href="/#/encryptedPublish"
-									>
-										{t('publish_encry')}
-									</Button>
-								</Grid>
-								<Grid container item style={{ display: 'flex', marginTop: 20 }} justifyContent="center" xl={12} xs={12} >
-									<Button
-										className={classes.btnOutline}
-										href="/#/publish"
-									>
-										{t('publish_open')}
-									</Button>
+							</div>
+							<div  className={classes.Display11}>
+								2. {t('introPublish3')}
+								<br />
+								<br />
+							</div>
+							<div className={classes.Display11}>
+								3. {t('introPublish4')}
+								<br />
+								<br />
+							</div>
+							<div className={classes.Display11}>
+								4. {t('introPublish5')}
+								<br />
+								<br />
+							</div>
+							<Grid container justifyContent="center" style={{ marginTop: 40 }}>
+								<Grid container item className={classes.btnBox} style={{ display: 'flex' ,}} justifyContent="center" xs={12} sm={12} md={12} lg={12} >
+									<div>
+										<Button
+											className={classes.btnMini}
+											href="/#/encryptedPublish"
+										>
+											{t('publish_encry')}
+										</Button>
+									</div>
+									<div>
+										<Button
+											className={classes.btnMini}
+											href="/#/publish"
+										>
+											{t('publish_open')}
+										</Button>
+									</div>
+
 								</Grid>
 							</Grid>
 							<br />
