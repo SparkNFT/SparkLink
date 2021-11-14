@@ -177,40 +177,40 @@ let styles = (theme) => ({
 			marginTop:'10%'
 		},
 	},
-	btnImg:{
+	btnImgX:{
 		width:'100%',
 		height:'100%',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			width:'50px',
 		},
 	},
-	btnImgRound:{
+	btnImgRoundX:{
 		marginTop:'25px',
-		width:'80px',
-		marginRight:'25px',
 		[theme.breakpoints.between('xs', 'sm')]: {
-			width:'50px',
-			marginLeft:'2px',
+			width:50,
+			marginRight: 20
+		},
+		[theme.breakpoints.between('sm', 'md')]: {
+			width:60,
+			marginRight: 30
+		},
+		[theme.breakpoints.between('md', 'lg')]: {
+			width:70,
+			marginRight: 30
+		},
+		[theme.breakpoints.between('lg', 'xl')]: {
+			width:80,
+			marginRight: 35
+		},
+		[theme.breakpoints.up('xl')]: {
+			width:120,
+			marginRight: 45
+		},
+		['@media (min-width:3200px)']:{
+			width:240,
+			marginRight: 90
 		},
 	},
-	Display10:{
-		fontWeight:500,
-	},
-	Display11:{
-		fontWeight:500,
-	},
-	Display11x:{
-		fontWeight:500,
-	},
-	Display8:{
-		fontWeight:500,
-	},
-	Display7:{
-		fontWeight:500,
-	},
-	Display9:{
-		fontWeight:500,
-	}
 	
 })
 
@@ -395,14 +395,14 @@ class App extends Component {
 									</Grid>
 									<Grid  item xs={10} sm={10} md={6} lg={6} xl={6}>
 										<div style={{width:'100%',display:'flex',justifyContent:'center'}}>
-											<Typography style={{color: '#FF774A'}} className={classes.Display8 + ' ' +classes.MarginT3}>
+											<Typography style={{color: '#FF774A'}} className={classes.Display7 + ' ' +classes.MarginT3}>
 												{t('index_message_9')}
 											</Typography>
 										</div>
 										<div style={{width:'100%',display:'flex',justifyContent:'center'}}>
-											<Button className={classes.btnImgRound} href='https://t.me/SparkLink_io' ><img className={classes.btnImg} src={logoTele} /></Button>
-											<Button className={classes.btnImgRound} href='https://twitter.com/SparkLink_io'><img className={classes.btnImg} src={logoTwi} /></Button>
-											<Button className={classes.btnImgRound} href='https://t.co/lh0TzLZdEo?amp=1'><img className={classes.btnImg} src={logoDis} /></Button>
+											<Button className={classes.btnImgRoundX} href='https://t.me/SparkLink_io' ><img className={classes.btnImgX} src={logoTele} /></Button>
+											<Button className={classes.btnImgRoundX} href='https://twitter.com/SparkLink_io'><img className={classes.btnImgX} src={logoTwi} /></Button>
+											<Button className={classes.btnImgRoundX} href='https://t.co/lh0TzLZdEo?amp=1'><img className={classes.btnImgX} src={logoDis} /></Button>
 										</div>
 										
 									</Grid>

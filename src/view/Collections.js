@@ -192,6 +192,7 @@ class Collections extends Component {
 		// if (accounts.length === 0) {
 		// 	alert('请先连接Metamask')
 		// }
+		
 		const chainName = await getChainName();
 		switch(chainName){
 		case 'matic':
@@ -207,6 +208,7 @@ class Collections extends Component {
 			web3.setProvider(new Web3.providers.HttpProvider('https://polygon-mainnet.infura.io/v3/0232394ba4b34544a778575aefa2ee8c'))
 			break;
 		}
+		localStorage.setItem('hasSetHttpProvider','true')
 		// web3.setProvider(new Web3.providers.HttpProvider('https://polygon-mainnet.infura.io/v3/0232394ba4b34544a778575aefa2ee8c'))
 		//web3.setProvider(new Web3.providers.HttpProvider('https://matic-mainnet--jsonrpc.datahub.figment.io/apikey/e84b63fff0e37deb30837101f20eb793/'))
 		var account = null;

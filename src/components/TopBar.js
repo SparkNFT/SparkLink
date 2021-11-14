@@ -239,6 +239,8 @@ const styles = (theme) => ({
 		inherit: 'PaddingL7,PaddingT7,PaddingB7,PaddingR7'
 	},
 	chainLogo:{
+		borderRadius:'50%',
+		boxShadow:'rgb(255, 125, 87) 3px 3px 3px',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			width: 26,
 		},
@@ -327,6 +329,7 @@ class TopBar extends Component {
 	}
 	// eslint-disable-next-line react/no-deprecated
 	async componentDidMount() {
+		
 		this.scrollEvent()
 		if (this.props.onRef) {
 			this.props.onRef(this)
@@ -349,6 +352,10 @@ class TopBar extends Component {
 			}
 		}
 		console.log('lastconnect:  ' + lastConnect)
+		if(localStorage.getItem('hasSetHttpProvider')=='true'){
+			web3.setProvider(window.ethereum);
+			localStorage.setItem('hasSetHttpProvider','false')
+		}
 		switch (lastConnect) {
 		case METAMASK:
 			this.checkMetaMask();
@@ -859,6 +866,7 @@ class TopBar extends Component {
 											id='connectedBtn'
 											className={classes.btnTopBarMenu + ' ' + classes.MarginR8}
 											onClick={this.handleWalletMenuClick}
+											style={{boxShadow: 'rgb(255, 125, 87) 3px 3px 3px'}}
 										>
 											{this.state.userAddress.substring(0, 6)}...
 											{this.state.userAddress.substring(this.state.userAddress.length - 5, this.state.userAddress.length)}
@@ -874,8 +882,8 @@ class TopBar extends Component {
 									// <Button onClick={this.getAccount}>
 									//   <WalletFilled className={classes.icon} />
 									// </Button>
-									<Button id='unConnectedBtn' className={classes.btnTopBarMenu + ' ' + classes.MarginR8} onClick={this.handleDialogOpen}>
-										<b> Connect Wallet</b>
+									<Button id='unConnectedBtn' className={classes.btnTopBarMenu + ' ' + classes.MarginR8} style={{boxShadow: 'rgb(255, 125, 87) 3px 3px 3px'}}  onClick={this.handleDialogOpen}>
+										Connect Wallet
 									</Button>
 								)}
 								

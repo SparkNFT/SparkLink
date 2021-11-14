@@ -1111,7 +1111,7 @@ class EncryptedPublish extends Component {
 								<div style={{ textAlign: 'center' }}>
 									<Button
 										disabled ={this.state.submitBtnDisable}
-										startIcon={<CloudUploadOutlined />}
+										startIcon={<CloudUploadOutlined style={{fontSize:'100%'}} />}
 										className={classes.btn}
 										onClick={this.submitWork}
 									>
