@@ -163,6 +163,11 @@ const styles = (theme) => ({
 })
 
 class Publish extends Component {
+	constructor(props) {
+		super(props);
+		//this.onCheckBoxChange = this.
+	}
+
 	state = {
 		name: '',
 		bonusFee: 0,
@@ -566,6 +571,7 @@ class Publish extends Component {
 	}
 	onCheckBoxChange(e) {
 		console.log(`checked = ${e.target.checked}`);
+		console.log(e.target.id)
 		switch (e.target.id) {
 		case 'isNC':
 			this.setState({
@@ -841,8 +847,8 @@ class Publish extends Component {
 											</label>
 											<br />
 											{/* <p className={classes.Display11}>{'is_NC & is_ND'}</p> */}
-											<Checkbox id='isNC' defaultChecked onChange={this.onCheckBoxChange}>is_NC</Checkbox>
-											<Checkbox id='isND' defaultChecked onChange={this.onCheckBoxChange}>is_ND</Checkbox>
+											<Checkbox id='isNC' defaultChecked onChange={this.onCheckBoxChange.bind(this)}>is_NC</Checkbox>
+											<Checkbox id='isND' defaultChecked onChange={this.onCheckBoxChange.bind(this)}>is_ND</Checkbox>
 										</Grid>
 
 										<Grid item style={{ width: '100%' }}>
