@@ -213,8 +213,8 @@ class NFTInfo extends Component {
 		// 	})
 		// }
 
-		const price = await contract.methods.getShillPriceByNFTId(this.props.match.params.id).call()
-		const owner = await contract.methods.ownerOf(this.props.match.params.id).call()
+		const price = await contract().methods.getShillPriceByNFTId(this.props.match.params.id).call()
+		const owner = await contract().methods.ownerOf(this.props.match.params.id).call()
 
 		//获取账号
 		// let account
@@ -276,8 +276,8 @@ class NFTInfo extends Component {
 			window.location.href = '/#/'
 		}
 		console.log(this.props.match.params.id)
-		const token_addr = await contract.methods.getTokenAddrByNFTId(this.props.match.params.id).call()
-		const res = await contract.methods.getProfitByNFTId(this.props.match.params.id).call()
+		const token_addr = await contract().methods.getTokenAddrByNFTId(this.props.match.params.id).call()
+		const res = await contract().methods.getProfitByNFTId(this.props.match.params.id).call()
 		if (token_addr == '0x0000000000000000000000000000000000000000') {
 			const chainId = localStorage.getItem('chainId')
 			let name = getChainNameByChainId(chainId).toUpperCase()
@@ -296,8 +296,8 @@ class NFTInfo extends Component {
 			})
 		} else {
 			const token_contract = new web3.eth.Contract(abi, token_addr)
-			const token_symbol = await token_contract.methods.symbol().call()
-			const decimal = await token_contract.methods.decimals().call()
+			const token_symbol = await token_contract().methods.symbol().call()
+			const decimal = await token_contract().methods.decimals().call()
 			let price_with_decimal = res / 10 ** decimal
 			let price_poster = price / 10 ** decimal
 			price_poster = price_poster + ' ' + token_symbol
@@ -309,11 +309,11 @@ class NFTInfo extends Component {
 				Profit: profit,
 			})
 		}
-		const meta = await contract.methods.tokenURI(this.props.match.params.id).call()
+		const meta = await contract().methods.tokenURI(this.props.match.params.id).call()
 		console.log('meta',meta)
 		// https://coldcdn.com/api/cdn/v5ynur/ipfs/QmV7s3xrtwxfBa7VDcqHGFKcSjKdLZL7offiC31yM2NSqz
 		let hash = meta.split('/')
-		const royalty = await contract.methods.getRoyaltyFeeByNFTId(this.props.match.params.id).call()
+		const royalty = await contract().methods.getRoyaltyFeeByNFTId(this.props.match.params.id).call()
 		let file_hash = hash[hash.length - 1]
 		let request_url = 'https://coldcdn.com/api/cdn/v5ynur/ipfs/' + file_hash
 
@@ -419,7 +419,7 @@ class NFTInfo extends Component {
 		let gasPrice = await web3.eth.getGasPrice()
 		let new_gas_price = Math.floor(parseInt(gasPrice) * 1.5).toString()
 		try {
-			await contract.methods.claimProfit(this.props.match.params.id).send({
+			await contract().methods.claimProfit(this.props.match.params.id).send({
 				from: this.state.account,
 				gasPrice: new_gas_price,
 			})

@@ -198,6 +198,7 @@ class Publish extends Component {
 		fileList: [],
 		isNC: true,
 		isND: false,
+		isFree: false,
 		uploadBtnDisable: false,
 		submitBtnDisable: true,
 	}
@@ -333,8 +334,8 @@ class Publish extends Component {
 		if (token_symbol == undefined) {
 			try {
 				const token_contract = new web3.eth.Contract(abi, value)
-				token_symbol = await token_contract.methods.symbol().call()
-				token_decimal = await token_contract.methods.decimals().call()
+				token_symbol = await token_contract().methods.symbol().call()
+				token_decimal = await token_contract().methods.decimals().call()
 				address = value
 			} catch (error) {
 				message.error(t('error_no_erc20'))
@@ -433,7 +434,7 @@ class Publish extends Component {
 
 					let gasPrice = await web3.eth.getGasPrice()
 					let new_gas_price = Math.floor(parseInt(gasPrice) * 1.5).toString()
-					contract.methods
+					contract().methods
 						.publish(
 							price_with_decimal,
 							this.state.bonusFee,
@@ -442,6 +443,7 @@ class Publish extends Component {
 							this.state.token_addr,
 							this.state.isNC,
 							this.state.isND,
+							this.state.isFree
 						)
 						.send({
 							from: this.state.userAccount,
@@ -450,8 +452,6 @@ class Publish extends Component {
 						.on('receipt', function (receipt) {
 
 							//console.log(receipt)
-							console.log('receipt.logs:')
-							console.log(receipt.logs)
 							const data = receipt.events[0].raw.topics;
 							console.log(data)
 							
@@ -603,8 +603,18 @@ class Publish extends Component {
 				isND: e.target.checked,
 			})
 			break;
+		case 'isFree':
+			this.setState({
+				isFree: e.target.checked,
+			})
+			break;
 		}
 	}
+
+	onUpdateChain(){
+		this.UNSAFE_componentWillMount();
+	}
+
 
 	render() {
 		const { t } = this.props
@@ -774,7 +784,7 @@ class Publish extends Component {
 			return (
 				<Spin spinning={this.state.onLoading} size="large" style={{ marginTop: 1000 }}>
 					<ThemeProvider theme={theme}>
-						<TopBar />
+						<TopBar parent={this} />
 						<Container component="main" maxWidth="xs" className={classes.main}>
 							<div className={classes.paper}>
 								{/* {showLoading()} */}
@@ -863,12 +873,14 @@ class Publish extends Component {
 										</Grid>
 										<Grid item style={{ width: '100%' }}>
 											<label className={classes.Display9}>
-												{'is_NC & is_ND'} <span style={{ color: 'red' }}>*</span>
+												{t('作品权限')} <span style={{ color: 'red' }}>*</span>
 											</label>
 											<br />
 											{/* <p className={classes.Display11}>{'is_NC & is_ND'}</p> */}
-											<Checkbox id='isNC' defaultChecked onChange={this.onCheckBoxChange.bind(this)}>is_NC</Checkbox>
-											<Checkbox id='isND' onChange={this.onCheckBoxChange.bind(this)}>is_ND</Checkbox>
+											
+											<Checkbox id='isND' className={classes.Display11}  defaultChecked onChange={this.onCheckBoxChange.bind(this)}>{t('是否允许二次创作')}</Checkbox>
+											<Checkbox id='isNC' className={classes.Display11} onChange={this.onCheckBoxChange.bind(this)}>{t('是否允许商用')}</Checkbox>
+											<Checkbox id='isFreeFirst' className={classes.Display11} onChange={this.onCheckBoxChange.bind(this)}>{t('允许一级节点免费铸造')}</Checkbox>
 										</Grid>
 
 										<Grid item style={{ width: '100%' }}>

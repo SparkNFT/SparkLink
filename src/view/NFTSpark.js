@@ -278,7 +278,7 @@ class NFTSpark extends Component {
 		// const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
 		// const account = accounts[0]
 
-		const meta = await contract.methods.tokenURI(this.props.match.params.id).call()
+		const meta = await contract().methods.tokenURI(this.props.match.params.id).call()
 		let hash = meta.split('/')
 		this.setState({ hash: hash[hash.length - 1] })
 		let isEncrypt
@@ -313,8 +313,8 @@ class NFTSpark extends Component {
 			})
 		}
 
-		const price = await contract.methods.getShillPriceByNFTId(this.props.match.params.id).call()
-		const token_addr = await contract.methods.getTokenAddrByNFTId(this.props.match.params.id).call()
+		const price = await contract().methods.getShillPriceByNFTId(this.props.match.params.id).call()
+		const token_addr = await contract().methods.getTokenAddrByNFTId(this.props.match.params.id).call()
 
 		this.setState({
 			price: price,
@@ -331,12 +331,12 @@ class NFTSpark extends Component {
 		} else {
 			try {
 				const token_contract = new web3.eth.Contract(abi, token_addr)
-				const decimals = await token_contract.methods.decimals().call()
-				const token_symbol = await token_contract.methods.symbol().call()
+				const decimals = await token_contract().methods.decimals().call()
+				const token_symbol = await token_contract().methods.symbol().call()
 				let price_with_decimal = price / 10 ** decimals
 				price_with_decimal = price_with_decimal + ' ' + token_symbol
 				this.setState({ priceString: price_with_decimal })
-				const approved_amount = await token_contract.methods.allowance(account, sparkAddr).call()
+				const approved_amount = await token_contract().methods.allowance(account, sparkAddr).call()
 				if (approved_amount >= price) {
 					this.setState({
 						approved: true,
@@ -479,7 +479,7 @@ class NFTSpark extends Component {
 			const token_contract = new web3.eth.Contract(abi, this.state.tokenAddr)
 			let gasPrice = await web3.eth.getGasPrice()
 			let new_gas_price = Math.floor(parseInt(gasPrice) * 1.5).toString()
-			token_contract.methods
+			token_contract().methods
 				.approve(sparkAddr, price)
 				.send({
 					from: account,
@@ -543,7 +543,7 @@ class NFTSpark extends Component {
 
 		this.setState({ onLoading: true })
 		if (this.state.tokenAddr == '0x0000000000000000000000000000000000000000') {
-			contract.methods
+			contract().methods
 				.acceptShill(this.props.match.params.id)
 				.send({
 					from: account,
@@ -576,7 +576,7 @@ class NFTSpark extends Component {
 					})
 				})
 		} else {
-			contract.methods
+			contract().methods
 				.acceptShill(this.props.match.params.id)
 				.send({
 					from: account,
