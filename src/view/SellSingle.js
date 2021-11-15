@@ -7,14 +7,23 @@ import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, I
 import { Typography, Paper, Container } from '@material-ui/core'
 import axios from 'axios'
 import { DollarCircleOutlined, ArrowLeftOutlined, CopyOutlined } from '@ant-design/icons'
+import { TOKENPOCKET, METAMASK, LASTCONNECT, MATHWALLET } from '../global/globalsString'
 import { Spin, message } from 'antd'
 import { Input, InputNumber } from 'antd'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import contract from '../utils/contract'
-import web3 from '../utils/web3'
 import Skeleton from '@material-ui/lab/Skeleton'
+import web3 from '../utils/web3';
 import config from '../global/config'
 import { withTranslation } from 'react-i18next'
+import { getChainName } from '../utils/getWalletAccountandChainID'
+import Web3 from 'web3'
+import withCommon from '../styles/common'
+import Footer from '../components/Footer'
+//TP钱包支持
+const tp = require('tp-js-sdk');
+//麦子钱包支持
+const mathwallet = require('math-js-sdk');
 const { gateway, backend } = config
 const abi = require('erc-20-abi')
 const theme = createTheme({
@@ -30,22 +39,33 @@ const theme = createTheme({
 
 const styles = (theme) => ({
 	container: {
-		maxWidth: 1500,
+		justifyContent:'center',
+		display:'flex',
+		flexDirection:'column',
+		alignItems:'center'
 	},
-	paper: {
-		marginTop: theme.spacing(1),
-		textAlign: 'center',
-		maxWidth: 1500,
-	},
-	btnSell: {
-		margin: theme.spacing(1),
-		fontSize: 16,
-		borderRadius: 10,
-		borderWidth: 2,
-		borderColor: '#2196f3',
-		color: '#2196f3',
-		marginLeft: '10%',
-		width: 100,
+	cbutton: {
+		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+		[theme.breakpoints.between('xs', 'sm')]: {
+			justifyContent: 'center',
+			alignItems: 'flex-start',
+		},
+		[theme.breakpoints.between('sm', 'md')]: {
+			justifyContent: 'center',
+			alignItems: 'flex-start',
+		},
+		[theme.breakpoints.between('md', 'lg')]: {
+			justifyContent: 'flex-end',
+			alignItems: 'flex-start',
+		},
+		[theme.breakpoints.between('lg', 'xl')]: {
+			justifyContent: 'flex-end',
+			alignItems: 'flex-start',
+		},
+		[theme.breakpoints.up('xl')]: {
+			justifyContent: 'flex-end',
+			alignItems: 'flex-start',
+		},
 	},
 	content: {
 		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
@@ -62,7 +82,7 @@ const styles = (theme) => ({
 			alignItems: 'flex-start',
 		},
 		[theme.breakpoints.between('lg', 'xl')]: {
-			justifyContent: 'center',
+			justifyContent: 'flex',
 			alignItems: 'flex-start',
 		},
 		[theme.breakpoints.up('xl')]: {
@@ -70,46 +90,54 @@ const styles = (theme) => ({
 			alignItems: 'flex-start',
 		},
 	},
-	img: {
-		width: 300,
-		marginBottom: 50,
-		[theme.breakpoints.between('xs', 'sm')]: {
-			marginLeft: '20%',
-		},
-		[theme.breakpoints.between('sm', 'md')]: {
-			marginLeft: '20%',
-		},
-		[theme.breakpoints.between('md', 'lg')]: {
-			marginLeft: '20%',
-		},
-		[theme.breakpoints.between('lg', 'xl')]: {
-			marginLeft: '30%',
-		},
-		[theme.breakpoints.up('xl')]: {
-			marginLeft: '40%',
-		},
+	paper: {
+		marginTop: theme.spacing(1),
+		textAlign: 'center',
+		width:'100%'
+		// backgroundColor: "green"
+	},
+	imagePapaer: {
+		backgroundColor: '#EFEBE9',
+		width:'100%'
+	},
+	imageStyle: {
+		objectFit: 'contain',
+		// object- fit: cover
+		width:'80%',
+		marginLeft:'10%',
+		marginRight:'10%',
+		marginTop:'10%',
+		marginBottom:'10%'
 	},
 	content2: {
 		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
-		textAlign: 'center',
+		
 		[theme.breakpoints.between('xs', 'sm')]: {
-			maxWidth: 500,
+			marginLeft:15,
 		},
 		[theme.breakpoints.between('sm', 'md')]: {
-			marginLeft: 90,
-			maxWidth: 500,
+			marginLeft:25,
 		},
 		[theme.breakpoints.between('md', 'lg')]: {
-			marginLeft: 80,
-			maxWidth: 500,
+			marginLeft:45,
 		},
 		[theme.breakpoints.between('lg', 'xl')]: {
-			marginLeft: 50,
-			maxWidth: 500,
+			marginLeft:55,
 		},
 		[theme.breakpoints.up('xl')]: {
-			marginLeft: 60,
-			maxWidth: 500,
+			marginLeft:75,
+		},
+		['@media (min-width:3200px)']: {
+			marginLeft:140,
+		},
+	},
+	cbutton2: {
+		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+		justifyContent: 'flex-start',
+		alignItems: 'center',
+		[theme.breakpoints.between('xs', 'sm')]: {
+			justifyContent:'',
+			textAlign:'left'
 		},
 	},
 	share: {
@@ -117,7 +145,6 @@ const styles = (theme) => ({
 		marginBottom: '10%',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			fontSize: 14,
-			// width: '5%'
 		},
 		[theme.breakpoints.between('sm', 'md')]: {
 			fontSize: 16,
@@ -131,33 +158,6 @@ const styles = (theme) => ({
 		[theme.breakpoints.up('xl')]: {
 			fontSize: 20,
 		},
-	},
-	imgPaper: {
-		width: 350,
-		marginBottom: 50,
-		backgroundColor: '#EFEBE9',
-		[theme.breakpoints.between('sm', 'md')]: {
-			marginLeft: '20%',
-		},
-		[theme.breakpoints.between('md', 'lg')]: {
-			marginLeft: '20%',
-		},
-		[theme.breakpoints.between('lg', 'xl')]: {
-			marginLeft: '30%',
-		},
-		[theme.breakpoints.up('xl')]: {
-			marginLeft: '35%',
-		},
-	},
-	inputNum: {
-		height: 40,
-		borderRadius: 5,
-		width: 550,
-		fontSize: 20,
-	},
-	input: {
-		height: 40,
-		borderRadius: 5,
 	},
 })
 class SellSingle extends Component {
@@ -185,31 +185,49 @@ class SellSingle extends Component {
 
 	async componentDidMount() {
 		const { t } = this.props;
-		const chainId = await window.ethereum.request({ method: 'eth_chainId' })
-		if (chainId !== '0x89') {
-			alert(t('请切换至Polygon 主网络'))
-			await window.ethereum.request({
-				method: 'wallet_switchEthereumChain',
-				params: [
-					{
-						chainId: '0x89',
-					},
-				],
-			})
+		const chainName = await getChainName();
+		switch(chainName){
+		case 'matic':
+			web3.setProvider(new Web3.providers.HttpProvider('https://polygon-mainnet.infura.io/v3/0232394ba4b34544a778575aefa2ee8c'))
+			break;
+		case 'bsc':
+			web3.setProvider(new Web3.providers.HttpProvider('https://bsc-dataseed1.binance.org:443'))
+			break;
+		case 'eth':
+			web3.setProvider(new Web3.providers.HttpProvider('https://polygon-mainnet.infura.io/v3/0232394ba4b34544a778575aefa2ee8c'))
+			break;
+		default: 
+			web3.setProvider(new Web3.providers.HttpProvider('https://polygon-mainnet.infura.io/v3/0232394ba4b34544a778575aefa2ee8c'))
+			break;
 		}
-
-		const accounts = await window.ethereum.request({
-			method: 'eth_requestAccounts',
-		})
-		const account = accounts[0]
+		var account = null;
+		var value, accounts;
+		const lastConnect = localStorage.getItem(LASTCONNECT);
+		switch (lastConnect) {
+		case TOKENPOCKET:
+			value = await tp.getCurrentWallet()
+			account = value.data.address;
+			break;
+		case MATHWALLET:
+			value = await mathwallet.getCurrentWallet()
+			account = value.address;
+			break;
+		case METAMASK:
+			accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+			account = accounts[0];
+			break;
+		default:
+			// accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+			// account = accounts[0];
+			break;
+		}
 		let obj = this
 		this.setState({
 			currentAcc: account,
 			NFTId: this.props.match.params.NFTId,
 		})
-		const issueId = await contract.methods.getIssueIdByNFTId(this.state.NFTId).call()
-		const royalty = await contract.methods.getRoyaltyFeeByIssueId(issueId).call()
-		const metadata = await contract.methods.tokenURI(this.props.match.params.NFTId).call()
+		const royalty = await contract().methods.getRoyaltyFeeByNFTId(this.state.NFTId).call()
+		const metadata = await contract().methods.tokenURI(this.state.NFTId).call()
 		let hash = metadata.split('/')
 		this.setState({ ipfsHashMeta: hash[hash.length - 1] })
 		var url = gateway + this.state.ipfsHashMeta
@@ -237,9 +255,9 @@ class SellSingle extends Component {
 			console.debug(error)
 		}
 
-		var owner = await contract.methods.ownerOf(this.props.match.params.NFTId).call()
-		var price = await contract.methods.getTransferPriceByNFTId(this.props.match.params.NFTId).call()
-		var token_addr = await contract.methods.getTokenAddrByNFTId(this.props.match.params.NFTId).call()
+		var owner = await contract().methods.ownerOf(this.props.match.params.NFTId).call()
+		var price = await contract().methods.getTransferPriceByNFTId(this.props.match.params.NFTId).call()
+		var token_addr = await contract().methods.getTokenAddrByNFTId(this.props.match.params.NFTId).call()
 		if (price == '0') {
 			this.setState({
 				owner: owner.toLowerCase(),
@@ -261,8 +279,8 @@ class SellSingle extends Component {
 		} else {
 			try {
 				const token_contract = new web3.eth.Contract(abi, token_addr)
-				const token_symbol = await token_contract.methods.symbol().call()
-				const decimal = await token_contract.methods.decimals().call()
+				const token_symbol = await token_contract().methods.symbol().call()
+				const decimal = await token_contract().methods.decimals().call()
 				this.setState({
 					tokenAddr: token_addr,
 					tokenSymbol: token_symbol,
@@ -358,7 +376,7 @@ class SellSingle extends Component {
 		})
 		var gasPrice = await web3.eth.getGasPrice()
 		var new_gas_price = Math.floor(parseInt(gasPrice) * 1.5).toString()
-		contract.methods
+		contract().methods
 			.determinePriceAndApprove(this.state.NFTId, price_with_decimal, this.state.toAddress)
 			.send({
 				from: account,
@@ -421,10 +439,8 @@ class SellSingle extends Component {
 			if (this.state.currentAcc == this.state.owner) {
 				return (
 					<Button
-						variant="outlined"
-						color="primary"
-						startIcon={<DollarCircleOutlined style={{ fontSize: 22 }} />}
-						className={classes.btnSell}
+						startIcon={<DollarCircleOutlined style={{ fontSize: '100%'}} />}
+						className={classes.btn}
 						onClick={this.handleClickOpen}
 					>
 						{t('售卖')}
@@ -433,9 +449,8 @@ class SellSingle extends Component {
 			} else {
 				return (
 					<Button
-						variant="outlined"
-						startIcon={<DollarCircleOutlined style={{ fontSize: 22 }} />}
-						className={classes.btnSell}
+						startIcon={<DollarCircleOutlined style={{ fontSize:  '100%' }} />}
+						className={classes.btn}
 						disabled
 					>
 						{t('售卖')}
@@ -449,149 +464,141 @@ class SellSingle extends Component {
 				<ThemeProvider theme={theme}>
 					<TopBar />
 					<Container component="main" className={classes.container}>
-						<Button
-							startIcon={<ArrowLeftOutlined style={{ fontSize: 22 }} />}
-							onClick={this.handleClickLink}
-							style={{ marginTop: 50, marginBottom: 100, fontSize: 22 }}
-						>
-							{t('返回')}
-						</Button>
-						<div className={classes.paper}>
-							{this.state.loadItem ? (
-								<Grid container spacing={5} className={classes.content}>
-									<Grid item xs={4}>
-										<Skeleton variant="rect" width={300} height={500} className={classes.img} />
+						<Grid container item xs={11} md={10} sm={10} lg={10} xl={10}>
+							<div>
+								<Button
+									startIcon={<ArrowLeftOutlined style={{ fontSize: '100%' }} />}
+									onClick={this.handleClickLink}
+									className={classes.Display8}
+									style={{ marginTop: 20, marginBottom: 10}}
+								>
+									{t('返回')}
+								</Button>
+							</div>
+							<div className={classes.paper}>
+								{this.state.loadItem ? (
+									<Grid container className={classes.content} spacing={5}>
+										<Grid item xs={10} sm={5} md={5} lg={5} xl={5}>
+											<Skeleton
+												variant="rect"
+												width={300}
+												height={500}
+												style={{ width: 370, marginLeft: 0, marginBottom: 50 }}
+											/>
+										</Grid>
+										<Grid item xs={10} sm={5} md={5} lg={5}>
+											<Skeleton animation="wave" variant="text" width={200} height={30} />
+											<Skeleton animation="wave" variant="text" width={400} height={70} />
+											<Skeleton animation="wave" variant="rect" width={500} height={300} style={{ marginBottom: 50 }} />
+										</Grid>
 									</Grid>
-									<Grid item xs style={{ marginLeft: '5%', maxWidth: 500, minWidth: 350 }}>
-										<Skeleton animation="wave" variant="text" width={'70%'} height={30} />
-										<Skeleton animation="wave" variant="text" width={'100%'} height={70} />
-										<Skeleton
-											animation="wave"
-											variant="rect"
-											width={'100%'}
-											height={300}
-											style={{ marginBottom: 50 }}
-										/>
-										{showSellBtn()}
-									</Grid>
-								</Grid>
-							) : (
-								<Grid container className={classes.content} spacing={5}>
-									<Grid item xs={4} style={{ maxWidth: 600 }}>
-										<Paper className={classes.imgPaper}>
-											<img
-												style={{
-													width: 300,
-													marginTop: 20,
-													marginBottom: 50,
-													objectFit: 'contain',
-												}}
-												src={this.state.coverURL}
-											></img>
-										</Paper>
-									</Grid>
+								) : (
+									<Grid 
+										container
+										direction="row"
+										className={classes.content}
+									>
+										<Grid container justifyContent='center' item xs={12} sm={5} md={5} lg={5} xl={5}>
+											<Paper className={classes.imagePapaer}>
+												<img className={classes.imageStyle} src={this.state.coverURL} onError={() => this.setFlag('isCoverLoaded')} id="cover" crossOrigin="anonymous" ></img>
+											</Paper >
+										</Grid >
 
-									<Grid item xs className={classes.content2}>
-										<Typography
-											color="inherit"
-											align="left"
-											// eslint-disable-next-line react/jsx-no-duplicate-props
-											color="textSecondary"
-											noWrap
-											style={{
-												fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
-												fontSize: 16,
-												marginTop: '2%',
-											}}
-										>
-											#{this.state.NFTId}
-										</Typography>
-										<Typography
-											color="inherit"
-											align="left"
-											noWrap
-											style={{
-												fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
-												fontSize: 30,
-												marginTop: '2%',
-											}}
-										>
-											<b>{this.state.name}</b>
-										</Typography>
-										<Typography
-											align="justify"
-											color="textSecondary"
-											paragraph
-											style={{
-												marginTop: '2%',
-												maxWidth: '100%',
-												fontSize: 16,
-											}}
-										>
-											{this.state.description}
-										</Typography>
-										<Typography
-											align="left"
-											color="textPrimary"
-											paragraph
-											style={{ marginTop: '6%', maxWidth: '65%', fontSize: 20 }}
-										>
-											{t('创作者分红比例：')}{this.state.bonusFee} %
-										</Typography>
-										<Typography align="left" color="textPrimary" paragraph style={{ maxWidth: '65%', fontSize: 12 }}>
-											{t('当前拥有的子节点数量：')} {this.state.childrenNum}
-										</Typography>
-										{showSellBtn()}
-										<Dialog open={this.state.open} onClose={this.handleClose} aria-labelledby="form-dialog-title">
-											<DialogTitle id="form-dialog-title">{t('填写售卖信息')}</DialogTitle>
-											<DialogContent>
-												<DialogContentText>
-													{t('请在下方区域填写你希望售卖的价格，以及售卖对象的钱包地址。')}
-												</DialogContentText>
-												<label style={{ fontSize: 14, marginBottom: 10 }}>售卖价格 ({this.state.tokenSymbol})*</label>
-												<InputNumber
-													defaultValue={0}
-													min={0}
-													onChange={this.handleGetPrice}
-													className={classes.inputNum}
-												/>
-												<label
-													style={{
-														fontSize: 14,
-														marginBottom: 10,
-														marginTop: 10,
-													}}
-												>
-													{t('买方钱包地址 *')}
-												</label>
-												<Input
-													placeholder={t('买方钱包地址 *')}
-													allowClear
-													id="pubName"
-													onChange={this.handleGetAddr}
-													className={classes.input}
-												/>
-											</DialogContent>
-											<DialogActions>
-												<Button onClick={this.handleClose} color="primary">
-													{t('取消')}
-												</Button>
-												<Button variant="contained" onClick={this.sell} color="primary">
-													{t('售卖')}
-												</Button>
-											</DialogActions>
-										</Dialog>
+										<Grid item xs={10} sm={6} md={6} lg={6} className={classes.content2 +' ' +classes.PaddingT9}>
+											<Typography
+												color="inherit"
+												align="left"
+												// eslint-disable-next-line react/jsx-no-duplicate-props
+												color="textSecondary"
+												noWrap
+												className={classes.Display10}
+											>
+												#{this.state.NFTId}
+											</Typography>
+											<Typography
+												color="inherit"
+												align="left"
+												noWrap
+												className={classes.Display8}
+											>
+												<b>{this.state.name}</b>
+											</Typography>
+											<Typography
+												align="justify"
+												color="textSecondary"
+												className={classes.Display10}
+												paragraph
+												style={{
+													marginTop: '2%',
+													maxWidth: '100%',
+												}}
+											>
+												{this.state.description}
+											</Typography>
+											<Typography
+												align="left"
+												color="textPrimary"
+												paragraph
+												className={classes.Display10}
+												style={{ marginTop: '6%'}}
+											>
+												{t('创作者分红比例：')}{this.state.bonusFee} %
+											</Typography>
+											<Typography align="left" color="textPrimary" paragraph className={classes.Display10} >
+												{t('当前拥有的子节点数量：')} {this.state.childrenNum}
+											</Typography>
+											<div style={{display:'flex',justifyContent:'start'}}>{showSellBtn()}</div>
+											<Dialog open={this.state.open} onClose={this.handleClose} aria-labelledby="form-dialog-title">
+												<DialogTitle   className={classes.MarginB11+' '+classes.MarginT10+' '+classes.MarginL9+' '+classes.MarginR9} id="form-dialog-title" >
+													<span className={classes.Display9}>{t('填写售卖信息')}</span>
+												</DialogTitle>
+												<DialogContent  className={classes.MarginL9+' '+classes.MarginR9}>
+													<DialogContentText className={classes.Display11}>
+														{t('请在下方区域填写你希望售卖的价格，以及售卖对象的钱包地址。')}
+													</DialogContentText>
+													<label  className={classes.Display11+' '+classes.MarginR10}>{t('售卖价格')} ({this.state.tokenSymbol})*</label>
+													<InputNumber
+														defaultValue={0}
+														min={0}
+														onChange={this.handleGetPrice}
+														className={classes.inputNum}
+													/>
+													<br/>
+													<label
+														className={classes.Display11+' '+classes.MarginR10}
+													>
+														{t('买方钱包地址 *')}
+													</label>
+													<Input
+														placeholder={t('买方钱包地址 *')}
+														allowClear
+														id="pubName"
+														onChange={this.handleGetAddr}
+														className={classes.input}
+													/>
+												</DialogContent>
+												<DialogActions className={classes.MarginB7+' '+classes.MarginT7+' '+classes.MarginL9+' '+classes.MarginR9}>
+													<Button onClick={this.handleClose} className={classes.btnOutlineMini} color="primary">
+														{t('取消')}
+													</Button>
+													<Button className={classes.btnMini} onClick={this.sell} color="primary">
+														{t('售卖')}
+													</Button>
+												</DialogActions>
+											</Dialog>
+										</Grid>
 									</Grid>
-								</Grid>
-							)}
-						</div>
-						<div style={{ marginTop: 50 }}>{sell_info()}</div>
+								)}
+							</div>
+							<div style={{ marginTop: 50 }}>{sell_info()}</div>
+						</Grid>
 					</Container>
+					<Footer></Footer>
 				</ThemeProvider>
 			</Spin>
 		)
 	}
 }
 
-export default withTranslation(withStyles(styles, { withTheme: true })(SellSingle))
+export default withTranslation()(withStyles(withCommon(styles), { withTheme: true })(SellSingle))
 //todo 涉及交易

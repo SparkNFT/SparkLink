@@ -178,9 +178,9 @@ class BuySingle extends Component {
 			currentAcc: account,
 			NFTId: this.props.match.params.NFTId,
 		})
-		const issueId = await contract.methods.getIssueIdByNFTId(this.state.NFTId).call()
-		const royalty = await contract.methods.getRoyaltyFeeByIssueId(issueId).call()
-		const metadata = await contract.methods.tokenURI(this.props.match.params.NFTId).call()
+		const issueId = await contract().methods.getIssueIdByNFTId(this.state.NFTId).call()
+		const royalty = await contract().methods.getRoyaltyFeeByIssueId(issueId).call()
+		const metadata = await contract().methods.tokenURI(this.props.match.params.NFTId).call()
 		let hash = metadata.split('/')
 		this.setState({
 			ipfsHashMeta: hash[hash.length - 1],
@@ -216,10 +216,10 @@ class BuySingle extends Component {
 			})
 		}
 
-		let owner = await contract.methods.ownerOf(this.props.match.params.NFTId).call()
-		let approved = await contract.methods.getApproved(this.props.match.params.NFTId).call()
-		let price = await contract.methods.getTransferPriceByNFTId(this.props.match.params.NFTId).call()
-		let token_addr = await contract.methods.getTokenAddrByNFTId(this.props.match.params.NFTId).call()
+		let owner = await contract().methods.ownerOf(this.props.match.params.NFTId).call()
+		let approved = await contract().methods.getApproved(this.props.match.params.NFTId).call()
+		let price = await contract().methods.getTransferPriceByNFTId(this.props.match.params.NFTId).call()
+		let token_addr = await contract().methods.getTokenAddrByNFTId(this.props.match.params.NFTId).call()
 		this.setState({
 			owner: owner,
 			approvedAddr: approved,
@@ -300,7 +300,7 @@ class BuySingle extends Component {
 			this.setState({
 				onLoading: true,
 			})
-			contract.methods
+			contract().methods
 				.safeTransferFrom(this.state.owner, account, this.state.NFTId)
 				.send({
 					from: account,
@@ -335,7 +335,7 @@ class BuySingle extends Component {
 			this.setState({
 				onLoading: true,
 			})
-			contract.methods
+			contract().methods
 				.safeTransferFrom(this.state.owner, account, this.state.NFTId)
 				.send({
 					from: account,
@@ -384,7 +384,7 @@ class BuySingle extends Component {
 			let new_gas_price = Math.floor(parseInt(gasPrice) * 1.5).toString()
 			let price = this.state.price.toString()
 
-			token_contract.methods
+			token_contract().methods
 				.approve(this.sparkAddr, price)
 				.send({
 					from: account,

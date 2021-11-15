@@ -254,8 +254,8 @@ class Collections extends Component {
 
 		let cards = []
 		
-
-		const nft_number = await contract.methods.balanceOf(account).call()
+		console.log(contract)
+		const nft_number = await contract().methods.balanceOf(account).call()
 		console.log('nft_number: ', nft_number)
 		if (nft_number === 0) {
 			return
@@ -293,7 +293,7 @@ class Collections extends Component {
 	}
 	getMetadata = async (contract, ids) => {
 		return Promise.all(ids.map(async (id) => {
-			let ipfs_link = await contract.methods.tokenURI(id).call();
+			let ipfs_link = await contract().methods.tokenURI(id).call();
 			var ipfs_hash_arr = ipfs_link.split('/');
 			var ipfs_hash = ipfs_hash_arr[ipfs_hash_arr.length - 1];
 			var meta = 'https://sparklink.mypinata.cloud/ipfs/' + ipfs_hash;

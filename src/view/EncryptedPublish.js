@@ -219,6 +219,7 @@ class EncryptedPublish extends Component {
 		submitBtnDisable: true,
 		isNC: true,
 		isND: false,
+		isFree:false,
 
 	}
 
@@ -308,6 +309,9 @@ class EncryptedPublish extends Component {
 			open: false,
 		})
 	}
+	onUpdateChain(){
+		this.UNSAFE_componentWillMount();
+	}
 
 	handleClickOpen = () => {
 		this.setState({
@@ -364,8 +368,8 @@ class EncryptedPublish extends Component {
 		if (token_symbol == undefined) {
 			try {
 				const token_contract = new web3.eth.Contract(abi, value)
-				token_symbol = await token_contract.methods.symbol().call()
-				token_decimal = await token_contract.methods.decimals().call()
+				token_symbol = await token_contract().methods.symbol().call()
+				token_decimal = await token_contract().methods.decimals().call()
 				address = value
 			} catch (error) {
 				message.error(t('error_no_erc20'))
@@ -393,7 +397,12 @@ class EncryptedPublish extends Component {
 				isND: e.target.checked,
 			})
 			break;
-		}
+		case 'isFree':
+			this.setState({
+				isFree: e.target.checked,
+			})
+			break;
+		}		
 	}
 
 	jump = async () => {
@@ -408,10 +417,10 @@ class EncryptedPublish extends Component {
 				usedAcc: account,
 			})
 
-			const owner = await contract.methods.ownerOf(this.state.rootNFTId).call()
-			let issueId = await contract.methods.getIssueIdByNFTId(this.state.rootNFTId).call()
+			const owner = await contract().methods.ownerOf(this.state.rootNFTId).call()
+			let issueId = await contract().methods.getIssueIdByNFTId(this.state.rootNFTId).call()
 
-			let bonus = await contract.methods.getRoyaltyFeeByIssueId(issueId).call()
+			let bonus = await contract().methods.getRoyaltyFeeByIssueId(issueId).call()
 
 			if (account == owner.toLowerCase()) {
 				this.setState({
@@ -483,7 +492,7 @@ class EncryptedPublish extends Component {
 				console.debug('price_with_decimal: ', price_with_decimal)
 				let gasPrice = await web3.eth.getGasPrice()
 				let new_gas_price = Math.floor(parseInt(gasPrice) * 1.5).toString()
-				contract.methods
+				contract().methods
 					.publish(
 						price_with_decimal,
 						this.state.bonusFee, 
@@ -492,6 +501,7 @@ class EncryptedPublish extends Component {
 						this.state.token_addr,
 						this.state.isNC,
 						this.state.isND,
+						this.state.isFree
 					)
 					.send({
 						from: this.state.usedAcc,
@@ -645,7 +655,7 @@ class EncryptedPublish extends Component {
 				let gasPrice = await web3.eth.getGasPrice()
 				let new_gas_price = Math.floor(parseInt(gasPrice) * 1.5).toString()
 
-				contract.methods
+				contract().methods
 					.setURI(obj.state.rootNFTId, ipfsToContract)
 					.send({
 						from: obj.state.usedAcc,
@@ -1155,7 +1165,7 @@ class EncryptedPublish extends Component {
 			return (
 				<Spin spinning={this.state.onLoading} size="large">
 					<ThemeProvider theme={theme}>
-						<TopBar />
+						<TopBar/>
 						<div style={{ textAlign: 'center' }}>
 							<Typography className={classes.titleCon+' '+classes.MarginB5}>
 								<b>{t('pulish_success')}</b>
@@ -1184,7 +1194,7 @@ class EncryptedPublish extends Component {
 			return (
 				<Spin spinning={this.state.onLoading} size="large">
 					<ThemeProvider theme={theme}>
-						<TopBar />
+						<TopBar  parent={this} />
 						<Container component="main" maxWidth="xs" className={classes.main}>
 							<div className={classes.paper}>
 								<Typography className={classes.Display6}>
@@ -1263,12 +1273,13 @@ class EncryptedPublish extends Component {
 										</Grid>
 										<Grid item style={{ width: '100%' }}>
 											<label className={classes.Display9}>
-												{'is_NC & is_ND'} <span style={{ color: 'red' }}>*</span>
+												{t('作品权限')} <span style={{ color: 'red' }}>*</span>
 											</label>
 											<br />
 											{/* <p className={classes.Display11}>{'is_NC & is_ND'}</p> */}
-											<Checkbox id='isNC' defaultChecked onChange={this.onCheckBoxChange.bind(this)}>is_NC</Checkbox>
-											<Checkbox id='isND' onChange={this.onCheckBoxChange.bind(this)}>is_ND</Checkbox>
+											<Checkbox id='isND' className={classes.Display11}  defaultChecked onChange={this.onCheckBoxChange.bind(this)}>{t('是否允许二次创作')}</Checkbox>
+											<Checkbox id='isNC' className={classes.Display11} onChange={this.onCheckBoxChange.bind(this)}>{t('是否允许商用')}</Checkbox>
+											<Checkbox id='isFreeFirst' className={classes.Display11} onChange={this.onCheckBoxChange.bind(this)}>{t('允许一级节点免费铸造')}</Checkbox>
 										</Grid>
 										<Grid item style={{ width: '100%' }}>
 											<label className={classes.Display9}>{t('art_desc')} *</label>

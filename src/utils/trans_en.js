@@ -86,7 +86,7 @@ let lng_en = {
 	'购买': 'Buy',
 	'授权合约': 'Authorization contract',
 	'回到首页': 'return Homepage',
-	'创作者分红比例：': 'Proportion of dividend paid by creators',
+	'创作者分红比例：': 'Proportion of dividend paid by creators: ',
 	'售价：': 'Price:',
 	'当前拥有者：': 'Current owner:',
 	'当前拥有的子节点数量：': 'Number of child nodes currently owned:',
@@ -106,7 +106,7 @@ let lng_en = {
 	'分红比例：': 'Dividend ratio:',
 	'下载': 'Downaload',
 	'分享链接复制成功': 'Sharing link copied successfully',
-	'链接分享': 'Link \u2000 \u2000sharing',
+	'链接分享': 'Link sharing',
 	'海报分享': 'Poster sharing',
 	'所有人可通过分享链接或海报进入作品详情页查看以及购买本作品': 'Everyone can view and purchase this work by sharing links or posters to the details page of the work.',
 	'点火价格: ': 'Sprak Price:',
@@ -119,7 +119,6 @@ let lng_en = {
 	'请将下方链接分享给买方,': 'Please share the link below with the buyer,',
 	'买方会进入此链接来购买这个NFT': 'The buyer will go to this link to purchase the NFT',
 	'返回': 'return',
-	'请在下方区域填写你希望售卖的价格,以及售卖对象的钱包地址。': 'Please fill in the price you want to sell and the wallet address of the person you want to sell in the area below.',
 	'买方钱包地址 *': 'Buyer’s wallet address *',
 	'取消': 'cancel',
 	'你有信息尚未填写': 'You have some information that you haven’t filled in yet.',
@@ -130,6 +129,13 @@ let lng_en = {
 	'账户发生变化,请切换回原账户': 'The account has changed,please switch back to the original account',
 	'铸造': 'cast',
 	'解决出版困境，源自ERC21支持': 'An ERC721 Token Trying to Solve Existing Publishing Dilemma',
-	'打包并上传': 'Pack and Upload'
+	'打包并上传': 'Pack and Upload',
+	'填写售卖信息':'Fill in the sales information',
+	'是否允许二次创作':'Allow secondary creation',
+	'是否允许商用':'Allow commercial use',
+	'售卖价格':'Sell Price',
+	'作品权限':'Work authority',
+	'允许一级节点免费铸造':'First-class nodes are allowed to be cast free of charge.',
+	'请在下方区域填写你希望售卖的价格，以及售卖对象的钱包地址。':'Please fill in the price you want to sell \n and the wallet address of the person you want to sell in the area below.'
 }
 export default lng_en;

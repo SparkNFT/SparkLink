@@ -27,6 +27,10 @@ import logoETH from '../imgs/chainLogo/ETH.png'
 import logoBSC from '../imgs/chainLogo/BSC.png'
 import logoMatic from '../imgs/chainLogo/matic.png'
 import { IconButton } from '@material-ui/core'
+import { nowContractChainId } from '../utils/contract'
+import { swtichContract } from '../utils/contract'
+
+
 //import WalletBtn from './WalletBtn'
 
 //TP钱包支持
@@ -316,8 +320,8 @@ class TopBar extends Component {
 			}
 		});
 	}
-	constructor() {
-		super()
+	constructor(props) {
+		super(props)
 		this.onScroll = this.onScroll.bind(this)
 	}
 	scrollEvent() {
@@ -347,6 +351,9 @@ class TopBar extends Component {
 					chainName: chainName,
 					chainId: chainId,
 				})
+				if(nowContractChainId != chainId){
+					swtichContract(chainId)
+				}
 			}
 			else {
 				alert('请切换网络');
@@ -378,7 +385,11 @@ class TopBar extends Component {
 		}
 		
 	}
-
+	handleUpdateChainToParent(){
+		if(this.props.parent&&this.props.parent.onUpdateChain){
+			this.props.parent.onUpdateChain();
+		}
+	}
 	// //在Web端仅检测小狐狸登陆状态
 	// if (!isMobile) {
 	//   this.checkMetaMask()
@@ -672,20 +683,24 @@ class TopBar extends Component {
 		switch(e){
 		case 'maticBtn':
 			switchResponse = await switchChain('0x89');
-			if(switchResponse) this.setState({chainName: 'matic'})
+			if(switchResponse) this.setState({chainName: 'matic',chainId: '0x89'})
 			this.handleNetworkMenuClose();
 			break;
 		case 'bscBtn':
 			switchResponse = await switchChain('0x38');
-			if(switchResponse) this.setState({chainName: 'BSC'})
+			if(switchResponse) this.setState({chainName: 'BSC',chainId: '0x38'})
 			this.handleNetworkMenuClose();
 			break;
 		case 'ethBtn':
 			switchResponse = await switchChain('0x1');
-			if(switchResponse) this.setState({chainName: 'ETH'})
+			if(switchResponse) this.setState({chainName: 'ETH',chainId: '0x1'})
 			this.handleNetworkMenuClose();
 			break;
 		}
+		if(this.state.chainId != nowContractChainId){
+			swtichContract(this.state.chainId)
+		}
+		this.handleUpdateChainToParent();
 	}
 
 	//登陆后点击token按钮
