@@ -93,13 +93,13 @@ const Poster = (props) => {
 	console.log(name.length)
 	let tokenUrl = 'https://raw.githubusercontent.com/TP-Lab/tokens/master/bsc/' + addr + '/logo.png'
 	if(addr === '0x0000000000000000000000000000000000000000'){
-		if(chain == 'matic'){
+		if(chain == 'MATIC'){
 			tokenUrl = logoMatic
 		}
-		if(chain == 'eth'){
+		if(chain == 'ETH'){
 			tokenUrl = logoETH
 		}
-		if(chain == 'bsc'){
+		if(chain == 'BNB'){
 			tokenUrl = logoBSC
 		}
 	} else if(list.indexOf(addr) !== -1){
@@ -149,9 +149,12 @@ const Poster = (props) => {
 			ctx.lineWidth = 2;
 			ctx.strokeRect(200, 1200, 4289, 2930);
 			setTimeout(()=>{
-				const dataURL = canvas.toDataURL('image/jpeg',1.0)
-				
 				const target = imgRef.current
+				const dataURL = canvas.toDataURL('image/jpeg',1.0)
+				if(wallet === 'TokenPocket'){
+					target.width = '80%'
+					target.height = target.width*736/469
+				}
 				target.src = dataURL
 			},700)
 		})

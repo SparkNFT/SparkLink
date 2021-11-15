@@ -280,7 +280,10 @@ class NFTInfo extends Component {
 		const res = await contract.methods.getProfitByNFTId(this.props.match.params.id).call()
 		if (token_addr == '0x0000000000000000000000000000000000000000') {
 			const chainId = localStorage.getItem('chainId')
-			const name = getChainNameByChainId(chainId)
+			let name = getChainNameByChainId(chainId).toUpperCase()
+			if(name == 'BSC'){
+				name = 'BNB'
+			}
 			let price_with_decimal = res / 10 ** 18
 			let profit = price_with_decimal + ' ' + name
 			let price_poster = price / 10 ** 18
