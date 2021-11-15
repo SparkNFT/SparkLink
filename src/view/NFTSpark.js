@@ -13,14 +13,15 @@ import { ArrowLeftOutlined, FireOutlined } from '@ant-design/icons'
 import Skeleton from '@material-ui/lab/Skeleton'
 import { Progress, message, Spin } from 'antd'
 import config from '../global/config'
-import { TOKENPOCKET, METAMASK, LASTCONNECT, MATHWALLET } from '../global/globalsString'
+import { TOKENPOCKET, METAMASK, LASTCONNECT } from '../global/globalsString'
+import {getWalletAccount } from '../utils/getWalletAccountandChainID'
 import { withTranslation } from 'react-i18next'
 import withCommon from '../styles/common'
 import Footer from '../components/Footer'
 
 const { gateway, backend, sparkAddr } = config
 
-const mathwallet = require('math-js-sdk');
+// const mathwallet = require('math-js-sdk');
 const tp = require('tp-js-sdk')
 const abi = require('erc-20-abi')
 
@@ -218,18 +219,19 @@ class NFTSpark extends Component {
 
 	async componentDidMount() {
 		//?RPC请求
-		const chainId = await window.ethereum.request({ method: 'eth_chainId' })
-		if (chainId !== '0x89') {
-			alert('请切换至Polygon 主网络')
-			await window.ethereum.request({
-				method: 'wallet_switchEthereumChain',
-				params: [
-					{
-						chainId: '0x89',
-					},
-				],
-			})
-		}
+		//TODO
+		// const chainId = await window.ethereum.request({ method: 'eth_chainId' })
+		// if (chainId !== '0x89') {
+		// 	alert('请切换至Polygon 主网络')
+		// 	await window.ethereum.request({
+		// 		method: 'wallet_switchEthereumChain',
+		// 		params: [
+		// 			{
+		// 				chainId: '0x89',
+		// 			},
+		// 		],
+		// 	})
+		// }
 
 		// let account
 		// const lastConnect = localStorage.getItem(LASTCONNECT)
@@ -243,27 +245,28 @@ class NFTSpark extends Component {
 		// 		account = value.data.address
 		// 	})
 		// }
-		var account = null;
-		var value, accounts;
-		const lastConnect = localStorage.getItem(LASTCONNECT)
-		switch (lastConnect) {
-		case TOKENPOCKET:
-			value = await tp.getCurrentWallet()
-			account = value.data.address;
-			break;
-		case MATHWALLET:
-			value = await mathwallet.getCurrentWallet()
-			account = value.address;
-			break;
-		case METAMASK:
-			accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
-			account = accounts[0];
-			break;
-		default:
-			// accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
-			// account = accounts[0];
-			break;
-		}
+		// var account = null;
+		// var value, accounts;
+		// const lastConnect = localStorage.getItem(LASTCONNECT)
+		// switch (lastConnect) {
+		// case TOKENPOCKET:
+		// 	value = await tp.getCurrentWallet()
+		// 	account = value.data.address;
+		// 	break;
+		// case MATHWALLET:
+		// 	value = await mathwallet.getCurrentWallet()
+		// 	account = value.address;
+		// 	break;
+		// case METAMASK:
+		// 	accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+		// 	account = accounts[0];
+		// 	break;
+		// default:
+		// 	// accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+		// 	// account = accounts[0];
+		// 	break;
+		// }
+		const account = await getWalletAccount()
 
 		if (account === null) {
 			alert('请先连接钱包');

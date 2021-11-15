@@ -275,6 +275,7 @@ class TopBar extends Component {
 		networkMenuDisplay: false,
 		networkMenuAnchorEl: null,
 		chainName: '',
+		chainId: '',
 	}
 	onScroll() {
 		if (this.state.topbarHeight == 0) {
@@ -344,6 +345,7 @@ class TopBar extends Component {
 				localStorage.setItem('chainId', chainId);
 				this.setState({
 					chainName: chainName,
+					chainId: chainId,
 				})
 			}
 			else {
@@ -597,6 +599,7 @@ class TopBar extends Component {
 			//localStorage.setItem(USERADDRESS, account);
 			localStorage.setItem(LASTCONNECT, METAMASK)
 			const chainId = await window.ethereum.request({ method: 'eth_chainId' })
+			this.setState({chainId: chainId});
 			localStorage.setItem('chainId', chainId);
 
 		} catch (error) {
@@ -614,7 +617,7 @@ class TopBar extends Component {
 			try {
 				//todo 使用TP链接
 				let account, chainName;
-				await tp.getWallet({ walletTypes: ['matic'], switch: false }).then((value) => {
+				await tp.getWallet({ walletTypes: ['matic', 'bsc', 'eth'], switch: false }).then((value) => {
 					account = value.data.address;
 					chainName = value.data.blockchain;
 				})
@@ -625,6 +628,7 @@ class TopBar extends Component {
 				localStorage.setItem(LASTCONNECT, TOKENPOCKET) //储存上次登陆的信息
 				const chainId = getChainIdByChainName(chainName);
 				//alert(chainId)
+				this.setState({chainId: chainId});
 				localStorage.setItem('chainId', chainId);
 				//alert(localStorage.getItem('chainId'))
 			} catch (error) {
@@ -720,7 +724,7 @@ class TopBar extends Component {
 		const fixStyle = isFixed ? { position: 'fixed', top: 0, zIndex: 9, boxShadow: 'rgb(255, 189, 164) 0px 1px 4px' } : {}
 		const fixStyleBlank = isFixed ? { display: 'block', width: '100vw', height: this.state.topbarHeight, maxWidth: '100vw' } : { display: 'none', maxWidth: '100vw' }
 		const menuStyle = (window.innerWidth <= 1000) ? { display: 'block' } : { display: 'none' }
-		const chainId = localStorage.getItem('chainId')
+		const chainId = this.state.chainId;
 		const logoImg = (chainId == '0x38')?(logoBSC):(((chainId == '0x1')?(logoETH):(logoMatic)))
 		let open = false;
 		if (this.state.anchorEl) {

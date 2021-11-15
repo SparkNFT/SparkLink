@@ -118,7 +118,7 @@ export const switchChain = async (chainId) => {
 	const currentChainId = await getChainId();
 	const toChainName = await getChainNameByChainId(chainId);
 	//alert(toChainName)
-	if(chainId !== currentChainId) {
+	if (chainId !== currentChainId) {
 		switch (lastConnect) {
 		case METAMASK:
 			try {
@@ -139,9 +139,13 @@ export const switchChain = async (chainId) => {
 			}
 		case TOKENPOCKET:
 			try {
-				tp.getWallet({walletTypes: [toChainName], switch: true});
-				localStorage.setItem('chainId', chainId);
-				return true;
+				const response = tp.getWallet({ walletTypes: [toChainName], switch: true });
+				if (response.msg === 'success') {
+					localStorage.setItem('chainId', chainId);
+					return true;
+				}
+				else return false;
+
 			}
 			catch (e) {
 				// message.error(e);
