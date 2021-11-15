@@ -136,24 +136,18 @@ const Poster = (props) => {
 			ctx.font = 'bold 260px Mada-Bold';
 			ctx.fillText(str, 450, 6050);
 
-			//const txtPos = getTxtPos('测试测试测试测试测试')
+			
 			ctx.fillStyle = 'black'
 			ctx.font = 'bold 200px Mada-Bold';
 			ctx.textAlign = 'center'
 			ctx.fillText(name.substr(0,10),2344.5,4500)
-			/* 
-			ctx.font = '100px Mada-Bold';
-			ctx.fillText(currency, 210, 382);
-			*/
-			ctx.strokeStyle='#ffffff'
-			ctx.lineWidth = 2;
-			ctx.strokeRect(200, 1200, 4289, 2930);
+			
 			setTimeout(()=>{
 				const target = imgRef.current
 				const dataURL = canvas.toDataURL('image/jpeg',1.0)
-				if(wallet === 'TokenPocket'){
-					target.width = '80%'
-					target.height = target.width*736/469
+				if(wallet === 'TokenPocket'||window.innerWidth < 500){
+					console.log(window.innerWidth)
+					target.width = window.innerWidth*0.8
 				}
 				target.src = dataURL
 			},700)
@@ -210,10 +204,9 @@ const Poster = (props) => {
 			tp.saveImage(url)
 		}
 	}
-
 	return (
 		<div>
-			<img alt="poster" width="469" height="736" ref={imgRef} src={loading} />
+			<img alt="poster" width="469" height='auto' ref={imgRef} src={loading} />
 			<div style={{display: 'flex', width: '100%',marginTop: 50}}>
 				<Button variant="contained"
 					style={{
