@@ -28,6 +28,12 @@ import Footer from '../components/Footer'
 import { generateZipFile } from '../utils/zipFile.js'
 import { getWalletAccount } from '../utils/getWalletAccountandChainID'
 
+// const receiptDataTypes = [
+// 	{ type: 'address', name: 'publisher', indexed: true },
+// 	{ type: 'uint64', name: 'rootNFTId', indexed: true },
+// 	{ type: 'address', name: 'token_addr' },
+// ]
+
 // const mathwallet = require('math-js-sdk');
 // const tp = require('tp-js-sdk');
 const { pinata_api_key, pinata_secret_api_key } = require('../project.secret.js')
@@ -219,6 +225,9 @@ class Publish extends Component {
 	}
 
 	async componentDidMount() {
+		// const params = web3.eth.abi.decodeParameters(receiptDataTypes, '0x000000000000000000000000843d4a358471547f51534e3e51fae91cb4dc3f28');
+		// console.log(params.toString())
+
 		const { t } = this.props
 		if (!window.ethereum) {
 			alert(t('please_install_metamask'))
@@ -440,15 +449,23 @@ class Publish extends Component {
 						})
 						.on('receipt', function (receipt) {
 
-							console.log(receipt)
-							let publish_event = receipt.events.Publish
-							let returned_values = publish_event.returnValues
-							let root_nft_id = returned_values.rootNFTId
-							let issue_id = returned_values.issue_id
+							//console.log(receipt)
+							console.log('receipt.logs:')
+							console.log(receipt.logs)
+							const data = receipt.events[0].raw.topics;
+							console.log(data)
+							
+							// const decodedParameters = web3.eth.abi.decodeParameters(receiptDataTypes, data.toString());
+							// console.log('data')							
+							// console.log(decodedParameters)
+							//let publish_event = receipt.events.Publish
+							//let returned_values = publish_event.returnValues
+							let root_nft_id = parseInt(data[2], 16);
+							//let issue_id = returned_values.issue_id
 							obj.setState({
 								onLoading: false,
 								rootNFTId: root_nft_id,
-								issueId: issue_id,
+								//issueId: issue_id,
 								finished: true,
 							})
 							message.success({
