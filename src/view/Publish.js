@@ -31,7 +31,7 @@ import { getWalletAccount } from '../utils/getWalletAccountandChainID'
 // const mathwallet = require('math-js-sdk');
 // const tp = require('tp-js-sdk');
 const { pinata_api_key, pinata_secret_api_key } = require('../project.secret.js')
-
+const BigNumber = require('bignumber.js');
 const FormData = require('form-data')
 const bs58 = require('bs58')
 const { Option } = Select
@@ -163,6 +163,11 @@ const styles = (theme) => ({
 })
 
 class Publish extends Component {
+	constructor(props) {
+		super(props);
+		//this.onCheckBoxChange = this.
+	}
+
 	state = {
 		name: '',
 		bonusFee: 0,
@@ -186,7 +191,7 @@ class Publish extends Component {
 		decimal: 0,
 		fileList: [],
 		isNC: true,
-		isND: true,
+		isND: false,
 		uploadBtnDisable: false,
 		submitBtnDisable: true,
 	}
@@ -272,8 +277,8 @@ class Publish extends Component {
 		if (value) {
 			let values = value.toLowerCase()
 			let tokens_list = this.tokens.default.tokens
-			console.log(this.tokens)
-			console.log(tokens_list)
+			//console.log(this.tokens)
+			//console.log(tokens_list)
 			let matched_data = []
 			let reg = new RegExp(values)
 			for (let token of tokens_list) {
@@ -409,8 +414,10 @@ class Publish extends Component {
 					this.setState({
 						ipfsMeta: bytesToContract,
 					})
-
-					let price_with_decimal = this.state.price * 10 ** this.state.decimal
+					
+					//let price_with_decimal = this.state.price * 10 ** this.state.decimal
+					const priceBN = BigNumber(this.state.price * 10 ** this.state.decimal);
+					let price_with_decimal = web3.utils.toBN(priceBN)
 					price_with_decimal = price_with_decimal.toString()
 					console.debug('price_with_decimal: ', price_with_decimal)
 					let ipfsToContract = '0x' + bytesToContract
@@ -432,7 +439,8 @@ class Publish extends Component {
 							gasPrice: new_gas_price,
 						})
 						.on('receipt', function (receipt) {
-							//console.log(receipt)
+
+							console.log(receipt)
 							let publish_event = receipt.events.Publish
 							let returned_values = publish_event.returnValues
 							let root_nft_id = returned_values.rootNFTId
@@ -566,6 +574,7 @@ class Publish extends Component {
 	}
 	onCheckBoxChange(e) {
 		console.log(`checked = ${e.target.checked}`);
+		console.log(e.target.id)
 		switch (e.target.id) {
 		case 'isNC':
 			this.setState({
@@ -841,8 +850,8 @@ class Publish extends Component {
 											</label>
 											<br />
 											{/* <p className={classes.Display11}>{'is_NC & is_ND'}</p> */}
-											<Checkbox id='isNC' defaultChecked onChange={this.onCheckBoxChange}>is_NC</Checkbox>
-											<Checkbox id='isND' defaultChecked onChange={this.onCheckBoxChange}>is_ND</Checkbox>
+											<Checkbox id='isNC' defaultChecked onChange={this.onCheckBoxChange.bind(this)}>is_NC</Checkbox>
+											<Checkbox id='isND' onChange={this.onCheckBoxChange.bind(this)}>is_ND</Checkbox>
 										</Grid>
 
 										<Grid item style={{ width: '100%' }}>

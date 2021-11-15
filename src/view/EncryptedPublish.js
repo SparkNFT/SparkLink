@@ -6,7 +6,7 @@ import { blue } from '@material-ui/core/colors'
 import Typography from '@material-ui/core/Typography'
 import Container from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid'
-import { message } from 'antd'
+import { message, Checkbox } from 'antd'
 import { InboxOutlined } from '@ant-design/icons'
 import Dragger from 'antd/lib/upload/Dragger'
 import { CloudUploadOutlined } from '@ant-design/icons'
@@ -217,6 +217,8 @@ class EncryptedPublish extends Component {
 		fileList: [],
 		zipedFilesForm: null,
 		submitBtnDisable: true,
+		isNC: true,
+		isND: false,
 
 	}
 
@@ -377,6 +379,23 @@ class EncryptedPublish extends Component {
 		})
 	}
 
+	onCheckBoxChange(e) {
+		console.log(`checked = ${e.target.checked}`);
+		console.log(e.target.id)
+		switch (e.target.id) {
+		case 'isNC':
+			this.setState({
+				isNC: e.target.checked,
+			});
+			break;
+		case 'isND':
+			this.setState({
+				isND: e.target.checked,
+			})
+			break;
+		}
+	}
+
 	jump = async () => {
 		const { t } = this.props
 		// const accounts = await window.ethereum.request({
@@ -465,7 +484,15 @@ class EncryptedPublish extends Component {
 				let gasPrice = await web3.eth.getGasPrice()
 				let new_gas_price = Math.floor(parseInt(gasPrice) * 1.5).toString()
 				contract.methods
-					.publish(price_with_decimal, this.state.bonusFee, this.state.shareTimes, ipfsToContract, this.state.token_addr)
+					.publish(
+						price_with_decimal,
+						this.state.bonusFee, 
+						this.state.shareTimes, 
+						ipfsToContract, 
+						this.state.token_addr,
+						this.state.isNC,
+						this.state.isND,
+					)
 					.send({
 						from: this.state.usedAcc,
 						gasPrice: new_gas_price,
@@ -1068,6 +1095,7 @@ class EncryptedPublish extends Component {
 												className={classes.input}
 											/>
 										</Grid>
+										
 										<Grid item style={{ width: '100%' }}>
 											<label style={{ marginTop: 20 }} className={classes.Display9}>{t('art_desc')} *</label>
 											<p className={classes.Display11}>{t('art_desc_tip')}</p>
@@ -1232,6 +1260,15 @@ class EncryptedPublish extends Component {
 												onChange={this.handleGetShareTimes}
 												className={classes.inputNum}
 											/>
+										</Grid>
+										<Grid item style={{ width: '100%' }}>
+											<label className={classes.Display9}>
+												{'is_NC & is_ND'} <span style={{ color: 'red' }}>*</span>
+											</label>
+											<br />
+											{/* <p className={classes.Display11}>{'is_NC & is_ND'}</p> */}
+											<Checkbox id='isNC' defaultChecked onChange={this.onCheckBoxChange.bind(this)}>is_NC</Checkbox>
+											<Checkbox id='isND' onChange={this.onCheckBoxChange.bind(this)}>is_ND</Checkbox>
 										</Grid>
 										<Grid item style={{ width: '100%' }}>
 											<label className={classes.Display9}>{t('art_desc')} *</label>
