@@ -444,6 +444,8 @@ class Publish extends Component {
 							this.state.isFree,
 							this.state.isNC,
 							this.state.isND
+
+
 						)
 						.send({
 							from: this.state.userAccount,
@@ -451,8 +453,8 @@ class Publish extends Component {
 						})
 						.on('receipt', function (receipt) {
 
-							//console.log(receipt)
-							const data = receipt.events[0].raw.topics;
+							console.log(receipt)
+							const data = receipt.events.Publish.raw.topics;
 							console.log(data)
 							
 							// const decodedParameters = web3.eth.abi.decodeParameters(receiptDataTypes, data.toString());

@@ -1366,6 +1366,7 @@ export function swtichContract(chainId) {
 	} else {
 		alert('UnExpected ChainID')
 		console.error('UnExpected ChainID in Contractjs')
+		//switch
 	}
 }
 let getContract = ()=>{
