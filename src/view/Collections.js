@@ -148,26 +148,26 @@ const styles = (theme) => ({
 			fontSize: 55,
 		},
 	},
-	gridBox:{
-		inherit:'PaddingL5,PaddingR5,MarginT4',
-		display:'grid',
-		gridGap:'45px',
-		gridTemplateColumns:'repeat(auto-fill, minmax(270px, 1fr))',
+	gridBox: {
+		inherit: 'PaddingL5,PaddingR5,MarginT4',
+		display: 'grid',
+		gridGap: '45px',
+		gridTemplateColumns: 'repeat(auto-fill, minmax(270px, 1fr))',
 		[theme.breakpoints.up('xl')]: {
-			gridTemplateColumns:'repeat(auto-fill, minmax(320px, 1fr))',
-			gridGap:'65px',
+			gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
+			gridGap: '65px',
 		},
 		['@media (min-width:3200px)']: {
-			gridTemplateColumns:'repeat(auto-fill, minmax(520px, 1fr))',
-			gridGap:'105px',
+			gridTemplateColumns: 'repeat(auto-fill, minmax(520px, 1fr))',
+			gridGap: '105px',
 		},
-		listStyle:'none'
+		listStyle: 'none'
 	},
-	cardTitle:{
+	cardTitle: {
 		overflow: 'hidden',
 		textOverflow: 'ellipsis',
 		WebkitLineClamp: 2,
-		lineClamp: 2,	
+		lineClamp: 2,
 	}
 })
 class Collections extends Component {
@@ -184,7 +184,7 @@ class Collections extends Component {
 			noNFT: true,
 		}
 	}
-	async componentDidMount () {
+	async componentDidMount() {
 		const { t } = this.props;
 		// const accounts = await window.ethereum.request({
 		// 	method: 'eth_requestAccounts',
@@ -192,9 +192,9 @@ class Collections extends Component {
 		// if (accounts.length === 0) {
 		// 	alert('请先连接Metamask')
 		// }
-		
+
 		const chainName = await getChainName();
-		switch(chainName){
+		switch (chainName) {
 		case 'matic':
 			web3.setProvider(new Web3.providers.HttpProvider('https://polygon-mainnet.infura.io/v3/0232394ba4b34544a778575aefa2ee8c'))
 			break;
@@ -204,11 +204,11 @@ class Collections extends Component {
 		case 'eth':
 			web3.setProvider(new Web3.providers.HttpProvider('https://polygon-mainnet.infura.io/v3/0232394ba4b34544a778575aefa2ee8c'))
 			break;
-		default: 
+		default:
 			web3.setProvider(new Web3.providers.HttpProvider('https://polygon-mainnet.infura.io/v3/0232394ba4b34544a778575aefa2ee8c'))
 			break;
 		}
-		localStorage.setItem('hasSetHttpProvider','true')
+		localStorage.setItem('hasSetHttpProvider', 'true')
 		// web3.setProvider(new Web3.providers.HttpProvider('https://polygon-mainnet.infura.io/v3/0232394ba4b34544a778575aefa2ee8c'))
 		//web3.setProvider(new Web3.providers.HttpProvider('https://matic-mainnet--jsonrpc.datahub.figment.io/apikey/e84b63fff0e37deb30837101f20eb793/'))
 		var account = null;
@@ -253,7 +253,7 @@ class Collections extends Component {
 		// }
 
 		let cards = []
-		
+
 		console.log(contract)
 		const nft_number = await contract().methods.balanceOf(account).call()
 		console.log('nft_number: ', nft_number)
@@ -288,7 +288,7 @@ class Collections extends Component {
 			SkeletoNumber: 0,
 		})
 	}
-	componentWillUnmount () {
+	componentWillUnmount() {
 		web3.setProvider(window.ethereum);
 	}
 	getMetadata = async (contract, ids) => {
@@ -301,18 +301,18 @@ class Collections extends Component {
 			var error_count = 0;
 			let ret;
 			while (error_count <= 2) {
-				
+
 				try {
 					ret = (await axios({
 						method: 'get',
 						url: meta,
 						timeout: 1000 * 2,
 					})).data
-					
+
 					return ret
 				} catch (err) {
-					if(ipfs_hash === 'QmNLei78zWmzUdbeRB3CiUfAizWUrbeeZh5K1rhAQKCh51'){
-						return  {
+					if (ipfs_hash === 'QmNLei78zWmzUdbeRB3CiUfAizWUrbeeZh5K1rhAQKCh51') {
+						return {
 							'name': '未上传文件',
 							'description': '请到加密发布处上传文件',
 							'image': 'https://testnets.opensea.io/static/images/placeholder.png',
@@ -330,11 +330,11 @@ class Collections extends Component {
 						};
 					}
 					error_count = error_count + 1;
-					
+
 				}
 			}
 			var name_holder = 'SparkNFT#' + id;
-			return  {
+			return {
 				'name': name_holder,
 				'description': '暂时无法获取到该nft的相关描述',
 				'image': 'https://testnets.opensea.io/static/images/placeholder.png',
@@ -354,155 +354,155 @@ class Collections extends Component {
 		}));
 	}
 
-  getNft = async (nft, account) => {
-  	// let balanceId = [];
-  	//0x9452644E9fdd59bD46A4d9eC24462995ADfD8d01
+	getNft = async (nft, account) => {
+		// let balanceId = [];
+		//0x9452644E9fdd59bD46A4d9eC24462995ADfD8d01
 
 
-  	const checksum_address = web3.utils.toChecksumAddress(account);
-	  const chainName = await getChainName();
-  	const url =  `${backend}/api/v1/nft/list?owner=${checksum_address}&chain=${chainName}`;
+		const checksum_address = web3.utils.toChecksumAddress(account);
+		const chainName = await getChainName();
+		const url = `${backend}/api/v1/nft/list?owner=${checksum_address}&chain=${chainName}`;
 
-  	//多链
-  	// const checksum_address = web3.utils.toChecksumAddress(account);
-  	// const chainName = await getChainName();
-  	// const url = backend + '/api/v1/nft/list?owner=' + checksum_address+'&chain=' + chainName;
+		//多链
+		// const checksum_address = web3.utils.toChecksumAddress(account);
+		// const chainName = await getChainName();
+		// const url = backend + '/api/v1/nft/list?owner=' + checksum_address+'&chain=' + chainName;
 
-  	console.debug('owner: ', checksum_address)
-  	try {
-  		var res = await axios.get(url)
-  		// balanceId = res.data.nft
-  		this.setState({
-  			onloading: true,
-  			SkeletoNumber: res.data.nft.length
-  		})
-  		// return balanceId;
-  		return res.data.nft
-  	} catch (error) {
-  		// alert('无法获取您当前拥有的nft')
-  		return [];
-  	}
-  };
+		console.debug('owner: ', checksum_address)
+		try {
+			var res = await axios.get(url)
+			// balanceId = res.data.nft
+			this.setState({
+				onloading: true,
+				SkeletoNumber: res.data.nft.length
+			})
+			// return balanceId;
+			return res.data.nft
+		} catch (error) {
+			// alert('无法获取您当前拥有的nft')
+			return [];
+		}
+	};
 
 
-  renderDescription = (description) => {
-  	if (description.length <= 150) {
-  		return description
-  	} else {
-  		let newDescription = description.substring(0, 150) + '..........'
-  		return newDescription
-  	}
-  }
+	renderDescription = (description) => {
+		if (description.length <= 150) {
+			return description
+		} else {
+			let newDescription = description.substring(0, 150) + '..........'
+			return newDescription
+		}
+	}
 
-  render () {
-  	const { classes, t} = this.props
-  	let obj = this
-  	// window.ethereum.on('chainChanged', handleChainChanged)
+	render() {
+		const { classes, t } = this.props
+		let obj = this
+		// window.ethereum.on('chainChanged', handleChainChanged)
 
-  	// function handleChainChanged (_chainId) {
-  	// 	console.log(_chainId)
-  	// 	window.location.reload()
-  	// }
+		// function handleChainChanged (_chainId) {
+		// 	console.log(_chainId)
+		// 	window.location.reload()
+		// }
 
-  	function showCard (card, index, t,classes) {
-  		let res = (
-  			<Grid item key={index}>
-  				{card ? (
-					  <li>
-  					<Card className={classes.card}>
-  						<CardMedia className={classes.cardMedia} image={card.image} title="Image title" />
-  						<CardContent className={classes.cardContent}>
-  							<Typography gutterBottom className={classes.Display9+ ' ' + classes.cardTitle}>
-  								{card.title}
-  							</Typography>
-  							<Typography className={classes.Display10+' '+classes.cardTitle} style={{color:'black'}}  >{obj.renderDescription(card.description)}</Typography>
-  						</CardContent>
-						  <div style={{flex:1}}></div>
-  						<CardActions>
-  							<Button className={classes.btnColor3Mini} href={'/#/NFT/' + card.id}>
-  								{t('查看')}
-  							</Button>
-  							<Typography variant="body2" style={{color:'black'}} gutterBottom className={classes.Display11}>
-  								<b>NFT id: {card.id} </b>
-  							</Typography>
-  						</CardActions>
-  					</Card>
-					  </li>
-  				) : (
-					  <li>
-  					<Card className={classes.card}>
-  						<Skeleton variant="rect" style={{ marginLeft: 10 }} width={290} height={288} />
-  						<Skeleton width="60%" style={{ marginTop: 40 }} height={33} />
-  						<Skeleton height={33} />
-  						<Skeleton height={33} />
-  						<Skeleton height={33} />
-  					</Card>
-					  </li>
-  				)}
-  			</Grid>
-  		)
+		function showCard(card, index, t, classes) {
+			let res = (
+				<Grid item key={index}>
+					{card ? (
+						<li>
+							<Card className={classes.card}>
+								<CardMedia className={classes.cardMedia} image={card.image} title="Image title" />
+								<CardContent className={classes.cardContent}>
+									<Typography gutterBottom className={classes.Display9 + ' ' + classes.cardTitle}>
+										{card.title}
+									</Typography>
+									<Typography className={classes.Display10 + ' ' + classes.cardTitle} style={{ color: 'black' }}  >{obj.renderDescription(card.description)}</Typography>
+								</CardContent>
+								<div style={{ flex: 1 }}></div>
+								<CardActions>
+									<Button className={classes.btnColor3Mini} href={'/#/NFT/' + card.id}>
+										{t('查看')}
+									</Button>
+									<Typography variant="body2" style={{ color: 'black' }} gutterBottom className={classes.Display11}>
+										<b>NFT id: {card.id} </b>
+									</Typography>
+								</CardActions>
+							</Card>
+						</li>
+					) : (
+						<li>
+							<Card className={classes.card}>
+								<Skeleton variant="rect" style={{ marginLeft: 10 }} width={290} height={288} />
+								<Skeleton width="60%" style={{ marginTop: 40 }} height={33} />
+								<Skeleton height={33} />
+								<Skeleton height={33} />
+								<Skeleton height={33} />
+							</Card>
+						</li>
+					)}
+				</Grid>
+			)
 
-  		return res
-  	}
-  	return (
-  		<div>
-			  
-  			<ThemeProvider theme={theme}>
-  				<TopBar />
-  				<Container component="main" className={classes.container}>
-  					<div className={classes.paper}>
-  						<Grid container justifyContent="center">
-  							<Grid item xs={12}>
-  								<Typography color="inherit" noWrap className={classes.Display7}>
-  									{t('collection')}
-  								</Typography>
-  							</Grid>
-  						</Grid>
-  					</div>
-  				</Container>
-				  {this.state.noNFT ? (
-  				<Empty
-  					description={
-						  <div style={{justifyContent:'center',display:'flex',flexDirection:'column'}}>
-  						<span style={{ color:'black'}} className={classes.Display7}>
-  						{t('暂无可展示NFT')}
-  						</span>
-						  <div style={{display:'flex',justifyContent:'center'}}>
-						  <Button className={classes.btn+' '+classes.MarginT9} href={'/#/introPublish' }>
-  								{t('去发布')}
-  							</Button>
-						  </div>
-						  </div>
-						  
-  					}
-  					style={{ marginTop: 100 }}
-  				/>
-  			) : (
-  				<main>
-  					{
-						  <Container style={{justifyContent:'center',width:'100%',maxWidth:'100vw'}}>
-							  <Grid item xs={12} md={12}>
-  						<ol className={classes.gridBox}>
-  							{(this.state.onloading ? Array.from(new Array(this.state.SkeletoNumber)) : this.state.cards).map(
-  								(card, index) => {
-  									return showCard(card, index , t ,classes)
-  								}
-  							)}
-  						</ol>
-						  </Grid>
-						  </Container>
-  					}
-  				</main>
-  			)}
-			  <Footer />
-  			</ThemeProvider>
-			
+			return res
+		}
+		return (
+			<div>
 
-			  
-  		</div>
-		
-  	)
-  }
+				<ThemeProvider theme={theme}>
+					<TopBar />
+					<Container component="main" className={classes.container}>
+						<div className={classes.paper}>
+							<Grid container justifyContent="center">
+								<Grid item xs={12}>
+									<Typography color="inherit" noWrap className={classes.Display7}>
+										{t('collection')}
+									</Typography>
+								</Grid>
+							</Grid>
+						</div>
+					</Container>
+					{this.state.noNFT ? (
+						<Empty
+							description={
+								<div style={{ justifyContent: 'center', display: 'flex', flexDirection: 'column' }}>
+									<span style={{ color: 'black' }} className={classes.Display7}>
+										{t('暂无可展示NFT')}
+									</span>
+									<div style={{ display: 'flex', justifyContent: 'center' }}>
+										<Button className={classes.btn + ' ' + classes.MarginT9} href={'/#/introPublish'}>
+											{t('去发布')}
+										</Button>
+									</div>
+								</div>
+
+							}
+							style={{ marginTop: 100 }}
+						/>
+					) : (
+						<main>
+							{
+								<Container style={{ justifyContent: 'center', width: '100%', maxWidth: '100vw' }}>
+									<Grid item xs={12} md={12}>
+										<ol className={classes.gridBox}>
+											{(this.state.onloading ? Array.from(new Array(this.state.SkeletoNumber)) : this.state.cards).map(
+												(card, index) => {
+													return showCard(card, index, t, classes)
+												}
+											)}
+										</ol>
+									</Grid>
+								</Container>
+							}
+						</main>
+					)}
+					<Footer />
+				</ThemeProvider>
+
+
+
+			</div>
+
+		)
+	}
 }
 
 export default withTranslation()(withStyles(withCommon(styles), { withTheme: true })(Collections))

@@ -1352,9 +1352,9 @@ const abi = [
 ];
 
 let address = new Object();
-address['0x1'] = null;//ETH
-address['0x89'] = '0x6f2923d38a030f633836a824F1a8093C0087d99d'; //Matic
-address['0x38'] = '0xA582704bbe9ac301ff7b8e97E1E51C17f37bDF16'; //BSC
+address['0x1'] = '0x7187211744c67F8cE89fEAc63b85D8D17417bDfE';//ETH
+address['0x89'] = '0x166BCdc53BC8573448F37C66EF409f1Cb31450a2'; //Matic
+address['0x38'] = '0xDc89106504f82642801dc43C8B545Ef7DA95ff2b'; //BSC
 let exContract = new web3.eth.Contract(abi, address['0x38']);
 export let nowContractChainId = '0x38';
 export function swtichContract(chainId) {
@@ -1366,6 +1366,7 @@ export function swtichContract(chainId) {
 	} else {
 		alert('UnExpected ChainID')
 		console.error('UnExpected ChainID in Contractjs')
+		//switch
 	}
 }
 let getContract = ()=>{
