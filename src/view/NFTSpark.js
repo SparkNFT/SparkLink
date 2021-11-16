@@ -331,12 +331,12 @@ class NFTSpark extends Component {
 		} else {
 			try {
 				const token_contract = new web3.eth.Contract(abi, token_addr)
-				const decimals = await token_contract().methods.decimals().call()
-				const token_symbol = await token_contract().methods.symbol().call()
+				const decimals = await token_contract.methods.decimals().call()
+				const token_symbol = await token_contract.methods.symbol().call()
 				let price_with_decimal = price / 10 ** decimals
 				price_with_decimal = price_with_decimal + ' ' + token_symbol
 				this.setState({ priceString: price_with_decimal })
-				const approved_amount = await token_contract().methods.allowance(account, sparkAddr).call()
+				const approved_amount = await token_contract.methods.allowance(account, sparkAddr).call()
 				if (approved_amount >= price) {
 					this.setState({
 						approved: true,
@@ -479,7 +479,7 @@ class NFTSpark extends Component {
 			const token_contract = new web3.eth.Contract(abi, this.state.tokenAddr)
 			let gasPrice = await web3.eth.getGasPrice()
 			let new_gas_price = Math.floor(parseInt(gasPrice) * 1.5).toString()
-			token_contract().methods
+			token_contract.methods
 				.approve(sparkAddr, price)
 				.send({
 					from: account,

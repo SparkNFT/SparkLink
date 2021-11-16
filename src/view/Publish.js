@@ -334,8 +334,8 @@ class Publish extends Component {
 		if (token_symbol == undefined) {
 			try {
 				const token_contract = new web3.eth.Contract(abi, value)
-				token_symbol = await token_contract().methods.symbol().call()
-				token_decimal = await token_contract().methods.decimals().call()
+				token_symbol = await token_contract.methods.symbol().call()
+				token_decimal = await token_contract.methods.decimals().call()
 				address = value
 			} catch (error) {
 				message.error(t('error_no_erc20'))
@@ -441,9 +441,9 @@ class Publish extends Component {
 							this.state.shareTimes,
 							ipfsToContract,
 							this.state.token_addr,
+							this.state.isFree,
 							this.state.isNC,
-							this.state.isND,
-							this.state.isFree
+							this.state.isND
 						)
 						.send({
 							from: this.state.userAccount,

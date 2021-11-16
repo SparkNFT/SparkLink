@@ -384,7 +384,7 @@ class BuySingle extends Component {
 			let new_gas_price = Math.floor(parseInt(gasPrice) * 1.5).toString()
 			let price = this.state.price.toString()
 
-			token_contract().methods
+			token_contract.methods
 				.approve(this.sparkAddr, price)
 				.send({
 					from: account,
