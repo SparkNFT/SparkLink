@@ -97,7 +97,7 @@ const styles = (theme) => ({
 	},
 	checkBox: {
 		[theme.breakpoints.between('xs', 'sm')]: {
-			marginLeft:'0px'
+			marginLeft:'0px !important'
 		},
 	},
 	titlePub: {
