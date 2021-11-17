@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/static/css/main.48d537fb.chunk.css",
-    "main.js": "/static/js/main.05515cca.chunk.js",
-    "main.js.map": "/static/js/main.05515cca.chunk.js.map",
+    "main.js": "/static/js/main.40c7d1e8.chunk.js",
+    "main.js.map": "/static/js/main.40c7d1e8.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.43664945.js",
     "runtime-main.js.map": "/static/js/runtime-main.43664945.js.map",
     "static/css/2.48e5491c.chunk.css": "/static/css/2.48e5491c.chunk.css",
@@ -23,7 +23,6 @@
     "static/media/bot.4be5b0c3.png": "/static/media/bot.4be5b0c3.png",
     "static/media/error.297974f8.png": "/static/media/error.297974f8.png",
     "static/media/bootstrap.css": "/static/media/glyphicons-halflings-regular.be810be3.woff2",
-    "static/media/help.090aaa5e.png": "/static/media/help.090aaa5e.png",
     "static/media/home1.310525fe.png": "/static/media/home1.310525fe.png",
     "static/media/home2.0a9dd042.png": "/static/media/home2.0a9dd042.png",
     "static/media/home3.b4ab15f5.png": "/static/media/home3.b4ab15f5.png",
@@ -54,6 +53,6 @@
     "static/css/2.48e5491c.chunk.css",
     "static/js/2.59013a52.chunk.js",
     "static/css/main.48d537fb.chunk.css",
-    "static/js/main.05515cca.chunk.js"
+    "static/js/main.40c7d1e8.chunk.js"
   ]
 }
