@@ -740,7 +740,7 @@ class TopBar extends Component {
 		const fixStyleBlank = isFixed ? { display: 'block', width: '100vw', height: this.state.topbarHeight, maxWidth: '100vw' } : { display: 'none', maxWidth: '100vw' }
 		const menuStyle = (window.innerWidth <= 1000) ? { display: 'block' } : { display: 'none' }
 		const chainId = this.state.chainId;
-		const logoImg = (chainId == '0x38')?(logoBSC):(((chainId == '0x1')?(logoETH):(logoMatic)))
+		const logoImg = (chainId == '0x38')?(logoBSC):(((chainId == '0x89')?(logoMatic):(logoETH)))
 		let open = false;
 		if (this.state.anchorEl) {
 			open = Boolean(this.state.anchorEl)

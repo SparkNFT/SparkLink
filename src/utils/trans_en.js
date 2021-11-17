@@ -1,8 +1,8 @@
 let lng_en = {
 	'index_slogan': 'Spreads and supports each other,\n Like a spark that will link and light up the world.',
 	'index_slogan_bottom': 'Publish what you love \u2000 Support what you love \u2000 Spread what you love',
-	'go_publish': 'Go Publish',
-	'go_buy': 'Go Buy',
+	'go_publish': 'Publish',
+	'go_buy': 'Buy',
 	'please_install_metamask': 'Please install metamask first!',
 	'please_set_polygon': 'Please switch to the Polygon main network',
 	'error_no_erc20': 'The address you provided is not an erc20 token,please re-enter it',

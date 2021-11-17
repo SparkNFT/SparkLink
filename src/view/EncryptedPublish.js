@@ -26,9 +26,10 @@ import config from '../global/config'
 import withCommon from '../styles/common'
 import Footer from '../components/Footer'
 import { generateZipFile } from '../utils/zipFile.js'
-import { getWalletAccount } from '../utils/getWalletAccountandChainID'
+import { getChainName, getWalletAccount } from '../utils/getWalletAccountandChainID'
 
 
+const BigNumber = require('bignumber.js');
 const { backend } = config
 const { pinata_api_key, pinata_secret_api_key } = require('../project.secret.js')
 const FormData = require('form-data')
@@ -36,6 +37,14 @@ const bs58 = require('bs58')
 let CryptoJS = require('crypto-js')
 const { Option } = Select
 const abi = require('erc-20-abi')
+
+const sleep = (milliseconds) => {
+	const date = Date.now();
+	let currentDate = null;
+	do {
+		currentDate = Date.now();
+	} while (currentDate - date < milliseconds);
+}
 
 const theme = createTheme({
 	palette: {
@@ -80,27 +89,27 @@ const styles = (theme) => ({
 	},
 	paperImg: {
 		backgroundColor: '#EFEBE9',
-		inherit:'PaddingL5,PaddingR5,PaddingT5,PaddingB5'
+		inherit: 'PaddingL5,PaddingR5,PaddingT5,PaddingB5'
 	},
-	coverImg:{
+	coverImg: {
 		[theme.breakpoints.between('xs', 'sm')]: {
-			width:'80vw'
+			width: '80vw'
 		},
 		[theme.breakpoints.between('sm', 'md')]: {
-			width:'30vw'
+			width: '30vw'
 		},
 		[theme.breakpoints.between('md', 'lg')]: {
-			width:'30vw'
+			width: '30vw'
 		},
 		[theme.breakpoints.between('lg', 'xl')]: {
-			width:'30vw'
+			width: '30vw'
 		},
 		[theme.breakpoints.up('xl')]: {
-			width:'30vw'
+			width: '30vw'
 		},
 	},
-	btnMini:{
-		inherit:'MarginT10'
+	btnMini: {
+		inherit: 'MarginT10'
 	},
 	btnPub: {
 		margin: theme.spacing(1),
@@ -183,6 +192,11 @@ const styles = (theme) => ({
 			height: 100
 		}
 	},
+	checkBox: {
+		[theme.breakpoints.between('xs', 'sm')]: {
+			marginLeft:'0px !important'
+		},
+	},
 })
 
 class EncryptedPublish extends Component {
@@ -219,7 +233,7 @@ class EncryptedPublish extends Component {
 		submitBtnDisable: true,
 		isNC: true,
 		isND: false,
-		isFree:false,
+		isFree: false,
 
 	}
 
@@ -309,7 +323,7 @@ class EncryptedPublish extends Component {
 			open: false,
 		})
 	}
-	onUpdateChain(){
+	onUpdateChain() {
 		this.UNSAFE_componentWillMount();
 	}
 
@@ -368,8 +382,8 @@ class EncryptedPublish extends Component {
 		if (token_symbol == undefined) {
 			try {
 				const token_contract = new web3.eth.Contract(abi, value)
-				token_symbol = await token_contract().methods.symbol().call()
-				token_decimal = await token_contract().methods.decimals().call()
+				token_symbol = await token_contract.methods.symbol().call()
+				token_decimal = await token_contract.methods.decimals().call()
 				address = value
 			} catch (error) {
 				message.error(t('error_no_erc20'))
@@ -402,7 +416,7 @@ class EncryptedPublish extends Component {
 				isFree: e.target.checked,
 			})
 			break;
-		}		
+		}
 	}
 
 	jump = async () => {
@@ -486,7 +500,10 @@ class EncryptedPublish extends Component {
 				this.setState({
 					onLoading: true,
 				})
-				let price_with_decimal = this.state.price * 10 ** this.state.decimal
+				// let price_with_decimal = this.state.price * 10 ** this.state.decimal
+				// price_with_decimal = price_with_decimal.toString()
+				const priceBN = BigNumber(this.state.price * 10 ** this.state.decimal);
+				let price_with_decimal = web3.utils.toBN(priceBN)
 				price_with_decimal = price_with_decimal.toString()
 				let ipfsToContract = '0x0000000000000000000000000000000000000000000000000000000000000000'
 				console.debug('price_with_decimal: ', price_with_decimal)
@@ -495,29 +512,36 @@ class EncryptedPublish extends Component {
 				contract().methods
 					.publish(
 						price_with_decimal,
-						this.state.bonusFee, 
-						this.state.shareTimes, 
-						ipfsToContract, 
+						this.state.bonusFee,
+						this.state.shareTimes,
+						ipfsToContract,
 						this.state.token_addr,
+						this.state.isFree,
 						this.state.isNC,
-						this.state.isND,
-						this.state.isFree
+						this.state.isND
 					)
 					.send({
 						from: this.state.usedAcc,
 						gasPrice: new_gas_price,
 					})
 					.on('receipt', function (receipt) {
-						// console.log(receipt)
-						let publish_event = receipt.events.Publish
-						let returned_values = publish_event.returnValues
-						let root_nft_id = String(returned_values.rootNFTId)
-						console.debug(typeof root_nft_id)
-						let issue_id = returned_values.issue_id
+						console.log(receipt)
+						//const publish_event = receipt.events.Publish
+						// let returned_values = publish_event.returnValues
+						// let root_nft_id = String(returned_values.rootNFTId)
+						// console.debug(typeof root_nft_id)
+						// let issue_id = returned_values.issue_id
+						const data = receipt.events.Publish.raw.topics;
+						// const decodedParameters = web3.eth.abi.decodeParameters(receiptDataTypes, data.toString());
+						// console.log('data')							
+						// console.log(decodedParameters)
+						//let publish_event = receipt.events.Publish
+						//let returned_values = publish_event.returnValues
+						const root_nft_id = parseInt(data[2], 16);
 						obj.setState({
 							onLoading: false,
 							rootNFTId: root_nft_id,
-							issueId: issue_id,
+							//issueId: issue_id,
 							allowSubmitPDF: true,
 						})
 						message.success({
@@ -769,100 +793,120 @@ class EncryptedPublish extends Component {
 			// console.log(zipedFiles);
 			const account = await getWalletAccount()
 			if (account !== -1) {
-				try {
-					const signer = account;
-					let message = {
-						account: signer,
-						nft_id: this.state.rootNFTId,
-					}
-					const sig = await web3.eth.personal.sign(JSON.stringify(message), signer)
-					console.debug(sig)
-					let payload = {
-						nft_id: this.state.rootNFTId,
-						account: signer,
-						signature: sig,
-					}
-					let payload_str = JSON.stringify(payload)
-					// console.log(payload_str)
-					let req_key_url = backend + '/api/v1/key/claim'
-
+				let error_count = 0;
+				const chainName = await getChainName();
+				const signer = account;
+				let message = {
+					account: signer,
+					chain: chainName,
+					nft_id: this.state.rootNFTId.toString(),
+				}
+				const sig = await web3.eth.personal.sign(JSON.stringify(message), signer)
+				while (error_count < 10) {
 					try {
-						const res = await axios.post(req_key_url, payload_str, {
-							headers: {
-								'Content-Type': 'application/json',
-							},
-						})
-						let secret_key = res.data.key //res.data.key
-						console.debug(secret_key)
-						let zipedFilesBlob;
-						const reader = new FileReader()
-						reader.readAsArrayBuffer(zipedFiles)
-						reader.onload = (e) => {
-							let b = e.target.result
-							let wordArray = CryptoJS.lib.WordArray.create(b)
-							const str = CryptoJS.enc.Hex.stringify(wordArray)
-							let cipher_text = CryptoJS.AES.encrypt(str, secret_key).toString()
-							zipedFilesBlob = new Blob([cipher_text])
-							const params = new FormData()
-							params.append('file', zipedFilesBlob)
-							this.postFiles2IPFS(params)
-						}
 
-					} catch (error) {
-						if (error.response.status == 400) {
-							if (error.response.data.message.includes('signature invalid')) {
+
+						console.log(sig)
+						let payload = {
+							account: signer,
+							chain: chainName,
+							nft_id: this.state.rootNFTId.toString(),
+							signature: sig,
+						}
+						let payload_str = JSON.stringify(payload)
+						console.log(payload_str)
+						let req_key_url = backend + '/api/v1/key/claim'
+
+						try {
+							const res = await axios.post(req_key_url, payload_str, {
+								headers: {
+									'Content-Type': 'application/json',
+								},
+							})
+							// let secret_key = res.data.key //res.data.key 
+							let secret_key = res.data.key //res.data.key 
+							console.debug(secret_key)
+							if(secret_key) {
+								let zipedFilesBlob;
+								const reader = new FileReader()
+								reader.readAsArrayBuffer(zipedFiles)
+								reader.onload = (e) => {
+									let b = e.target.result
+									let wordArray = CryptoJS.lib.WordArray.create(b)
+									const str = CryptoJS.enc.Hex.stringify(wordArray)
+									let cipher_text = CryptoJS.AES.encrypt(str, secret_key).toString()
+									zipedFilesBlob = new Blob([cipher_text])
+									const params = new FormData()
+									params.append('file', zipedFilesBlob)
+									this.postFiles2IPFS(params)
+								}
+							}
+						} catch (error) {
+							if (error.response.status == 400) {
+								if (error.response.data.message.includes('signature invalid')) {
+									message.error({
+										content: t('您的签名有误，请查看签名账号是否正确'),
+										className: 'custom-class',
+										style: {
+											marginTop: '10vh',
+										},
+									})
+								} else if (error.response.data.message.includes('param invalid')) {
+									message.error({
+										content: t('参数错误'),
+										className: 'custom-class',
+										style: {
+											marginTop: '10vh',
+										},
+									})
+								} else if (error.response.data.message.includes('not owned')) {
+									message.error({
+										content: t('您并不拥有此nft'),
+										className: 'custom-class',
+										style: {
+											marginTop: '10vh',
+										},
+									})
+								} else if (error.response.data.message.includes('not found')) {
+									message.error({
+										content: t('此nft还未生成'),
+										className: 'custom-class',
+										style: {
+											marginTop: '10vh',
+										},
+									})
+								}
+							} else {
 								message.error({
-									content: t('您的签名有误，请查看签名账号是否正确'),
-									className: 'custom-class',
-									style: {
-										marginTop: '10vh',
-									},
-								})
-							} else if (error.response.data.message.includes('param invalid')) {
-								message.error({
-									content: t('参数错误'),
-									className: 'custom-class',
-									style: {
-										marginTop: '10vh',
-									},
-								})
-							} else if (error.response.data.message.includes('not owned')) {
-								message.error({
-									content: t('您并不拥有此nft'),
-									className: 'custom-class',
-									style: {
-										marginTop: '10vh',
-									},
-								})
-							} else if (error.response.data.message.includes('not found')) {
-								message.error({
-									content: t('此nft还未生成'),
+									content: t('请求文件加密密钥失败'),
 									className: 'custom-class',
 									style: {
 										marginTop: '10vh',
 									},
 								})
 							}
-						} else {
-							message.error({
-								content: t('请求文件加密密钥失败'),
-								className: 'custom-class',
-								style: {
-									marginTop: '10vh',
-								},
-							})
 						}
+						error_count = 10;
 					}
+					catch (e) {
+						this.setState({
+							uploadBtnDisable: false,
+							onLoading: false,
+						})
+						error_count++;
+						message.error({
+							content: 'Read file error',
+							className: 'custom-class',
+							style: {
+								marginTop: '10vh',
+							},
+						})
+						console.log(e);
+						sleep(2000);
+					}
+
 				}
-				catch (e) {
-					message.error({
-						content: 'Read file error',
-						className: 'custom-class',
-						style: {
-							marginTop: '10vh',
-						},
-					})
-				}
+
 			}
 			else {
 				message.error({
@@ -1105,7 +1149,7 @@ class EncryptedPublish extends Component {
 												className={classes.input}
 											/>
 										</Grid>
-										
+
 										<Grid item style={{ width: '100%' }}>
 											<label style={{ marginTop: 20 }} className={classes.Display9}>{t('art_desc')} *</label>
 											<p className={classes.Display11}>{t('art_desc_tip')}</p>
@@ -1115,7 +1159,7 @@ class EncryptedPublish extends Component {
 								) : (
 									<div></div>
 								)}
-								<label className={classes.Display9+' '+classes.MarginT10}>{t('pic_cover')} *</label>
+								<label className={classes.Display9 + ' ' + classes.MarginT10}>{t('pic_cover')} *</label>
 								<p className={classes.Display11}>{t('pic_cover_tip')}</p>
 								<Dragger {...prop} style={{ width: '100%', minHeight: 100 }} id="Uploader" maxCount='1' accept="image/*">
 									<p className="ant-upload-drag-icon">
@@ -1125,7 +1169,7 @@ class EncryptedPublish extends Component {
 									<p className={classes.Display11}>{t('upload_file_tip2')}</p>
 								</Dragger>
 
-								<label className={classes.Display9+' '+classes.MarginT10}>{t('art_file')} *</label>
+								<label className={classes.Display9 + ' ' + classes.MarginT10}>{t('art_file')} *</label>
 								<p className={classes.Display11}>{t('art_file_tip')} </p>
 								<Dragger {...propFile} style={{ width: '100%', minHeight: 100 }} id="Uploader2">
 									<p className="ant-upload-drag-icon">
@@ -1148,8 +1192,8 @@ class EncryptedPublish extends Component {
 								</Button>
 								<div style={{ textAlign: 'center' }}>
 									<Button
-										disabled ={this.state.submitBtnDisable}
-										startIcon={<CloudUploadOutlined style={{fontSize:'100%'}} />}
+										disabled={this.state.submitBtnDisable}
+										startIcon={<CloudUploadOutlined style={{ fontSize: '100%' }} />}
 										className={classes.btn}
 										onClick={this.submitWork}
 									>
@@ -1165,22 +1209,22 @@ class EncryptedPublish extends Component {
 			return (
 				<Spin spinning={this.state.onLoading} size="large">
 					<ThemeProvider theme={theme}>
-						<TopBar/>
+						<TopBar />
 						<div style={{ textAlign: 'center' }}>
-							<Typography className={classes.titleCon+' '+classes.MarginB5}>
+							<Typography className={classes.titleCon + ' ' + classes.MarginB5}>
 								<b>{t('pulish_success')}</b>
 							</Typography>
-							<div style={{display:'flex',justifyContent:'center'}}>
+							<div style={{ display: 'flex', justifyContent: 'center' }}>
 								<Paper className={classes.paperImg}>
 									<img className={classes.coverImg} src={this.state.coverURL}></img>
 								</Paper>
 							</div>
-							<Typography className={classes.Display9+' '+classes.MarginT10}>
+							<Typography className={classes.Display9 + ' ' + classes.MarginT10}>
 								{t('you_gain_nft')} #{this.state.rootNFTId}
 							</Typography>
 
 							<Button
-								className={classes.btn + ' ' +classes.MarginB5}
+								className={classes.btn + ' ' + classes.MarginB5}
 								onClick={this.checkDetail}
 							>
 								{t('show_detail')}
@@ -1194,7 +1238,7 @@ class EncryptedPublish extends Component {
 			return (
 				<Spin spinning={this.state.onLoading} size="large">
 					<ThemeProvider theme={theme}>
-						<TopBar  parent={this} />
+						<TopBar parent={this} />
 						<Container component="main" maxWidth="xs" className={classes.main}>
 							<div className={classes.paper}>
 								<Typography className={classes.Display6}>
@@ -1277,9 +1321,9 @@ class EncryptedPublish extends Component {
 											</label>
 											<br />
 											{/* <p className={classes.Display11}>{'is_NC & is_ND'}</p> */}
-											<Checkbox id='isND' className={classes.Display11}  defaultChecked onChange={this.onCheckBoxChange.bind(this)}>{t('是否允许二次创作')}</Checkbox>
-											<Checkbox id='isNC' className={classes.Display11} onChange={this.onCheckBoxChange.bind(this)}>{t('是否允许商用')}</Checkbox>
-											<Checkbox id='isFreeFirst' className={classes.Display11} onChange={this.onCheckBoxChange.bind(this)}>{t('允许一级节点免费铸造')}</Checkbox>
+											<Checkbox id='isND' className={classes.Display11+ ' ' +classes.checkBox} defaultChecked onChange={this.onCheckBoxChange.bind(this)}>{t('是否允许二次创作')}</Checkbox>
+											<Checkbox id='isNC' className={classes.Display11+ ' ' +classes.checkBox} onChange={this.onCheckBoxChange.bind(this)}>{t('是否允许商用')}</Checkbox>
+											<Checkbox id='isFreeFirst' className={classes.Display11+ ' ' +classes.checkBox} onChange={this.onCheckBoxChange.bind(this)}>{t('允许一级节点免费铸造')}</Checkbox>
 										</Grid>
 										<Grid item style={{ width: '100%' }}>
 											<label className={classes.Display9}>{t('art_desc')} *</label>
@@ -1305,13 +1349,13 @@ class EncryptedPublish extends Component {
 									</Grid>
 								</Grid>
 								<Dialog open={this.state.open} onClose={this.handleClose} aria-labelledby="form-dialog-title">
-									<DialogTitle   className={classes.MarginB10+' '+classes.MarginT10+' '+classes.MarginL9+' '+classes.MarginR9} id="form-dialog-title" ><span className={classes.Display9}>{t('inpt_NFT_ID')}</span></DialogTitle>
-									<DialogContent className={classes.MarginL9+' '+classes.MarginR9}>
-										<DialogContentText><span  className={classes.Display11}>{t('inpt_NFT_ID_tip')}</span></DialogContentText>
-										<label style={{marginBottom: 10,marginRight:10}}><span   className={classes.Display11}>NFT ID *</span></label>
+									<DialogTitle className={classes.MarginB10 + ' ' + classes.MarginT10 + ' ' + classes.MarginL9 + ' ' + classes.MarginR9} id="form-dialog-title" ><span className={classes.Display9}>{t('inpt_NFT_ID')}</span></DialogTitle>
+									<DialogContent className={classes.MarginL9 + ' ' + classes.MarginR9}>
+										<DialogContentText><span className={classes.Display11}>{t('inpt_NFT_ID_tip')}</span></DialogContentText>
+										<label style={{ marginBottom: 10, marginRight: 10 }}><span className={classes.Display11}>NFT ID *</span></label>
 										<InputNumber className={classes.inputNum} defaultValue={0} min={0} onChange={this.handleGetNFTId} />
 									</DialogContent>
-									<DialogActions  className={classes.MarginB7+' '+classes.MarginT7+' '+classes.MarginL9+' '+classes.MarginR9}>
+									<DialogActions className={classes.MarginB7 + ' ' + classes.MarginT7 + ' ' + classes.MarginL9 + ' ' + classes.MarginR9}>
 										<Button onClick={this.handleClose} className={classes.btnOutlineMini} color="primary">
 											{t('cancel')}
 										</Button>

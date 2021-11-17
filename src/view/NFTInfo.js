@@ -298,8 +298,8 @@ class NFTInfo extends Component {
 			})
 		} else {
 			const token_contract = new web3.eth.Contract(abi, token_addr)
-			const token_symbol = await token_contract().methods.symbol().call()
-			const decimal = await token_contract().methods.decimals().call()
+			const token_symbol = await token_contract.methods.symbol().call()
+			const decimal = await token_contract.methods.decimals().call()
 			let price_with_decimal = res / 10 ** decimal
 			let price_poster = price / 10 ** decimal
 			price_poster = price_poster + ' ' + token_symbol

@@ -4,7 +4,6 @@ import React, { Component } from 'react'
 import Grid from '@material-ui/core/Grid'
 import { withTranslation } from 'react-i18next'
 import bot from '../imgs/bot.png'
-import help from '../imgs/help.png'
 import logoTwi from '../imgs/logoTwi.png'
 import logoDis from '../imgs/logoRed.png'
 import logoTele from '../imgs/logoTele.png'
@@ -167,8 +166,8 @@ class Footer extends Component {
 							</div>
 						</Grid>
 						<div style={{flex:'1'}}></div>
-						<Grid item xs={12} className={classes.MarginT3} sm={true} style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
-							<a className={classes.DisplaySeBold8}> Need Help? </a><img src={help} className={classes.helpimg} />
+						<Grid item xs={12} className={classes.MarginT3} sm={true} style={{display:'flex',alignItems:'center',justifyContent:'flex-end'}}>
+							<a className={classes.DisplaySeBold8}> Need Help? </a>
 						</Grid>
 						
 					</Grid>

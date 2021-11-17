@@ -279,8 +279,8 @@ class SellSingle extends Component {
 		} else {
 			try {
 				const token_contract = new web3.eth.Contract(abi, token_addr)
-				const token_symbol = await token_contract().methods.symbol().call()
-				const decimal = await token_contract().methods.decimals().call()
+				const token_symbol = await token_contract.methods.symbol().call()
+				const decimal = await token_contract.methods.decimals().call()
 				this.setState({
 					tokenAddr: token_addr,
 					tokenSymbol: token_symbol,

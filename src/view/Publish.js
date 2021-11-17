@@ -95,6 +95,11 @@ const styles = (theme) => ({
 			width: '30vw'
 		},
 	},
+	checkBox: {
+		[theme.breakpoints.between('xs', 'sm')]: {
+			marginLeft:'0px !important'
+		},
+	},
 	titlePub: {
 		marginTop: '3%',
 		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
@@ -334,8 +339,8 @@ class Publish extends Component {
 		if (token_symbol == undefined) {
 			try {
 				const token_contract = new web3.eth.Contract(abi, value)
-				token_symbol = await token_contract().methods.symbol().call()
-				token_decimal = await token_contract().methods.decimals().call()
+				token_symbol = await token_contract.methods.symbol().call()
+				token_decimal = await token_contract.methods.decimals().call()
 				address = value
 			} catch (error) {
 				message.error(t('error_no_erc20'))
@@ -441,9 +446,11 @@ class Publish extends Component {
 							this.state.shareTimes,
 							ipfsToContract,
 							this.state.token_addr,
+							this.state.isFree,
 							this.state.isNC,
-							this.state.isND,
-							this.state.isFree
+							this.state.isND
+
+
 						)
 						.send({
 							from: this.state.userAccount,
@@ -451,8 +458,8 @@ class Publish extends Component {
 						})
 						.on('receipt', function (receipt) {
 
-							//console.log(receipt)
-							const data = receipt.events[0].raw.topics;
+							console.log(receipt)
+							const data = receipt.events.Publish.raw.topics;
 							console.log(data)
 							
 							// const decodedParameters = web3.eth.abi.decodeParameters(receiptDataTypes, data.toString());
@@ -877,10 +884,9 @@ class Publish extends Component {
 											</label>
 											<br />
 											{/* <p className={classes.Display11}>{'is_NC & is_ND'}</p> */}
-											
-											<Checkbox id='isND' className={classes.Display11}  defaultChecked onChange={this.onCheckBoxChange.bind(this)}>{t('是否允许二次创作')}</Checkbox>
-											<Checkbox id='isNC' className={classes.Display11} onChange={this.onCheckBoxChange.bind(this)}>{t('是否允许商用')}</Checkbox>
-											<Checkbox id='isFreeFirst' className={classes.Display11} onChange={this.onCheckBoxChange.bind(this)}>{t('允许一级节点免费铸造')}</Checkbox>
+											<Checkbox id='isND' className={classes.Display11 + ' ' +classes.checkBox}  defaultChecked onChange={this.onCheckBoxChange.bind(this)}>{t('是否允许二次创作')}</Checkbox>
+											<Checkbox id='isNC' className={classes.Display11+ ' ' +classes.checkBox} onChange={this.onCheckBoxChange.bind(this)}>{t('是否允许商用')}</Checkbox>
+											<Checkbox id='isFreeFirst' className={classes.Display11+ ' ' +classes.checkBox} onChange={this.onCheckBoxChange.bind(this)}>{t('允许一级节点免费铸造')}</Checkbox>
 										</Grid>
 
 										<Grid item style={{ width: '100%' }}>
