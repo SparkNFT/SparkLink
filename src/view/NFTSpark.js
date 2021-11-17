@@ -13,11 +13,13 @@ import { ArrowLeftOutlined, FireOutlined } from '@ant-design/icons'
 import Skeleton from '@material-ui/lab/Skeleton'
 import { Progress, message, Spin } from 'antd'
 import config from '../global/config'
-import { LASTCONNECT } from '../global/globalsString'
-import {getWalletAccount } from '../utils/getWalletAccountandChainID'
+// eslint-disable-next-line no-unused-vars
+import { TOKENPOCKET, METAMASK, LASTCONNECT } from '../global/globalsString'
+import {getChainNameByChainId, getWalletAccount } from '../utils/getWalletAccountandChainID'
 import { withTranslation } from 'react-i18next'
 import withCommon from '../styles/common'
 import Footer from '../components/Footer'
+import BigNumber from 'bignumber.js'
 
 const { gateway, backend, sparkAddr } = config
 
@@ -38,36 +40,33 @@ const theme = createTheme({
 
 const styles = (theme) => ({
 	container: {
-		maxWidth: 1500,
-		// backgroundColor: '#2196f3'
+		justifyContent:'center',
+		display:'flex',
+		flexDirection:'column',
+		alignItems:'center'
 	},
-	btnMain: {
-		marginTop: theme.spacing(3),
-		color: '#FFFFFF',
-		backgroundColor: '#03A9F4',
-		borderWidth: 3,
-		// borderColor: '#03A9F4',
-		fontSize: 16,
-		borderRadius: 25,
-		width: 150,
-		maxWidth: '20rem',
-		minWidth: '10rem',
-	},
-	btnSecond: {
-		marginTop: theme.spacing(3),
-		color: '#03A9F4',
-		borderWidth: 3,
-		borderColor: '#03A9F4',
-		fontSize: 16,
-		borderRadius: 25,
-		width: 150,
-		maxWidth: '20rem',
-		minWidth: '10rem',
-	},
-	paper: {
-		marginTop: theme.spacing(1),
-		textAlign: 'center',
-		maxWidth: 1400,
+	cbutton: {
+		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+		[theme.breakpoints.between('xs', 'sm')]: {
+			justifyContent: 'center',
+			alignItems: 'flex-start',
+		},
+		[theme.breakpoints.between('sm', 'md')]: {
+			justifyContent: 'center',
+			alignItems: 'flex-start',
+		},
+		[theme.breakpoints.between('md', 'lg')]: {
+			justifyContent: 'flex-end',
+			alignItems: 'flex-start',
+		},
+		[theme.breakpoints.between('lg', 'xl')]: {
+			justifyContent: 'flex-end',
+			alignItems: 'flex-start',
+		},
+		[theme.breakpoints.up('xl')]: {
+			justifyContent: 'flex-end',
+			alignItems: 'flex-start',
+		},
 	},
 	content: {
 		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
@@ -84,7 +83,7 @@ const styles = (theme) => ({
 			alignItems: 'flex-start',
 		},
 		[theme.breakpoints.between('lg', 'xl')]: {
-			justifyContent: 'center',
+			justifyContent: 'flex',
 			alignItems: 'flex-start',
 		},
 		[theme.breakpoints.up('xl')]: {
@@ -92,108 +91,78 @@ const styles = (theme) => ({
 			alignItems: 'flex-start',
 		},
 	},
-	imagePaper: {
-		[theme.breakpoints.between('xs', 'sm')]: {
-			backgroundColor: '#EFEBE9',
-			width: 330,
-			height: 420,
-			marginLeft: 10,
-		},
-		[theme.breakpoints.between('sm', 'md')]: {
-			backgroundColor: '#EFEBE9',
-			width: 340,
-			height: 440,
-			marginLeft: 10,
-		},
-		[theme.breakpoints.between('md', 'lg')]: {
-			backgroundColor: '#EFEBE9',
-			width: 350,
-			height: 465,
-			marginLeft: 10,
-		},
-		[theme.breakpoints.between('lg', 'xl')]: {
-			backgroundColor: '#EFEBE9',
-			width: 350,
-			marginLeft: 10,
-		},
-		[theme.breakpoints.up('xl')]: {
-			backgroundColor: '#EFEBE9',
-			width: 350,
-			marginLeft: 10,
-		},
+	paper: {
+		marginTop: theme.spacing(1),
+		textAlign: 'center',
+		width:'100%'
+		// backgroundColor: "green"
+	},
+	imagePapaer: {
+		backgroundColor: '#EFEBE9',
+		width:'100%'
 	},
 	imageStyle: {
 		objectFit: 'contain',
-		[theme.breakpoints.between('xs', 'sm')]: {
-			width: 280,
-			height: 365,
-			marginTop: 20,
-			marginBottom: 50,
-		},
-		[theme.breakpoints.between('sm', 'md')]: {
-			width: 290,
-			height: 385,
-			marginTop: 20,
-			marginBottom: 50,
-		},
-		[theme.breakpoints.between('md', 'lg')]: {
-			width: 300,
-			height: 420,
-			marginTop: 20,
-			marginBottom: 50,
-		},
-		[theme.breakpoints.between('lg', 'xl')]: {
-			width: 300,
-			marginTop: 20,
-			marginBottom: 50,
-		},
-		[theme.breakpoints.up('xl')]: {
-			width: 300,
-			marginTop: 20,
-			marginBottom: 50,
-		},
+		// object- fit: cover
+		width:'80%',
+		marginLeft:'10%',
+		marginRight:'10%',
+		marginTop:'10%',
+		marginBottom:'10%'
 	},
 	content2: {
 		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+		
 		[theme.breakpoints.between('xs', 'sm')]: {
-			marginLeft: 10,
-			maxWidth: 500,
+			marginLeft:15,
 		},
 		[theme.breakpoints.between('sm', 'md')]: {
-			marginLeft: 90,
-			maxWidth: 500,
+			marginLeft:25,
 		},
 		[theme.breakpoints.between('md', 'lg')]: {
-			marginLeft: 80,
-			maxWidth: 500,
+			marginLeft:45,
 		},
 		[theme.breakpoints.between('lg', 'xl')]: {
-			marginLeft: 50,
-			maxWidth: 500,
+			marginLeft:55,
 		},
 		[theme.breakpoints.up('xl')]: {
-			marginLeft: 60,
-			maxWidth: 500,
+			marginLeft:75,
+		},
+		['@media (min-width:3200px)']: {
+			marginLeft:140,
 		},
 	},
-	title: {
+	cbutton2: {
 		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+		justifyContent: 'flex-start',
+		alignItems: 'center',
 		[theme.breakpoints.between('xs', 'sm')]: {
-			fontSize: 48,
-		},
-		[theme.breakpoints.between('sm', 'md')]: {
-			fontSize: 60,
-		},
-		[theme.breakpoints.between('md', 'lg')]: {
-			fontSize: 70,
-		},
-		[theme.breakpoints.between('lg', 'xl')]: {
-			fontSize: 75,
-		},
-		[theme.breakpoints.up('xl')]: {
-			fontSize: 80,
+			justifyContent:'',
+			textAlign:'left'
 		},
 	},
+	share: {
+		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+		marginBottom: '10%',
+		[theme.breakpoints.between('xs', 'sm')]: {
+			fontSize: 14,
+		},
+		[theme.breakpoints.between('sm', 'md')]: {
+			fontSize: 16,
+		},
+		[theme.breakpoints.between('md', 'lg')]: {
+			fontSize: 18,
+		},
+		[theme.breakpoints.between('lg', 'xl')]: {
+			fontSize: 20,
+		},
+		[theme.breakpoints.up('xl')]: {
+			fontSize: 20,
+		},
+	},
+	btnOutline:{
+		inherit:'MarginL10'
+	}
 })
 class NFTSpark extends Component {
 	state = {
@@ -320,12 +289,19 @@ class NFTSpark extends Component {
 			price: price,
 			tokenAddr: token_addr,
 		})
-
+		
 		if (token_addr == '0x0000000000000000000000000000000000000000') {
-			let price_with_decimal = price / 10 ** 18
-			price_with_decimal = price_with_decimal + ' MATIC'
+			const chainId = localStorage.getItem('chainId')
+			let name = getChainNameByChainId(chainId).toUpperCase()
+			if(name == 'BSC'){
+				name = 'BNB'
+			}
+			let price_poster = new BigNumber(price / 10 ** 18)
+			let price_string = price_poster.toString(10)
+			console.log('num：'+price_string +'&'+price) 
+			price_string = price_string + ' ' + name
 			this.setState({
-				priceString: price_with_decimal,
+				priceString:  price_string,
 				approved: true,
 			})
 		} else {
@@ -333,8 +309,8 @@ class NFTSpark extends Component {
 				const token_contract = new web3.eth.Contract(abi, token_addr)
 				const decimals = await token_contract.methods.decimals().call()
 				const token_symbol = await token_contract.methods.symbol().call()
-				let price_with_decimal = price / 10 ** decimals
-				price_with_decimal = price_with_decimal + ' ' + token_symbol
+				let price_with_decimal = new BigNumber(price / 10 ** decimals)
+				price_with_decimal = price_with_decimal.toString(10) + ' ' + token_symbol
 				this.setState({ priceString: price_with_decimal })
 				const approved_amount = await token_contract.methods.allowance(account, sparkAddr).call()
 				if (approved_amount >= price) {
@@ -363,6 +339,7 @@ class NFTSpark extends Component {
 			let children_num = res.data.children_count
 			let remain_shill_times = res.data.max_shill_times - res.data.shill_times
 			let max_shill_times = res.data.max_shill_times
+			if(remain_shill_times == -1) remain_shill_times = 0;
 			this.setState({
 				remainShillTimes: remain_shill_times,
 				maxShillTimes: max_shill_times,
@@ -619,61 +596,42 @@ class NFTSpark extends Component {
 							<Grid container justifyContent="space-around">
 								<Button
 									size="large"
-									style={{ fontSize: '3rem' }}
-									variant="contained"
-									className={classes.btnMain}
+									className={classes.btn}
 									disabled
 								>
-									<Typography>
-										<font size="4"> {t('下载')}</font>
-									</Typography>
+									{t('下载')}
 								</Button>
 								<Grid item>
 									<Button
-										size="large"
-										style={{ fontSize: '2rem' }}
-										variant="outlined"
 										color="secondary"
 										target="_blank"
-										className={classes.btnSecond}
+										className={classes.btnOutline}
 										startIcon={<FireOutlined />}
 										disabled
 									>
-										<Typography>
-											<font size="4"> {t('铸造')} </font>
-										</Typography>
+										{t('铸造')}
 									</Button>
 								</Grid>
 							</Grid>
 						) : (
-							<Grid container direction="row" justifyContent="space-around">
+							<Grid container direction="row">
 								<Grid item>
 									<Button
-										size="large"
-										style={{ fontSize: '3rem' }}
-										variant="contained"
-										className={classes.btnMain}
+
+										className={classes.btn}
 										onClick={this.downloadIPFS}
 									>
-										<Typography>
-											<font size="4"> {t('下载')} </font>
-										</Typography>
+										 {t('下载')}
 									</Button>
 								</Grid>
 								<Grid item>
 									<Button
-										size="large"
-										style={{ fontSize: '2rem' }}
-										variant="outlined"
-										color="secondary"
 										target="_blank"
-										className={classes.btnSecond}
+										className={classes.btnOutline}
 										startIcon={<FireOutlined />}
 										disabled
 									>
-										<Typography>
-											<font size="4"> {t('铸造')} </font>
-										</Typography>
+										{t('铸造')}
 									</Button>
 								</Grid>
 							</Grid>
@@ -684,59 +642,44 @@ class NFTSpark extends Component {
 				return (
 					<div>
 						{this.state.isEncrypt ? (
-							<Grid container justifyContent="space-around">
+							<Grid container>
 								<Button
 									size="large"
 									style={{ fontSize: '3rem' }}
 									variant="contained"
-									className={classes.btnColor2}
+									className={classes.btn}
 									disabled
 								>
-									<Typography>
-										<font size="4"> {t('下载')}</font>
-									</Typography>
+									{t('下载')}
 								</Button>
 								<Grid item>
 									<Button
-										size="large"
-										style={{ fontSize: '3rem' }}
 										target="_blank"
-										className={classes.btnColor}
+										className={classes.btnOutline}
 										onClick={this.approve}
 									>
-										<Typography>
-											<font size="4"> {t('授权合约')}</font>
-										</Typography>
+										{t('授权合约')}
 									</Button>
 								</Grid>
 							</Grid>
 						) : (
-							<Grid container direction="row" justifyContent="space-around">
+							<Grid container direction="row">
 								<Grid item>
 									<Button
-										size="large"
-										style={{ fontSize: '3rem' }}
-										variant="contained"
-										className={classes.btnColor2}
+										className={classes.btn}
 										onClick={this.downloadIPFS}
 									>
-										<Typography>
-											<font size="4"> {t('下载')} </font>
-										</Typography>
+										{t('下载')}
 									</Button>
 								</Grid>
 								<Grid item>
 									<Button
-										size="large"
-										style={{ fontSize: '3rem' }}
-										variant="outlined"
+
 										target="_blank"
-										className={classes.btnColor}
+										className={classes.btnOutline}
 										onClick={this.approve}
 									>
-										<Typography>
-											<font size="4"> {t('授权合约')} </font>
-										</Typography>
+										{t('授权合约')}
 									</Button>
 								</Grid>
 							</Grid>
@@ -747,60 +690,41 @@ class NFTSpark extends Component {
 				return (
 					<div>
 						{this.state.isEncrypt ? (
-							<Grid container justifyContent="space-around">
+							<Grid container>
 								<Button
-									size="large"
-									style={{ fontSize: '3rem' }}
-									variant="contained"
-									className={classes.btnColor2}
+									className={classes.btn}
 									disabled
 								>
-									<Typography variant="button"  gutterBottom>
-										<font size="4"> {t('下载')} </font>
-									</Typography>
+									{t('下载')}
 								</Button>
 								<Grid item>
 									<Button
-										size="large"
-										className={classes.btnColor}
-										style={{ fontSize: '3rem' }}
+										className={classes.btnOutline}
 										target="_blank"
 										startIcon={<FireOutlined />}
 										onClick={this.shill}
 									>
-										<Typography variant="button" gutterBottom>
-											<font size="4"> {t('铸造')} </font>
-										</Typography>
+										{t('铸造')}
 									</Button>
 								</Grid>
 							</Grid>
 						) : (
-							<Grid container direction="row" justifyContent="space-around">
+							<Grid container direction="row">
 								<Grid item>
 									<Button
-										size="large"
-										style={{ fontSize: '3rem' }}
-										variant="contained"
-										className={classes.btnColor2}
+										className={classes.btn}
 										onClick={this.downloadIPFS}
 									>
-										<Typography variant="button"  gutterBottom>
-											<font size="4"> {t('下载')} </font>
-										</Typography>
+										{t('下载')}
 									</Button>
 								</Grid>
 								<Grid item>
 									<Button
-										size="large"
-										style={{ fontSize: '3rem' }}
-										target="_blank"
-										className={classes.btnColor}
+										className={classes.btnOutline}
 										startIcon={<FireOutlined />}
 										onClick={this.shill}
 									>
-										<Typography variant="button"  gutterBottom>
-											<font size="4"> {t('铸造')} </font>
-										</Typography>
+										{t('铸造')}
 									</Button>
 								</Grid>
 							</Grid>
@@ -832,140 +756,140 @@ class NFTSpark extends Component {
 					<ThemeProvider theme={theme}>
 						<TopBar />
 						<Container component="main" className={classes.container}>
-							<Button
-								startIcon={<ArrowLeftOutlined style={{ fontSize: '2rem' }} />}
-								href="/#/collections"
-								style={{ marginTop: 20, marginBottom: 10, fontSize: '2rem' }}
-							>
-								{t('回到我的收藏馆')}
-							</Button>
-							<Grid container direction="row" justifyContent="center" alignItems="center" xs={12}>
-								<Typography color="inherit" noWrap className={classes.title}>
-									🔥 NFT 🔥
-								</Typography>
+							<Grid container item xs={11} md={10} sm={10} lg={10} xl={10}>
+								<Button
+									startIcon={<ArrowLeftOutlined style={{fontSize:'100%'}} />}
+									href="/#/collections"
+									className={classes.Display8}
+									style={{ marginTop: 20, marginBottom: 10}}
+								>
+									{t('回到我的收藏馆')}
+								</Button>
+								<Grid container direction="row" justifyContent="center" alignItems="center" xs={12}>
+									<Typography color="inherit" noWrap className={classes.Display5}>
+										🔥 NFT 🔥
+									</Typography>
+								</Grid>
+
+								<div className={classes.paper+' '+classes.PaddingT5}>
+									{this.state.loadItem ? (
+										<Grid container className={classes.content} spacing={5}>
+											<Grid item xs={10} sm={5} md={5} lg={5} xl={5}>
+												<Skeleton
+													variant="rect"
+													width={300}
+													height={500}
+													style={{ width: 370, marginLeft: 0, marginBottom: 50 }}
+												/>
+											</Grid>
+
+											<Grid item xs={10} sm={5} md={5} lg={5}>
+												<Skeleton animation="wave" variant="text" width={200} height={30} />
+												<Skeleton animation="wave" variant="text" width={400} height={70} />
+												<Skeleton animation="wave" variant="rect" width={500} height={300} style={{ marginBottom: 50 }} />
+											</Grid>
+										</Grid>
+									) : (
+										<Grid container direction="row" className={classes.content}>
+											<Grid container justifyContent='center' item xs={12} sm={5} md={5} lg={5} xl={5}>
+												<Paper className={classes.imagePapaer}>
+													<img className={classes.imageStyle} src={this.state.Cover} onError={() => this.setFlag('isCoverLoaded')} id="cover" crossOrigin="anonymous" ></img>
+												</Paper >
+											</Grid >
+											<Grid item xs={10} sm={6} md={6} lg={6} className={classes.content2 +' ' +classes.PaddingT9}>
+												<Typography
+													color="inherit"
+													align="left"
+													// eslint-disable-next-line react/jsx-no-duplicate-props
+													color="textSecondary"
+													noWrap
+													className={classes.Display10}
+												>
+													#{this.props.match.params.id}
+												</Typography>
+												<Typography
+													color="inherit"
+													align="left"
+													className={classes.Display8}
+													noWrap
+													style={{
+														fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+														marginTop: '2%',
+													}}
+												>
+													<b>{this.state.Name}</b>
+												</Typography>
+												<Typography
+													align="justify"
+													color="textSecondary"
+													className={classes.Display10}
+													paragraph
+													style={{
+														marginTop: '2%',
+														maxWidth: '100%',
+													}}
+												>
+													{this.state.Description}
+												</Typography>
+												<Typography
+													align="left"
+													color="textPrimary"
+													paragraph
+													className={classes.Display10}
+													style={{
+														marginTop: '3%',
+														maxWidth: '100%',
+													}}
+												>
+													{t('点火价格: ')} {this.state.priceString}
+												</Typography>
+												<Typography align="left" color="textPrimary" className={classes.Display10} style={{marginTop:'1%'}} >
+													{t('最大分享次数：')} {this.state.maxShillTimes} 次
+												</Typography>
+												<Typography align="left" color="textPrimary" className={classes.Display10} style={{marginTop:'1%'}} >
+													{t('剩余分享次数：')} {this.state.remainShillTimes} 次
+												</Typography>
+												{this.state.isEncrypt ? (
+													<Typography
+														align="left"
+														color="textPrimary"
+														className={classes.Display10}
+														paragraph
+														style={{ maxWidth: '100%',marginTop:'1%'}}
+													>
+														{t('加密作品')}
+													</Typography>
+												) : (
+													<Typography
+														align="left"
+														color="textPrimary"
+														className={classes.Display10}
+														paragraph
+														style={{ maxWidth: '100%',marginTop:'1%' }}
+													>
+														{t('开源作品')}
+													</Typography>
+												)}
+												{showBtn()}
+											</Grid>
+										</Grid>
+									)}
+
+									{this.state.showRecommend ? (
+										<Grid style={{ marginTop: 50 }}>
+											<Typography className={classes.Display8} gutterBottom>
+												{t('此NFT的子节点已经售完，我们给您推荐了其他还能购买的节点：')}
+											</Typography>
+											<Link onClick={this.handleClickLink} style={{ fontSize: 20, textDecoration: 'underline' }}>
+												{window.location.host + '/#/NFT/Spark/' + this.state.recommendNFT}
+											</Link>
+										</Grid>
+									) : (
+										<div></div>
+									)}
+								</div>
 							</Grid>
 
-							<div className={classes.paper}>
-								{this.state.loadItem ? (
-									<Grid container spacing={5} className={classes.content}>
-										<Grid item>
-											<Skeleton
-												variant="rect"
-												width={300}
-												height={500}
-												style={{ width: 370, marginLeft: 50, marginBottom: 50 }}
-											/>
-										</Grid>
-										<Grid item style={{ marginLeft: '5%' }}>
-											<Skeleton animation="wave" variant="text" width={200} height={30} />
-											<Skeleton animation="wave" variant="text" width={400} height={70} />
-											<Skeleton animation="wave" variant="rect" width={500} height={300} style={{ marginBottom: 50 }} />
-										</Grid>
-									</Grid>
-								) : (
-									<Grid container direction="row" justifyContent="space-between" className={classes.content}>
-										<Grid item style={{ maxWidth: 200 }}>
-											<Paper className={classes.imagePaper}>
-												<img className={classes.imageStyle} src={this.state.Cover}></img>
-											</Paper>
-										</Grid>
-
-										<Grid xs={2}></Grid>
-
-										<Grid item xs={12} className={classes.content2}>
-											<Typography
-												color="inherit"
-												align="left"
-												// eslint-disable-next-line react/jsx-no-duplicate-props
-												color="textSecondary"
-												noWrap
-												style={{
-													fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
-													fontSize: 16,
-													marginTop: '2%',
-												}}
-											>
-												#{this.props.match.params.id}
-											</Typography>
-											<Typography
-												color="inherit"
-												align="left"
-												noWrap
-												style={{
-													fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
-													fontSize: 34,
-													marginTop: '2%',
-												}}
-											>
-												<b>{this.state.Name}</b>
-											</Typography>
-											<Typography
-												align="justify"
-												color="textSecondary"
-												paragraph
-												style={{
-													marginTop: '2%',
-													maxWidth: '100%',
-													fontSize: 16,
-												}}
-											>
-												{this.state.Description}
-											</Typography>
-											<Typography
-												align="left"
-												color="textPrimary"
-												paragraph
-												style={{
-													marginTop: '6%',
-													maxWidth: '100%',
-													fontSize: 24,
-												}}
-											>
-												{t('点火价格: ')} {this.state.priceString}
-											</Typography>
-											<Typography align="left" color="textPrimary" paragraph style={{ maxWidth: '100%', fontSize: 18 }}>
-												{t('最大分享次数：')} {this.state.maxShillTimes} 次
-											</Typography>
-											<Typography align="left" color="textPrimary" paragraph style={{ maxWidth: '100%', fontSize: 18 }}>
-												{t('剩余分享次数：')} {this.state.remainShillTimes} 次
-											</Typography>
-											{this.state.isEncrypt ? (
-												<Typography
-													align="left"
-													color="textPrimary"
-													paragraph
-													style={{ maxWidth: '100%', fontSize: 16 }}
-												>
-													{t('加密作品')}
-												</Typography>
-											) : (
-												<Typography
-													align="left"
-													color="textPrimary"
-													paragraph
-													style={{ maxWidth: '100%', fontSize: 16 }}
-												>
-													{t('开源作品')}
-												</Typography>
-											)}
-											{showBtn()}
-										</Grid>
-									</Grid>
-								)}
-
-								{this.state.showRecommend ? (
-									<Grid style={{ marginTop: 50 }}>
-										<Typography variant="h4" gutterBottom>
-											{t('此NFT的子节点已经售完，我们给您推荐了其他还能购买的节点：')}
-										</Typography>
-										<Link onClick={this.handleClickLink} style={{ fontSize: 20, textDecoration: 'underline' }}>
-											{window.location.host + '/#/NFT/Spark/' + this.state.recommendNFT}
-										</Link>
-									</Grid>
-								) : (
-									<div></div>
-								)}
-							</div>
 						</Container>
 						<Footer></Footer>
 					</ThemeProvider>

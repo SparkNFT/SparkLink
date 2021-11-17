@@ -289,6 +289,7 @@ class EncryptedPublish extends Component {
 	}
 
 	handleGetBonusFee = (value) => {
+		if(value>=100) value=100;
 		this.setState({
 			bonusFee: value,
 		})
@@ -1264,8 +1265,7 @@ class EncryptedPublish extends Component {
 												id="bonusFee"
 												defaultValue={0}
 												min={0}
-												max={100}
-												formatter={(value) => `${value}%`}
+												formatter={(value)=>{return (value<=100)?(`${value}%`):('100%')}}
 												parser={(value) => value.replace('%', '')}
 												onChange={this.handleGetBonusFee}
 												className={classes.inputNum}

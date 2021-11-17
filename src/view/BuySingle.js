@@ -29,9 +29,6 @@ const theme = createTheme({
 })
 
 const styles = (theme) => ({
-	container: {
-		maxWidth: 1500,
-	},
 	paper: {
 		marginTop: theme.spacing(1),
 		textAlign: 'center',

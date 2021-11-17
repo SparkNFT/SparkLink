@@ -836,7 +836,6 @@ class NFTInfo extends Component {
 												<Typography
 													align="left"
 													color="textPrimary"
-													item xs={10} sm={5} md={5} lg={5}
 													className={classes.Display10}
 													paragraph
 													style={{
