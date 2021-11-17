@@ -92,6 +92,7 @@ const Poster = (props) => {
 	const chain = splited[1]
 	console.log(name.length)
 	let tokenUrl = 'https://raw.githubusercontent.com/TP-Lab/tokens/master/bsc/' + addr + '/logo.png'
+	
 	if(addr === '0x0000000000000000000000000000000000000000'){
 		if(chain == 'MATIC'){
 			tokenUrl = logoMatic
