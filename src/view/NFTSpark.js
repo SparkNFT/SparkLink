@@ -9,7 +9,7 @@ import { Paper, Container, Link } from '@material-ui/core'
 import axios from 'axios'
 import contract from '../utils/contract'
 import web3 from '../utils/web3'
-import { ArrowLeftOutlined, FireOutlined } from '@ant-design/icons'
+import { ArrowLeftOutlined, FireOutlined, DownloadOutlined} from '@ant-design/icons'
 import Skeleton from '@material-ui/lab/Skeleton'
 import { Progress, message, Spin } from 'antd'
 import config from '../global/config'
@@ -20,7 +20,6 @@ import { withTranslation } from 'react-i18next'
 import withCommon from '../styles/common'
 import Footer from '../components/Footer'
 import BigNumber from 'bignumber.js'
-
 const { gateway, backend, sparkAddr } = config
 
 // const mathwallet = require('math-js-sdk');
@@ -597,6 +596,7 @@ class NFTSpark extends Component {
 								<Button
 									size="large"
 									className={classes.btn}
+									startIcon={<DownloadOutlined />}
 									disabled
 								>
 									{t('下载')}
@@ -617,7 +617,7 @@ class NFTSpark extends Component {
 							<Grid container direction="row">
 								<Grid item>
 									<Button
-
+										startIcon={<DownloadOutlined />}
 										className={classes.btn}
 										onClick={this.downloadIPFS}
 									>
@@ -644,9 +644,7 @@ class NFTSpark extends Component {
 						{this.state.isEncrypt ? (
 							<Grid container>
 								<Button
-									size="large"
-									style={{ fontSize: '3rem' }}
-									variant="contained"
+									startIcon={<DownloadOutlined />}
 									className={classes.btn}
 									disabled
 								>
@@ -667,6 +665,7 @@ class NFTSpark extends Component {
 								<Grid item>
 									<Button
 										className={classes.btn}
+										startIcon={<DownloadOutlined />}
 										onClick={this.downloadIPFS}
 									>
 										{t('下载')}
@@ -692,6 +691,7 @@ class NFTSpark extends Component {
 						{this.state.isEncrypt ? (
 							<Grid container>
 								<Button
+									startIcon={<DownloadOutlined />}
 									className={classes.btn}
 									disabled
 								>
@@ -712,6 +712,7 @@ class NFTSpark extends Component {
 							<Grid container direction="row">
 								<Grid item>
 									<Button
+										startIcon={<DownloadOutlined />}
 										className={classes.btn}
 										onClick={this.downloadIPFS}
 									>
