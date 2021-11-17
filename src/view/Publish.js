@@ -95,6 +95,11 @@ const styles = (theme) => ({
 			width: '30vw'
 		},
 	},
+	checkBox: {
+		[theme.breakpoints.between('xs', 'sm')]: {
+			marginLeft:'0px'
+		},
+	},
 	titlePub: {
 		marginTop: '3%',
 		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
@@ -879,10 +884,9 @@ class Publish extends Component {
 											</label>
 											<br />
 											{/* <p className={classes.Display11}>{'is_NC & is_ND'}</p> */}
-											
-											<Checkbox id='isND' className={classes.Display11}  defaultChecked onChange={this.onCheckBoxChange.bind(this)}>{t('是否允许二次创作')}</Checkbox>
-											<Checkbox id='isNC' className={classes.Display11} onChange={this.onCheckBoxChange.bind(this)}>{t('是否允许商用')}</Checkbox>
-											<Checkbox id='isFreeFirst' className={classes.Display11} onChange={this.onCheckBoxChange.bind(this)}>{t('允许一级节点免费铸造')}</Checkbox>
+											<Checkbox id='isND' className={classes.Display11 + ' ' +classes.checkBox}  defaultChecked onChange={this.onCheckBoxChange.bind(this)}>{t('是否允许二次创作')}</Checkbox>
+											<Checkbox id='isNC' className={classes.Display11+ ' ' +classes.checkBox} onChange={this.onCheckBoxChange.bind(this)}>{t('是否允许商用')}</Checkbox>
+											<Checkbox id='isFreeFirst' className={classes.Display11+ ' ' +classes.checkBox} onChange={this.onCheckBoxChange.bind(this)}>{t('允许一级节点免费铸造')}</Checkbox>
 										</Grid>
 
 										<Grid item style={{ width: '100%' }}>
