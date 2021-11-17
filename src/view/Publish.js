@@ -97,7 +97,7 @@ const styles = (theme) => ({
 	},
 	checkBox: {
 		[theme.breakpoints.between('xs', 'sm')]: {
-			marginLeft:'0px !important'
+			marginLeft: '0px !important'
 		},
 	},
 	titlePub: {
@@ -164,10 +164,10 @@ const styles = (theme) => ({
 			height: 100
 		}
 	},
-	btnMini:{
-		inherit:'MarginT10'
+	btnMini: {
+		inherit: 'MarginT10'
 	},
-	Display9:{
+	Display9: {
 		inherit: 'MarginT9,DisplaySeBold9'
 
 	}
@@ -429,7 +429,7 @@ class Publish extends Component {
 					this.setState({
 						ipfsMeta: bytesToContract,
 					})
-					
+
 					//let price_with_decimal = this.state.price * 10 ** this.state.decimal
 					const priceBN = BigNumber(this.state.price * 10 ** this.state.decimal);
 					let price_with_decimal = web3.utils.toBN(priceBN)
@@ -449,8 +449,6 @@ class Publish extends Component {
 							this.state.isFree,
 							this.state.isNC,
 							this.state.isND
-
-
 						)
 						.send({
 							from: this.state.userAccount,
@@ -461,7 +459,7 @@ class Publish extends Component {
 							console.log(receipt)
 							const data = receipt.events.Publish.raw.topics;
 							console.log(data)
-							
+
 							// const decodedParameters = web3.eth.abi.decodeParameters(receiptDataTypes, data.toString());
 							// console.log('data')							
 							// console.log(decodedParameters)
@@ -508,6 +506,9 @@ class Publish extends Component {
 						})
 				} catch (error) {
 					console.debug(error)
+					this.setState({
+						onLoading: false,
+					})
 					message.error({
 						content: t('似乎遇到了些小问题：') + ` ${error}`,
 						className: 'custom-class',
@@ -618,7 +619,7 @@ class Publish extends Component {
 		}
 	}
 
-	onUpdateChain(){
+	onUpdateChain() {
 		this.UNSAFE_componentWillMount();
 	}
 
@@ -884,9 +885,9 @@ class Publish extends Component {
 											</label>
 											<br />
 											{/* <p className={classes.Display11}>{'is_NC & is_ND'}</p> */}
-											<Checkbox id='isND' className={classes.Display11 + ' ' +classes.checkBox}  defaultChecked onChange={this.onCheckBoxChange.bind(this)}>{t('是否允许二次创作')}</Checkbox>
-											<Checkbox id='isNC' className={classes.Display11+ ' ' +classes.checkBox} onChange={this.onCheckBoxChange.bind(this)}>{t('是否允许商用')}</Checkbox>
-											<Checkbox id='isFreeFirst' className={classes.Display11+ ' ' +classes.checkBox} onChange={this.onCheckBoxChange.bind(this)}>{t('允许一级节点免费铸造')}</Checkbox>
+											<Checkbox id='isND' className={classes.Display11 + ' ' + classes.checkBox} defaultChecked onChange={this.onCheckBoxChange.bind(this)}>{t('是否允许二次创作')}</Checkbox>
+											<Checkbox id='isNC' className={classes.Display11 + ' ' + classes.checkBox} onChange={this.onCheckBoxChange.bind(this)}>{t('是否允许商用')}</Checkbox>
+											<Checkbox id='isFreeFirst' className={classes.Display11 + ' ' + classes.checkBox} onChange={this.onCheckBoxChange.bind(this)}>{t('允许一级节点免费铸造')}</Checkbox>
 										</Grid>
 
 										<Grid item style={{ width: '100%' }}>
@@ -897,7 +898,7 @@ class Publish extends Component {
 											<TextArea rows={6} id="Description" onChange={this.handleGetDescription} />
 										</Grid>
 									</Grid>
-									<label className={classes.Display9+' '+classes.MarginT10}>
+									<label className={classes.Display9 + ' ' + classes.MarginT10}>
 										{t('pic_cover')} <span style={{ color: 'red' }}>*</span>
 									</label>
 									<p className={classes.Display11}>{t('pic_cover_tip')}</p>
@@ -909,7 +910,7 @@ class Publish extends Component {
 										<p className={classes.Display11}>{t('upload_file_tip2')}</p>
 									</Dragger>
 
-									<label className={classes.Display9+' '+classes.MarginT10}>
+									<label className={classes.Display9 + ' ' + classes.MarginT10}>
 										{t('art_file')} <span style={{ color: 'red' }}>*</span>
 									</label>
 									<p className={classes.Display11}> {t('art_file_tip')}</p>
@@ -937,7 +938,7 @@ class Publish extends Component {
 								<Button
 									disabled={this.state.submitBtnDisable}
 									className={classes.btn}
-									startIcon={<CloudUploadOutlined style={{fontSize:'100%'}} />}
+									startIcon={<CloudUploadOutlined style={{ fontSize: '100%' }} />}
 									onClick={this.submit}
 								>
 									{t('submit')}

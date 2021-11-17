@@ -13,7 +13,7 @@ import { ArrowLeftOutlined, FireOutlined } from '@ant-design/icons'
 import Skeleton from '@material-ui/lab/Skeleton'
 import { Progress, message, Spin } from 'antd'
 import config from '../global/config'
-import { TOKENPOCKET, METAMASK, LASTCONNECT } from '../global/globalsString'
+import { LASTCONNECT } from '../global/globalsString'
 import {getWalletAccount } from '../utils/getWalletAccountandChainID'
 import { withTranslation } from 'react-i18next'
 import withCommon from '../styles/common'
@@ -22,7 +22,7 @@ import Footer from '../components/Footer'
 const { gateway, backend, sparkAddr } = config
 
 // const mathwallet = require('math-js-sdk');
-const tp = require('tp-js-sdk')
+// const tp = require('tp-js-sdk')
 const abi = require('erc-20-abi')
 
 const theme = createTheme({
@@ -268,7 +268,7 @@ class NFTSpark extends Component {
 		// }
 		const account = await getWalletAccount()
 
-		if (account === null) {
+		if (account === -1) {
 			alert('请先连接钱包');
 			window.location.href = '/#/';
 			return;
@@ -524,19 +524,17 @@ class NFTSpark extends Component {
 	shill = async () => {
 		// const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
 		// const account = accounts[0]
-		let account
 		const{ t } =this.props;
+		let account;
 		const lastConnect = localStorage.getItem(LASTCONNECT)
-		if (lastConnect === METAMASK) {
-			const accounts = await window.ethereum.request({
-				method: 'eth_requestAccounts',
-			})
-			account = accounts[0]
-		} else if (lastConnect === TOKENPOCKET) {
-			await tp.getWallet({ walletTypes: ['matic'], switch: false }).then((value) => {
-				account = value.data.address
-			})
+		if(lastConnect) {
+			account = await getWalletAccount()
 		}
+		else{
+			message.error('请先链接钱包！')
+			return;
+		}		
+		
 		let gasPrice = await web3.eth.getGasPrice()
 		let new_gas_price = Math.floor(parseInt(gasPrice) * 1.5).toString()
 		let obj = this

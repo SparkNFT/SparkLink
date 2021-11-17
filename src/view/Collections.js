@@ -372,6 +372,7 @@ class Collections extends Component {
 		try {
 			var res = await axios.get(url)
 			// balanceId = res.data.nft
+			console.log(res)
 			this.setState({
 				onloading: true,
 				SkeletoNumber: res.data.nft.length

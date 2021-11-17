@@ -281,12 +281,14 @@ class NFTInfo extends Component {
 		if (token_addr == '0x0000000000000000000000000000000000000000') {
 			const chainId = localStorage.getItem('chainId')
 			let name = getChainNameByChainId(chainId).toUpperCase()
-			if(name == 'BSC'){
-				name = 'BNB'
-			}
 			let price_with_decimal = res / 10 ** 18
-			let profit = price_with_decimal + ' ' + name
 			let price_poster = price / 10 ** 18
+			if(name == 'BSC'){
+				name = 'BNB';
+				price_with_decimal = res / 10 ** 8;
+				price_poster = price / 10 ** 8
+			}		
+			let profit = price_with_decimal + ' ' + name
 			price_poster = price_poster + ' ' + name
 			this.setState({
 				price: price_poster,
