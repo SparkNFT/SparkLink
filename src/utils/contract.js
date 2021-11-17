@@ -1355,13 +1355,15 @@ let address = new Object();
 address['0x1'] = '0x7187211744c67F8cE89fEAc63b85D8D17417bDfE';//ETH
 address['0x89'] = '0x166BCdc53BC8573448F37C66EF409f1Cb31450a2'; //Matic
 address['0x38'] = '0xDc89106504f82642801dc43C8B545Ef7DA95ff2b'; //BSC
-let exContract = new web3.eth.Contract(abi, address['0x38']);
-export let nowContractChainId = '0x38';
+let contracts = new Object();
+export let nowContractChainId = '0x1';
+for(let id of Object.keys(address)){
+	contracts[id] = new web3.eth.Contract(abi, address[id]);
+}
+let exContract = contracts['0x1'];
 export function swtichContract(chainId) {
 	if (address[chainId]) {
-		console.log('SWTICH TO ' + chainId + ' address:' + address[chainId])
-		exContract = new web3.eth.Contract(abi, address[chainId]);
-		console.log(exContract);
+		exContract = contracts[chainId];
 		nowContractChainId = chainId;
 	} else {
 		alert('UnExpected ChainID')
