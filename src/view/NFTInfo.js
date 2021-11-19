@@ -212,6 +212,7 @@ class NFTInfo extends Component {
 		// 		],
 		// 	})
 		// }
+		
 
 		const price = await contract().methods.getShillPriceByNFTId(this.props.match.params.id).call()
 		const owner = await contract().methods.ownerOf(this.props.match.params.id).call()
@@ -284,7 +285,7 @@ class NFTInfo extends Component {
 			let name = getChainNameByChainId(chainId).toUpperCase()
 			if(name == 'BSC'){
 				name = 'BNB'
-				decimal = 8
+				decimal = 18
 			}
 			let price_with_decimal = res / 10 ** decimal
 			let profit = price_with_decimal + ' ' + name

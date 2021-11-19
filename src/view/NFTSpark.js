@@ -245,6 +245,7 @@ class NFTSpark extends Component {
 
 		// const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
 		// const account = accounts[0]
+		//console.log(contract)
 
 		const meta = await contract().methods.tokenURI(this.props.match.params.id).call()
 		let hash = meta.split('/')
