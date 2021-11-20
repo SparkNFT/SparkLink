@@ -27,7 +27,7 @@ const theme = createTheme({
 		},
 	},
 })
-
+console.log('sparkAddr'+sparkAddr)
 const styles = (theme) => ({
 	paper: {
 		marginTop: theme.spacing(1),

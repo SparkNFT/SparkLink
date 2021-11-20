@@ -8,17 +8,21 @@ import SellSingle from '../view/SellSingle';
 import BuySingle from '../view/BuySingle';
 import Collections from '../view/Collections';
 import Spark from '../view/NFTSpark';
-import IntroPublish from '../view/IntroPublish';
+import PublishEx from '../view/PublishEx'
 import EncryptedPublish from '../view/EncryptedPublish';
 import Buy from '../view/Buy';
+
 import ScrollToTop from '../components/ScrollToTop';
+import MessageExProvider from '../components/MessageExProvider';
 
 const BasicRoute = () => (
 	<HashRouter>
 		<ScrollToTop>
+			<MessageExProvider />
 			<Switch>
 				<Route exact path="/" component={App} />
-				<Route exact path="/introPublish" component={IntroPublish} />
+				<Route exact path="/publishEx/:fromNFT" component={PublishEx} />
+				<Route exact path="/publishEx" component={PublishEx} />
 				<Route exact path="/buy" component={Buy} />
 				<Route exact path="/publish" component={Publish} />
 				<Route exact path="/encryptedPublish" component={EncryptedPublish} />

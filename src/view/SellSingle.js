@@ -11,7 +11,7 @@ import { TOKENPOCKET, METAMASK, LASTCONNECT, MATHWALLET } from '../global/global
 import { Spin, message } from 'antd'
 import { Input, InputNumber } from 'antd'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
-import contract from '../utils/contract'
+import contract, { freshContract } from '../utils/contract'
 import Skeleton from '@material-ui/lab/Skeleton'
 import web3 from '../utils/web3';
 import config from '../global/config'
@@ -186,6 +186,7 @@ class SellSingle extends Component {
 	async componentDidMount() {
 		const { t } = this.props;
 		const chainName = await getChainName();
+		await freshContract();
 		switch(chainName){
 		case 'matic':
 			web3.setProvider(new Web3.providers.HttpProvider('https://polygon-mainnet.infura.io/v3/0232394ba4b34544a778575aefa2ee8c'))
@@ -434,7 +435,6 @@ class SellSingle extends Component {
 				)
 			}
 		}
-
 		const showSellBtn = () => {
 			if (this.state.currentAcc == this.state.owner) {
 				return (

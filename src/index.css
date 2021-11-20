@@ -5,12 +5,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
   max-width: 100vw;
   overflow-x: hidden;
-  
 }
 ::selection{
   color:white !important;
   background:tomato !important;
 
+}
+html{
+  font-size: 20px !important;
 }
 
 code {
@@ -105,4 +107,8 @@ code {
 
 .MuiDialog-paperWidthSm{
   max-width: 2000px !important;
+}
+.Mui-error{
+  color: rgba(0, 0, 0, 0.54) !important;
+  font-family: 'ANC,source-han-sans-simplified-c, sans-serif' !important;
 }
