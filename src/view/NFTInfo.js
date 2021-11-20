@@ -27,7 +27,7 @@ import { LASTCONNECT } from '../global/globalsString'
 import { withTranslation } from 'react-i18next'
 import withCommon from '../styles/common'
 import Footer from '../components/Footer'
-import {getWalletAccount } from '../utils/getWalletAccountandChainID'
+import {getChainName, getWalletAccount } from '../utils/getWalletAccountandChainID'
 import {getChainNameByChainId} from '../utils/getWalletAccountandChainID'
 
 const { gateway, backend } = config
@@ -517,9 +517,12 @@ class NFTInfo extends Component {
 	}
 
 	signDataAndDecrypt = async (signer, ciphertext) => {
+		let chainName =  await getChainName();
 		let JSONBody = {
 			account: signer,
+			chain: chainName,
 			nft_id: this.props.match.params.id,
+			
 		}
 		let json_str = JSON.stringify(JSONBody)
 		const sig = await web3.eth.personal.sign(json_str, signer)
@@ -530,6 +533,7 @@ class NFTInfo extends Component {
 
 		let payload = {
 			account: signer,
+			chain: chainName,
 			nft_id: this.props.match.params.id,
 			signature: sig,
 		}
