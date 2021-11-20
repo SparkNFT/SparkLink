@@ -27,7 +27,7 @@
             "name": "BNB",
             "address": "0x0000000000000000000000000000000000000000",
             "symbol": "BNB",
-            "decimals": 6,
+            "decimals": 18,
             "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xB6eD7644C69416d67B522e20bC294A9a9B405B31/logo.png"
         },
         {

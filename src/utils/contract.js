@@ -1403,6 +1403,7 @@ export function swtichContract(chainId) {
 	}
 }
 let getContract = ()=>{
+	console.log(exContract)
 	return exContract;
 };
 export function getContractAddress(){
