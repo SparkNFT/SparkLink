@@ -18,7 +18,7 @@ import {
 	DollarCircleOutlined,
 } from '@ant-design/icons'
 import { Container } from '@material-ui/core'
-import contract from '../utils/contract'
+import contract, { freshContract } from '../utils/contract'
 import { Progress, Spin, message } from 'antd'
 import axios from 'axios'
 import web3 from '../utils/web3'
@@ -199,7 +199,7 @@ class NFTInfo extends Component {
 			window.location.href = '/#/collections'
 			return
 		}
-
+		await freshContract();
 		// const chainId = await window.ethereum.request({ method: 'eth_chainId' })
 		// if (chainId !== '0x89') {
 		// 	alert(t('请切换至Polygon 主网络'))

@@ -1,11 +1,16 @@
 import * as React from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
+import Alert from '@material-ui/lab/Alert'
+import {  createTheme, ThemeProvider , withStyles } from '@material-ui/core/styles';
+import withCommon from '../styles/common';
+import { withTranslation } from 'react-i18next';
+
+
 let ref;
 class MessageExProvider extends React.Component {
 	componentDidMount(){
 		ref = this;
+		console.log(ref)
 	}
 	state = {
 		messageText: '2233!',
@@ -21,33 +26,49 @@ class MessageExProvider extends React.Component {
 		this.setState({ open: true })
 	}
 	render() {
+		const {classes} = this.props;
 		return (
 			<div>
-				<Snackbar
-					open={this.state.open}
-					message={this.state.messageText}
-					autoHideDuration={6000}
-					key={this.state.vertical + this.state.horizontal}
-					action={
-						<React.Fragment>
-							<IconButton
-								aria-label="close"
-								color="inherit"
-								sx={{ p: 0.5 }}
-								onClick={this.handleClose}
-							>
-								<CloseIcon />
-							</IconButton>
-						</React.Fragment>
-					}>
-				</Snackbar>
+				<ThemeProvider>
+					<Snackbar
+						open={this.state.open}
+						message={this.state.messageText}
+						autoHideDuration={3000}
+						key={this.state.vertical + this.state.horizontal}>
+						<Alert variant="filled" onClose={this.handleClose} className={classes.Display10} severity="error" sx={{ width: '100%' }}>
+							This is a success message!
+						</Alert>
+					</Snackbar>
+				</ThemeProvider>
 			</div>
 		);
 	}
 }
-export default MessageExProvider;
-let MessageEx = new Object();
-MessageEx.error = ()=>{
-	ref.open();
-} 
-export {MessageEx};
+let styles=(theme)=>{
+	console.log(theme)
+	return {
+
+	}
+}
+const theme = createTheme({
+	palette: {
+		primary: {
+			main: '#FDFEFE',
+		},
+		secondary: {
+			main: '#FFFFFF',
+			light: '#0066ff',
+		},
+
+	},
+})
+
+export default withTranslation()(withStyles(withCommon(styles), { withTheme: true },theme)(MessageExProvider));
+export class MessageEx{
+	error(){
+		if(ref){
+			ref.open();
+		}
+	}
+}
+export let Message = new MessageEx();

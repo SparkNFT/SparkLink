@@ -27,7 +27,7 @@ import logoETH from '../imgs/chainLogo/ETH.png'
 import logoBSC from '../imgs/chainLogo/BSC.png'
 import logoMatic from '../imgs/chainLogo/matic.png'
 import { IconButton } from '@material-ui/core'
-import { nowContractChainId } from '../utils/contract'
+import { freshContract, nowContractChainId } from '../utils/contract'
 import { swtichContract } from '../utils/contract'
 
 
@@ -339,6 +339,7 @@ class TopBar extends Component {
 		if (this.props.onRef) {
 			this.props.onRef(this)
 		}
+		await freshContract();
 		//todo 从本地获取登陆状态（登陆记录）
 		const lastConnect = localStorage.getItem(LASTCONNECT)
 		if (lastConnect) {
@@ -351,13 +352,19 @@ class TopBar extends Component {
 					chainName: chainName,
 					chainId: chainId,
 				})
-				if(nowContractChainId != chainId){
-					swtichContract(chainId)
-				}
+				await freshContract();
+
 			}
 			else {
 				alert('请切换网络');
 				switchChain('0x1');
+				this.setState({
+					chainId : '0x1' 
+				})
+				await freshContract();
+				//刷新logo
+				this.handleUpdateChainToParent();
+				//刷新发布页面token
 			}
 		}
 		console.log('lastconnect:  ' + lastConnect)
@@ -612,6 +619,8 @@ class TopBar extends Component {
 			const chainId = await window.ethereum.request({ method: 'eth_chainId' })
 			this.setState({chainId: chainId});
 			localStorage.setItem('chainId', chainId);
+			await freshContract();
+			this.handleUpdateChainToParent();
 
 		} catch (error) {
 			console.debug(error)
@@ -642,6 +651,8 @@ class TopBar extends Component {
 				this.setState({chainId: chainId});
 				localStorage.setItem('chainId', chainId);
 				//alert(localStorage.getItem('chainId'))
+				await freshContract();
+				this.handleUpdateChainToParent();
 			} catch (error) {
 				console.debug(error)
 				this.setState({ isConnected: false })
@@ -669,6 +680,8 @@ class TopBar extends Component {
 				this.setState({ userAddress: account });
 				//localStorage.setItem(USERADDRESS, account); //储存用户address
 				localStorage.setItem(LASTCONNECT, MATHWALLET); //储存上次登陆的信息
+				await freshContract();
+				this.handleUpdateChainToParent();
 			} catch (error) {
 				console.debug(error);
 				this.setState({ isConnected: false });
@@ -799,7 +812,7 @@ class TopBar extends Component {
 						</Button>
 					</MenuItem>
 					<MenuItem onClick={handleMenuClose}>
-						<Button size="medium" style={{ width: '100%' }} className={classes.btnItem} href="/#/introPublish">
+						<Button size="medium" style={{ width: '100%' }} className={classes.btnItem} href="/#/PublishEx">
 							{t('publish')}
 						</Button>
 					</MenuItem>
@@ -829,7 +842,7 @@ class TopBar extends Component {
 									<a size="medium" className={classes.btnTopbar} href="/#/">
 										{t('index')}
 									</a>
-									<a size="medium" className={classes.btnTopbar} href="/#/introPublish">
+									<a size="medium" className={classes.btnTopbar} href="/#/PublishEx">
 										{t('publish')}
 									</a>
 									<a size="medium" className={classes.btnTopbar} href="/#/collections">
