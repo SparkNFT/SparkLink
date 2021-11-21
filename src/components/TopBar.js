@@ -445,7 +445,6 @@ class TopBar extends Component {
 	//   console.log(Web3.givenProvider);
 	//   console.log(this.state.isConnected)
 	// }
-
 	handleSwitchNetworkClick = (event) => {
 		if (event.currentTarget.id === 'switchNetworkBtn') {
 			this.setState({

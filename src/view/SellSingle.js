@@ -201,6 +201,7 @@ class SellSingle extends Component {
 			web3.setProvider(new Web3.providers.HttpProvider('https://polygon-mainnet.infura.io/v3/0232394ba4b34544a778575aefa2ee8c'))
 			break;
 		}
+		localStorage.setItem('hasSetHttpProvider', 'true')
 		var account = null;
 		var value, accounts;
 		const lastConnect = localStorage.getItem(LASTCONNECT);
@@ -222,6 +223,7 @@ class SellSingle extends Component {
 			// account = accounts[0];
 			break;
 		}
+
 		let obj = this
 		this.setState({
 			currentAcc: account,
