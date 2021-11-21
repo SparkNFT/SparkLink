@@ -1372,7 +1372,7 @@ const abi = [
 ];
 
 let address = new Object();
-address['0x1'] = '0x7187211744c67F8cE89fEAc63b85D8D17417bDfE';//ETH
+address['0x1'] = '0x7187211744c67F8cE89fEAc63b85D8D17417bDfE';  //ETH
 address['0x89'] = '0x166BCdc53BC8573448F37C66EF409f1Cb31450a2'; //Matic
 address['0x38'] = '0xDc89106504f82642801dc43C8B545Ef7DA95ff2b'; //BSC
 let contracts = new Object();

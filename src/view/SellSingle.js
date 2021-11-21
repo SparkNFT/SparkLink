@@ -20,6 +20,8 @@ import { getChainName } from '../utils/getWalletAccountandChainID'
 import Web3 from 'web3'
 import withCommon from '../styles/common'
 import Footer from '../components/Footer'
+import { getWalletAccount } from '../utils/getWalletAccountandChainID'
+
 //TP钱包支持
 const tp = require('tp-js-sdk');
 //麦子钱包支持
@@ -366,10 +368,7 @@ class SellSingle extends Component {
 		this.setState({
 			open: false,
 		})
-		const accounts = await window.ethereum.request({
-			method: 'eth_requestAccounts',
-		})
-		const account = accounts[0]
+		const account = await getWalletAccount();
 
 		var price_with_decimal = this.state.price * 10 ** this.state.decimal
 		price_with_decimal = price_with_decimal.toString()
