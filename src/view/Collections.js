@@ -479,7 +479,7 @@ class Collections extends Component {
 										{t('暂无可展示NFT')}
 									</span>
 									<div style={{ display: 'flex', justifyContent: 'center' }}>
-										<Button className={classes.btn + ' ' + classes.MarginT9} href={'/#/introPublish'}>
+										<Button className={classes.btn + ' ' + classes.MarginT9} href={'/#/PublishEx'}>
 											{t('去发布')}
 										</Button>
 									</div>
