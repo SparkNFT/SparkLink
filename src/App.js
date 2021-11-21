@@ -258,7 +258,7 @@ class App extends Component {
 												<Grid item>
 													<Button
 														className={classes.btn}
-														href="/#/introPublish"
+														href="/#/PublishEx"
 													>
 														{t('go_publish')}
 													</Button>

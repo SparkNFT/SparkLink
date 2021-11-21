@@ -10,12 +10,16 @@ import Paper from '@material-ui/core/Paper'
 import Container from '@material-ui/core/Container'
 import { DollarCircleOutlined, ArrowLeftOutlined } from '@ant-design/icons'
 import { Spin, message } from 'antd'
-import contract from '../utils/contract'
+import contract,{freshContract} from '../utils/contract'
 import web3 from '../utils/web3'
 import Skeleton from '@material-ui/lab/Skeleton'
 import config from '../global/config'
 import { withTranslation } from 'react-i18next'
-const { gateway, backend, sparkAddr } = config
+import withCommon from '../styles/common'
+import Footer from '../components/Footer'
+
+let { gateway, backend, sparkAddr } = config 
+//刷新合约后需要重新设置sparkAddr，建议使用config.sparkAddr
 const abi = require('erc-20-abi')
 const theme = createTheme({
 	palette: {
@@ -29,30 +33,34 @@ const theme = createTheme({
 })
 
 const styles = (theme) => ({
-	paper: {
-		marginTop: theme.spacing(1),
-		textAlign: 'center',
-		maxWidth: 1500,
+	container: {
+		justifyContent:'center',
+		display:'flex',
+		flexDirection:'column',
+		alignItems:'center'
 	},
-	btnDisable: {
-		margin: theme.spacing(1),
-		fontSize: 16,
-		borderRadius: 10,
-		borderWidth: 3,
-		borderColor: '#909497',
-		color: '#909497',
-		marginLeft: '10%',
-		width: 100,
-	},
-	btnSell: {
-		margin: theme.spacing(1),
-		fontSize: 16,
-		borderRadius: 10,
-		borderWidth: 2,
-		borderColor: '#2196f3',
-		color: '#2196f3',
-		marginLeft: '10%',
-		width: 100,
+	cbutton: {
+		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+		[theme.breakpoints.between('xs', 'sm')]: {
+			justifyContent: 'center',
+			alignItems: 'flex-start',
+		},
+		[theme.breakpoints.between('sm', 'md')]: {
+			justifyContent: 'center',
+			alignItems: 'flex-start',
+		},
+		[theme.breakpoints.between('md', 'lg')]: {
+			justifyContent: 'flex-end',
+			alignItems: 'flex-start',
+		},
+		[theme.breakpoints.between('lg', 'xl')]: {
+			justifyContent: 'flex-end',
+			alignItems: 'flex-start',
+		},
+		[theme.breakpoints.up('xl')]: {
+			justifyContent: 'flex-end',
+			alignItems: 'flex-start',
+		},
 	},
 	content: {
 		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
@@ -69,7 +77,7 @@ const styles = (theme) => ({
 			alignItems: 'flex-start',
 		},
 		[theme.breakpoints.between('lg', 'xl')]: {
-			justifyContent: 'center',
+			justifyContent: 'flex',
 			alignItems: 'flex-start',
 		},
 		[theme.breakpoints.up('xl')]: {
@@ -77,63 +85,73 @@ const styles = (theme) => ({
 			alignItems: 'flex-start',
 		},
 	},
-	img: {
-		width: 300,
-		marginBottom: 50,
-		[theme.breakpoints.between('xs', 'sm')]: {
-			marginLeft: '20%',
-		},
-		[theme.breakpoints.between('sm', 'md')]: {
-			marginLeft: '20%',
-		},
-		[theme.breakpoints.between('md', 'lg')]: {
-			marginLeft: '20%',
-		},
-		[theme.breakpoints.between('lg', 'xl')]: {
-			marginLeft: '30%',
-		},
-		[theme.breakpoints.up('xl')]: {
-			marginLeft: '40%',
-		},
+	paper: {
+		marginTop: theme.spacing(1),
+		textAlign: 'center',
+		width:'100%'
+		// backgroundColor: "green"
 	},
-	imgPaper: {
-		width: 350,
-		marginBottom: 50,
+	imagePapaer: {
 		backgroundColor: '#EFEBE9',
-		[theme.breakpoints.between('sm', 'md')]: {
-			marginLeft: '20%',
-		},
-		[theme.breakpoints.between('md', 'lg')]: {
-			marginLeft: '20%',
-		},
-		[theme.breakpoints.between('lg', 'xl')]: {
-			marginLeft: '30%',
-		},
-		[theme.breakpoints.up('xl')]: {
-			marginLeft: '35%',
-		},
+		width:'100%'
+	},
+	imageStyle: {
+		objectFit: 'contain',
+		// object- fit: cover
+		width:'80%',
+		marginLeft:'10%',
+		marginRight:'10%',
+		marginTop:'10%',
+		marginBottom:'10%'
 	},
 	content2: {
 		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
-		textAlign: 'center',
+		
 		[theme.breakpoints.between('xs', 'sm')]: {
-			maxWidth: 500,
+			marginLeft:15,
 		},
 		[theme.breakpoints.between('sm', 'md')]: {
-			marginLeft: 90,
-			maxWidth: 500,
+			marginLeft:25,
 		},
 		[theme.breakpoints.between('md', 'lg')]: {
-			marginLeft: 80,
-			maxWidth: 500,
+			marginLeft:45,
 		},
 		[theme.breakpoints.between('lg', 'xl')]: {
-			marginLeft: 50,
-			maxWidth: 500,
+			marginLeft:55,
 		},
 		[theme.breakpoints.up('xl')]: {
-			marginLeft: 60,
-			maxWidth: 500,
+			marginLeft:75,
+		},
+		['@media (min-width:3200px)']: {
+			marginLeft:140,
+		},
+	},
+	cbutton2: {
+		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+		justifyContent: 'flex-start',
+		alignItems: 'center',
+		[theme.breakpoints.between('xs', 'sm')]: {
+			justifyContent:'',
+			textAlign:'left'
+		},
+	},
+	share: {
+		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+		marginBottom: '10%',
+		[theme.breakpoints.between('xs', 'sm')]: {
+			fontSize: 14,
+		},
+		[theme.breakpoints.between('sm', 'md')]: {
+			fontSize: 16,
+		},
+		[theme.breakpoints.between('md', 'lg')]: {
+			fontSize: 18,
+		},
+		[theme.breakpoints.between('lg', 'xl')]: {
+			fontSize: 20,
+		},
+		[theme.breakpoints.up('xl')]: {
+			fontSize: 20,
 		},
 	},
 })
@@ -167,6 +185,9 @@ class BuySingle extends Component {
 	}
 
 	async componentDidMount() {
+		await freshContract();
+		sparkAddr = config.sparkAddr;
+		console.log(sparkAddr,backend,gateway)
 		const accounts = await window.ethereum.request({
 			method: 'eth_requestAccounts',
 		})
@@ -175,8 +196,7 @@ class BuySingle extends Component {
 			currentAcc: account,
 			NFTId: this.props.match.params.NFTId,
 		})
-		const issueId = await contract().methods.getIssueIdByNFTId(this.state.NFTId).call()
-		const royalty = await contract().methods.getRoyaltyFeeByIssueId(issueId).call()
+		const royalty = await contract().methods.getRoyaltyFeeByNFTId(this.state.NFTId).call()
 		const metadata = await contract().methods.tokenURI(this.props.match.params.NFTId).call()
 		let hash = metadata.split('/')
 		this.setState({
@@ -442,9 +462,8 @@ class BuySingle extends Component {
 			if (this.state.approvedAddr.toLowerCase() !== this.state.currentAcc.toLowerCase()) {
 				return (
 					<Button
-						variant="outlined"
-						startIcon={<DollarCircleOutlined style={{ fontSize: 22 }} />}
-						className={classes.btnDisable}
+						startIcon={<DollarCircleOutlined style={{ fontSize: '100%' }} />}
+						className={classes.btn}
 						disabled
 					>
 						{t('购买')}
@@ -452,16 +471,15 @@ class BuySingle extends Component {
 				)
 			} else if (!this.state.approved) {
 				return (
-					<Button variant="outlined" color="primary" className={classes.btnSell} onClick={this.handleApprove}>
+					<Button className={classes.btn} onClick={this.handleApprove}>
 						{t('授权合约')}
 					</Button>
 				)
 			} else {
 				return (
 					<Button
-						variant="outlined"
-						startIcon={<DollarCircleOutlined style={{ fontSize: 22 }} />}
-						className={classes.btnSell}
+						startIcon={<DollarCircleOutlined style={{ fontSize: '100%' }} />}
+						className={classes.btn}
 						onClick={this.handleBuy}
 					>
 						{t('购买')}
@@ -475,124 +493,130 @@ class BuySingle extends Component {
 				<ThemeProvider theme={theme}>
 					<TopBar />
 					<Container component="main" className={classes.container}>
-						<Button
-							startIcon={<ArrowLeftOutlined style={{ fontSize: '2rem' }} />}
-							href="/"
-							style={{ marginTop: 20, marginBottom: 10, fontSize: '2rem' }}
-						>
-							{t('回到首页')}
-						</Button>
-						<div className={classes.paper}>
-							{this.state.loadItem ? (
-								<Grid container spacing={5} className={classes.content}>
-									<Grid item xs={4}>
-										<Skeleton variant="rect" width={300} height={500} className={classes.img} />
+						<Grid container item xs={11} md={10} sm={10} lg={10} xl={10}>
+							<div>
+								<Button
+									startIcon={<ArrowLeftOutlined style={{ fontSize: '100%' }} />}
+									href="/"
+									className={classes.Display8}
+									style={{ marginTop: 20, marginBottom: 10}}
+								>
+									{t('返回')}
+								</Button>
+							</div>
+							<div className={classes.paper}>
+								{this.state.loadItem ? (
+									<Grid container className={classes.content} spacing={5}>
+										<Grid item xs={10} sm={5} md={5} lg={5} xl={5}>
+											<Skeleton
+												variant="rect"
+												width={300}
+												height={500}
+												style={{ width: 370, marginLeft: 0, marginBottom: 50 }}
+											/>
+										</Grid>
+										<Grid item xs={10} sm={5} md={5} lg={5}>
+											<Skeleton animation="wave" variant="text" width={200} height={30} />
+											<Skeleton animation="wave" variant="text" width={400} height={70} />
+											<Skeleton animation="wave" variant="rect" width={500} height={300} style={{ marginBottom: 50 }} />
+										</Grid>
 									</Grid>
+								) : (
+									<Grid 
+										container
+										direction="row"
+										className={classes.content}
+									>
+										<Grid container justifyContent='center' item xs={12} sm={5} md={5} lg={5} xl={5}>
+											<Paper className={classes.imagePapaer}>
+												<img className={classes.imageStyle} src={this.state.coverURL} onError={() => this.setFlag('isCoverLoaded')} id="cover" crossOrigin="anonymous" ></img>
+											</Paper >
+										</Grid >
 
-									<Grid item xs style={{ marginLeft: '5%', maxWidth: 500, minWidth: 350 }}>
-										<Skeleton animation="wave" variant="text" width={'70%'} height={30} />
-										<Skeleton animation="wave" variant="text" width={'100%'} height={70} />
-										<Skeleton
-											animation="wave"
-											variant="rect"
-											width={'100%'}
-											height={300}
-											style={{ marginBottom: 50 }}
-										/>
-										{buyButton()}
-									</Grid>
-								</Grid>
-							) : (
-								<Grid container className={classes.content} spacing={5}>
-									<Grid item xs={4} style={{ maxWidth: 600 }}>
-										<Paper className={classes.imgPaper}>
-											<img
+										<Grid item xs={10} sm={6} md={6} lg={6} className={classes.content2 +' ' +classes.PaddingT9}>
+											<Typography
+												color="inherit"
+												align="left"
+												// eslint-disable-next-line react/jsx-no-duplicate-props
+												color="textSecondary"
+												noWrap
+												className={classes.Display10}
+											>
+												#{this.state.NFTId}
+											</Typography>
+											<Typography
+												color="inherit"
+												align="left"
+												noWrap
+												className={classes.Display8}
+											>
+												<b>{this.state.name}</b>
+											</Typography>
+											<Typography
+												align="justify"
+												color="textSecondary"
+												className={classes.Display10}
+												paragraph
 												style={{
-													width: 300,
-													marginTop: 20,
-													marginBottom: 50,
-													objectFit: 'contain',
+													marginTop: '2%',
+													maxWidth: '100%',
 												}}
-												src={this.state.coverURL}
-											></img>
-										</Paper>
+											>
+												{this.state.description}
+											</Typography>
+											<Typography
+												align="left"
+												color="textPrimary"
+												paragraph
+												className={classes.Display10}
+												style={{ marginTop: '6%'}}
+											>
+												{t('创作者分红比例：')}{this.state.bonusFee} %
+											</Typography>
+											<Typography
+												align="left"
+												color="textPrimary"
+												paragraph
+												className={classes.Display10}
+												style={{
+													marginTop: '2%',
+												}}
+											>
+												{t('售价：')} {this.state.priceString}
+											</Typography>					
+											
+											<Typography
+												align="left"
+												color="textPrimary"
+												paragraph
+												className={classes.Display11}
+												style={{
+													marginTop: '2%',
+												}}
+											>
+												{t('当前拥有者：')} {this.state.owner}		
+											</Typography>				
+												
+											<Typography align="left" color="textPrimary" paragraph className={classes.Display11} >
+												{t('当前拥有的子节点数量：')} {this.state.childrenNum}
+											</Typography>
+											<Typography align="left" color="textPrimary" paragraph className={classes.Display11} >
+												{t('NFT是否加密：')} {this.state.encrypted}	
+											</Typography>
+											<div style={{display:'flex',justifyContent:'start'}}>{buyButton()}</div>
+										</Grid>
 									</Grid>
-
-									<Grid item xs className={classes.content2}>
-										<Typography
-											color="inherit"
-											align="left"
-											// eslint-disable-next-line react/jsx-no-duplicate-props
-											color="textSecondary"
-											noWrap
-											style={{
-												fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
-												fontSize: 16,
-												marginTop: '2%',
-											}}
-										>
-											#{this.state.NFTId}
-										</Typography>
-										<Typography color="inherit" align="left" noWrap style={{ fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif', fontSize: 34 }}>
-											<b>{this.state.name}</b>
-										</Typography>
-										<Typography
-											align="justify"
-											color="textSecondary"
-											paragraph
-											style={{
-												marginTop: '2%',
-												maxWidth: '100%',
-												fontSize: 16,
-											}}
-										>
-											{this.state.description}
-										</Typography>
-										<Typography
-											align="left"
-											color="textPrimary"
-											paragraph
-											style={{ marginTop: '2%', maxWidth: '65%', fontSize: 20 }}
-										>
-											{t('创作者分红比例')} {this.state.bonusFee} %
-										</Typography>
-										<Typography
-											align="left"
-											color="textPrimary"
-											paragraph
-											style={{
-												marginTop: '2%',
-												maxWidth: '100%',
-												fontSize: 18,
-											}}
-										>
-											{t('售价：')} {this.state.priceString}
-										</Typography>
-										<Typography
-											align="left"
-											color="textPrimary"
-											paragraph
-											style={{ marginTop: '1%', maxWidth: '65%', fontSize: 12 }}
-										>
-											{t('当前拥有者：')} {this.state.owner}
-										</Typography>
-										<Typography align="left" color="textPrimary" paragraph style={{ maxWidth: '65%', fontSize: 12 }}>
-											{t('当前拥有的子节点数量：')} {this.state.childrenNum}
-										</Typography>
-										<Typography align="left" color="textPrimary" paragraph style={{ maxWidth: '65%', fontSize: 12 }}>
-											{t('NFT是否加密：')} {this.state.encrypted}
-										</Typography>
-										{buyButton()}
-									</Grid>
-								</Grid>
-							)}
-						</div>
+								)}
+							</div>
+						</Grid>
+						
 					</Container>
+					<Footer></Footer>
 				</ThemeProvider>
 			</Spin>
 		)
 	}
 }
 
-export default withTranslation()(withStyles(styles, { withTheme: true })(BuySingle))
+export default withTranslation()(withStyles(withCommon(styles), { withTheme: true })(BuySingle))
 //todo  涉及交易

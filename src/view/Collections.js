@@ -10,7 +10,7 @@ import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import Container from '@material-ui/core/Container'
 import Typography from '@material-ui/core/Typography'
-import contract from '../utils/contract'
+import contract, { freshContract } from '../utils/contract'
 import TopBar from '../components/TopBar'
 import Skeleton from '@material-ui/lab/Skeleton'
 import { Empty } from 'antd'
@@ -192,7 +192,7 @@ class Collections extends Component {
 		// if (accounts.length === 0) {
 		// 	alert('请先连接Metamask')
 		// }
-
+		await freshContract();
 		const chainName = await getChainName();
 		switch (chainName) {
 		case 'matic':
@@ -270,7 +270,9 @@ class Collections extends Component {
 			noNFT: false,
 		})
 		let metadatas = await this.getMetadata(contract, ids)
+		
 		for (let i = 0; i < ids.length; i++) {
+
 			let element = {
 				id: ids[i],
 				title: metadatas[i].name,
@@ -278,7 +280,13 @@ class Collections extends Component {
 				bonusFee: metadatas[i].attributes.value,
 				image: metadatas[i].image,
 			}
-			cards.push(element)
+			if(metadatas[i].image == 'No Set'){
+				element['description'] = t('该NFT已创建，但尚未上传文件')
+				cards.push(element)
+			}else{
+				cards.unshift(element)
+			}
+			
 		}
 		let reversed_cards = cards.reverse()
 		this.setState({ viewable: true })
@@ -308,14 +316,13 @@ class Collections extends Component {
 						url: meta,
 						timeout: 1000 * 2,
 					})).data
-
 					return ret
 				} catch (err) {
 					if (ipfs_hash === 'QmNLei78zWmzUdbeRB3CiUfAizWUrbeeZh5K1rhAQKCh51') {
 						return {
-							'name': '未上传文件',
-							'description': '请到加密发布处上传文件',
-							'image': 'https://testnets.opensea.io/static/images/placeholder.png',
+							'name': 'Untitled',
+							'description': '该NFT已创建，但尚未填充信息和上传文件',
+							'image': 'No Set',
 							'attributes': [
 								{
 									'display_type': 'boost_percentage',
@@ -411,16 +418,19 @@ class Collections extends Component {
 					{card ? (
 						<li>
 							<Card className={classes.card}>
-								<CardMedia className={classes.cardMedia} image={card.image} title="Image title" />
+								<CardMedia className={classes.cardMedia} image={(card.image=='No Set')?('https://testnets.opensea.io/static/images/placeholder.png'):(card.image)} title="Image title" />
 								<CardContent className={classes.cardContent}>
 									<Typography gutterBottom className={classes.Display9 + ' ' + classes.cardTitle}>
 										{card.title}
 									</Typography>
 									<Typography className={classes.Display10 + ' ' + classes.cardTitle} style={{ color: 'black' }}  >{obj.renderDescription(card.description)}</Typography>
+									<Button className={classes.btnColor3Mini} style={{display:(card.image == 'No Set')?(''):('none')}} href={'/#/PublishEx/' + card.id}>
+										{t('去上传')}
+									</Button>
 								</CardContent>
 								<div style={{ flex: 1 }}></div>
 								<CardActions>
-									<Button className={classes.btnColor3Mini} href={'/#/NFT/' + card.id}>
+									<Button className={classes.btnColor3Mini} style={{display:(card.image == 'No Set')?('none'):('')}} href={'/#/NFT/' + card.id}>
 										{t('查看')}
 									</Button>
 									<Typography variant="body2" style={{ color: 'black' }} gutterBottom className={classes.Display11}>
@@ -469,7 +479,7 @@ class Collections extends Component {
 										{t('暂无可展示NFT')}
 									</span>
 									<div style={{ display: 'flex', justifyContent: 'center' }}>
-										<Button className={classes.btn + ' ' + classes.MarginT9} href={'/#/introPublish'}>
+										<Button className={classes.btn + ' ' + classes.MarginT9} href={'/#/PublishEx'}>
 											{t('去发布')}
 										</Button>
 									</div>

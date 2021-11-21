@@ -1,3 +1,4 @@
+import { getChainId } from './getWalletAccountandChainID';
 import web3 from './web3';
 
 const abi = [
@@ -771,6 +772,25 @@ const abi = [
 		'type': 'function'
 	},
 	{
+		inputs: [
+			{
+				internalType: 'uint64',
+				name: '_NFT_id',
+				type: 'uint64'
+			}
+		],
+		name: 'getRoyaltyFeeByNFTId',
+		outputs: [
+			{
+				internalType: 'uint8',
+				name: '',
+				type: 'uint8'
+			}
+		],
+		stateMutability: 'view',
+		type: 'function'
+	},
+	{
 		'inputs': [
 			{
 				'internalType': 'uint64',
@@ -1352,17 +1372,28 @@ const abi = [
 ];
 
 let address = new Object();
-address['0x1'] = '0x7187211744c67F8cE89fEAc63b85D8D17417bDfE';//ETH
+address['0x1'] = '0x7187211744c67F8cE89fEAc63b85D8D17417bDfE';  //ETH
 address['0x89'] = '0x166BCdc53BC8573448F37C66EF409f1Cb31450a2'; //Matic
 address['0x38'] = '0xDc89106504f82642801dc43C8B545Ef7DA95ff2b'; //BSC
 let contracts = new Object();
-export let nowContractChainId = '0x1';
+export let nowContractChainId;
 for(let id of Object.keys(address)){
 	contracts[id] = new web3.eth.Contract(abi, address[id]);
 }
-let exContract = contracts['0x1'];
+let exContract;
+
+export const freshContract = async ()=>{
+	console.log('fresh!');
+	let id = await getChainId();
+	if(contracts[id]&&(nowContractChainId != id)){
+		exContract = contracts[id];
+		nowContractChainId = id;
+		return true;
+	}
+	return false
+}
 export function swtichContract(chainId) {
-	if (address[chainId]) {
+	if (contracts[chainId]) {
 		exContract = contracts[chainId];
 		nowContractChainId = chainId;
 	} else {
@@ -1372,6 +1403,10 @@ export function swtichContract(chainId) {
 	}
 }
 let getContract = ()=>{
+	console.log(exContract)
 	return exContract;
 };
+export function getContractAddress(){
+	return address[nowContractChainId];
+}
 export default getContract;

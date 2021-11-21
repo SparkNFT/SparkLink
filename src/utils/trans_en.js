@@ -24,7 +24,7 @@ let lng_en = {
 	'pic_cover': 'Cover picture',
 	'pic_cover_tip': 'Please upload your cover image in the area below \nCover files support these formats: JPEG/JPG/PNG',
 	'upload_file_tip1': 'To upload a file,please click or drag the file here.',
-	'upload_file_tip2': 'Only single file upload is supported,and multiple types of files are supported.',
+	'upload_file_tip2': 'Multiple file upload is supported,and multiple types of files are supported.',
 	'art_file': 'Item file',
 	'art_file_tip': 'Please upload your work file in the area below',
 	'submit': 'submit',
@@ -41,6 +41,8 @@ let lng_en = {
 	'collection': 'Collection',
 	'publish': 'Publish',
 	'introPublish': 'Publish Instructions',
+	'choose_encryPublish':'Choose encrypted release, only users who have purchased the NFT work are allowed to view the content of the work.',
+	'choose_openPublish':'Defaultly choose open source release, users can download and view the content of the work regardless of whether the work is purchased or not.',
 	'introPublish1': 'Before you publish your work,you need to know the following information,which will help you understand the complete publishing process:',
 	'introPublish2': 'You can choose between open source release and encrypted release.\n Choose encrypted release, only users who have purchased the NFT work are allowed to view the content of the work;\n Choose open source release, users can download and view the content of the work regardless of whether the work is purchased or not.',
 	'introPublish3': ' After the user purchases your work,he will have the right to sell a certain amount of the work for second time, and you will take a draw from his total income.',
@@ -136,6 +138,7 @@ let lng_en = {
 	'售卖价格':'Sell Price',
 	'作品权限':'Work authority',
 	'允许一级节点免费铸造':'First-class nodes are allowed to be cast free of charge.',
-	'请在下方区域填写你希望售卖的价格，以及售卖对象的钱包地址。':'Please fill in the price you want to sell \n and the wallet address of the person you want to sell in the area below.'
+	'请在下方区域填写你希望售卖的价格，以及售卖对象的钱包地址。':'Please fill in the price you want to sell \n and the wallet address of the person you want to sell in the area below.',
+	'加密发布':'Encrypt Publish'
 }
 export default lng_en;

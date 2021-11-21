@@ -11,7 +11,7 @@ import { TOKENPOCKET, METAMASK, LASTCONNECT, MATHWALLET } from '../global/global
 import { Spin, message } from 'antd'
 import { Input, InputNumber } from 'antd'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
-import contract from '../utils/contract'
+import contract, { freshContract } from '../utils/contract'
 import Skeleton from '@material-ui/lab/Skeleton'
 import web3 from '../utils/web3';
 import config from '../global/config'
@@ -20,6 +20,8 @@ import { getChainName } from '../utils/getWalletAccountandChainID'
 import Web3 from 'web3'
 import withCommon from '../styles/common'
 import Footer from '../components/Footer'
+import { getWalletAccount } from '../utils/getWalletAccountandChainID'
+
 //TP钱包支持
 const tp = require('tp-js-sdk');
 //麦子钱包支持
@@ -186,6 +188,7 @@ class SellSingle extends Component {
 	async componentDidMount() {
 		const { t } = this.props;
 		const chainName = await getChainName();
+		await freshContract();
 		switch(chainName){
 		case 'matic':
 			web3.setProvider(new Web3.providers.HttpProvider('https://polygon-mainnet.infura.io/v3/0232394ba4b34544a778575aefa2ee8c'))
@@ -200,6 +203,7 @@ class SellSingle extends Component {
 			web3.setProvider(new Web3.providers.HttpProvider('https://polygon-mainnet.infura.io/v3/0232394ba4b34544a778575aefa2ee8c'))
 			break;
 		}
+		localStorage.setItem('hasSetHttpProvider', 'true')
 		var account = null;
 		var value, accounts;
 		const lastConnect = localStorage.getItem(LASTCONNECT);
@@ -221,6 +225,7 @@ class SellSingle extends Component {
 			// account = accounts[0];
 			break;
 		}
+
 		let obj = this
 		this.setState({
 			currentAcc: account,
@@ -363,10 +368,7 @@ class SellSingle extends Component {
 		this.setState({
 			open: false,
 		})
-		const accounts = await window.ethereum.request({
-			method: 'eth_requestAccounts',
-		})
-		const account = accounts[0]
+		const account = await getWalletAccount();
 
 		var price_with_decimal = this.state.price * 10 ** this.state.decimal
 		price_with_decimal = price_with_decimal.toString()
@@ -434,7 +436,6 @@ class SellSingle extends Component {
 				)
 			}
 		}
-
 		const showSellBtn = () => {
 			if (this.state.currentAcc == this.state.owner) {
 				return (
