@@ -230,7 +230,7 @@ class Publish extends Component {
 	async componentDidMount() {
 		// const params = web3.eth.abi.decodeParameters(receiptDataTypes, '0x000000000000000000000000843d4a358471547f51534e3e51fae91cb4dc3f28');
 		// console.log(params.toString())
-
+		
 		const { t } = this.props
 		if (!window.ethereum) {
 			alert(t('please_install_metamask'))
