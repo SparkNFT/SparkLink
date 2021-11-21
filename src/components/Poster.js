@@ -3,10 +3,12 @@ import zhBg from '../imgs/poster_zh.png'
 import enBg from '../imgs/poster_en.png'
 import loading from '../imgs/imgloading.png';
 import logoETH from '../imgs/chainLogo/ETH.png'
+import * as jsonETH from '../global/tokens_list_eth.json'
 import logoBSC from '../imgs/chainLogo/BSC.png'
+import * as jsonBSC from '../global/tokens_list_bsc.json'
 import logoMatic from '../imgs/chainLogo/matic.png'
+import * as jsonMatic from '../global/tokens_list_matic.json'
 import error from '../imgs/error.png';
-import list from '../imgs/assets/info.json';
 import QRCode from 'qrcode';
 import Button from '@material-ui/core/Button'
 import i18next from 'i18next'
@@ -90,10 +92,58 @@ const Poster = (props) => {
 	const splited = env.split(' ')
 	const wallet = splited[0]
 	const chain = splited[1]
-	console.log(name.length)
+	console.log(chain)
 	let tokenUrl = 'https://raw.githubusercontent.com/TP-Lab/tokens/master/bsc/' + addr + '/logo.png'
 	
-	if(addr === '0x0000000000000000000000000000000000000000'){
+	if(chain === 'MATIC'){
+		const tokensList = jsonMatic.default.tokens.map(i=>{
+			return {
+				addr: i.address,
+				tokenUrl: i.logoURI
+			}
+		})
+		if(addr === '0x0000000000000000000000000000000000000000'){
+			tokenUrl = logoMatic
+		} else {
+			let found = tokensList.find(i=>i.addr === addr)
+			if(found !== undefined){
+				tokenUrl = 'https://secret-ocean-49799.herokuapp.com/' + found.tokenUrl
+			}
+		}
+	}
+	if(chain === 'BSC'){
+		const tokensList = jsonBSC.default.tokens.map(i=>{
+			return {
+				addr: i.address,
+				tokenUrl: i.logoURI
+			}
+		})
+		if(addr === '0x0000000000000000000000000000000000000000'){
+			tokenUrl = logoBSC
+		} else {
+			let found = tokensList.find(i=>i.addr === addr)
+			if(found !== undefined){
+				tokenUrl = 'https://secret-ocean-49799.herokuapp.com/' + found.tokenUrl
+			}
+		}
+	}
+	if(chain === 'ETH'){
+		const tokensList = jsonETH.default.tokens.map(i=>{
+			return {
+				addr: i.address,
+				tokenUrl: i.logoURI
+			}
+		})
+		if(addr === '0x0000000000000000000000000000000000000000'){
+			tokenUrl = logoETH
+		} else {
+			let found = tokensList.find(i=>i.addr === addr)
+			if(found !== undefined){
+				tokenUrl = 'https://secret-ocean-49799.herokuapp.com/' + found.tokenUrl
+			}
+		}
+	}
+	/* if(addr === '0x0000000000000000000000000000000000000000'){
 		if(chain == 'MATIC'){
 			tokenUrl = logoMatic
 		}
@@ -105,7 +155,9 @@ const Poster = (props) => {
 		}
 	} else if(list.indexOf(addr) !== -1){
 		tokenUrl = require(`../imgs/assets/${addr}/logo.png`).default
-	}
+	} else if(chain == 'MATIC') {
+
+	} */
 	let bgImg
 	const lng = i18next.language
 	if( lng === 'zh'){
@@ -129,7 +181,6 @@ const Poster = (props) => {
 			ctx.drawImage(res[1],...qrPos)
 			//计算封面图片位置
 			const coverPos = getImgPos(res[2].height, res[2].width)
-			console.log(res[2]);
 			ctx.drawImage(res[2],...coverPos)
 			circleImg(ctx,res[3],3600,5800,150)
 			
@@ -207,7 +258,7 @@ const Poster = (props) => {
 	}
 	return (
 		<div>
-			<img alt="poster" width="469" height='auto' ref={imgRef} src={loading} />
+			<img crossOrigin="anonymous" alt="poster" width="469" height='auto' ref={imgRef} src={loading} />
 			<div style={{display: 'flex', width: '100%',marginTop: 50}}>
 				<Button variant="contained"
 					style={{

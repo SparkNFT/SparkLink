@@ -292,10 +292,11 @@ class NFTSpark extends Component {
 		if (token_addr == '0x0000000000000000000000000000000000000000') {
 			const chainId = localStorage.getItem('chainId')
 			let name = getChainNameByChainId(chainId).toUpperCase()
+			let decimal = 18
 			if(name == 'BSC'){
 				name = 'BNB'
 			}
-			let price_poster = new BigNumber(price / 10 ** 18)
+			let price_poster = new BigNumber(price / 10 ** decimal)
 			let price_string = price_poster.toString(10)
 			console.log('num：'+price_string +'&'+price) 
 			price_string = price_string + ' ' + name

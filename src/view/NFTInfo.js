@@ -10,6 +10,7 @@ import Poster from '../components/Poster'
 import MaskLayer from '../components/MaskLayer'
 import Paper from '@material-ui/core/Paper'
 import CopyToClipboard from 'react-copy-to-clipboard'
+import BigNumber from 'bignumber.js'
 import {
 	DownloadOutlined,
 	FireOutlined,
@@ -284,12 +285,11 @@ class NFTInfo extends Component {
 			let name = getChainNameByChainId(chainId).toUpperCase()
 			if(name == 'BSC'){
 				name = 'BNB'
-				decimal = 8
 			}
-			let price_with_decimal = res / 10 ** decimal
-			let profit = price_with_decimal + ' ' + name
-			let price_poster = price / 10 ** decimal
-			price_poster = price_poster + ' ' + name
+			let profit_with_decimal = res / 10 ** decimal
+			let profit = profit_with_decimal + ' ' + name
+			let price_poster = new BigNumber(price / 10 ** decimal)
+			price_poster = price_poster.toString(10) + ' ' + name
 			this.setState({
 				price: price_poster,
 				tokenAddr: '0x0000000000000000000000000000000000000000',
@@ -300,10 +300,10 @@ class NFTInfo extends Component {
 			const token_contract = new web3.eth.Contract(abi, token_addr)
 			const token_symbol = await token_contract.methods.symbol().call()
 			const decimal = await token_contract.methods.decimals().call()
-			let price_with_decimal = res / 10 ** decimal
-			let price_poster = price / 10 ** decimal
-			price_poster = price_poster + ' ' + token_symbol
-			let profit = price_with_decimal + ` ${token_symbol}`
+			let profit_with_decimal = res / 10 ** decimal
+			let price_poster = new BigNumber(price / 10 ** decimal)
+			price_poster = price_poster.toString(10) + ' ' + token_symbol
+			let profit = profit_with_decimal + ` ${token_symbol}`
 			this.setState({
 				price: price_poster,
 				tokenAddr: token_addr,
@@ -635,7 +635,7 @@ class NFTInfo extends Component {
 		const url = window.location.host
 		const toUrl = 'https://' + url + '/#/NFT/Spark/' + this.props.match.params.id
 		const lastConnect = localStorage.getItem(LASTCONNECT);
-		
+		const chain = getChainNameByChainId(localStorage.getItem('chainId')).toUpperCase()
 		const sell_info = () => {
 			// let share = '分享复制链接：' + toUrl
 			// this.state.onSale
@@ -652,7 +652,7 @@ class NFTInfo extends Component {
 									coverImg={coverRef.src}
 									str={this.state.price}
 									share={toUrl}
-									env={lastConnect+' '+this.state.tokenSymbol}
+									env={lastConnect+' '+chain}
 									name={this.state.Name}
 								/>
 							</MaskLayer>
