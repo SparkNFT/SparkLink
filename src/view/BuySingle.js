@@ -18,7 +18,8 @@ import { withTranslation } from 'react-i18next'
 import withCommon from '../styles/common'
 import Footer from '../components/Footer'
 
-const { gateway, backend, sparkAddr } = config
+let { gateway, backend, sparkAddr } = config 
+//刷新合约后需要重新设置sparkAddr，建议使用config.sparkAddr
 const abi = require('erc-20-abi')
 const theme = createTheme({
 	palette: {
@@ -185,6 +186,7 @@ class BuySingle extends Component {
 
 	async componentDidMount() {
 		await freshContract();
+		sparkAddr = config.sparkAddr;
 		console.log(sparkAddr,backend,gateway)
 		const accounts = await window.ethereum.request({
 			method: 'eth_requestAccounts',

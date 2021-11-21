@@ -21,7 +21,9 @@ import withCommon from '../styles/common'
 import Footer from '../components/Footer'
 import BigNumber from 'bignumber.js'
 
-const { gateway, backend, sparkAddr } = config
+let { gateway, backend, sparkAddr } = config
+//刷新合约后需要重新设置sparkAddr，建议使用config.sparkAddr
+
 
 // const mathwallet = require('math-js-sdk');
 // const tp = require('tp-js-sdk')
@@ -248,6 +250,7 @@ class NFTSpark extends Component {
 		// const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
 		// const account = accounts[
 		await freshContract();
+		sparkAddr = config.sparkAddr;
 		console.log(contract());
 	
 		const meta = await contract().methods.tokenURI(this.props.match.params.id).call()
