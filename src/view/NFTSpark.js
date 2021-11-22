@@ -229,7 +229,7 @@ class NFTSpark extends Component {
 				else {
 					this.setHttpProvierForUser(originChainId)
 					// alert('请切换至' + originChainName + '链并刷新')
-					alert('请先连接正确的链，否则只能查看和下载开源文件');
+					alert('请先连接正确的链，否则可能无法查看此NFT');
 
 				}
 			}
