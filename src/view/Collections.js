@@ -41,7 +41,7 @@ const styles = (theme) => ({
 		marginRight: theme.spacing(2),
 	},
 	titleFont: {
-		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+		fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
 	},
 	heroContent: {
 		backgroundColor: theme.palette.background.paper,
@@ -55,6 +55,8 @@ const styles = (theme) => ({
 		height: '100%',
 		display: 'flex',
 		flexDirection: 'column',
+		background: '#E9DEC7',
+		borderRadius: '10px',
 		[theme.breakpoints.between('xs', 'sm')]: {
 
 		},
@@ -65,10 +67,10 @@ const styles = (theme) => ({
 			height: '560px',
 		},
 		[theme.breakpoints.between('lg', 'xl')]: {
-			height: '560px',
+			height: '599px',
 		},
 		[theme.breakpoints.up('xl')]: {
-			height: '620px',
+			height: '663px',
 		},
 		['@media (min-width:3200px)']: {
 			height: '1060px',
@@ -76,14 +78,18 @@ const styles = (theme) => ({
 	},
 	cardMedia: {
 		// paddingTop: '56.25%', // 16:9
+		marginTop: '5%',
+		marginLeft: '5%',
+		marginRight: '5%',
 		objectFit: 'contain',
-		paddingTop: '100%', // 16:9
+		borderRadius: 10,
+		height:'61%'
 	},
 	cardContent: {
 		flexGrow: 2,
 	},
 	paper: {
-		marginTop: theme.spacing(7),
+		paddingTop: theme.spacing(7),
 		textAlign: 'center',
 	},
 	container: {
@@ -108,7 +114,7 @@ const styles = (theme) => ({
 		width: 150,
 	},
 	title: {
-		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+		fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
 		marginTop: '5%',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			fontSize: 35,
@@ -127,7 +133,7 @@ const styles = (theme) => ({
 		},
 	},
 	title2: {
-		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+		fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			fontSize: 16,
 		},
@@ -147,11 +153,11 @@ const styles = (theme) => ({
 	gridBox: {
 		inherit: 'PaddingL5,PaddingR5,MarginT4',
 		display: 'grid',
-		gridGap: '45px',
-		gridTemplateColumns: 'repeat(auto-fill, minmax(270px, 1fr))',
+		gridGap: '88px',
+		gridTemplateColumns: 'repeat(auto-fill, minmax(388px, 1fr))',
 		[theme.breakpoints.up('xl')]: {
-			gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
-			gridGap: '65px',
+			gridTemplateColumns: 'repeat(auto-fill, minmax(448px, 1fr))',
+			gridGap: '120px',
 		},
 		['@media (min-width:3200px)']: {
 			gridTemplateColumns: 'repeat(auto-fill, minmax(520px, 1fr))',
@@ -164,6 +170,7 @@ const styles = (theme) => ({
 		textOverflow: 'ellipsis',
 		WebkitLineClamp: 2,
 		lineClamp: 2,
+		fontWeight:700
 	}
 })
 class Collections extends Component {
@@ -390,20 +397,21 @@ class Collections extends Component {
 							<Card className={classes.card}>
 								<CardMedia className={classes.cardMedia} image={(card.image=='No Set')?('https://testnets.opensea.io/static/images/placeholder.png'):(card.image)} title="Image title" />
 								<CardContent className={classes.cardContent}>
-									<Typography gutterBottom className={classes.Display9 + ' ' + classes.cardTitle}>
+									<Typography gutterBottom className={classes.Display11xs + ' ' + classes.cardTitle}>
 										{card.title}
 									</Typography>
-									<Typography className={classes.Display10 + ' ' + classes.cardTitle} style={{ color: 'black' }}  >{obj.renderDescription(card.description)}</Typography>
-									<Button className={classes.btnColor3Mini} style={{display:(card.image == 'No Set')?(''):('none')}} href={'/#/PublishEx/' + card.id}>
+									<Typography className={classes.Display12s} style={{ color: 'black',fontWeight:'300' }}  >{obj.renderDescription(card.description)}</Typography>
+									<Button className={classes.btnMini} style={{display:(card.image == 'No Set')?(''):('none')}} href={'/#/PublishEx/' + card.id}>
 										{t('去上传')}
 									</Button>
 								</CardContent>
 								<div style={{ flex: 1 }}></div>
-								<CardActions>
-									<Button className={classes.btnColor3Mini} style={{display:(card.image == 'No Set')?('none'):('')}} href={`/#/NFT/${card.id}/${obj.state.chainId}`}>
+
+								<CardActions style={{display:'flex',justifyContent:'space-between',marginTop:'5%',paddingLeft:'5%',paddingBottom:'5%'}}>
+									<Button className={classes.btnMini} style={{display:(card.image == 'No Set')?('none'):('')}} href={`/#/NFT/${card.id}/${obj.state.chainId}`}>
 										{t('查看')}
 									</Button>
-									<Typography variant="body2" style={{ color: 'black' }} gutterBottom className={classes.Display11}>
+									<Typography style={{ color: 'black',marginRight:'3%' }} gutterBottom className={classes.Display14s}>
 										<b>NFT id: {card.id} </b>
 									</Typography>
 								</CardActions>

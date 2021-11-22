@@ -52,7 +52,7 @@ const theme = createTheme({
 			main: '#2196f3',
 		},
 		secondary: {
-			main: '#EF8F71',
+			main: '#303030',
 		},
 	},
 })
@@ -74,11 +74,12 @@ const styles = (theme) => ({
 		marginTop: 20
 	},
 	main: {
-		maxWidth: '100vw'
+		maxWidth: '100vw',
+		backgroundColor:'#EEE8DB'
 	},
 	titleCon: {
 		marginTop: 50,
-		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+		fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			fontSize: 30,
 		},
@@ -114,7 +115,7 @@ const styles = (theme) => ({
 	},
 	titlePub: {
 		marginTop: '3%',
-		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+		fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			fontSize: 20,
 		},
@@ -126,11 +127,11 @@ const styles = (theme) => ({
 		inherit: 'MarginT5'
 	},
 	paper: {
-		marginTop: theme.spacing(8),
+		paddingTop: theme.spacing(8),
 		display: 'flex',
 		flexDirection: 'column',
 		alignItems: 'center',
-		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+		fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
 	},
 	avatar: {
 		margin: theme.spacing(1),
@@ -139,8 +140,11 @@ const styles = (theme) => ({
 		height: 60,
 	},
 	form: {
-		width: '80%',
+		width: '60%',
 		marginTop: theme.spacing(7),
+		[theme.breakpoints.between('xs', 'sm')]: {
+			width: '80%',
+		},
 	},
 	submit: {
 		margin: theme.spacing(3, 0, 2),
@@ -182,6 +186,9 @@ const styles = (theme) => ({
 	Display9: {
 		inherit: 'MarginT9,DisplaySeBold9'
 
+	},
+	Display12s:{
+		fontWeight:300
 	}
 })
 
@@ -1223,7 +1230,7 @@ class PublishEx extends Component {
 								<CircularProgress style={{display:(this.state.submitError)?('none'):('')}}></CircularProgress>
 								<br/>
 								<br/>
-								<p className={classes.Display11} style={{color:(this.state.submitError)?('red'):('black')}}><br/>{this.state.submitDialogText}</p>
+								<p className={classes.Display12s} style={{color:(this.state.submitError)?('red'):('black')}}><br/>{this.state.submitDialogText}</p>
 							</DialogContent>	
 							<DialogActions style={{display:(this.state.submitError)?(''):('none')}} className={classes.MarginB10 + ' ' + classes.MarginT10 + ' ' + classes.MarginL10 + ' ' + classes.MarginR10}>
 								<Button onClick={()=>{this.setState({onLoading:false})}} className={classes.btnOutlineMini} color="primary">
@@ -1235,7 +1242,7 @@ class PublishEx extends Component {
 						<Container component="main" maxWidth="xs" className={classes.main}>
 							<div className={classes.paper}>
 								{/* {showLoading()} */}
-								<Typography className={classes.Display7}>
+								<Typography className={classes.Display5} style={{fontWeight:900}}>
 									<b>{t('art_info')}</b>
 								</Typography>
 								<Typography className={classes.Display8} style={{display:((this.state.isFillFiles)?(''):('none'))}}>
@@ -1243,93 +1250,107 @@ class PublishEx extends Component {
 								</Typography>
 								<form className={classes.form} noValidate>
 									<Grid container spacing={2}>
-										<Grid item style={{ width: '100%' }}>
-											<label className={classes.Display9}>
-												{t('art_name')} <span style={{ color: 'red' }}>*</span>
-											</label>
-											<Input
-												placeholder={t('art_name')}
-												allowClear
-												id="pubName"
-												onChange={this.handleGetPubName}
-												value={this.state.name}
-												className={classes.input}
-												maxLength={16}
-											/>
+										<Grid item xs={12}>
+											<Grid item xs={12} sm={6}>
+												<label className={classes.Display9}>
+													{t('art_name')} <span style={{ color: 'red' }}>*</span>
+												</label>
+												<Input
+													placeholder={t('art_name')}
+													allowClear
+													id="pubName"
+													onChange={this.handleGetPubName}
+													value={this.state.name}
+													className={classes.input}
+													maxLength={16}
+												/>
+											</Grid>
+
 										</Grid>
 										<Grid item style={{display:((this.state.isFillFiles)?('none'):(''))}} xs={12}>
-											<label className={classes.Display9}>
-												{t('fit_rate')} <span style={{ color: 'red' }}>*</span>
-											</label>
-											<p className={classes.Display11}>{t('fit_rate_tip')}</p>
-											<InputNumber
-												id="bonusFee"
-												defaultValue={0}
-												min={0}
-												formatter={(value) => { return (value <= 100) ? (`${value}%`) : ('100%') }}
-												parser={(value) => value.replace('%', '')}
-												onChange={this.handleGetBonusFee}
-												className={classes.inputNum}
-											/>
+											<Grid item xs={12} sm={6}>
+												<label className={classes.Display9}>
+													{t('fit_rate')} <span style={{ color: 'red' }}>*</span>
+												</label>
+												<p className={classes.Display12s}>{t('fit_rate_tip')}</p>
+												<InputNumber
+													id="bonusFee"
+													defaultValue={0}
+													min={0}
+													formatter={(value) => { return (value <= 100) ? (`${value}%`) : ('100%') }}
+													parser={(value) => value.replace('%', '')}
+													onChange={this.handleGetBonusFee}
+													className={classes.inputNum}
+													style={{width:'30%'}}
+												/>
+											</Grid>
 										</Grid>
 										<Grid item style={{display:((this.state.isFillFiles)?('none'):(''))}} xs={12}>
-											<label className={classes.Display9}>
-												{t('access_coin')} <span style={{ color: 'red' }}>*</span>
-											</label>
-											<p className={classes.Display11}>{t('access_coin_tip')}</p>
-											<Select
-												showSearch
-												value={this.state.token_addr}
-												placeholder={t('please_input_coin')}
-												// className={classes.input}
-												style={{ width: '100%' }}
-												size="large"
-												defaultActiveFirstOption={false}
-												showArrow={false}
-												filterOption={false}
-												onSearch={this.handleSearch}
-												onChange={this.handleSelectChange}
-												notFoundContent={null}
-											>
-												{options}
-											</Select>
+											<Grid item xs={12} sm={9}>
+												<label className={classes.Display9}>
+													{t('access_coin')} <span style={{ color: 'red' }}>*</span>
+												</label>
+												<p className={classes.Display12s}>{t('access_coin_tip')}</p>
+												<Select
+													showSearch
+													value={this.state.token_addr}
+													placeholder={t('please_input_coin')}
+													// className={classes.input}
+													style={{ width: '100%' }}
+													size="large"
+													defaultActiveFirstOption={false}
+													showArrow={false}
+													filterOption={false}
+													onSearch={this.handleSearch}
+													onChange={this.handleSelectChange}
+													notFoundContent={null}
+												>
+													{options}
+												</Select>
+											</Grid>
 										</Grid>
 										<Grid item style={{display:((this.state.isFillFiles)?('none'):(''))}} xs={12}>
-											<label className={classes.Display9}>
-												{t('price')} ({this.state.token_symbol})<span style={{ color: 'red' }}>*</span>
-											</label>
-											<InputNumber
-												id="price"
-												defaultValue={0}
-												min={0}
-												onChange={this.handleGetPrice}
-												className={classes.inputNum}
-											/>
+											<Grid item xs={12} sm={9}>
+												<label className={classes.Display9}>
+													{t('price')} ({this.state.token_symbol})<span style={{ color: 'red' }}>*</span>
+												</label>
+												<InputNumber
+													id="price"
+													defaultValue={0}
+													min={0}
+													onChange={this.handleGetPrice}
+													className={classes.inputNum}
+												/>
+											</Grid>
 										</Grid>
 										<Grid item style={{display:((this.state.isFillFiles)?('none'):(''))}} xs={12}>
-											<label className={classes.Display9}>
-												{t('max_share')} (MAX： 65535)
-												<span style={{ color: 'red' }}>*</span>
-											</label>
-											<p className={classes.Display11}>{t('max_share_tip')}</p>
-											<InputNumber
-												id="shareTimes"
-												defaultValue={0}
-												min={0}
-												max={65535}
-												onChange={this.handleGetShareTimes}
-												className={classes.inputNum}
-											/>
+											<Grid item xs={12} sm={9}>
+												<label className={classes.Display9}>
+													{t('max_share')} (MAX： 65535)
+													<span style={{ color: 'red' }}>*</span>
+												</label>
+												<p className={classes.Display12s}>{t('max_share_tip')}</p>
+												<InputNumber
+													id="shareTimes"
+													defaultValue={0}
+													min={0}
+													max={65535}
+													onChange={this.handleGetShareTimes}
+													className={classes.inputNum}
+												/>
+											</Grid>
 										</Grid>
 										<Grid item style={{display:((this.state.isFillFiles)?('none'):(''))}} xs={12}>
 											<label className={classes.Display9}>
 												{t('作品权限')} <span style={{ color: 'red' }}>*</span>
 											</label>
 											<br />
-											{/* <p className={classes.Display11}>{'is_NC & is_ND'}</p> */}
-											<Checkbox id='isND' className={classes.Display11 + ' ' + classes.checkBox} defaultChecked onChange={this.onCheckBoxChange.bind(this)}>{t('是否允许二次创作')}</Checkbox>
-											<Checkbox id='isNC' className={classes.Display11 + ' ' + classes.checkBox} onChange={this.onCheckBoxChange.bind(this)}>{t('是否允许商用')}</Checkbox>
-											<Checkbox id='isFree' className={classes.Display11 + ' ' + classes.checkBox} onChange={this.onCheckBoxChange.bind(this)}>{t('允许一级节点免费铸造')}</Checkbox>
+											{/* <p className={classes.Display12s}>{'is_NC & is_ND'}</p> */}
+											<Checkbox id='isND' className={classes.Display12s + ' ' + classes.checkBox} defaultChecked onChange={this.onCheckBoxChange.bind(this)}>{t('是否允许二次创作')}</Checkbox>
+											<br/>
+											<Checkbox id='isNC' className={classes.Display12s + ' ' + classes.checkBox} onChange={this.onCheckBoxChange.bind(this)}>{t('是否允许商用')}</Checkbox>
+											<br/>
+											<Checkbox id='isFree' className={classes.Display12s + ' ' + classes.checkBox} onChange={this.onCheckBoxChange.bind(this)}>{t('允许一级节点免费铸造')}</Checkbox>
 										</Grid>
 
 										<Grid item xs={12}>
@@ -1338,7 +1359,7 @@ class PublishEx extends Component {
 											</label>
 											<br />
 											<div style={{display:'flex',alignItems:'center'}}>
-												<Swtich disabled={this.state.isFillFiles} onChange={onSwtichChange}></Swtich><span className={classes.Display11}>{this.state.encryptedPublish ? (t('choose_encryPublish')):(t('choose_openPublish'))}</span>
+												<Swtich disabled={this.state.isFillFiles} onChange={onSwtichChange}></Swtich><span className={classes.Display12s}>{this.state.encryptedPublish ? (t('choose_encryPublish')):(t('choose_openPublish'))}</span>
 											</div>
 										</Grid>
 
@@ -1346,33 +1367,37 @@ class PublishEx extends Component {
 											<label className={classes.Display9}>
 												{t('art_desc')} <span style={{ color: 'red' }}>*</span>
 											</label>
-											<p className={classes.Display11}>{t('art_desc_tip')}</p>
+											<p className={classes.Display12s}>{t('art_desc_tip')}</p>
 											<TextArea rows={3} id="Description" value={this.state.description} onChange={this.handleGetDescription} placeholder={t('最大长度为50个字符')} maxLength={50}/>
 										</Grid>
 									</Grid>
-									<label className={classes.Display9 + ' ' + classes.MarginT10}>
-										{t('pic_cover')} <span style={{ color: 'red' }}>*</span>
-									</label>
-									<p className={classes.Display11}>{t('pic_cover_tip')}</p>
-									<Dragger {...prop} style={{ width: '100%', minHeight: 200 }} id="Uploader" maxCount='1' accept="image/*">
-										<p className="ant-upload-drag-icon">
-											<InboxOutlined />
-										</p>
-										<p className={classes.Display11}>{t('upload_file_tip1')}</p>
-										<p className={classes.Display11}>{t('upload_file_tip2')}</p>
-									</Dragger>
+									<Grid item xs={12} sm={12} style={{display:'flex',flexDirection:((window.innerWidth<=800)?('column'):('row'))}}>
+										<Grid item xs={12} sm={6}>
+											<label className={classes.Display9 + ' ' + classes.MarginT10}>
+												{t('pic_cover')} <span style={{ color: 'red' }}>*</span>
+											</label>
+											<p style={{height:'6em'}} className={classes.Display12s}>{t('pic_cover_tip')}</p>
+											<Dragger {...prop} style={{ width: '100%', minHeight: 200 }} id="Uploader" maxCount='1' accept="image/*">
+												<p className="ant-upload-drag-icon">
+													<InboxOutlined style={{color:'#303030'}} />
+												</p>
+											</Dragger>
+										</Grid>
+										<Grid item xs={12} sm={1}></Grid>
+										<Grid item xs={12} sm={6}>
+											<label className={classes.Display9 + ' ' + classes.MarginT10}>
+												{t('art_file')} <span style={{ color: 'red' }}>*</span>
+											</label>
+											<p style={{height:'6em'}} className={classes.Display12s}> {t('art_file_tip')}</p>
+											<Dragger {...propFile} style={{ width: '100%', minHeight: 200 }} id="Uploader2">
+												<p className="ant-upload-drag-icon">
+													<InboxOutlined style={{color:'#303030'}} />
+												</p>
+											</Dragger>
+										</Grid>
+									</Grid>
 
-									<label className={classes.Display9 + ' ' + classes.MarginT10}>
-										{t('art_file')} <span style={{ color: 'red' }}>*</span>
-									</label>
-									<p className={classes.Display11}> {t('art_file_tip')}</p>
-									<Dragger {...propFile} style={{ width: '100%', minHeight: 200 }} id="Uploader2">
-										<p className="ant-upload-drag-icon">
-											<InboxOutlined />
-										</p>
-										<p className={classes.Display11}>{t('upload_file_tip1')}</p>
-										<p className={classes.Display11}>{t('upload_file_tip2')}</p>
-									</Dragger>
+
 								</form>
 								<Button
 									className={classes.btn}

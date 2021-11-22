@@ -53,7 +53,7 @@ const styles = (theme) => ({
 		display:'flex'
 	},
 	cbutton: {
-		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+		fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			justifyContent: 'center',
 			alignItems: 'flex-start',
@@ -76,7 +76,7 @@ const styles = (theme) => ({
 		},
 	},
 	content: {
-		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+		fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			justifyContent: 'flex-start',
 			alignItems: 'flex-start',
@@ -118,7 +118,7 @@ const styles = (theme) => ({
 		marginBottom:'10%'
 	},
 	content2: {
-		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+		fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
 		
 		[theme.breakpoints.between('xs', 'sm')]: {
 			marginLeft:15,
@@ -140,7 +140,7 @@ const styles = (theme) => ({
 		},
 	},
 	cbutton2: {
-		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+		fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
 		justifyContent: 'flex-start',
 		alignItems: 'center',
 		[theme.breakpoints.between('xs', 'sm')]: {
@@ -149,7 +149,7 @@ const styles = (theme) => ({
 		},
 	},
 	share: {
-		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+		fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
 		marginBottom: '10%',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			fontSize: 14,
@@ -685,34 +685,32 @@ class NFTInfo extends Component {
 								<Button
 									startIcon={<ArrowLeftOutlined style={{fontSize:'100%'}} />}
 									href="/#/collections"
-									className={classes.Display8}
-									style={{ marginTop: 20, marginBottom: 10}}
+									className={classes.Display11xs}
+									style={{ marginTop: 20, marginBottom: 10,textDecorationLine:'underline'}}
 								>
 									{t('回到我的收藏馆')}
 								</Button>
 								<Grid container item direction="row" justifyContent="center" alignContent="flex-start">
 									<Grid container direction="row" className={classes.cbutton}>
-										<Grid item xs={11} md={6} lg={6} xl={6}>
+										<Grid item xs={11} md={7}>
 											<Typography
 												color="textPrimary"
 												gutterBottom
-												style={{ marginRight: 50, marginTop: 20 }}
+												style={{ marginRight: 50, marginTop: 20 ,fontWeight:'600'}}
 												className={classes.Display10}
 											>
 												{t('目前收益：')} {this.state.Profit}
 											</Typography>
 										</Grid>
-										<Grid item xs={12} container sm={6}  md={6} lg={6} xl={6}>
+										<Grid item xs={12} container sm={5} >
 											<Grid item>
 												<Button
 													style={{
 														marginTop: 10,
 														marginRight: 10,
-														marginLeft: 10,
 														marginBottom: 20,
 													}}
-													color="primary"
-													className={classes.btnColor2}
+													className={classes.btn }
 													startIcon={<MoneyCollectOutlined style={{fontSize:'100%'}} />}
 													onClick={this.claim}
 												>
@@ -723,7 +721,7 @@ class NFTInfo extends Component {
 											<Grid item>
 												<Button
 													style={{ marginTop: 10, marginBottom: 20 }}
-													className={classes.btnColor2}
+													className={classes.btn + ' ' +classes.MarginL8}
 													startIcon={<DollarCircleOutlined style={{fontSize:'100%'}} />}
 													href={'/#/sellSingle/' + this.props.match.params.id}
 												>
@@ -746,7 +744,7 @@ class NFTInfo extends Component {
 												/>
 											</Grid>
 
-											<Grid item xs={10} sm={5} md={5} lg={5}>
+											<Grid item xs={10} sm={4}>
 												<Skeleton animation="wave" variant="text" width={200} height={30} />
 												<Skeleton animation="wave" variant="text" width={400} height={70} />
 												<Skeleton animation="wave" variant="rect" width={500} height={300} style={{ marginBottom: 50 }} />
@@ -758,17 +756,28 @@ class NFTInfo extends Component {
 											direction="row"
 											className={classes.content}
 										>
-											<Grid container justifyContent='center' item xs={12} sm={5} md={5} lg={5} xl={5}>
+											<Grid container justifyContent='center' item xs={12} sm={4}>
 												<Paper className={classes.imagePapaer}>
 													<img className={classes.imageStyle} src={this.state.Cover} onError={() => this.setFlag('isCoverLoaded')} id="cover" crossOrigin="anonymous" ></img>
 												</Paper >
+												<Grid container item xs={12} className={classes.MarginT7} justifyContent='center'>
+													
+													<Button item
+														className={classes.btn}
+														startIcon={<DownloadOutlined style={{fontSize:'100%'}} />}
+														onClick={this.downloadIPFS}
+													>
+														{t('下载')}
+													</Button>
+												</Grid>
 											</Grid >
 
-											<Grid item xs={10} sm={6} md={6} lg={6} className={classes.content2 +' ' +classes.PaddingT9}>
+											<Grid item xs={10} sm={7} className={classes.content2 +' ' +classes.PaddingT9}>
 												<Typography
 													color="inherit"
 													align="left"
 													className={classes.Display10}
+													style={{fontWeight:'800',color:'#9F2225'}}
 													// eslint-disable-next-line react/jsx-no-duplicate-props
 													color="textSecondary"
 													noWrap
@@ -779,10 +788,10 @@ class NFTInfo extends Component {
 													color="inherit"
 													align="left"
 													noWrap
-													className={classes.Display8}
+													className={classes.Display7}
 													style={{
-														fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
 														marginTop: '2%',
+														fontWeight:'800',
 													}}
 												>
 													<b>{this.state.Name}</b>
@@ -790,11 +799,12 @@ class NFTInfo extends Component {
 												<Typography
 													align="justify"
 													color="textSecondary"
-													className={classes.Display10}
+													className={classes.Display11xs}
 													paragraph
 													style={{
 														marginTop: '2%',
 														maxWidth: '100%',
+														fontWeight: 300
 													}}
 												>
 													{this.state.Description}
@@ -807,31 +817,17 @@ class NFTInfo extends Component {
 													style={{
 														marginTop: '6%',
 														maxWidth: '100%',
+														fontWeight:'800',
 													}}
 												>
 													{t('分红比例：')} {this.state.BonusFee} %
 												</Typography>
-												<Typography align="left" className={classes.Display10} color="textPrimary" paragraph>
+												<Typography align="left" className={classes.Display10} color="textPrimary" style={{fontWeight:'800'}} paragraph>
 													{t('当前拥有的子节点数量：')} {this.state.childrenNum}
 												</Typography>
-												<Typography align="left" className={classes.Display10} color="textPrimary" paragraph>
+												<Typography align="left" className={classes.Display10} color="textPrimary" style={{fontWeight:'800'}}  paragraph>
 													{t('NFT是否加密：')} {this.state.encrypted}
 												</Typography>
-
-												<Grid container className={classes.cbutton2}>
-													
-													<Button item
-														size="small"
-														variant="contained"
-														color="primary"
-														target="_blank"
-														className={classes.btnColor3}
-														startIcon={<DownloadOutlined style={{fontSize:'100%'}} />}
-														onClick={this.downloadIPFS}
-													>
-														{t('下载')}
-													</Button>
-												</Grid>
 
 												<Grid container  className={classes.cbutton2+' '+classes.MarginT7} >
 													<Grid item>
@@ -862,7 +858,7 @@ class NFTInfo extends Component {
 
 												</Grid>
 												<Grid item xs={12} sm={12} lg={12} xl={12}>
-													<Typography align="left" className={classes.Display10} style={{color:'black',marginTop:'2%'}}>
+													<Typography align="left" className={classes.Display12s} style={{color:'black',marginTop:'2%'}}>
 														💡
 														{t('所有人可通过分享链接或海报进入作品详情页查看以及购买本作品')}
 													</Typography>

@@ -49,7 +49,7 @@ const styles = (theme) => ({
 		alignItems: 'center'
 	},
 	cbutton: {
-		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+		fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			justifyContent: 'center',
 			alignItems: 'flex-start',
@@ -72,7 +72,7 @@ const styles = (theme) => ({
 		},
 	},
 	content: {
-		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+		fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			justifyContent: 'flex-start',
 			alignItems: 'flex-start',
@@ -114,8 +114,8 @@ const styles = (theme) => ({
 		marginBottom: '10%'
 	},
 	content2: {
-		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
-
+		fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
+		
 		[theme.breakpoints.between('xs', 'sm')]: {
 			marginLeft: 15,
 		},
@@ -136,7 +136,7 @@ const styles = (theme) => ({
 		},
 	},
 	cbutton2: {
-		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+		fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
 		justifyContent: 'flex-start',
 		alignItems: 'center',
 		[theme.breakpoints.between('xs', 'sm')]: {
@@ -145,7 +145,7 @@ const styles = (theme) => ({
 		},
 	},
 	share: {
-		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+		fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
 		marginBottom: '10%',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			fontSize: 14,
@@ -773,7 +773,9 @@ class NFTSpark extends Component {
 									href="/#/collections"
 									className={classes.Display8}
 									style={{ marginTop: 20, marginBottom: 10 }}
-								>
+									className={classes.Display11xs}
+									style={{ marginTop: 20, marginBottom: 10,textDecorationLine:'underline'}}
+
 									{t('回到我的收藏馆')}
 								</Button>
 								{/* <Grid container direction="row" justifyContent="center" alignItems="center" xs={12}>
@@ -815,16 +817,17 @@ class NFTSpark extends Component {
 													color="textSecondary"
 													noWrap
 													className={classes.Display10}
+													style={{fontWeight:'800',color:'#9F2225'}}
 												>
 													#{this.props.match.params.id}
 												</Typography>
 												<Typography
 													color="inherit"
 													align="left"
-													className={classes.Display8}
+													className={classes.Display7}
 													noWrap
 													style={{
-														fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+														fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
 														marginTop: '2%',
 													}}
 												>
@@ -833,11 +836,12 @@ class NFTSpark extends Component {
 												<Typography
 													align="justify"
 													color="textSecondary"
-													className={classes.Display10}
+													className={classes.Display11xs}
 													paragraph
 													style={{
 														marginTop: '2%',
 														maxWidth: '100%',
+														fontWeight: 300
 													}}
 												>
 													{this.state.Description}
@@ -850,14 +854,17 @@ class NFTSpark extends Component {
 													style={{
 														marginTop: '3%',
 														maxWidth: '100%',
+														fontWeight:'800',
 													}}
 												>
 													{t('点火价格: ')} {this.state.priceString}
 												</Typography>
-												<Typography align="left" color="textPrimary" className={classes.Display10} style={{ marginTop: '1%' }} >
+
+												<Typography align="left" color="textPrimary" className={classes.Display10} style={{marginTop:'2%',fontWeight:'800'}} >
 													{t('最大分享次数：')} {this.state.maxShillTimes} 次
 												</Typography>
-												<Typography align="left" color="textPrimary" className={classes.Display10} style={{ marginTop: '1%' }} >
+												<Typography align="left" color="textPrimary" className={classes.Display10} style={{marginTop:'2%',fontWeight:'800'}} >
+
 													{t('剩余分享次数：')} {this.state.remainShillTimes} 次
 												</Typography>
 												{this.state.isEncrypt ? (
@@ -866,7 +873,8 @@ class NFTSpark extends Component {
 														color="textPrimary"
 														className={classes.Display10}
 														paragraph
-														style={{ maxWidth: '100%', marginTop: '1%' }}
+														style={{ maxWidth: '100%',marginTop:'2%',fontWeight:'800'}}
+
 													>
 														{t('加密作品')}
 													</Typography>
@@ -876,7 +884,7 @@ class NFTSpark extends Component {
 														color="textPrimary"
 														className={classes.Display10}
 														paragraph
-														style={{ maxWidth: '100%', marginTop: '1%' }}
+														style={{ maxWidth: '100%',marginTop:'2%',fontWeight:'800' }}
 													>
 														{t('开源作品')}
 													</Typography>
