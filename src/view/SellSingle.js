@@ -16,11 +16,10 @@ import Skeleton from '@material-ui/lab/Skeleton'
 import web3 from '../utils/web3';
 import config from '../global/config'
 import { withTranslation } from 'react-i18next'
-import { getChainName } from '../utils/getWalletAccountandChainID'
 import Web3 from 'web3'
 import withCommon from '../styles/common'
 import Footer from '../components/Footer'
-import { getWalletAccount } from '../utils/getWalletAccountandChainID'
+import { getWalletAccount, getChainName, getChainId } from '../utils/getWalletAccountandChainID'
 
 //TP钱包支持
 const tp = require('tp-js-sdk');
@@ -358,8 +357,9 @@ class SellSingle extends Component {
 		})
 	}
 
-	handleClickLink = () => {
-		var new_url = '/#/NFT/' + this.state.NFTId
+	handleClickLink = async () => {
+		const chainId = await getChainId()
+		let new_url = `/#/NFT/${this.state.rootNFTId}/${chainId}`;
 		window.open(new_url, '_self')
 	}
 

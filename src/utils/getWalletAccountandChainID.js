@@ -73,11 +73,13 @@ export const getChainId = async () => {
 		case TOKENPOCKET:
 			tpWallet = await tp.getCurrentWallet();
 			chainId = await getChainIdByChainName(tpWallet.data.blockchain);
+			localStorage.setItem('chainId', chainId);
 			break;
 		case MATHWALLET:
 			break;
 		case METAMASK:
 			chainId = await window.ethereum.request({ method: 'eth_chainId' })
+			localStorage.setItem('chainId', chainId);
 			break;
 		default:
 			// accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
@@ -139,8 +141,9 @@ export const switchChain = async (chainId) => {
 			}
 		case TOKENPOCKET:
 			try {
-				const response = tp.getWallet({ walletTypes: [toChainName], switch: true });
+				const response = await tp.getWallet({ walletTypes: [toChainName], switch: true });
 				if (response.msg === 'success') {
+					//alert('切换成功')
 					localStorage.setItem('chainId', chainId);
 					return true;
 				}
@@ -148,7 +151,6 @@ export const switchChain = async (chainId) => {
 
 			}
 			catch (e) {
-				// message.error(e);
 				return false;
 			}
 		case MATHWALLET:

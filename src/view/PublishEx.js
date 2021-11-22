@@ -26,7 +26,7 @@ import { withTranslation } from 'react-i18next'
 import withCommon from '../styles/common'
 import Footer from '../components/Footer'
 import { generateZipFile } from '../utils/zipFile.js'
-import { getWalletAccount, getChainName } from '../utils/getWalletAccountandChainID'
+import { getWalletAccount, getChainName, getChainId } from '../utils/getWalletAccountandChainID'
 import Swtich from '@material-ui/core/Switch'
 import config from '../global/config'
 import { CircularProgress, Dialog, DialogContent, DialogTitle ,DialogActions} from '@material-ui/core'
@@ -1021,7 +1021,8 @@ class PublishEx extends Component {
 	}
 
 	checkDetail = async () => {
-		let new_url = '/#/NFT/' + this.state.rootNFTId
+		const chainId = await getChainId()
+		let new_url = `/#/NFT/${this.state.rootNFTId}/${chainId}`;
 		window.open(new_url, '_self')
 	}
 

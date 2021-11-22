@@ -26,7 +26,7 @@ import config from '../global/config'
 import withCommon from '../styles/common'
 import Footer from '../components/Footer'
 import { generateZipFile } from '../utils/zipFile.js'
-import { getChainName, getWalletAccount } from '../utils/getWalletAccountandChainID'
+import { getChainId, getChainName, getWalletAccount } from '../utils/getWalletAccountandChainID'
 
 
 const BigNumber = require('bignumber.js');
@@ -592,7 +592,8 @@ class EncryptedPublish extends Component {
 	}
 
 	checkDetail = async () => {
-		let new_url = '/#/NFT/' + this.state.rootNFTId
+		const chainId = await getChainId()
+		let new_url = `/#/NFT/${this.state.rootNFTId}/${chainId}`;
 		window.open(new_url, '_self')
 	}
 

@@ -28,7 +28,7 @@ import { LASTCONNECT } from '../global/globalsString'
 import { withTranslation } from 'react-i18next'
 import withCommon from '../styles/common'
 import Footer from '../components/Footer'
-import {getChainName, getWalletAccount } from '../utils/getWalletAccountandChainID'
+import { getChainName, getWalletAccount } from '../utils/getWalletAccountandChainID'
 import {getChainNameByChainId} from '../utils/getWalletAccountandChainID'
 
 const { gateway, backend } = config
@@ -195,11 +195,11 @@ class NFTInfo extends Component {
 	}
 	async componentDidMount() {
 		const {t} = this.props
-		if (!window.ethereum) {
-			alert(t('请先安装metamask'))
-			window.location.href = '/#/collections'
-			return
-		}
+		// if (!window.ethereum) {
+		// 	alert(t('请先安装metamask'))
+		// 	window.location.href = '/#/collections'
+		// 	return
+		// }
 		await freshContract();
 		// const chainId = await window.ethereum.request({ method: 'eth_chainId' })
 		// if (chainId !== '0x89') {
@@ -218,47 +218,8 @@ class NFTInfo extends Component {
 		const price = await contract().methods.getShillPriceByNFTId(this.props.match.params.id).call()
 		const owner = await contract().methods.ownerOf(this.props.match.params.id).call()
 
-		//获取账号
-		// let account
-		// const lastConnect = localStorage.getItem(LASTCONNECT)
-		// if (lastConnect === METAMASK) {
-		// 	const accounts = await window.ethereum.request({
-		// 		method: 'eth_requestAccounts',
-		// 	})
-		// 	account = accounts[0]
-		// } else if (lastConnect === TOKENPOCKET) {
-		// 	await tp.getCurrentWallet().then((value) => {
-		// 		account = value.data.address
-		// 	})
-		// 	if (account.length === 0) {
-		// 		await tp.getWallet({ walletTypes: ['matic'], switch: false }).then((value) => {
-		// 			account = value.data.address
-		// 		})
-		// 	}
-		// }
-		const account = await getWalletAccount()
-		// var account = null;
-		// var value, accounts;
-		// const lastConnect = localStorage.getItem(LASTCONNECT);
-		// switch (lastConnect) {
-		// case TOKENPOCKET:
-		// 	value = await tp.getCurrentWallet()
-		// 	account = value.data.address;
-		// 	break;
-		// case MATHWALLET:
-		// 	value = await mathwallet.getCurrentWallet()
-		// 	account = value.address;
-		// 	break;
-		// case METAMASK:
-		// 	accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
-		// 	account = accounts[0];
-		// 	break;
-		// default:
-		// 	// accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
-		// 	// account = accounts[0];
-		// 	break;
-		// }
-		if (account === null) {
+		const account = await getWalletAccount()	
+		if (account === -1) {
 			alert(t('请先连接钱包'))
 			window.location.href = '/#/';
 			return;
@@ -638,7 +599,7 @@ class NFTInfo extends Component {
 		const { classes } = this.props
 		const { t } = this.props
 		const url = window.location.host
-		const toUrl = 'https://' + url + '/#/NFT/Spark/' + this.props.match.params.id
+		const toUrl = `https://${url}/#/NFT/Spark/${this.props.match.params.id}/${this.props.match.params.chainId}`
 		const lastConnect = localStorage.getItem(LASTCONNECT);
 		const chain = getChainNameByChainId(localStorage.getItem('chainId')).toUpperCase()
 		const sell_info = () => {

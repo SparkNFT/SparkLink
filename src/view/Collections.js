@@ -18,15 +18,11 @@ import axios from 'axios'
 import web3 from '../utils/web3'
 import config from '../global/config'
 import Web3 from 'web3';
-import { TOKENPOCKET, METAMASK, LASTCONNECT, MATHWALLET } from '../global/globalsString'
 import { withTranslation } from 'react-i18next'
 import withCommon from '../styles/common'
 import Footer from '../components/Footer'
-import { getChainName } from '../utils/getWalletAccountandChainID'
-//TP钱包支持
-const tp = require('tp-js-sdk');
-//麦子钱包支持
-const mathwallet = require('math-js-sdk');
+import { getChainName, getWalletAccount, getChainIdByChainName } from '../utils/getWalletAccountandChainID'
+
 // eslint-disable-next-line no-unused-vars
 const { backend } = config
 const theme = createTheme({
@@ -182,6 +178,7 @@ class Collections extends Component {
 			onloading: false,
 			SkeletoNumber: 0,
 			noNFT: true,
+			chainId: '',
 		}
 	}
 	async componentDidMount() {
@@ -194,6 +191,11 @@ class Collections extends Component {
 		// }
 		await freshContract();
 		const chainName = await getChainName();
+		const chainId = getChainIdByChainName(chainName);
+		console.log(chainId)
+		this.setState({
+			chainId: chainId,
+		})
 		switch (chainName) {
 		case 'matic':
 			web3.setProvider(new Web3.providers.HttpProvider('https://polygon-mainnet.infura.io/v3/0232394ba4b34544a778575aefa2ee8c'))
@@ -210,53 +212,15 @@ class Collections extends Component {
 			break;
 		}
 		localStorage.setItem('hasSetHttpProvider', 'true')
-		console.log(web3.currentProvider)
-		// web3.setProvider(new Web3.providers.HttpProvider('https://polygon-mainnet.infura.io/v3/0232394ba4b34544a778575aefa2ee8c'))
-		//web3.setProvider(new Web3.providers.HttpProvider('https://matic-mainnet--jsonrpc.datahub.figment.io/apikey/e84b63fff0e37deb30837101f20eb793/'))
-		var account = null;
-		var value, accounts;
-		const lastConnect = localStorage.getItem(LASTCONNECT);
-		switch (lastConnect) {
-		case TOKENPOCKET:
-			value = await tp.getCurrentWallet()
-			account = value.data.address;
-			break;
-		case MATHWALLET:
-			value = await mathwallet.getCurrentWallet()
-			account = value.address;
-			break;
-		case METAMASK:
-			accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
-			account = accounts[0];
-			break;
-		default:
-			// accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
-			// account = accounts[0];
-			break;
-		}
-		if (account === null) {
+		const account = await getWalletAccount();
+		if (account === -1) {
 			alert(t('请先连接钱包'))
 			window.location.href = '/#/';
 			return;
 		}
 
-		//const account = accounts[0]
-		// const chainId = await window.ethereum.request({ method: 'eth_chainId' })
-		// if (chainId !== '0x89') {
-		// 	alert(t('请切换至Polygon 主网络'))
-		// 	await window.ethereum.request({
-		// 		method: 'wallet_switchEthereumChain',
-		// 		params: [
-		// 			{
-		// 				chainId: '0x89',
-		// 			},
-		// 		],
-		// 	})
-		// }
-
 		let cards = []
 
-		console.log(contract)
 		const nft_number = await contract().methods.balanceOf(account).call()
 		console.log('nft_number: ', nft_number)
 		if (nft_number === 0) {
@@ -436,7 +400,7 @@ class Collections extends Component {
 								</CardContent>
 								<div style={{ flex: 1 }}></div>
 								<CardActions>
-									<Button className={classes.btnColor3Mini} style={{display:(card.image == 'No Set')?('none'):('')}} href={'/#/NFT/' + card.id}>
+									<Button className={classes.btnColor3Mini} style={{display:(card.image == 'No Set')?('none'):('')}} href={`/#/NFT/${card.id}/${obj.state.chainId}`}>
 										{t('查看')}
 									</Button>
 									<Typography variant="body2" style={{ color: 'black' }} gutterBottom className={classes.Display11}>
