@@ -202,13 +202,15 @@ class Collections extends Component {
 			web3.setProvider(new Web3.providers.HttpProvider('https://bsc-dataseed1.binance.org:443'))
 			break;
 		case 'eth':
-			web3.setProvider(new Web3.providers.HttpProvider('https://polygon-mainnet.infura.io/v3/0232394ba4b34544a778575aefa2ee8c'))
+			web3.setProvider(new Web3.providers.HttpProvider('https://mainnet.infura.io/v3/0232394ba4b34544a778575aefa2ee8c'))
+			// web3.setProvider(window.ethereum);
 			break;
 		default:
 			web3.setProvider(new Web3.providers.HttpProvider('https://polygon-mainnet.infura.io/v3/0232394ba4b34544a778575aefa2ee8c'))
 			break;
 		}
 		localStorage.setItem('hasSetHttpProvider', 'true')
+		console.log(web3.currentProvider)
 		// web3.setProvider(new Web3.providers.HttpProvider('https://polygon-mainnet.infura.io/v3/0232394ba4b34544a778575aefa2ee8c'))
 		//web3.setProvider(new Web3.providers.HttpProvider('https://matic-mainnet--jsonrpc.datahub.figment.io/apikey/e84b63fff0e37deb30837101f20eb793/'))
 		var account = null;
@@ -262,6 +264,7 @@ class Collections extends Component {
 		}
 
 		let ids = await this.getNft(contract, account)
+		console.log(ids)
 		if (ids.length === 0) {
 			return
 		}
@@ -367,9 +370,10 @@ class Collections extends Component {
 
 
 		const checksum_address = web3.utils.toChecksumAddress(account);
-		const chainName = await getChainName();
+		let chainName = await getChainName();
+		if(chainName === 'eth') chainName = 'ethereum'
 		const url = `${backend}/api/v1/nft/list?owner=${checksum_address}&chain=${chainName}`;
-
+		console.log(url)
 		//多链
 		// const checksum_address = web3.utils.toChecksumAddress(account);
 		// const chainName = await getChainName();
@@ -387,6 +391,8 @@ class Collections extends Component {
 			// return balanceId;
 			return res.data.nft
 		} catch (error) {
+			console.log('error')
+			console.log(error)
 			// alert('无法获取您当前拥有的nft')
 			return [];
 		}

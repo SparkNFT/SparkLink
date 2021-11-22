@@ -426,7 +426,7 @@ class Publish extends Component {
 							pinata_secret_api_key: pinata_secret_api_key,
 						},
 					})
-					console.debug('metadata: ', response.data.IpfsHash)
+					console.debug('metadata: ', response.data.IpfsHash)					
 					const bytes = bs58.decode(response.data.IpfsHash)
 					const bytesToContract = bytes.toString('hex').substring(4)
 					this.setState({
@@ -803,7 +803,7 @@ class Publish extends Component {
 											{/* <p className={classes.Display11}>{'is_NC & is_ND'}</p> */}
 											<Checkbox id='isND' className={classes.Display11 + ' ' + classes.checkBox} defaultChecked onChange={this.onCheckBoxChange.bind(this)}>{t('是否允许二次创作')}</Checkbox>
 											<Checkbox id='isNC' className={classes.Display11 + ' ' + classes.checkBox} onChange={this.onCheckBoxChange.bind(this)}>{t('是否允许商用')}</Checkbox>
-											<Checkbox id='isFreeFirst' className={classes.Display11 + ' ' + classes.checkBox} onChange={this.onCheckBoxChange.bind(this)}>{t('允许一级节点免费铸造')}</Checkbox>
+											<Checkbox id='isFree' className={classes.Display11 + ' ' + classes.checkBox} onChange={this.onCheckBoxChange.bind(this)}>{t('允许一级节点免费铸造')}</Checkbox>
 										</Grid>
 
 										<Grid item style={{ width: '100%' }}>
