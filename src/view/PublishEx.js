@@ -1328,7 +1328,7 @@ class PublishEx extends Component {
 											{/* <p className={classes.Display11}>{'is_NC & is_ND'}</p> */}
 											<Checkbox id='isND' className={classes.Display11 + ' ' + classes.checkBox} defaultChecked onChange={this.onCheckBoxChange.bind(this)}>{t('是否允许二次创作')}</Checkbox>
 											<Checkbox id='isNC' className={classes.Display11 + ' ' + classes.checkBox} onChange={this.onCheckBoxChange.bind(this)}>{t('是否允许商用')}</Checkbox>
-											<Checkbox id='isFreeFirst' className={classes.Display11 + ' ' + classes.checkBox} onChange={this.onCheckBoxChange.bind(this)}>{t('允许一级节点免费铸造')}</Checkbox>
+											<Checkbox id='isFree' className={classes.Display11 + ' ' + classes.checkBox} onChange={this.onCheckBoxChange.bind(this)}>{t('允许一级节点免费铸造')}</Checkbox>
 										</Grid>
 
 										<Grid item xs={12}>
