@@ -14,7 +14,7 @@ const styles = (theme) => ({
 		marginRight: theme.spacing(2),
 	},
 	titleFont: {
-		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+		fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
 	},
 	paper: {
 		paddingLeft: '10%',
@@ -24,7 +24,7 @@ const styles = (theme) => ({
 	},
 
 	content: {
-		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+		fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
 		marginTop: 20,
 		lineHeight: 1.5,
 		[theme.breakpoints.between('xs', 'sm')]: {

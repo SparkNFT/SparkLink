@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import fullLogo from '../imgs/logowhite.png'
+import fullLogo from '../imgs/logo.png'
 import sLogo from '../imgs/sparkLink.png'
 import TPpic from '../imgs/TP.png'
 import metamaskpic from '../imgs/metamask.png'
@@ -18,7 +18,7 @@ import LanguageBtn from './LanguageBtn'
 import { withTranslation } from 'react-i18next'
 import { TOKENPOCKET, METAMASK, LASTCONNECT, MATHWALLET } from '../global/globalsString'
 import web3 from '../utils/web3';
-import withCommon from '../styles/common.js'
+import withCommon, { colors } from '../styles/common.js'
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { message } from 'antd'
@@ -29,7 +29,7 @@ import logoMatic from '../imgs/chainLogo/matic.png'
 import { IconButton } from '@material-ui/core'
 import { freshContract, nowContractChainId } from '../utils/contract'
 import { swtichContract } from '../utils/contract'
-
+import btnbg from '../imgs/btnbg.png'
 
 //import WalletBtn from './WalletBtn'
 
@@ -63,6 +63,7 @@ const mathwallet = require('math-js-sdk');
 //todo theme传参无用
 const styles = (theme) => ({
 	btngroup: {
+		height:'100%',
 		display: 'flex',
 		[theme.breakpoints.down('sm')]: {
 			display: 'none'
@@ -78,7 +79,7 @@ const styles = (theme) => ({
 
 	},
 	Toolbar: {
-		backgroundColor: '#EF8F71',
+		backgroundColor: colors.color1,
 		maxWidth: '100vw',
 		overflow: 'hidden',
 		minHeight: '0px',
@@ -98,7 +99,7 @@ const styles = (theme) => ({
 	},
 	titleToken: {
 		fontSize: 22,
-		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+		fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			fontSize: 15,
 		},
@@ -118,7 +119,7 @@ const styles = (theme) => ({
 	title: {
 		minWidth: 100,
 		fontSize: 25,
-		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+		fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
 		inherit: 'Display7,MarginL7,MarginT7,MarginB10,MarginR7'
 	},
 
@@ -151,14 +152,15 @@ const styles = (theme) => ({
 		},
 	},
 	btnTopbar: {
-		fontWeight: 500,
-		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+		fontWeight: 900,
+		fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
 		color: '#FFFFFF',
 		borderColor: '#FFFFFF',
 		borderWidth: 2,
 		borderRadius: '100vw',
 		inherit: 'MarginL8',
-		paddingTop: 10,
+		display:'flex',
+		alignItems:'center',
 		paddingBottom: 0,
 		'&:hover': {
 			color: 'rgb(255,112,67)',
@@ -172,24 +174,23 @@ const styles = (theme) => ({
 		},
 		[theme.breakpoints.between('xs', 'sm')]: {
 			fontSize: 12,
-			paddingRight: 6
 		},
 		[theme.breakpoints.between('sm', 'md')]: {
 			fontSize: 14,
-			paddingRight: 7
 		},
 		[theme.breakpoints.between('md', 'xl')]: {
 			fontSize: 18,
-			paddingRight: 9
 		},
 		[theme.breakpoints.up('xl')]: {
-			fontSize: 24,
-			paddingRight: 20
+			fontSize: 20,
 		},
 		['@media (min-width:3200px)']: {
 			fontSize: 40,
-			paddingRight: 40
 		},
+	},
+	btnTopbarSelect:{
+		color:'#D9D5CC',
+		background: 'url('+btnbg+') center center no-repeat',
 	},
 	btnColor3: {
 		paddingTop: 0,
@@ -201,16 +202,16 @@ const styles = (theme) => ({
 		content: 'url(' + fullLogo + ')',
 		height: 'auto',
 		[theme.breakpoints.between('sm', 'md')]: {
-			height: '25px',
+			height: '18px',
 		},
 		[theme.breakpoints.between('md', 'lg')]: {
-			height: '30px',
+			height: '18px',
 		},
 		[theme.breakpoints.between('lg', 'xl')]: {
-			height: '40px',
+			height: '18px',
 		},
 		[theme.breakpoints.up('xl')]: {
-			height: '60px',
+			height: '22px',
 		},
 		['@media (min-width:3200px)']: {
 			height: '80px',
@@ -244,7 +245,6 @@ const styles = (theme) => ({
 	},
 	chainLogo:{
 		borderRadius:'50%',
-		boxShadow:'rgb(255, 125, 87) 3px 3px 3px',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			width: 26,
 		},
@@ -260,7 +260,55 @@ const styles = (theme) => ({
 		['@media (min-width:3200px)']: {
 			width: 72,
 		},
-	}
+	},
+	btnTopBarMenu:{
+		fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
+		backgroundColor: colors.color0,
+		color:'white',
+		paddingTop: 9,
+		paddingBottom: 9,
+		fontWeight:700,
+		lineHeight:1,
+		borderRadius:'0px',
+		boxShadow: '0px 4px 4px rgba(159, 34, 37, 0.15)',
+		border: '2px solid #9F2225',
+		'&:hover':{
+			color: colors.color0,
+		},
+		[theme.breakpoints.between('xs', 'sm')]: {
+			fontSize: 16,
+			paddingRight: 14,
+			paddingLeft: 14,
+		},
+		[theme.breakpoints.between('sm', 'md')]: {
+			fontSize: 16,
+			paddingRight: 14,
+			paddingLeft: 14,
+		},
+		[theme.breakpoints.between('md', 'lg')]: {
+			fontSize: 18,
+			paddingRight: 14,
+			paddingLeft: 14,
+		},
+		[theme.breakpoints.between('lg', 'xl')]: {
+			fontSize: 18,
+			paddingRight: 16,
+			paddingLeft: 16,
+		},
+		[theme.breakpoints.up('xl')]: {
+			fontSize: 20,
+			paddingRight: 20,
+			paddingLeft: 20,
+		},
+		['@media (min-width:3200px)']: {
+			fontSize: 56,
+			paddingRight: 64,
+			paddingLeft: 64,
+			paddingTop: 20,
+			paddingBottom: 20,
+
+		},
+	},
 })
 
 class TopBar extends Component {
@@ -280,6 +328,7 @@ class TopBar extends Component {
 		networkMenuAnchorEl: null,
 		chainName: '',
 		chainId: '',
+		nowHash:'home'
 	}
 	onScroll() {
 		if (this.state.topbarHeight == 0) {
@@ -332,9 +381,33 @@ class TopBar extends Component {
 		clearTimeout(this.onScroll);
 		clearTimeout(this.scrollEvent);
 	}
+
 	// eslint-disable-next-line react/no-deprecated
 	async componentDidMount() {
-		
+		let onWindowHrefChange = ()=>{
+			let hash = window.location.hash.toLowerCase()
+			let newHash = '';
+			if(hash == '#/'){
+				newHash = 'home'
+			}
+			if(hash == '#/publishex'){
+				newHash = 'publish'
+			}
+			if(hash=='#/collections'){
+				newHash = 'collection'
+			}
+			if(hash.indexOf('nft')>=0 || hash.indexOf('sell')>=0){
+				newHash = 'collection'
+			}
+			if(newHash != ''){
+				this.setState({
+					nowHash: newHash
+				})
+			}
+	
+			
+		}
+		onWindowHrefChange();
 		this.scrollEvent()
 		if (this.props.onRef) {
 			this.props.onRef(this)
@@ -748,7 +821,7 @@ class TopBar extends Component {
 		const { classes } = this.props
 		const { t } = this.props
 		const { isFixed } = this.state
-		const fixStyle = isFixed ? { position: 'fixed', top: 0, zIndex: 9, boxShadow: 'rgb(255, 189, 164) 0px 1px 4px' } : {}
+		const fixStyle = isFixed ? { position: 'fixed', top: 0, zIndex: 9, boxShadow: 'rgb(75, 75, 75) 0px 1px 4px' } : {}
 		const fixStyleBlank = isFixed ? { display: 'block', width: '100vw', height: this.state.topbarHeight, maxWidth: '100vw' } : { display: 'none', maxWidth: '100vw' }
 		const menuStyle = (window.innerWidth <= 1000) ? { display: 'block' } : { display: 'none' }
 		const chainId = this.state.chainId;
@@ -833,18 +906,18 @@ class TopBar extends Component {
 				</Menu>
 				<Toolbar id='topbar' className={classes.noPadding} style={{ minHeight: '0px' }}>
 					<div style={fixStyleBlank}></div>
-					<Grid style={fixStyle} className={classes.Toolbar + ' ' + classes.PaddingT10 + ' ' + classes.PaddingB10} container direction="row" wrap="nowrap">
+					<Grid style={fixStyle} className={classes.Toolbar + ' ' + classes.PaddingT11 + ' ' + classes.PaddingB11} container direction="row" wrap="nowrap">
 						<Grid item className={classes.titleGrid}>
 							<a href="/#/" className={classes.logo + ' ' + classes.PaddingL10} />
-							<div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', height: '100%' }}>
+							<div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', height: '100%' ,flex:'1',alignItems:'center'}}>
 								<div className={classes.btngroup}>
-									<a size="medium" className={classes.btnTopbar} href="/#/">
+									<a size="medium" className={classes.btnTopbar+' '+((this.state.nowHash=='home')&&classes.btnTopbarSelect)} href="/#/">
 										{t('index')}
 									</a>
-									<a size="medium" className={classes.btnTopbar} href="/#/PublishEx">
+									<a size="medium" className={classes.btnTopbar+' '+((this.state.nowHash=='publish')&&classes.btnTopbarSelect)} href="/#/PublishEx">
 										{t('publish')}
 									</a>
-									<a size="medium" className={classes.btnTopbar} href="/#/collections">
+									<a size="medium" className={classes.btnTopbar+' '+((this.state.nowHash=='collection')&&classes.btnTopbarSelect)} href="/#/collections">
 										{t('collection')}
 									</a>
 									<a size="medium" className={classes.btnTopbar} href="https://docs.sparklink.io/">
@@ -858,7 +931,6 @@ class TopBar extends Component {
 							<Button style={menuStyle} className={classes.btnColor3} aria-controls="basic-menu" aria-haspopup="true" aria-expanded={open ? 'true' : undefined} onClick={handleMenuClick}>
 								<b> ...</b>
 							</Button>
-							<div style={{ flex: '1' }}></div>
 							<Grid item className={classes.btnGrid}>
 								<LanguageBtn />
 								<React.Fragment>
@@ -897,7 +969,6 @@ class TopBar extends Component {
 											id='connectedBtn'
 											className={classes.btnTopBarMenu + ' ' + classes.MarginR8}
 											onClick={this.handleWalletMenuClick}
-											style={{boxShadow: 'rgb(255, 125, 87) 3px 3px 3px'}}
 										>
 											{this.state.userAddress.substring(0, 6)}...
 											{this.state.userAddress.substring(this.state.userAddress.length - 5, this.state.userAddress.length)}
@@ -913,7 +984,7 @@ class TopBar extends Component {
 									// <Button onClick={this.getAccount}>
 									//   <WalletFilled className={classes.icon} />
 									// </Button>
-									<Button id='unConnectedBtn' className={classes.btnTopBarMenu + ' ' + classes.MarginR8} style={{boxShadow: 'rgb(255, 125, 87) 3px 3px 3px'}}  onClick={this.handleDialogOpen}>
+									<Button id='unConnectedBtn' className={classes.btnTopBarMenu + ' ' + classes.MarginR8} onClick={this.handleDialogOpen}>
 										Connect Wallet
 									</Button>
 								)}

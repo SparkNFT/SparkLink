@@ -66,7 +66,7 @@ const styles = (theme) => ({
 	},
 	titleCon: {
 		marginTop: 50,
-		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+		fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			fontSize: 30,
 		},
@@ -102,7 +102,7 @@ const styles = (theme) => ({
 	},
 	titlePub: {
 		marginTop: '3%',
-		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+		fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			fontSize: 20,
 		},
@@ -118,7 +118,7 @@ const styles = (theme) => ({
 		display: 'flex',
 		flexDirection: 'column',
 		alignItems: 'center',
-		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+		fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
 	},
 	avatar: {
 		margin: theme.spacing(1),

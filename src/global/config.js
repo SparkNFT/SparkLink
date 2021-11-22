@@ -16,6 +16,7 @@ class configs{
 	get sparkAddr(){
 		return getContractAddress();
 	}
+	
 }
 const config = new configs()
 export default config

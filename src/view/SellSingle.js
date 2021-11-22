@@ -47,7 +47,7 @@ const styles = (theme) => ({
 		alignItems:'center'
 	},
 	cbutton: {
-		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+		fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			justifyContent: 'center',
 			alignItems: 'flex-start',
@@ -70,7 +70,7 @@ const styles = (theme) => ({
 		},
 	},
 	content: {
-		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+		fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			justifyContent: 'flex-start',
 			alignItems: 'flex-start',
@@ -112,7 +112,7 @@ const styles = (theme) => ({
 		marginBottom:'10%'
 	},
 	content2: {
-		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+		fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
 		
 		[theme.breakpoints.between('xs', 'sm')]: {
 			marginLeft:15,
@@ -134,7 +134,7 @@ const styles = (theme) => ({
 		},
 	},
 	cbutton2: {
-		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+		fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
 		justifyContent: 'flex-start',
 		alignItems: 'center',
 		[theme.breakpoints.between('xs', 'sm')]: {
@@ -143,7 +143,7 @@ const styles = (theme) => ({
 		},
 	},
 	share: {
-		fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+		fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
 		marginBottom: '10%',
 		[theme.breakpoints.between('xs', 'sm')]: {
 			fontSize: 14,
@@ -470,8 +470,8 @@ class SellSingle extends Component {
 								<Button
 									startIcon={<ArrowLeftOutlined style={{ fontSize: '100%' }} />}
 									onClick={this.handleClickLink}
-									className={classes.Display8}
-									style={{ marginTop: 20, marginBottom: 10}}
+									className={classes.Display11xs}
+									style={{ marginTop: 20, marginBottom: 10,textDecorationLine:'underline'}}
 								>
 									{t('返回')}
 								</Button>
@@ -499,18 +499,18 @@ class SellSingle extends Component {
 										direction="row"
 										className={classes.content}
 									>
-										<Grid container justifyContent='center' item xs={12} sm={5} md={5} lg={5} xl={5}>
+										<Grid container justifyContent='center' item xs={12} sm={4}>
 											<Paper className={classes.imagePapaer}>
 												<img className={classes.imageStyle} src={this.state.coverURL} onError={() => this.setFlag('isCoverLoaded')} id="cover" crossOrigin="anonymous" ></img>
 											</Paper >
 										</Grid >
 
-										<Grid item xs={10} sm={6} md={6} lg={6} className={classes.content2 +' ' +classes.PaddingT9}>
+										<Grid item xs={10} sm={7} className={classes.content2 +' ' +classes.PaddingT9}>
 											<Typography
 												color="inherit"
 												align="left"
 												// eslint-disable-next-line react/jsx-no-duplicate-props
-												color="textSecondary"
+												style={{fontWeight:'800',color:'#9F2225'}}
 												noWrap
 												className={classes.Display10}
 											>
@@ -520,14 +520,14 @@ class SellSingle extends Component {
 												color="inherit"
 												align="left"
 												noWrap
-												className={classes.Display8}
+												className={classes.Display7}
 											>
 												<b>{this.state.name}</b>
 											</Typography>
 											<Typography
 												align="justify"
 												color="textSecondary"
-												className={classes.Display10}
+												className={classes.Display11xs}
 												paragraph
 												style={{
 													marginTop: '2%',
@@ -541,11 +541,11 @@ class SellSingle extends Component {
 												color="textPrimary"
 												paragraph
 												className={classes.Display10}
-												style={{ marginTop: '6%'}}
+												style={{ marginTop: '6%',fontWeight:'800'}}
 											>
 												{t('创作者分红比例：')}{this.state.bonusFee} %
 											</Typography>
-											<Typography align="left" color="textPrimary" paragraph className={classes.Display10} >
+											<Typography align="left" color="textPrimary" paragraph className={classes.Display10} style={{fontWeight:'800'}} >
 												{t('当前拥有的子节点数量：')} {this.state.childrenNum}
 											</Typography>
 											<div style={{display:'flex',justifyContent:'start'}}>{showSellBtn()}</div>
@@ -579,10 +579,10 @@ class SellSingle extends Component {
 													/>
 												</DialogContent>
 												<DialogActions className={classes.MarginB7+' '+classes.MarginT7+' '+classes.MarginL9+' '+classes.MarginR9}>
-													<Button onClick={this.handleClose} className={classes.btnOutlineMini} color="primary">
+													<Button onClick={this.handleClose} className={classes.btnOutline} color="primary">
 														{t('取消')}
 													</Button>
-													<Button className={classes.btnMini} onClick={this.sell} color="primary">
+													<Button className={classes.btn} onClick={this.sell} color="primary">
 														{t('售卖')}
 													</Button>
 												</DialogActions>
