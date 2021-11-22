@@ -911,7 +911,7 @@ let styleCommon = (theme) => {
 		},
 		Display0:{
 			fontWeight:400,
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 134,
 			},
@@ -933,7 +933,7 @@ let styleCommon = (theme) => {
 		},
 		Display1:{
 			fontWeight:400,
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 86,
 			},
@@ -955,7 +955,7 @@ let styleCommon = (theme) => {
 		},
 		Display2:{
 			fontWeight:400,
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 66,
 			},
@@ -977,7 +977,7 @@ let styleCommon = (theme) => {
 		},
 		Display3:{
 			fontWeight:400,
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 54,
 			},
@@ -999,7 +999,7 @@ let styleCommon = (theme) => {
 		},
 		Display4:{
 			fontWeight:400,
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 40,
 			},
@@ -1021,7 +1021,7 @@ let styleCommon = (theme) => {
 		},
 		Display5:{
 			fontWeight:400,
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 32,
 			},
@@ -1043,7 +1043,7 @@ let styleCommon = (theme) => {
 		},
 		Display6:{
 			fontWeight:400,
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 30,
 			},
@@ -1054,10 +1054,10 @@ let styleCommon = (theme) => {
 				fontSize: 36,
 			},
 			[theme.breakpoints.between('lg', 'xl')]: {
-				fontSize: 44,
+				fontSize: 42,
 			},
 			[theme.breakpoints.up('xl')]: {
-				fontSize: 54,
+				fontSize: 48,
 			},
 			['@media (min-width:3200px)']: {
 				fontSize: 106,
@@ -1065,7 +1065,7 @@ let styleCommon = (theme) => {
 		},
 		Display7:{
 			fontWeight:400,
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 24,
 			},
@@ -1079,7 +1079,7 @@ let styleCommon = (theme) => {
 				fontSize: 34,
 			},
 			[theme.breakpoints.up('xl')]: {
-				fontSize: 42,
+				fontSize: 36,
 			},
 			['@media (min-width:3200px)']: {
 				fontSize: 84,
@@ -1087,7 +1087,7 @@ let styleCommon = (theme) => {
 		},
 		Display8:{
 			fontWeight:400,
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 22,
 			},
@@ -1101,7 +1101,7 @@ let styleCommon = (theme) => {
 				fontSize: 28,
 			},
 			[theme.breakpoints.up('xl')]: {
-				fontSize: 32,
+				fontSize: 30,
 			},
 			['@media (min-width:3200px)']: {
 				fontSize: 64,
@@ -1109,8 +1109,8 @@ let styleCommon = (theme) => {
 		},
 		Display9:{
 			fontWeight:400,
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
-			//fontFamily:'ANC,SourceHanSansCN-Light, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
+			//fontFamily:'montserrat,SourceHanSansCN, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 20,
 			},
@@ -1121,7 +1121,7 @@ let styleCommon = (theme) => {
 				fontSize: 24,
 			},
 			[theme.breakpoints.between('lg', 'xl')]: {
-				fontSize: 24,
+				fontSize: 27,
 			},
 			[theme.breakpoints.up('xl')]: {
 				fontSize: 30,
@@ -1133,7 +1133,7 @@ let styleCommon = (theme) => {
 		},
 		Display10:{
 			fontWeight:400,
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 18,
 			},
@@ -1155,7 +1155,7 @@ let styleCommon = (theme) => {
 		},
 		Display11:{
 			fontWeight:400,
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 16,
 			},
@@ -1174,7 +1174,7 @@ let styleCommon = (theme) => {
 		},
 		Display11x:{
 			fontWeight:400,
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 14,
 			},
@@ -1191,9 +1191,28 @@ let styleCommon = (theme) => {
 				fontSize: 48,
 			},
 		},
+		Display11xs:{
+			fontWeight:400,
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
+			[theme.breakpoints.between('xs', 'sm')]: {
+				fontSize: 18,
+			},
+			[theme.breakpoints.between('sm', 'md')]: {
+				fontSize: 20,
+			},
+			[theme.breakpoints.between('md', 'xl')]: {
+				fontSize: 22,
+			},
+			[theme.breakpoints.up('xl')]: {
+				fontSize: 24,
+			},
+			['@media (min-width:3200px)']: {
+				fontSize: 48,
+			},
+		},
 		Display11s:{
 			fontWeight:400,
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 16,
 			},
@@ -1210,9 +1229,47 @@ let styleCommon = (theme) => {
 				fontSize: 40,
 			},
 		},
+		Display12s:{
+			fontWeight:400,
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
+			[theme.breakpoints.between('xs', 'sm')]: {
+				fontSize: 16,
+			},
+			[theme.breakpoints.between('sm', 'md')]: {
+				fontSize: 17,
+			},
+			[theme.breakpoints.between('md', 'xl')]: {
+				fontSize: 17,
+			},
+			[theme.breakpoints.up('xl')]: {
+				fontSize: 18,
+			},
+			['@media (min-width:3200px)']: {
+				fontSize: 24,
+			},
+		},
+		Display14s:{
+			fontWeight:400,
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
+			[theme.breakpoints.between('xs', 'sm')]: {
+				fontSize: 13,
+			},
+			[theme.breakpoints.between('sm', 'md')]: {
+				fontSize: 13,
+			},
+			[theme.breakpoints.between('md', 'xl')]: {
+				fontSize: 13,
+			},
+			[theme.breakpoints.up('xl')]: {
+				fontSize: 14,
+			},
+			['@media (min-width:3200px)']: {
+				fontSize: 18,
+			},
+		},
 		DisplaySeBold0:{
 			fontWeight:600,
-			fontFamily:'ANC-SeBold,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 134,
 			},
@@ -1234,7 +1291,7 @@ let styleCommon = (theme) => {
 		},
 		DisplaySeBold1:{
 			fontWeight:600,
-			fontFamily:'ANC-SeBold,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 86,
 			},
@@ -1256,7 +1313,7 @@ let styleCommon = (theme) => {
 		},
 		DisplaySeBold2:{
 			fontWeight:600,
-			fontFamily:'ANC-SeBold,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 66,
 			},
@@ -1278,7 +1335,7 @@ let styleCommon = (theme) => {
 		},
 		DisplaySeBold3:{
 			fontWeight:600,
-			fontFamily:'ANC-SeBold,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 54,
 			},
@@ -1300,7 +1357,7 @@ let styleCommon = (theme) => {
 		},
 		DisplaySeBold4:{
 			fontWeight:600,
-			fontFamily:'ANC-SeBold,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 40,
 			},
@@ -1322,7 +1379,7 @@ let styleCommon = (theme) => {
 		},
 		DisplaySeBold5:{
 			fontWeight:600,
-			fontFamily:'ANC-SeBold,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 32,
 			},
@@ -1344,7 +1401,7 @@ let styleCommon = (theme) => {
 		},
 		DisplaySeBold6:{
 			fontWeight:600,
-			fontFamily:'ANC-SeBold,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 30,
 			},
@@ -1366,7 +1423,7 @@ let styleCommon = (theme) => {
 		},
 		DisplaySeBold7:{
 			fontWeight:600,
-			fontFamily:'ANC-SeBold,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 24,
 			},
@@ -1388,7 +1445,7 @@ let styleCommon = (theme) => {
 		},
 		DisplaySeBold8:{
 			fontWeight:600,
-			fontFamily:'ANC-SeBold,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 22,
 			},
@@ -1410,8 +1467,8 @@ let styleCommon = (theme) => {
 		},
 		DisplaySeBold9:{
 			fontWeight:600,
-			fontFamily:'ANC-SeBold,source-han-sans-simplified-c, sans-serif',
-			//fontFamily:'ANC-SeBold,SourceHanSansCN-Light, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
+			//fontFamily:'montserrat,SourceHanSansCN, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 20,
 			},
@@ -1434,7 +1491,7 @@ let styleCommon = (theme) => {
 		},
 		DisplaySeBold10:{
 			fontWeight:600,
-			fontFamily:'ANC-SeBold,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 18,
 			},
@@ -1456,7 +1513,7 @@ let styleCommon = (theme) => {
 		},
 		DisplaySeBold11:{
 			fontWeight:600,
-			fontFamily:'ANC-SeBold,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 16,
 			},
@@ -1475,7 +1532,7 @@ let styleCommon = (theme) => {
 		},
 		DisplaySeBold11x:{
 			fontWeight:600,
-			fontFamily:'ANC-SeBold,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 14,
 			},
@@ -1494,7 +1551,7 @@ let styleCommon = (theme) => {
 		},
 		DisplaySeBold11s:{
 			fontWeight:600,
-			fontFamily:'ANC-SeBold,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 16,
 			},
@@ -1512,7 +1569,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		DisplayLight0:{
-			fontFamily:'ANC-Light,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 134,
 			},
@@ -1533,7 +1590,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		DisplayLight1:{
-			fontFamily:'ANC-Light,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 86,
 			},
@@ -1554,7 +1611,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		DisplayLight2:{
-			fontFamily:'ANC-Light,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 66,
 			},
@@ -1575,7 +1632,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		DisplayLight3:{
-			fontFamily:'ANC-Light,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 54,
 			},
@@ -1596,7 +1653,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		DisplayLight4:{
-			fontFamily:'ANC-Light,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 40,
 			},
@@ -1617,7 +1674,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		DisplayLight5:{
-			fontFamily:'ANC-Light,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 32,
 			},
@@ -1638,7 +1695,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		DisplayLight6:{
-			fontFamily:'ANC-Light,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 30,
 			},
@@ -1659,7 +1716,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		DisplayLight7:{
-			fontFamily:'ANC-Light,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 24,
 			},
@@ -1680,7 +1737,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		DisplayLight8:{
-			fontFamily:'ANC-Light,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 22,
 			},
@@ -1701,8 +1758,8 @@ let styleCommon = (theme) => {
 			},
 		},
 		DisplayLight9:{
-			fontFamily:'ANC-Light,source-han-sans-simplified-c, sans-serif',
-			//fontFamily:'ANC-Light,SourceHanSansCN-Light, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
+			//fontFamily:'montserrat,SourceHanSansCN, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 20,
 			},
@@ -1724,7 +1781,7 @@ let styleCommon = (theme) => {
 
 		},
 		DisplayLight10:{
-			fontFamily:'ANC-Light,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 18,
 			},
@@ -1745,7 +1802,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		DisplayLight11:{
-			fontFamily:'ANC-Light,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 16,
 			},
@@ -1763,7 +1820,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		DisplayLight11x:{
-			fontFamily:'ANC-Light,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 14,
 			},
@@ -1781,7 +1838,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		DisplayLight11s:{
-			fontFamily:'ANC-Light,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 16,
 			},
@@ -1799,7 +1856,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		DisplayLight12s:{
-			fontFamily:'ANC-Light,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 14,
 			},
@@ -1817,7 +1874,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		PaddingL0:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				paddingLeft: 72,
 			},
@@ -1838,7 +1895,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		PaddingL1:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				paddingLeft: 43,
 			},
@@ -1859,7 +1916,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		PaddingL2:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				paddingLeft: 34,
 			},
@@ -1880,7 +1937,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		PaddingL3:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				paddingLeft: 26,
 			},
@@ -1901,7 +1958,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		PaddingL4:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				paddingLeft: 21,
 			},
@@ -1922,7 +1979,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		PaddingL5:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				paddingLeft: 17,
 			},
@@ -1943,7 +2000,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		PaddingL6:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				paddingLeft: 17,
 			},
@@ -1964,7 +2021,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		PaddingL7:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				paddingLeft: 12,
 			},
@@ -1985,7 +2042,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		PaddingL8:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				paddingLeft: 10,
 			},
@@ -2006,7 +2063,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		PaddingL9:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				paddingLeft: 8,
 			},
@@ -2028,7 +2085,7 @@ let styleCommon = (theme) => {
 
 		},
 		PaddingL10:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				paddingLeft: 9,
 			},
@@ -2046,7 +2103,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		PaddingR0:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				paddingRight: 112,
 			},
@@ -2067,7 +2124,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		PaddingR1:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				paddingRight: 72,
 			},
@@ -2088,7 +2145,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		PaddingR2:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				paddingRight: 56,
 			},
@@ -2109,7 +2166,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		PaddingR3:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				paddingRight: 44,
 			},
@@ -2130,7 +2187,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		PaddingR4:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				paddingRight: 34,
 			},
@@ -2151,7 +2208,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		PaddingR5:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				paddingRight: 28,
 			},
@@ -2172,7 +2229,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		PaddingR6:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				paddingRight: 28,
 			},
@@ -2193,7 +2250,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		PaddingR7:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				paddingRight: 20,
 			},
@@ -2214,7 +2271,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		PaddingR8:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				paddingRight: 16,
 			},
@@ -2235,7 +2292,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		PaddingR9:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				paddingRight: 14,
 			},
@@ -2257,7 +2314,7 @@ let styleCommon = (theme) => {
 
 		},
 		PaddingR10:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				paddingRight: 12,
 			},
@@ -2275,7 +2332,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		PaddingT0:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				paddingTop: 112,
 			},
@@ -2296,7 +2353,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		PaddingT1:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				paddingTop: 72,
 			},
@@ -2317,7 +2374,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		PaddingT2:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				paddingTop: 56,
 			},
@@ -2338,7 +2395,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		PaddingT3:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				paddingTop: 44,
 			},
@@ -2359,7 +2416,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		PaddingT4:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				paddingTop: 34,
 			},
@@ -2380,7 +2437,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		PaddingT5:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				paddingTop: 28,
 			},
@@ -2401,7 +2458,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		PaddingT6:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				paddingTop: 28,
 			},
@@ -2422,7 +2479,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		PaddingT7:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				paddingTop: 20,
 			},
@@ -2443,7 +2500,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		PaddingT8:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				paddingTop: 16,
 			},
@@ -2464,7 +2521,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		PaddingT9:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				paddingTop: 14,
 			},
@@ -2486,7 +2543,7 @@ let styleCommon = (theme) => {
 
 		},
 		PaddingT10:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				paddingTop: 12,
 			},
@@ -2502,9 +2559,27 @@ let styleCommon = (theme) => {
 			['@media (min-width:3200px)']: {
 				paddingTop: 48,
 			},
+		},	
+		PaddingT11:{
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
+			[theme.breakpoints.between('xs', 'sm')]: {
+				paddingTop: 12,
+			},
+			[theme.breakpoints.between('sm', 'md')]: {
+				paddingTop: 16,
+			},
+			[theme.breakpoints.between('md', 'xl')]: {
+				paddingTop: 20,
+			},
+			[theme.breakpoints.up('xl')]: {
+				paddingTop: 24,
+			},
+			['@media (min-width:3200px)']: {
+				paddingTop: 48,
+			},
 		},
 		PaddingB0:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				paddingBottom: 112,
 			},
@@ -2525,7 +2600,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		PaddingB1:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				paddingBottom: 72,
 			},
@@ -2546,7 +2621,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		PaddingB2:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				paddingBottom: 56,
 			},
@@ -2567,7 +2642,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		PaddingB3:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				paddingBottom: 44,
 			},
@@ -2588,7 +2663,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		PaddingB4:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				paddingBottom: 34,
 			},
@@ -2609,7 +2684,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		PaddingB5:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				paddingBottom: 28,
 			},
@@ -2630,7 +2705,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		PaddingB6:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				paddingBottom: 28,
 			},
@@ -2651,7 +2726,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		PaddingB7:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				paddingBottom: 20,
 			},
@@ -2672,7 +2747,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		PaddingB8:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				paddingBottom: 16,
 			},
@@ -2693,7 +2768,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		PaddingB9:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				paddingBottom: 14,
 			},
@@ -2715,7 +2790,7 @@ let styleCommon = (theme) => {
 
 		},
 		PaddingB10:{
-			fontFamily:'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				paddingBottom: 12,
 			},
@@ -2732,9 +2807,26 @@ let styleCommon = (theme) => {
 				paddingBottom: 48,
 			},
 		},
-
+		PaddingB11:{
+			fontFamily:'montserrat,source-han-sans-simplified-c, sans-serif',
+			[theme.breakpoints.between('xs', 'sm')]: {
+				paddingBottom: 12,
+			},
+			[theme.breakpoints.between('sm', 'md')]: {
+				paddingBottom: 16,
+			},
+			[theme.breakpoints.between('md', 'xl')]: {
+				paddingBottom: 20,
+			},
+			[theme.breakpoints.up('xl')]: {
+				paddingBottom: 24,
+			},
+			['@media (min-width:3200px)']: {
+				paddingBottom: 48,
+			},
+		},
 		h1: {
-			fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
 			marginTop: '20%',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 22,
@@ -2753,7 +2845,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		h1x: {
-			fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
 			marginTop: '25%',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 22,
@@ -2772,7 +2864,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		h2: {
-			fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 20,
 			},
@@ -2797,7 +2889,7 @@ let styleCommon = (theme) => {
 			paddingRight: 50,
 			paddingTop: 10,
 			paddingBottom: 5,
-			fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
 			marginTop: '5vw',
 			color: 'white',
 			lineHeight: 1,
@@ -2821,7 +2913,7 @@ let styleCommon = (theme) => {
 		h3:{
 			letterSpacing: -1,
 			wordSpacing: 3,
-			fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
 			lineHeight: 1,
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 18,
@@ -2846,7 +2938,7 @@ let styleCommon = (theme) => {
 			paddingLeft: 15,
 			paddingRight: 10,
 			paddingBottom: 15,
-			fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
 			color: 'rgb(255,112,67)',
 			lineHeight: 1,
 			marginBottom: '3vw',
@@ -2868,7 +2960,7 @@ let styleCommon = (theme) => {
 		},
 		h4: {
 			color: 'white',
-			fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 16,
 			},
@@ -2887,7 +2979,7 @@ let styleCommon = (theme) => {
 		},
 		h5: {
 			color: 'white',
-			fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 16,
 			},
@@ -2905,7 +2997,7 @@ let styleCommon = (theme) => {
 			},
 		},
 		h4Link: {
-			fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
 			
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 16,
@@ -2924,96 +3016,91 @@ let styleCommon = (theme) => {
 			},
 		},
 		btnMini: {
-			fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
-			backgroundColor: '#EF8F71',
-			color:'#FFFFFF',
-			borderColor: '#EF8F71',
-			borderWidth: 2,
-			borderStyle:'solid',
-			borderRadius: '100vw',
-			paddingTop: 10,
-			paddingBottom: 10,
-			fontWeight:400,
+			fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
+			backgroundColor: colors.color0,
+			color:'white',
+			paddingTop: 9,
+			paddingBottom: 9,
+			fontWeight:700,
 			lineHeight:1,
+			borderRadius:'0px',
+			boxShadow: '0px 4px 4px rgba(159, 34, 37, 0.15)',
+			border: '2px solid #9F2225',
 			'&:hover':{
-				color: '#EF8F71',
-				borderColor: '#FF774A',
-				borderWidth: 2,
+				color: colors.color0,
 			},
 			[theme.breakpoints.between('xs', 'sm')]: {
-				fontSize: 14,
-				paddingRight: 12,
-				paddingLeft: 12,
+				fontSize: 12,
+				paddingRight: 14,
+				paddingLeft: 14,
 			},
 			[theme.breakpoints.between('sm', 'md')]: {
-				fontSize: 16,
+				fontSize: 13,
 				paddingRight: 14,
 				paddingLeft: 14,
 			},
 			[theme.breakpoints.between('md', 'lg')]: {
-				fontSize: 16,
+				fontSize: 13,
 				paddingRight: 14,
 				paddingLeft: 14,
 			},
 			[theme.breakpoints.between('lg', 'xl')]: {
-				fontSize: 20,
-				paddingRight: 20,
-				paddingLeft: 20,
+				fontSize: 13,
+				paddingRight: 16,
+				paddingLeft: 16,
 			},
 			[theme.breakpoints.up('xl')]: {
-				fontSize: 22,
+				fontSize: 14,
 				paddingRight: 20,
 				paddingLeft: 20,
 			},
 			['@media (min-width:3200px)']: {
-				fontSize: 48,
-				paddingRight: 40,
-				paddingLeft: 40,
-				paddingBottom: 20,
+				fontSize: 24,
+				paddingRight: 64,
+				paddingLeft: 64,
 				paddingTop: 20,
+				paddingBottom: 20,
+
 			},
 		},
 		btn: {
-			fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
-			backgroundColor: '#EF8F71',
-			color:'#FFFFFF',
-			borderColor: '#EF8F71',
-			borderWidth: 2,
-			borderStyle:'solid',
-			borderRadius: '100vw',
-			paddingTop: 10,
-			paddingBottom: 10,
-			fontWeight:400,
+			fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
+			backgroundColor: colors.color0,
+			color:'white',
+			paddingTop: 9,
+			paddingBottom: 9,
+			fontWeight:700,
 			lineHeight:1,
+			borderRadius:'0px',
+			boxShadow: '0px 4px 4px rgba(159, 34, 37, 0.15)',
+			border: '2px solid #9F2225',
 			'&:hover':{
-				color: '#FF774A',
-				borderColor: '#FF774A',
-				borderWidth: 2,
+				color: colors.color0,
 			},
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 16,
-				paddingRight: 16,
-				paddingLeft: 16,
+				paddingRight: 14,
+				paddingLeft: 14,
 			},
 			[theme.breakpoints.between('sm', 'md')]: {
 				fontSize: 16,
-				paddingRight: 20,
-				paddingLeft: 20,
+				paddingRight: 14,
+				paddingLeft: 14,
 			},
 			[theme.breakpoints.between('md', 'lg')]: {
 				fontSize: 20,
-				paddingRight: 24,
-				paddingLeft: 24,
+				paddingRight: 14,
+				paddingLeft: 14,
 			},
 			[theme.breakpoints.between('lg', 'xl')]: {
-				fontSize: 24,
-				paddingRight: 28,
-				paddingLeft: 28,
+				fontSize: 23,
+				paddingRight: 16,
+				paddingLeft: 16,
 			},
 			[theme.breakpoints.up('xl')]: {
-				fontSize: 28,
-				paddingRight: 34,
-				paddingLeft: 34,
+				fontSize: 25,
+				paddingRight: 20,
+				paddingLeft: 20,
 			},
 			['@media (min-width:3200px)']: {
 				fontSize: 56,
@@ -3025,21 +3112,18 @@ let styleCommon = (theme) => {
 			},
 		},
 		btnBig: {
-			fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
-			backgroundColor: '#FF7744',
-			color:'#FFFFFF',
-			borderColor: '#FF774A',
-			borderWidth: 2,
-			borderStyle:'solid',
-			borderRadius: '100vw',
-			paddingTop: 10,
-			paddingBottom: 10,
-			fontWeight:400,
+			fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
+			backgroundColor: colors.color0,
+			color:'white',
+			paddingTop: 9,
+			paddingBottom: 9,
+			fontWeight:700,
 			lineHeight:1,
+			borderRadius:'0px',
+			boxShadow: '0px 4px 4px rgba(159, 34, 37, 0.15)',
+			border: '2px solid #9F2225',
 			'&:hover':{
-				color: '#FF774A',
-				borderColor: '#FFFFFF',
-				borderWidth: 2,
+				color: colors.color0,
 			},
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 16,
@@ -3077,7 +3161,7 @@ let styleCommon = (theme) => {
 		btnOutlineMini: {
 			whiteSpace:'nowrap',
 			// marginTop: theme.spacing(3),
-			fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
 			color: '#FF774A',
 			borderColor: '#FF774A',
 			borderWidth: 2,
@@ -3128,62 +3212,58 @@ let styleCommon = (theme) => {
 			},
 		},
 		btnOutline: {
-			whiteSpace:'nowrap',
-			// marginTop: theme.spacing(3),
-			fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
-			color: '#FF774A',
-			borderColor: '#FF774A',
-			borderWidth: 2,
-			borderRadius: '100vw',
-			paddingLeft: 20,
-			paddingRight: 20,
-			fontWeight:500,
-			paddingTop: 10,
-			borderStyle:'solid',
-			paddingBottom: 10,
+			fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
+			backgroundColor: 'transparent',
+			color:colors.color0,
+			paddingTop: 9,
+			paddingBottom: 9,
+			fontWeight:700,
+			
 			lineHeight:1,
+			borderRadius:'0px',
+			boxShadow: '0px 4px 4px rgba(159, 34, 37, 0.15)',
+			border: '2px solid #9F2225',
 			'&:hover':{
-				color: '#FFFFFF',
-				backgroundColor: '#FF774A',
-				borderColor: '#FFFFFF',
-				borderWidth: 2,
+				color: 'white',
+				backgroundColor:colors.color0
 			},
 			[theme.breakpoints.between('xs', 'sm')]: {
 				fontSize: 16,
-				paddingRight: 16,
-				paddingLeft: 16,
+				paddingRight: 14,
+				paddingLeft: 14,
 			},
 			[theme.breakpoints.between('sm', 'md')]: {
 				fontSize: 16,
+				paddingRight: 14,
+				paddingLeft: 14,
+			},
+			[theme.breakpoints.between('md', 'lg')]: {
+				fontSize: 20,
+				paddingRight: 14,
+				paddingLeft: 14,
+			},
+			[theme.breakpoints.between('lg', 'xl')]: {
+				fontSize: 23,
+				paddingRight: 16,
+				paddingLeft: 16,
+			},
+			[theme.breakpoints.up('xl')]: {
+				fontSize: 25,
 				paddingRight: 20,
 				paddingLeft: 20,
 			},
-			[theme.breakpoints.between('md', 'lg')]: {
-				fontSize: 21,
-				paddingRight: 24,
-				paddingLeft: 24,
-			},
-			[theme.breakpoints.between('lg', 'xl')]: {
-				fontSize: 24,
-				paddingRight: 28,
-				paddingLeft: 28,
-			},
-			[theme.breakpoints.up('xl')]: {
-				fontSize: 28,
-				paddingRight: 34,
-				paddingLeft: 34,
-			},
 			['@media (min-width:3200px)']: {
-				fontSize: 56,
-				paddingRight: 64,
-				paddingLeft: 64,
-				paddingBottom: 20,
+				fontSize: 5.,
+				paddingRight: 40,
+				paddingLeft: 40,
 				paddingTop: 20,
+				paddingBottom: 20,
+
 			},
 		},
 		btnColor:{
 			whiteSpace:'nowrap',
-			fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
 			color: '#FFFFFF',
 			boxShadow: '0px 2px 2px #ff7d57',
 			backgroundImage: 'linear-gradient(to bottom right, #FFE6F2, rgb(255,136,98))',
@@ -3230,7 +3310,7 @@ let styleCommon = (theme) => {
 		btnColor2:{
 			fontWeight:500,
 			whiteSpace:'nowrap',
-			fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
 			backgroundColor: 'rgb(255,241,235)',
 			boxShadow: '0px 2px 2px #ff7d57',
 			borderWidth: 2,
@@ -3279,7 +3359,7 @@ let styleCommon = (theme) => {
 		},
 		btnColor3:{
 			whiteSpace:'nowrap',
-			fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
 			backgroundColor: '#FFFFFF',
 			borderWidth: 2,
 			borderRadius: '100vw',
@@ -3329,7 +3409,7 @@ let styleCommon = (theme) => {
 		},
 		btnColor3Mini:{
 			whiteSpace:'nowrap',
-			fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
 			backgroundColor: '#FFFFFF',
 			borderWidth: 2,
 			borderRadius: '100vw',
@@ -3376,53 +3456,9 @@ let styleCommon = (theme) => {
 				paddingLeft: 64,
 			},
 		},
-		btnTopBarMenu:{
-			whiteSpace:'nowrap',
-			fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
-			backgroundColor: '#FFFFFF',
-			borderWidth: 2,
-			borderRadius: '100vw',
-			borderColor :'#FF774A',
-
-			color: '#FF774A',
-			paddingTop: 0,
-			paddingBottom: 0,
-			'&:hover':{
-				color: '#FFFFFF',
-				backgroundColor: '#FF774A',
-			
-				borderWidth: 2,
-			},
-			[theme.breakpoints.between('xs', 'sm')]: {
-				fontSize: 14,
-				paddingLeft: 10,
-				paddingRight: 10,
-				
-			},
-			[theme.breakpoints.between('sm', 'md')]: {
-				fontSize: 16,
-				paddingLeft: 16,
-				paddingRight: 16,
-			},
-			[theme.breakpoints.between('md', 'xl')]: {
-				fontSize: 20,
-				paddingLeft: 20,
-				paddingRight: 20,
-			},
-			[theme.breakpoints.up('xl')]: {
-				fontSize: 24,
-				paddingLeft: 32,
-				paddingRight: 32,
-			},
-			['@media (min-width:3200px)']: {
-				fontSize: 48,
-				paddingLeft: 32,
-				paddingRight: 32,
-			},
-		},
 		btnItem:{
 			whiteSpace:'nowrap',
-			fontFamily: 'ANC,source-han-sans-simplified-c, sans-serif',
+			fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
 			color: 'rgb(255,119,68)',
 			paddingTop: 0,
 			paddingBottom: 0,
@@ -3494,6 +3530,14 @@ let styleCommon = (theme) => {
 	}
 	return common
 }
+export let colors = {
+	color0:'#9F2525',
+	color1:'#303030',
+	color2:'#CFCB35',
+	color3:'#EEE8DB'
+};
+
+
 let withCommon = function(style){
 	let newStyle = function(theme){
 		let oldStyle = style(theme);

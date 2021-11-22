@@ -1,9 +1,9 @@
-import withCommon from '../styles/common'
+import withCommon, { colors } from '../styles/common'
 import { withStyles } from '@material-ui/styles'
 import React, { Component } from 'react'
 import Grid from '@material-ui/core/Grid'
 import { withTranslation } from 'react-i18next'
-import bot from '../imgs/bot.png'
+import bot from '../imgs/brain2.png'
 import logoTwi from '../imgs/logoTwi.png'
 import logoDis from '../imgs/logoRed.png'
 import logoTele from '../imgs/logoTele.png'
@@ -54,13 +54,13 @@ let styles = (theme) => ({
 			width: '50px'
 		},
 		[theme.breakpoints.up('sm')]: {
-			width: '66px'
+			width: '100px'
 		},
 		[theme.breakpoints.up('xl')]: {
-			width: '80px'
+			width: '139px'
 		},
 		['@media (min-width:3200px)']:{
-			width: '160px'
+			width: '260px'
 		},
 		marginRight:'0.5vw',
 	},
@@ -78,7 +78,7 @@ let styles = (theme) => ({
 	},
 	DisplayLight12s:{
 		whiteSpace:'nowrap',
-		color:'rgba(255,255,255,1.0)',
+		color:colors.color3,
 		'&:hover':{
 			color:'rgb(255,112,67)'
 		},
@@ -86,28 +86,31 @@ let styles = (theme) => ({
 		
 	},
 	Display8:{
-		color:'rgb(255,112,67)',
+		color:colors.color3,
 
 	},
 	btnImgRound:{
 		flex:'1'
 	},
 	DisplaySeBold10:{
-		color:'rgba(255,255,255,1.0)',
+		color:colors.color3,
 		'&:hover':{
 			color:'rgb(255,112,67)'
 		},
 		whiteSpace:'nowrap'
 	},
+	DisplaySeBold11:{
+		color:colors.color3,
+	},
 	DisplaySeBold11s:{
-		color:'rgba(255,255,255,1.0)',
+		color:colors.color3,
 		'&:hover':{
 			color:'rgb(255,112,67)'
 		},
 		whiteSpace:'nowrap'
 	},
 	DisplaySeBold8:{
-		color:'rgba(255,255,255,1.0)',
+		color:colors.color3,
 		'&:hover':{
 			color:'rgb(255,112,67)'
 		},
@@ -130,7 +133,7 @@ class Footer extends Component {
 		const { t } = this.props
 		const { classes } = this.props
 		return (
-			<div  style={{backgroundColor: '#EF8F71' ,marginTop:'15vh'}}>
+			<div  style={{backgroundColor: colors.color1 ,marginTop:'15vh'}}>
 				
 				<Container style={{maxWidth:'100vw',paddingLeft:'0px',paddingRight:'0px'}}>
 					<Grid xs={12} item className={classes.footer + ' ' + classes.PaddingB3+' '+classes.PaddingL6+' '+classes.PaddingR6} container>
@@ -138,7 +141,7 @@ class Footer extends Component {
 							<Grid item xs={12} style={{display: 'flex', justifyContent:'center',alignItems:'center'}}>
 								<div style={{display: 'flex',alignItems:'center'}}>
 									<img src={bot} className={classes.botimg} />
-									<a className={classes.DisplaySeBold11s}  style={{textTransform:'normal',whiteSpace:'nowrap'}}>SparkLink Telegram Bot</a>
+									<a className={classes.DisplaySeBold11s}  style={{textTransform:'normal',whiteSpace:'nowrap',fontWeight:900}}>SparkLink Telegram Bot</a>
 								</div>
 							</Grid>
 							<Grid item xs={12} className={classes.btnRoundGroup}  style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
