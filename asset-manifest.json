@@ -1,21 +1,21 @@
 {
   "files": {
     "main.css": "/static/css/main.ea3c2372.chunk.css",
-    "main.js": "/static/js/main.5d7aa550.chunk.js",
-    "main.js.map": "/static/js/main.5d7aa550.chunk.js.map",
+    "main.js": "/static/js/main.df699622.chunk.js",
+    "main.js.map": "/static/js/main.df699622.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.43664945.js",
     "runtime-main.js.map": "/static/js/runtime-main.43664945.js.map",
     "static/css/2.48e5491c.chunk.css": "/static/css/2.48e5491c.chunk.css",
-    "static/js/2.6c0d93a4.chunk.js": "/static/js/2.6c0d93a4.chunk.js",
-    "static/js/2.6c0d93a4.chunk.js.map": "/static/js/2.6c0d93a4.chunk.js.map",
+    "static/js/2.3d01e292.chunk.js": "/static/js/2.3d01e292.chunk.js",
+    "static/js/2.3d01e292.chunk.js.map": "/static/js/2.3d01e292.chunk.js.map",
     "index.html": "/index.html",
     "static/css/2.48e5491c.chunk.css.map": "/static/css/2.48e5491c.chunk.css.map",
     "static/css/main.ea3c2372.chunk.css.map": "/static/css/main.ea3c2372.chunk.css.map",
-    "static/js/2.6c0d93a4.chunk.js.LICENSE.txt": "/static/js/2.6c0d93a4.chunk.js.LICENSE.txt",
+    "static/js/2.3d01e292.chunk.js.LICENSE.txt": "/static/js/2.3d01e292.chunk.js.LICENSE.txt",
     "static/media/BSC.703e46ed.png": "/static/media/BSC.703e46ed.png",
     "static/media/ETH.6840e3d9.png": "/static/media/ETH.6840e3d9.png",
     "static/media/index.css": "/static/media/Poppins-SemiBold.5981b450.ttf",
-    "static/media/bg.845eeeec.png": "/static/media/bg.845eeeec.png",
+    "static/media/bg.c4fefc73.png": "/static/media/bg.c4fefc73.png",
     "static/media/bg21.cc0fc400.png": "/static/media/bg21.cc0fc400.png",
     "static/media/bg22.c4e53230.png": "/static/media/bg22.c4e53230.png",
     "static/media/bg3.abb1ca36.png": "/static/media/bg3.abb1ca36.png",
@@ -28,7 +28,6 @@
     "static/media/home3.b4ab15f5.png": "/static/media/home3.b4ab15f5.png",
     "static/media/imgloading.789d4084.png": "/static/media/imgloading.789d4084.png",
     "static/media/index1.91e0b79b.png": "/static/media/index1.91e0b79b.png",
-    "static/media/logo.png": "/static/media/logo.f239623a.png",
     "static/media/logoDis_color.e8e37717.png": "/static/media/logoDis_color.e8e37717.png",
     "static/media/logoGit.5641a974.png": "/static/media/logoGit.5641a974.png",
     "static/media/logoIns.1631df86.png": "/static/media/logoIns.1631df86.png",
@@ -51,8 +50,8 @@
   "entrypoints": [
     "static/js/runtime-main.43664945.js",
     "static/css/2.48e5491c.chunk.css",
-    "static/js/2.6c0d93a4.chunk.js",
+    "static/js/2.3d01e292.chunk.js",
     "static/css/main.ea3c2372.chunk.css",
-    "static/js/main.5d7aa550.chunk.js"
+    "static/js/main.df699622.chunk.js"
   ]
 }
