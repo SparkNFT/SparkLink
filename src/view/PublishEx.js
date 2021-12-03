@@ -525,6 +525,10 @@ class PublishEx extends Component {
 			const zipedFiles = await generateZipFile(this.state.name, this.state.fileList);
 			// console.log('zipedFiles: ')
 			// console.log(zipedFiles);
+			const fileType = zipedFiles.name.split('.').pop().toLowerCase();
+			this.setState({
+				fileType: fileType,
+			})
 			const account = await getWalletAccount()
 			
 
@@ -663,10 +667,13 @@ class PublishEx extends Component {
 				})
 			// console.log(response)
 			if (response.statusText === 'OK') {
+				// const file_type =
+				// console.log('response: ')
+				// console.log(response.data) 
 				this.setState({
 					submitBtnDisable: false,
 					fileIpfs: response.data.IpfsHash,
-					fileType: 'zip',
+					// fileType: 'zip',
 				})
 				if(!this.state.submitError){
 					await this.submitWork();

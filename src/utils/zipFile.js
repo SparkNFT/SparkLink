@@ -7,12 +7,14 @@ export const generateZipFile = (
 ) => {
 	// eslint-disable-next-line no-unused-vars
 	return new Promise((resolve, reject) => {
+		if (files.length === 1) resolve(files[0]);
+
 		const zip = new JSZip();
 		for (let i = 0; i < files.length; i++) {
 			zip.file(files[i].name, files[i]);
 		}
 		zip.generateAsync(options).then(function (blob) {
-			zipName = zipName || Date.now() + '.zip';
+			zipName = zipName + '.zip' || Date.now() + '.zip';
 			const zipFile = new File([blob], zipName, {
 				type: 'application/zip',
 			});

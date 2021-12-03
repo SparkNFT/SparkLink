@@ -448,7 +448,7 @@ class NFTInfo extends Component {
 			reader.readAsDataURL(dblob);
 		}else{
 			const url = window.URL.createObjectURL(dblob)
-			console.log(url)
+			// console.log(url)
 			const link = document.createElement('a')
 			link.href = url
 			link.style.display = 'none'
