@@ -2,6 +2,7 @@ import withCommon, { colors } from '../styles/common'
 import { withStyles } from '@material-ui/styles'
 import React, { Component } from 'react'
 import Grid from '@material-ui/core/Grid'
+import { message } from 'antd'
 import { withTranslation } from 'react-i18next'
 import bot from '../imgs/brain2.png'
 import logoTwi from '../imgs/logoTwi.png'
@@ -36,16 +37,16 @@ let styles = (theme) => ({
 	},
 	footer:{
 		[theme.breakpoints.between('xs', 'sm')]: {
-			
+
 		},
 		[theme.breakpoints.up('sm')]: {
-			
+
 		},
 	},
 	btnImg:{
 		transition:'margin-bottom 1s',
 		'&:hover':{
-			
+
 			marginBottom: 10
 		}
 	},
@@ -83,7 +84,7 @@ let styles = (theme) => ({
 			color:'#9F2225'
 		},
 		inherit:'MarginT10',
-		
+
 	},
 	Display8:{
 		color:colors.color3,
@@ -133,15 +134,31 @@ let styles = (theme) => ({
 			flexDirection:'column',
 		},
 	}
-	
+
 })
 class Footer extends Component {
+	state = {
+		mailAddress: 'sparklink.info@gmail.com'
+	}
+
+	constructor(props) {
+		super(props);
+	}
+
+	handleMailAddressClick = () => {
+		const { t } = this.props
+		navigator.clipboard.writeText(this.state.mailAddress).then(() => {
+			message.success(t('copy_email_address_success'))
+		}).catch(() => {
+			message.error(t('copy_email_address_error'))
+		})
+	}
+
 	render() {
 		const { t } = this.props
 		const { classes } = this.props
 		return (
 			<div  style={{backgroundColor: colors.color1 ,marginTop:'15vh'}}>
-				
 				<Container style={{maxWidth:'100vw',paddingLeft:'0px',paddingRight:'0px'}}>
 					<Grid xs={12} item className={classes.footer + ' ' + classes.PaddingB3+' '+classes.PaddingL6+' '+classes.PaddingR6} container>
 						<Grid className={classes.MarginT3} container item style={{color: 'white',flexGrow:'0'}} xs={12} sm={true} >
@@ -182,8 +199,8 @@ class Footer extends Component {
 							</div>
 							<div className={classes.MarginT9} style={{display:'flex',alignItems:'center',justifyContent:'flex-end',width:'100%'}}>
 								<div className={classes.contactUs} style={{display:'flex'}}>
-									<div className={classes.DisplaySeBold11s} style={{lineHeight:'100%',display:'flex',alignItems:'center',marginTop:'12px',marginBottom:'12px',paddingRight:'5vw',paddingLeft:'1vw'}}>
-										sparklink.info@gmail.com
+									<div className={classes.DisplaySeBold11s} style={{lineHeight:'100%',display:'flex',alignItems:'center',marginTop:'12px',marginBottom:'12px',paddingRight:'5vw',paddingLeft:'1vw'}} onClick={this.handleMailAddressClick}>
+										{this.state.mailAddress}
 									</div>
 									<div className={classes.DisplaySeBold11s} style={{color:'#9F2225',display:'flex',alignItems:'center',background:'#F4F0E6',paddingLeft:'1vw',paddingRight:'1vw'}} >
 										{t('CONTACT US')}
@@ -191,10 +208,10 @@ class Footer extends Component {
 								</div>
 							</div>
 						</Grid>
-						
+
 					</Grid>
-					
-				</Container>         
+
+				</Container>
 			</div>
 		)
 	}
