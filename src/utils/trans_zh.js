@@ -172,6 +172,8 @@ let lng_zh={
 	'CONTACT US':'联系我们',
 	'needHelp':'需要帮助？',
 	'poster_loading': '海报加载中',
-	'保存':'保存'
+	'保存':'保存',
+	'copy_email_address_success': '复制邮件地址成功',
+	'copy_email_address_error': '复制邮件地址失败'
 };
 export default lng_zh;

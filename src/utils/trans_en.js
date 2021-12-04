@@ -170,6 +170,8 @@ let lng_en = {
 	'CONTACT US':'CONTACT US',
 	'needHelp':'Need Help?',
 	'poster_loading': 'loading the poster...',
-	'保存':'save'
+	'保存':'save',
+	'copy_email_address_success': 'Copy EMail Address Success',
+	'copy_email_address_error': 'Copy EMail Address Success'
 }
 export default lng_en;
