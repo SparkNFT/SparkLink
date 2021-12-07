@@ -172,6 +172,8 @@ let lng_en = {
 	'poster_loading': 'loading the poster...',
 	'保存':'save',
 	'copy_email_address_success': 'Copy EMail Address Success',
-	'copy_email_address_error': 'Copy EMail Address Success'
+	'copy_email_address_error': 'Copy EMail Address Success',
+	'铸造后节点价格为：': 'Minted Node Price:',
+	'铸造此此节点后的节点可售价格': 'mined node price'
 }
 export default lng_en;
