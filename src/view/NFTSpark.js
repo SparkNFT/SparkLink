@@ -10,9 +10,9 @@ import ctitle from '../imgs/ctitle.png'
 import axios from 'axios'
 import contract, { freshContract, swtichContract } from '../utils/contract'
 import web3 from '../utils/web3'
-import { ArrowLeftOutlined, FireOutlined, DownloadOutlined } from '@ant-design/icons'
+import { ArrowLeftOutlined, FireOutlined, DownloadOutlined, BulbOutlined } from '@ant-design/icons'
 import Skeleton from '@material-ui/lab/Skeleton'
-import { Progress, message, Spin } from 'antd'
+import { Progress, message, Spin, Tooltip } from 'antd'
 import config from '../global/config'
 import Web3 from 'web3';
 // eslint-disable-next-line no-unused-vars
@@ -116,7 +116,7 @@ const styles = (theme) => ({
 	},
 	content2: {
 		fontFamily: 'montserrat,source-han-sans-simplified-c, sans-serif',
-		
+
 		[theme.breakpoints.between('xs', 'sm')]: {
 			marginLeft: 15,
 		},
@@ -189,6 +189,7 @@ class NFTSpark extends Component {
 		remainShillTimes: 0,
 		maxShillTimes: 0,
 		logoutDisableButton: false,
+		shillPriceString: ''
 	}
 
 	setHttpProvierForUser = (originChainId) => {
@@ -280,7 +281,8 @@ class NFTSpark extends Component {
 		}
 
 		const price = await contract().methods.getShillPriceByNFTId(this.props.match.params.id).call()
-		const token_addr = await contract().methods.getTokenAddrByNFTId(this.props.match.params.id).call()
+		const token_addr = await contract().methods.getTokenAddrByNFTId(this.props.match.params.id).call();
+		const {shill_price} = await contract().methods.getNFTInfoByNFTID(this.props.match.params.id).call();
 
 		this.setState({
 			price: price,
@@ -300,9 +302,13 @@ class NFTSpark extends Component {
 			}
 			let price_poster = new BigNumber(price / 10 ** decimal)
 			let price_string = price_poster.toString(10)
-			// console.log('num：' + price_string + '&' + price)
-			price_string = price_string + ' ' + name
+			price_string = price_string + ' ' + name;
+
+			let shill_price_string = new BigNumber(shill_price / 10 ** decimal * 0.62);
+			shill_price_string = shill_price_string.toFixed(parseInt(decimal)) + ' ' + name;
+
 			this.setState({
+				shillPriceString: shill_price_string,
 				priceString: price_string,
 				approved: true,
 			})
@@ -313,7 +319,14 @@ class NFTSpark extends Component {
 				const token_symbol = await token_contract.methods.symbol().call()
 				let price_with_decimal = new BigNumber(price / 10 ** decimals)
 				price_with_decimal = price_with_decimal.toString(10) + ' ' + token_symbol
-				this.setState({ priceString: price_with_decimal })
+
+				let shill_price_string = new BigNumber(shill_price / 10 ** decimals * 0.62);
+				shill_price_string = shill_price_string.toFixed(parseInt(decimals)) + ' ' + token_symbol;
+
+				this.setState({
+					shillPriceString: shill_price_string,
+					priceString: price_with_decimal
+				})
 				if (account !== -1) {
 					const approved_amount = await token_contract.methods.allowance(account, sparkAddr).call()
 					if (approved_amount >= price) {
@@ -422,7 +435,7 @@ class NFTSpark extends Component {
 				out = bb.getBlob('application/x-zip-compressed');
 			}
 			else {
-				// We're screwed, blob constructor unsupported entirely   
+				// We're screwed, blob constructor unsupported entirely
 				console.debug('Errore');
 			}
 		}
@@ -538,7 +551,7 @@ class NFTSpark extends Component {
 			})
 		}
 	}
-	
+
 	onUpdateChain() {
 		window.location.reload()
 	}
@@ -818,8 +831,8 @@ class NFTSpark extends Component {
 								>
 									{t('回到我的收藏馆')}
 								</Button>
-								
-							
+
+
 								{/* <Grid container direction="row" justifyContent="center" alignItems="center" xs={12}>
 									<Typography color="inherit" noWrap className={classes.Display5}>
 										🔥 NFT 🔥
@@ -901,12 +914,36 @@ class NFTSpark extends Component {
 												>
 													{t('点火价格: ')} {this.state.priceString}
 												</Typography>
-
-												<Typography align="left" color="textPrimary" className={classes.Display10} style={{marginTop:'2%',fontWeight:'800'}} >
+												<Typography
+													align="left"
+													color="textPrimary"
+													className={classes.Display10}
+													style={{marginTop:'2%',fontWeight:'800'}}
+												>
+													{t('铸造后节点价格为：')} {this.state.shillPriceString}
+													<Tooltip
+														title={t('铸造此此节点后的节点可售价格')}
+														color='#d7d7d7'
+														overlayInnerStyle={{color: 'black'}}
+														placement='topLeft'
+													>
+														<BulbOutlined style={{marginLeft: '10px', position: 'relative', bottom: '10px', fontSize: '16px'}}/>
+													</Tooltip>
+												</Typography>
+												<Typography
+													align="left"
+													color="textPrimary"
+													className={classes.Display10}
+													style={{marginTop:'2%',fontWeight:'800'}}
+												>
 													{t('最大分享次数：')} {this.state.maxShillTimes} 次
 												</Typography>
-												<Typography align="left" color="textPrimary" className={classes.Display10} style={{marginTop:'2%',fontWeight:'800'}} >
-
+												<Typography
+													align="left"
+													color="textPrimary"
+													className={classes.Display10}
+													style={{marginTop:'2%',fontWeight:'800'}}
+												>
 													{t('剩余分享次数：')} {this.state.remainShillTimes} 次
 												</Typography>
 												{this.state.isEncrypt ? (
