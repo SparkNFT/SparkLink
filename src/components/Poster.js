@@ -89,7 +89,7 @@ const circleImg = (ctx,img,x,y,r) => {
 const getHeight=()=>{
 	const commonHeight = window.innerHeight
 	if(commonHeight > 800){
-		return commonHeight*0.5
+		return commonHeight*0.6
 	}
 	else {
 		return commonHeight*0.7
