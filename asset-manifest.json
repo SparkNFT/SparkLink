@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/static/css/main.1d730de0.chunk.css",
-    "main.js": "/static/js/main.abfe8d73.chunk.js",
-    "main.js.map": "/static/js/main.abfe8d73.chunk.js.map",
+    "main.css": "/static/css/main.0b4e5155.chunk.css",
+    "main.js": "/static/js/main.82cf147a.chunk.js",
+    "main.js.map": "/static/js/main.82cf147a.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.43664945.js",
     "runtime-main.js.map": "/static/js/runtime-main.43664945.js.map",
     "static/css/2.48e5491c.chunk.css": "/static/css/2.48e5491c.chunk.css",
-    "static/js/2.52632827.chunk.js": "/static/js/2.52632827.chunk.js",
-    "static/js/2.52632827.chunk.js.map": "/static/js/2.52632827.chunk.js.map",
+    "static/js/2.500d7879.chunk.js": "/static/js/2.500d7879.chunk.js",
+    "static/js/2.500d7879.chunk.js.map": "/static/js/2.500d7879.chunk.js.map",
     "index.html": "/index.html",
     "static/css/2.48e5491c.chunk.css.map": "/static/css/2.48e5491c.chunk.css.map",
-    "static/css/main.1d730de0.chunk.css.map": "/static/css/main.1d730de0.chunk.css.map",
-    "static/js/2.52632827.chunk.js.LICENSE.txt": "/static/js/2.52632827.chunk.js.LICENSE.txt",
+    "static/css/main.0b4e5155.chunk.css.map": "/static/css/main.0b4e5155.chunk.css.map",
+    "static/js/2.500d7879.chunk.js.LICENSE.txt": "/static/js/2.500d7879.chunk.js.LICENSE.txt",
     "static/media/BSC.703e46ed.png": "/static/media/BSC.703e46ed.png",
     "static/media/ETH.6840e3d9.png": "/static/media/ETH.6840e3d9.png",
     "static/media/index.css": "/static/media/Poppins-SemiBold.5981b450.ttf",
@@ -30,15 +30,15 @@
     "static/media/mathwallet.9618316e.png": "/static/media/mathwallet.9618316e.png",
     "static/media/matic.a5abaa10.png": "/static/media/matic.a5abaa10.png",
     "static/media/metamask.31c2d1d3.png": "/static/media/metamask.31c2d1d3.png",
-    "static/media/poster_en.b1055727.png": "/static/media/poster_en.b1055727.png",
-    "static/media/poster_zh.6971bf96.png": "/static/media/poster_zh.6971bf96.png",
+    "static/media/poster_en.2981f1f5.png": "/static/media/poster_en.2981f1f5.png",
+    "static/media/poster_zh.4ef627f6.png": "/static/media/poster_zh.4ef627f6.png",
     "static/media/wallet.cb0866f8.png": "/static/media/wallet.cb0866f8.png"
   },
   "entrypoints": [
     "static/js/runtime-main.43664945.js",
     "static/css/2.48e5491c.chunk.css",
-    "static/js/2.52632827.chunk.js",
-    "static/css/main.1d730de0.chunk.css",
-    "static/js/main.abfe8d73.chunk.js"
+    "static/js/2.500d7879.chunk.js",
+    "static/css/main.0b4e5155.chunk.css",
+    "static/js/main.82cf147a.chunk.js"
   ]
 }
