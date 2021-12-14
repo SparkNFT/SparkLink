@@ -354,7 +354,7 @@ class PublishEx extends Component {
 					onLoadingSpin: false
 				})
 			}
-			
+
 		}
 		// console.log(this.props.match)
 
@@ -436,7 +436,7 @@ class PublishEx extends Component {
 			this.setState({
 				data: matched_data,
 			})
-			return 
+			return
 		}
 		if (value) {
 			let values = value.toLowerCase()
@@ -514,7 +514,7 @@ class PublishEx extends Component {
 	uploadFiles_Ex = async () => {
 		const { t } = this.props;
 		const failText = t('上传文件失败...不用担心，稍后可在[我的收藏]页面查看NFT并重新上传，失败原因：')
-		
+
 		if (this.state.fileList.length !== 0) {
 			this.setState({
 				uploadBtnDisable: true,
@@ -530,9 +530,9 @@ class PublishEx extends Component {
 				fileType: fileType,
 			})
 			const account = await getWalletAccount()
-			
 
-			if (account !== -1) {	
+
+			if (account !== -1) {
 				this.showText(t('正在上传文件中...'),false)
 				const chainName = await getChainName();
 				const signer = account;
@@ -567,7 +567,7 @@ class PublishEx extends Component {
 					pinata_secret_api_key = res.data.pinata.api_secret
 					pinata_api_key = res.data.pinata.api_key
 					// console.log('New Key',pinata_api_key,pinata_secret_api_key)
-					
+
 				}catch(e){
 					// console.log(e)
 					this.showError(failText + e.toString())
@@ -575,8 +575,8 @@ class PublishEx extends Component {
 				if (this.state.encryptedPublish) {
 					try {
 						try {
-							// let secret_key = res.data.key //res.data.key 
-							let secret_key = res.data.key //res.data.key 
+							// let secret_key = res.data.key //res.data.key
+							let secret_key = res.data.key //res.data.key
 							if(secret_key) {
 								let zipedFilesBlob;
 								const reader = new FileReader()
@@ -669,7 +669,7 @@ class PublishEx extends Component {
 			if (response.statusText === 'OK') {
 				// const file_type =
 				// console.log('response: ')
-				// console.log(response.data) 
+				// console.log(response.data)
 				this.setState({
 					submitBtnDisable: false,
 					fileIpfs: response.data.IpfsHash,
@@ -699,7 +699,7 @@ class PublishEx extends Component {
 	submitWork = async () => {
 		const { t } = this.props
 		const failText = t('更新文件信息失败...不用担心，稍后可在[我的收藏]页面查看NFT并重新上传，失败原因：')
-		
+
 		if (this.state.coverFile==null || this.state.fileIpfs === '') {
 			message.error({
 				content: t('你有信息尚未填写'),
@@ -862,7 +862,7 @@ class PublishEx extends Component {
 					this.setState({
 						ipfsMeta: bytesToContract,
 					})
-	
+
 					let ipfsToContract = '0x' + bytesToContract
 					const priceBN = BigNumber(this.state.price * 10 ** this.state.decimal);
 					let price_with_decimal = web3.utils.toBN(priceBN)
@@ -898,7 +898,7 @@ class PublishEx extends Component {
 							if(obj.state.encryptedPublish){
 								obj.showText(t('作品基本信息已提交成功....等待签名..'),false)
 							}
-							
+
 							if(!obj.state.submitError){
 								obj.uploadFiles_Ex();
 							}
@@ -974,7 +974,7 @@ class PublishEx extends Component {
 				})
 				return false;
 			},
-			
+
 		}
 		const onSwtichChange = (e)=>{
 			// console.log(`checked = ${e.target.checked}`);
@@ -982,9 +982,9 @@ class PublishEx extends Component {
 				encryptedPublish: e.target.checked
 			})
 		}
-	
 
-		const propFile = {			
+
+		const propFile = {
 			onRemove: file => {
 				this.setState(state => {
 					const index = state.fileList.indexOf(file);
@@ -1051,12 +1051,12 @@ class PublishEx extends Component {
 								<br/>
 								<br/>
 								<p className={classes.Display12s} style={{color:(this.state.submitError)?('red'):('black')}}><br/>{this.state.submitDialogText}</p>
-							</DialogContent>	
+							</DialogContent>
 							<DialogActions style={{display:(this.state.submitError)?(''):('none')}} className={classes.MarginB10 + ' ' + classes.MarginT10 + ' ' + classes.MarginL10 + ' ' + classes.MarginR10}>
 								<Button onClick={()=>{this.setState({onLoading:false})}} className={classes.btn} color="primary">
 									{t('cancel')}
 								</Button>
-							</DialogActions>					
+							</DialogActions>
 						</Dialog>
 						<TopBar parent={this} />
 						<Container component="main" maxWidth="xs" className={classes.main}>
@@ -1082,7 +1082,7 @@ class PublishEx extends Component {
 													onChange={this.handleGetPubName}
 													value={this.state.name}
 													className={classes.input}
-													maxLength={16}
+													maxLength={22}
 												/>
 											</Grid>
 
