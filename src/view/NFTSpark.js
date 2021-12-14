@@ -305,7 +305,7 @@ class NFTSpark extends Component {
 			price_string = price_string + ' ' + name;
 
 			let shill_price_string = new BigNumber(shill_price / 10 ** decimal * 0.62);
-			shill_price_string = shill_price_string.toString(10) + ' ' + name;
+			shill_price_string = shill_price_string.toFormat(3) + ' ' + name;
 
 			this.setState({
 				shillPriceString: shill_price_string,
@@ -321,7 +321,7 @@ class NFTSpark extends Component {
 				price_with_decimal = price_with_decimal.toString(10) + ' ' + token_symbol
 
 				let shill_price_string = new BigNumber(shill_price / 10 ** decimals * 0.62);
-				shill_price_string = shill_price_string.toString(10) + ' ' + token_symbol;
+				shill_price_string = shill_price_string.toFormat(3) + ' ' + token_symbol;
 
 				this.setState({
 					shillPriceString: shill_price_string,
