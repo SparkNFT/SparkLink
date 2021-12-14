@@ -138,7 +138,7 @@ let styles = (theme) => ({
 })
 class Footer extends Component {
 	state = {
-		mailAddress: 'sparklink.info@gmail.com'
+		mailAddress: 'sparklink.info@sparklink.com'
 	}
 
 	constructor(props) {

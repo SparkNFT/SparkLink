@@ -16,7 +16,7 @@ import { Progress, message, Spin, Tooltip } from 'antd'
 import config from '../global/config'
 import Web3 from 'web3';
 // eslint-disable-next-line no-unused-vars
-import { TOKENPOCKET, METAMASK, LASTCONNECT } from '../global/globalsString'
+import { LASTCONNECT } from '../global/globalsString'
 import { getChainId, getChainNameByChainId, getWalletAccount, switchChain } from '../utils/getWalletAccountandChainID'
 import { withTranslation } from 'react-i18next'
 import withCommon from '../styles/common'
@@ -242,8 +242,7 @@ class NFTSpark extends Component {
 		// const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
 		// const account = accounts[
 		await freshContract();
-		sparkAddr = config.sparkAddr;
-		// console.log(contract());
+		sparkAddr = config.SparkAddr;
 
 		const meta = await contract().methods.tokenURI(this.props.match.params.id).call()
 		let hash = meta.split('/')
