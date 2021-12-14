@@ -226,19 +226,19 @@ class NFTInfo extends Component {
 			return;
 		}
 		this.setState({ account: account })
+		console.log(owner);
 		// const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
 		// const account = accounts[0]
-		if (web3.utils.toChecksumAddress(account) !== owner) {
-			// alert("这枚nft不属于你");
-			message.warning({
-				content: t('您并不拥有此nft'),
-				className: 'custom-class',
-				style: {
-					marginTop: '10vh',
-				},
-			})
-			window.location.href = '/#/'
-		}
+		// if (web3.utils.toChecksumAddress(account) !== owner) {
+		// 	message.warning({
+		// 		content: t('您并不拥有此nft'),
+		// 		className: 'custom-class',
+		// 		style: {
+		// 			marginTop: '10vh',
+		// 		},
+		// 	})
+		// 	window.location.href = '/#/'
+		// }
 		// console.log(this.props.match.params.id)
 		const token_addr = await contract().methods.getTokenAddrByNFTId(this.props.match.params.id).call()
 		const res = await contract().methods.getProfitByNFTId(this.props.match.params.id).call()
@@ -337,7 +337,8 @@ class NFTInfo extends Component {
 		}
 
 		//多链
-		const chainName = await getChainName()
+		let chainName = await getChainName();
+		if (chainName === 'eth') chainName = 'ethereum';
 		const leafUrl = backend + '/api/v1/nft/info?nft_id=' + this.props.match.params.id + '&chain=' + chainName;
 		axios
 			.get(leafUrl)
@@ -424,7 +425,7 @@ class NFTInfo extends Component {
 				out = new Blob([data], { type: 'application/x-zip-compressed'});
 			}
 			else {
-				// We're screwed, blob constructor unsupported entirely   
+				// We're screwed, blob constructor unsupported entirely
 				console.debug('Errore');
 			}
 		}

@@ -176,6 +176,6 @@ let lng_zh={
 	'copy_email_address_success': '复制邮件地址成功',
 	'copy_email_address_error': '复制邮件地址失败',
 	'铸造后节点价格为：': '铸造后节点价格为：',
-	'铸造此此节点后的节点可售价格': '铸造此此节点后的节点可售价格'
+	'铸造此此节点后的节点可售价格': '铸造此节点后的节点可售价格'
 };
 export default lng_zh;
