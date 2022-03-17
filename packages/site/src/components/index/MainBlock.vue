@@ -2,7 +2,7 @@
   <section id="main-block">
     <el-row>
       <el-col :span="12" class="column-1">
-        <el-image src="/src/assets/main-logo.png" class="logo" />
+        <el-image src="/public/main-logo.png" class="logo" />
         <h2 class="main-text">Publish, support, and spread what you love</h2>
         <p class="sub-text">Spreads and supports each other, Like a spark that will link and light up the world.</p>
         <div class="divider" />

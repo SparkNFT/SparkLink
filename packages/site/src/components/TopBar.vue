@@ -1,6 +1,6 @@
 <template>
   <el-header class="header">
-    <el-image src="/src/assets/logo.png" class="logo"></el-image>
+    <el-image src="/public/logo.png" class="logo"></el-image>
     <div class="nav">
       <router-link v-for="item in navs" :key="item.name" :to="item.path">
         {{ item.name }}
