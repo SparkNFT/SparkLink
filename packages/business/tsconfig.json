@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "types": ["mocha"],
+    "target": "es2020",
+    "moduleResolution": "Node",
+  },
+  "include": ["tests/**/*.ts", "src/**/*.ts"],
+}
