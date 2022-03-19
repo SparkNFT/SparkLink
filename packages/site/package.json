@@ -1,5 +1,5 @@
 {
-	"name": "@EaseShare/site",
+	"name": "@SparkLink/site",
 	"version": "0.0.0",
 	"scripts": {
 		"dev": "vite",

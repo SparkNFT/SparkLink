@@ -1,14 +1,28 @@
 <template>
 	<el-container direction="vertical">
-		<TopBar />
-		<el-main class="main">
-			<div v-if="!metaMask.state.hasProvider" class="notification">
-				<span>This Site need MetaMask to be installed.</span>
-			</div>
-			<div class="wrapper">
-				<RouterView />
-			</div>
-		</el-main>
+		<section class="description">
+			<TopBar />
+			<el-main class="main">
+				<div v-if="!metaMask.state.hasProvider" class="notification">
+					<span>This Site need MetaMask to be installed.</span>
+				</div>
+				<div class="wrapper">
+					<RouterView />
+				</div>
+			</el-main>
+		</section>
+		<section class="how-to-start">
+
+		</section>
+		<section class="freely-publish">
+
+		</section>
+		<section class="differences">
+
+		</section>
+		<footer>
+
+		</footer>
 	</el-container>
 </template>
 
@@ -25,6 +39,12 @@
 </script>
 
 <style lang="scss" scoped>
+	.description {
+		background-image: url("/public/images/background.png");
+		background-size: cover;
+		height: 1142rem;
+	}
+
 	.main {
 		display: flex;
 		flex-direction: column;

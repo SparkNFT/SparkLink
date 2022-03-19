@@ -1,5 +1,5 @@
 {
-	"name": "@EaseShare/business",
+	"name": "@SparkLink/business",
 	"packageManager": "yarn@3.1.0",
 	"scripts": {
 		"clear:generated": "rm -rf generated",

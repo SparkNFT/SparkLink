@@ -5,7 +5,8 @@
 	"license": "MIT",
 	"private": true,
 	"scripts": {
-		"dev": "npm run dev --workspace @EaseShare/site"
+		"dev": "npm run dev --workspace @SparkLink/site",
+		"build": "npm run build --workspaces --if-present"
 	},
 	"workspaces": [
 		"packages/*"
