@@ -1,17 +1,17 @@
 {
-  "version": "0.0.1",
-  "description": "The frontend mono repo of SparkNet",
-  "author": "David George",
-  "license": "MIT",
-  "private": true,
+	"version": "0.0.1",
+	"description": "The frontend mono repo of SparkNet",
+	"author": "David George",
+	"license": "MIT",
+	"private": true,
 	"scripts": {
 		"dev": "npm run dev --workspace @EaseShare/site"
 	},
-  "workspaces": [
-    "packages/*"
-  ],
-  "packageManager": "yarn@3.1.0",
-  "dependencies": {
-    "@vue/runtime-dom": "^3.2.22"
-  }
+	"workspaces": [
+		"packages/*"
+	],
+	"packageManager": "yarn@3.1.0",
+	"dependencies": {
+		"@vue/runtime-dom": "^3.2.22"
+	}
 }
