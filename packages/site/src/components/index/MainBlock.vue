@@ -1,24 +1,22 @@
 <template>
 	<section id="main-block">
-		<el-row>
-			<el-col :span="12" class="column-1">
-				<el-image src="/images/main-logo.png" class="logo" />
-				<h2 class="main-text">Publish, support, and spread what you love</h2>
-				<p class="sub-text">Spreads and supports each other, Like a spark that will link and light up the
-					world.</p>
-				<div class="divider" />
-				<div class="btn-area">
-					<el-button type="primary" id="publish-btn" @click="gotoPublishPage">Publish</el-button>
-					<el-button type="primary" id="buy-btn" plain>Buy</el-button>
-				</div>
-			</el-col>
-		</el-row>
+		<h2 class="main-text">Publishing and distribution,</h2>
+		<h2 class="main-text">are redefined by us.</h2>
+		<p class="sub-text">Publish your love, share your love, spread your love</p>
+		<p class="sub-text">link all creators and sharers together,that is what we doing.</p>
+		<el-button id="publish-btn" type="primary" @click="gotoPublishPage">Publish</el-button>
+		<a id="learn-more-btn">Learn more</a>
 	</section>
+	<how-to-start/>
+	<freely-publish/>
+	<the-differences/>
 </template>
 
 <script lang="ts" setup>
-
 	import {useRouter} from "vue-router";
+	import HowToStart from "./HowToStart.vue";
+	import FreelyPublish from "./FreelyPublish.vue";
+	import TheDifferences from "./TheDifferences.vue";
 
 	const router = useRouter();
 
@@ -29,35 +27,45 @@
 
 <style lang="scss" scoped>
 	#main-block {
-		padding: 64px 0;
-	}
-
-	.column-1 {
 		display: flex;
 		flex-direction: column;
-	}
-
-	.logo {
-		width: 400px;
+		align-items: center;
+		padding: 130rem 0;
+		box-sizing: border-box;
+		height: 1034rem;
 	}
 
 	.main-text {
-		font-size: 1.5rem;
+		display: inline-block;
+		margin: 20rem 0;
+		color: #f5f5f5;
+		font-weight: bolder;
+		font-size: 58rem;
 	}
 
 	.sub-text {
-		font-size: 1.125rem;
+		display: inline-block;
+		margin: 2rem 0;
+		color: #f5f5f5;
+		font-size: 24rem;
 	}
 
-	.divider {
-		height: 16px;
+	#publish-btn {
+		width: 308rem;
+		height: 82rem;
+		margin-top: 120rem;
+		border-radius: 15rem;
+		border: none;
+		color: #ff6830;
+		font-size: 30rem;
+		font-weight: bold;
+		background: linear-gradient(77.37deg, #FC5151 3.37%, #FFE177 55.28%, #FFA370 99.2%);
 	}
 
-	.btn-area {
-		display: flex;
-
-		#publish-btn {
-			background-color: var(--color-secondary);
-		}
+	#learn-more-btn {
+		margin-top: 80rem;
+		font-size: 24rem;
+		color: #ef7a61;
+		text-decoration: underline;
 	}
 </style>

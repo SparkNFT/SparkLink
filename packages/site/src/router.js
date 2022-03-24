@@ -2,6 +2,7 @@ import {createRouter, createWebHashHistory} from "vue-router";
 import Layout from "./routes/__layout.vue";
 import Index from "./routes/Index.vue";
 import Publish from "./routes/Publish.vue";
+import Collection from "./routes/Collection.vue";
 
 const routes = [
 	{
@@ -15,6 +16,10 @@ const routes = [
 			{
 				path: "publish",
 				component: Publish,
+			},
+			{
+				path: "collection",
+				component: Collection
 			},
 			{
 				path: "wiki",

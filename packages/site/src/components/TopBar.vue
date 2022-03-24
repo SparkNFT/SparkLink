@@ -40,23 +40,23 @@
 
 	const navs = [
 		{
-			name: "Home",
+			name: "HOME",
 			path: "/",
 		},
 		{
-			name: "Publish",
+			name: "PUBLISH",
 			path: "/publish",
 		},
 		{
-			name: "Collection",
+			name: "COLLECTION",
 			path: "/collection",
 		},
 		{
-			name: "Wiki",
+			name: "WIKI",
 			path: "/wiki",
 		},
 		{
-			name: "Market",
+			name: "MARKET",
 			path: "/market",
 		},
 	] as { name: string; path: string }[];
@@ -128,5 +128,6 @@
 		border-radius: 15rem;
 		border: none;
 		background: linear-gradient(to bottom, rgba(255, 225, 119, 1), rgba(255, 225, 119, 0));
+		cursor: pointer;
 	}
 </style>

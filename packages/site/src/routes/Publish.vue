@@ -21,7 +21,7 @@
 	.form-container {
 		display: flex;
 		flex-direction: column;
-		max-width: 1050px;
-		margin: auto;
+		padding: 0 400rem;
+		background: white;
 	}
 </style>
