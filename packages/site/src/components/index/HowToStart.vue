@@ -95,11 +95,9 @@
 
 <style scoped lang="scss">
 	.how-to-start {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
+		text-align: center;
 		height: 1102rem;
-		padding: 166rem 0;
+		padding: 166rem 0 169rem 0;
 		box-sizing: border-box;
 
 		.title-container {
@@ -115,7 +113,7 @@
 		}
 
 		.sub-title {
-			margin: 40rem 0 0;
+			margin: 29rem 0 0;
 			font-size: 22rem;
 			font-weight: 400;
 			line-height: 40rem;
@@ -123,7 +121,7 @@
 		}
 
 		.card-container {
-			margin-top: 100rem;
+			margin: 120rem auto 0;
 			width: 1683rem;
 			display: flex;
 			justify-content: space-between;
