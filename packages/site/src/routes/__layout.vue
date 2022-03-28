@@ -2,12 +2,12 @@
 	<el-container direction="vertical">
 		<section class="background"></section>
 		<TopBar />
-		<el-main class="main">
+		<main class="main">
 			<div v-if="!metaMask.state.hasProvider" class="notification">
 				<span>This Site need MetaMask to be installed.</span>
 			</div>
 			<RouterView />
-		</el-main>
+		</main>
 		<the-footer />
 	</el-container>
 </template>
@@ -33,10 +33,6 @@
 		z-index: -1;
 		background-image: url("/public/images/background.png");
 		background-size: cover;
-	}
-
-	.main {
-		padding: 0;
 	}
 
 	.notification {
