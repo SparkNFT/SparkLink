@@ -44,9 +44,10 @@
 			height: 100%;
 		}
 
-		.nodes{
+		.nodes {
 			display: flex;
 			align-items: center;
+
 			img {
 				width: 100%;
 			}

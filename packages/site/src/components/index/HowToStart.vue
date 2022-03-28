@@ -21,7 +21,7 @@
 				</p>
 			</div>
 			<div class="card">
-				<img src="/images/file-new.png" class="head"/>
+				<img src="/images/file-new.png" class="head" />
 				<div class="title-container">
 					<h5 class="title">
 						Publish your content
@@ -38,7 +38,7 @@
 				</p>
 			</div>
 			<div class="card">
-				<img src="/images/cloud-up.png" class="head"/>
+				<img src="/images/cloud-up.png" class="head" />
 				<div class="title-container">
 					<h5 class="title">
 						Generate share
@@ -58,7 +58,7 @@
 				</p>
 			</div>
 			<div class="card">
-				<img src="/images/transfer.png" class="head"/>
+				<img src="/images/transfer.png" class="head" />
 				<div class="title-container">
 					<h5 class="title">
 						Distribute works to

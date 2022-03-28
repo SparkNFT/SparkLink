@@ -127,7 +127,7 @@
 		height: 70rem;
 		border-radius: 15rem;
 		border: none;
-    background-color: #ffe177;
+		background-color: #ffe177;
 		cursor: pointer;
 	}
 </style>

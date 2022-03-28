@@ -28,7 +28,7 @@
 			</section>
 		</div>
 		<div class="email-container">
-			<el-input v-model="email" placeholder="info@sparklink.io"/>
+			<el-input v-model="email" placeholder="info@sparklink.io" />
 			<el-button type="warning" class="send">Send</el-button>
 		</div>
 		<p class="right">
