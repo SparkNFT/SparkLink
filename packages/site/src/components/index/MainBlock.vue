@@ -37,6 +37,7 @@
 	.main-text {
 		margin: 0 0 50rem;
 		color: #f5f5f5;
+		font-family: Inter;
 		font-weight: bolder;
 		font-size: 58rem;
 		line-height: 100%;
@@ -49,6 +50,7 @@
 	.sub-text {
 		margin: 0;
 		color: #f5f5f5;
+		font-family: Inter;
 		font-size: 24rem;
 		line-height: 100%;
 	}
@@ -65,12 +67,14 @@
 		border-radius: 15rem;
 		border: none;
 		color: #ff6830;
+		font-family: Inter;
 		font-size: 30rem;
 		font-weight: bold;
 		background: linear-gradient(77.37deg, #FC5151 3.37%, #FFE177 55.28%, #FFA370 99.2%);
 	}
 
 	#learn-more-btn {
+		font-family: Inter;
 		font-size: 24rem;
 		color: #ef7a61;
 		text-decoration: underline;

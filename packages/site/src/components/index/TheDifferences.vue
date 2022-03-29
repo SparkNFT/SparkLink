@@ -1,31 +1,21 @@
 <template>
 	<section class="differences">
-		<el-row>
-			<el-col :span="13">
-				<div class="nodes">
-					<img src="/images/nodes.png" />
-				</div>
-			</el-col>
-			<el-col :span="11">
-				<div class="web3">
-					<h1 class="title">
-						Pure Web3 creator economy,
-					</h1>
-					<h1 class="title">
-						We are So different from others
-					</h1>
-					<p class="text">
-						unique tree-shaped sharing economy structure
-					</p>
-					<p class="text">
-						allows everyone to share and sell node NFT
-					</p>
-					<p class="text">
-						content, generating split positive economic benefits.
-					</p>
-				</div>
-			</el-col>
-		</el-row>
+		<img src="/images/nodes.png"  class="nodes" />
+		<div class="web3">
+			<h1 class="title">
+				Pure Web3 creator economy,
+			</h1>
+			<h1 class="title" style="margin-bottom: 56rem; margin-top: 34rem">
+				We are So different from others
+			</h1>
+
+			<p class="text">
+				unique tree-shaped sharing economy structure
+			</p>
+			<p class="text">
+				allows everyone to share and sell node NFT
+			</p>
+		</div>
 	</section>
 </template>
 
@@ -34,41 +24,42 @@
 
 <style scoped lang="scss">
 	.differences {
+		position: relative;
 		height: 863rem;
 		background: #F4EBEB;
 		box-sizing: border-box;
 
-		.el-row,
-		.nodes,
-		.web3 {
-			height: 100%;
-		}
-
 		.nodes {
-			display: flex;
-			align-items: center;
-
-			img {
-				width: 100%;
-			}
+			position: absolute;
+			top: 198rem;
+			left: 118rem;
+			width: 945rem;
 		}
 
 		.web3 {
-			padding-top: 180rem;
+			position: absolute;
+			top: 288rem;
+			left: 1106rem;
 
 			.title {
+				margin: 0;
+				color: #383838;
+				font-family: Inter;
+				font-size: 45px;
 				font-style: normal;
 				font-weight: 800;
-				font-size: 48rem;
+				line-height: 45px;
 				text-align: center;
-				color: #383838;
 			}
 
 			.text {
-				font-weight: 400;
-				font-size: 25rem;
-				text-align: center;
 				color: #8D8D97;
+				font-family: Inter;
+				font-size: 25px;
+				font-style: normal;
+				font-weight: 400;
+				line-height: 25px;
+				text-align: center;
 			}
 		}
 	}

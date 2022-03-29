@@ -6,7 +6,7 @@
 					<h1 class="title">
 						Freely publish what you love
 					</h1>
-					<p class="text">
+					<p class="text" style="margin-bottom: 16rem">
 						No restrictions on the format and content of the publication,
 					</p>
 					<p class="text">
@@ -103,18 +103,23 @@
 			display: flex;
 			flex-direction: column;
 			align-items: center;
-			padding: 90rem 0;
+			width: 710rem;
+			height: 332rem;
+			padding: 187rem 56rem 222rem 194rem;
 
 			.title {
 				color: #383838;
-				font-size: 46rem;
+				font-family: Inter;
+				font-size: 48rem;
 				font-weight: 800;
 				line-height: 48rem;
+				margin: 0 0 52rem;
 			}
 
 			.text {
-				margin: 10rem;
+				margin: 0;
 				color: #8d8d97;
+				font-family: Inter;
 				font-size: 25rem;
 				font-weight: 400;
 				line-height: 25rem;
@@ -124,8 +129,7 @@
 		.types {
 			width: 604rem;
 			height: 414rem;
-			margin: 0 auto;
-			padding-top: 100rem;
+			margin: 115rem 245rem 212rem 111rem;
 			display: flex;
 			flex-direction: column;
 			justify-content: space-between;
@@ -141,17 +145,18 @@
 					height: 110rem;
 					border-radius: 10rem;
 					box-shadow: 0 2rem 20rem 0 #EF7A6140;
-					padding: 17rem;
+					padding: 14rem 0 17rem 0;
 					box-sizing: border-box;
 					text-align: center;
 
 					.head {
-						width: 45rem;
+						width: 46rem;
 					}
 
 					.info {
-						margin: 12rem 0;
+						margin: 16rem 0 0 0;
 						color: #2C2F30;
+						font-family: Inter;
 						font-weight: 700;
 						font-size: 15rem;
 						line-height: 18rem;
@@ -163,14 +168,15 @@
 	}
 
 	.start-to-publish {
-		margin-top: 80rem;
-		padding: 25rem 46rem;
+		width: 319rem;
+		height: 82rem;
+		margin-top: 84rem;
 		color: #ef7a61;
 		border: 1rem solid #ef7a61;
 		border-radius: 15rem;
+		font-family: Inter;
 		font-size: 30rem;
 		font-weight: 700;
-		line-height: 33rem;
 		text-align: center;
 		background-color: white;
 		cursor: pointer;

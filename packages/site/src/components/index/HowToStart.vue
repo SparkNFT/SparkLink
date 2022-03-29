@@ -101,11 +101,12 @@
 		box-sizing: border-box;
 
 		.title-container {
-			height: 120rem;
+			height: 103rem;
 		}
 
 		.title {
 			margin: 0;
+			font-family: Inter;
 			font-size: 48rem;
 			font-weight: 800;
 			line-height: 48rem;
@@ -114,6 +115,8 @@
 
 		.sub-title {
 			margin: 29rem 0 0;
+			color: #8D8D97;
+			font-family: Inter;
 			font-size: 22rem;
 			font-weight: 400;
 			line-height: 40rem;
@@ -133,18 +136,19 @@
 				align-items: center;
 				width: 400rem;
 				height: 531rem;
-				padding: 50rem 0;
+				padding-top: 88rem;
 				border-radius: 20rem;
 				border: 1rem solid #f3f3f3;
 				box-shadow: 20rem 20rem 20rem #f5f5f5;
 
 				.head {
 					width: 61rem;
-					margin-bottom: 40rem;
+					margin-bottom: 49rem;
 				}
 
 				.title {
 					color: #2c2f30;
+					font-family: Inter;
 					font-size: 32rem;
 					font-weight: 700;
 					line-height: 39rem;
@@ -154,6 +158,7 @@
 				.info {
 					margin: 0;
 					color: #8d8d97;
+					font-family: Inter;
 					font-size: 20rem;
 					font-weight: 400;
 					line-height: 36rem;

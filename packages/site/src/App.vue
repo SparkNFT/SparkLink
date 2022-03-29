@@ -14,9 +14,15 @@
 </template>
 
 <style>
+@font-face {
+	font-family: "Inter";
+	src: url("/fonts/Inter-UI-Regular.woff2") format("woff2"),
+	url("/fonts/Inter-UI-Regular.woff") format("woff");
+}
 	/* use rem to compatible more resolution */
 	html {
 		font-size: 1px;
+		font-family: Inter;
 	}
 
 	body {
