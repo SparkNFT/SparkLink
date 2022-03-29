@@ -11,13 +11,7 @@
 					</h5>
 				</div>
 				<p class="info">
-					Once you've set up your wallet
-				</p>
-				<p class="info">
-					ofchoice, connect it to EnftyMart by
-				</p>
-				<p class="info">
-					clicking the
+					Connect the crypto wallet to start
 				</p>
 			</div>
 			<div class="card">
@@ -31,10 +25,7 @@
 					Upload your work(image, video,
 				</p>
 				<p class="info">
-					audio, or 3Dart), add a title and
-				</p>
-				<p class="info">
-					description
+					audio, or 3Dart)
 				</p>
 			</div>
 			<div class="card">
@@ -68,22 +59,19 @@
 					</h5>
 				</div>
 				<p class="info">
-					Creators get node income permanently
+					Creators get royalties and node income
 				</p>
 				<p class="info">
-					by sharing and selling the subordinate
+					permanently by selling the subordinate
 				</p>
 				<p class="info">
-					nodes of their own works, and sharers
+					nodes of their own works, sharers get
 				</p>
 				<p class="info">
-					get the income permanently by sharing
+					the income permanently by selling the
 				</p>
 				<p class="info">
-					and selling the subordinate nodes of
-				</p>
-				<p class="info">
-					their existing works.
+					subordinate nodes of their bought.
 				</p>
 			</div>
 		</div>

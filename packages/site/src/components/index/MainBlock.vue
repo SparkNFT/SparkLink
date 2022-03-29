@@ -76,7 +76,7 @@
 	#learn-more-btn {
 		font-family: Inter;
 		font-size: 24rem;
-		color: #ef7a61;
+		color: #ffffff;
 		text-decoration: underline;
 	}
 </style>
