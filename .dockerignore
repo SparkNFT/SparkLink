@@ -1,0 +1,17 @@
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+.idea
+.vscode
+node_modules
+generated
+.env
+.DS_Store
+dist
+tmp
+dist-ssr
+*.local

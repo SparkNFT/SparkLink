@@ -1,159 +1,606 @@
 <template>
-	<el-card>
-		<el-form label-position="top" class="form">
-			<el-form-item label="Item name" class="single-label">
-				<el-input name="itemName" />
-			</el-form-item>
-			<el-form-item label="Percentage of earnings">
-				<p class="description">
-					When your item is shared and profited by others,what percentage of the
-					profits you want from the share of the profits.
-				</p>
-				<el-input name="percentageOfEarnings" />
-			</el-form-item>
-			<el-form-item label="Payment currency">
-				<p class="description">
-					Please select the payment currency of your support (enter token symbol
-					or address).
-				</p>
-				<el-input name="paymentCurrency" />
-			</el-form-item>
-			<el-form-item label="Selling price" class="single-label">
-				<el-input name="sellingPrice" />
-			</el-form-item>
-			<el-form-item label="Maximum number of shares">
-				<p class="description">
-					How many times do you want each user to help you spread?
-				</p>
-				<el-input name="maximum number of shares" placeholder="Up to 65535" />
-			</el-form-item>
-			<el-form-item label="Work authority" class="single-label">
-				<el-checkbox border class="checkbox"
-				>Allow secondary creation
-				</el-checkbox
-				>
-				<el-checkbox border class="checkbox">Allow commercial use</el-checkbox>
-				<el-checkbox border class="checkbox"
-				>First-class nodes are allowed to be cast free of charge
-				</el-checkbox
-				>
-			</el-form-item>
-			<el-form-item label="Encrypt publish" class="single-label">
-				<div class="switch-wrapper">
-					<el-switch :active-icon="Check" :inactive-icon="Close" />
-					<span class="description">
-            Choose open source release by default, users can download and view
-            the content of the work regardless of whether the work is purchased
-            or not.
-          </span>
-				</div>
-			</el-form-item>
-			<el-form-item label="Item description">
-				<p class="description">
-					Please describe your work in simple words. Accurate and effective description can help other users
-					to understand your work more accurately.
-				</p>
-				<el-input type="textarea" autosize name="itemDescription" />
-			</el-form-item>
-			<el-form-item label="Cover picture">
-				<p class="description">
-					Please upload your cover image in the area below. Cover files support these formats: JPEG/JPG/PNG.
-				</p>
-				<el-upload
-					drag
-					multiple
-				>
-					<el-icon class="el-icon--upload">
-						<upload-filled />
-					</el-icon>
-					<div class="el-upload__text">
-						Drop file here or <em>click to upload</em>
-					</div>
-				</el-upload>
-			</el-form-item>
-			<el-form-item label="Item file">
-				<p class="description">
-					Please upload your work file in the area below.
-				</p>
-				<el-upload
-					class="upload-demo"
-					drag
-					multiple
-				>
-					<el-icon class="el-icon--upload">
-						<upload-filled />
-					</el-icon>
-					<div class="el-upload__text">
-						Drop file here or <em>click to upload</em>
-					</div>
-					<template #tip>
-						<div class="el-upload__tip">
-							Multiple file upload is supported,and multiple types of files are supported.
-						</div>
-					</template>
-				</el-upload>
-			</el-form-item>
-			<div class="divider-line" />
-			<div class="btn-area">
-				<el-button type="primary">Publish</el-button>
-			</div>
-		</el-form>
-	</el-card>
+  <el-card :class="{ embed: !grid.lgPlus }">
+    <el-form
+      ref="form"
+      :model="data"
+      :rules="rules"
+      label-position="top"
+      class="form"
+    >
+      <el-form-item
+        :label="t('inputs.name.label')"
+        class="single-label"
+        prop="name"
+      >
+        <el-input v-model="data.name" name="itemName" />
+      </el-form-item>
+      <el-form-item
+        :label="t('inputs.earning.label')"
+        prop="percentageOfEarnings"
+      >
+        <p class="description">{{ t("inputs.earning.description") }}</p>
+        <el-input-number
+          v-model="data.percentageOfEarnings"
+          name="percentageOfEarnings"
+          :min="0"
+          :max="100"
+          :precision="0"
+        />
+      </el-form-item>
+      <el-form-item :label="t('inputs.currency.label')" prop="paymentCurrency">
+        <p class="description">
+          {{ t("inputs.currency.description") }}
+          <br /><br />
+          {{ t("inputs.currency.chain") }} <strong>{{ chain }}</strong
+          >.
+        </p>
+        <payment-currency-selector
+          name="paymentCurrency"
+          @update:address="updatePaymentCurrency"
+        />
+      </el-form-item>
+      <el-form-item :label="t('inputs.price.label')" prop="sellingPrice">
+        <p class="description">{{ t("inputs.price.description") }}</p>
+        <el-input-number
+          v-model="data.sellingPrice"
+          :controls="false"
+          size="large"
+          name="sellingPrice"
+        />
+      </el-form-item>
+      <el-form-item :label="t('inputs.shares.label')" prop="maxShareTimes">
+        <p class="description">
+          {{ t("inputs.shares.description") }}
+        </p>
+        <el-input-number
+          v-model="data.maxShareTimes"
+          name="maximum number of shares"
+          :placeholder="t('inputs.shares.placeHolder')"
+          :min="0"
+          :max="65535"
+          :precision="0"
+        />
+      </el-form-item>
+      <el-form-item
+        :label="t('inputs.baseline.label')"
+        prop="baseline"
+        class="single-label"
+      >
+        <el-input-number
+          v-model="data.baseline"
+          name="price baseline"
+          :placeholder="t('inputs.baseline.placeHolder')"
+          :min="0"
+          :max="255"
+          :precision="0"
+        />
+      </el-form-item>
+      <el-form-item
+        :label="t('inputs.authority.label')"
+        class="single-label"
+        prop="checkboxGroupsObj"
+      >
+        <meta-checkbox-group
+          checkbox-class="checkbox"
+          @update:model-value="updateMetas"
+        />
+      </el-form-item>
+      <el-form-item
+        :label="t('inputs.encrypt.label')"
+        class="single-label"
+        prop="encrypted"
+      >
+        <div class="switch-wrapper">
+          <el-switch
+            v-model="data.encrypted"
+            :active-icon="Check"
+            :inactive-icon="Close"
+          />
+          <span class="description">{{ t("inputs.encrypt.description") }}</span>
+        </div>
+      </el-form-item>
+      <el-form-item :label="t('inputs.description.label')" prop="description">
+        <p class="description">{{ t("inputs.description.description") }}</p>
+        <el-input
+          v-model="data.description"
+          type="textarea"
+          autosize
+          name="itemDescription"
+        />
+      </el-form-item>
+      <el-form-item :label="t('inputs.upload.cover.label')" prop="files.cover">
+        <p class="description">
+          {{ t("inputs.upload.cover.description") }}
+        </p>
+        <el-upload
+          ref="coverUploader"
+          drag
+          multiple
+          :auto-upload="false"
+          action="https://jsonplaceholder.typicode.com/posts"
+          :http-request="fakeRequest"
+          :on-change="onCoverChange"
+        >
+          <el-icon class="el-icon--upload"><upload-filled /></el-icon>
+          <div class="el-upload__text">
+            {{ t("inputs.upload.hint._1")
+            }}<em>{{ t("inputs.upload.hint._2") }}</em>
+          </div>
+        </el-upload>
+      </el-form-item>
+      <el-form-item
+        :label="t('inputs.upload.content.label')"
+        prop="files.content"
+      >
+        <p class="description">
+          {{ t("inputs.upload.content.description") }}
+        </p>
+        <el-upload
+          ref="contentUploader"
+          class="upload-demo"
+          drag
+          multiple
+          :auto-upload="false"
+          action="https://jsonplaceholder.typicode.com/posts"
+          :http-request="fakeRequest"
+          :on-change="onContentChange"
+        >
+          <el-icon class="el-icon--upload"><upload-filled /></el-icon>
+          <div class="el-upload__text">
+            {{ t("inputs.upload.hint._1")
+            }}<em>{{ t("inputs.upload.hint._2") }}</em>
+          </div>
+          <template #tip>
+            <div class="el-upload__tip">
+              {{ t("inputs.upload.tip") }}
+            </div>
+          </template>
+        </el-upload>
+      </el-form-item>
+      <div class="divider-line" />
+      <div class="btn-area">
+        <el-button type="primary" @click="submit">{{
+          t("btn.publish")
+        }}</el-button>
+      </div>
+      <publish-in-progress
+        v-if="showProgressDialog"
+        v-model="showProgressDialog"
+        :event-emitter="eventEmitter"
+        :encryted="data.encrypted"
+        @listeners:attached="beginUpload"
+      />
+    </el-form>
+  </el-card>
 </template>
 
 <script lang="ts" setup>
-	import {Check, Close, UploadFilled} from "@element-plus/icons";
+import { grid } from "../../grid";
+import { Check, Close, UploadFilled } from "@element-plus/icons";
+import { useStore } from "vuex";
+import type { UserOperatorFactory } from "@EaseShare/business";
+import { computed, reactive, ref } from "vue";
+import type {
+  IUploadEventEmitter,
+  IUserInputForm,
+} from "@EaseShare/business/generated/src/uploader";
+import { Address, UniFile } from "@EaseShare/business";
+import type Web3 from "web3";
+import PaymentCurrencySelector from "./PaymentCurrencySelector.vue";
+import MetaCheckboxGroup from "./MetaCheckboxGroup.vue";
+import type { Rules } from "async-validator";
+import PublishInProgress from "./PublishInProgress.vue";
+import { useI18n } from "vue-i18n";
+import { map } from "underscore";
+
+const { t } = useI18n({
+  messages: {
+    en: {
+      validate: "This field is required",
+      inputs: {
+        name: {
+          label: "Item name",
+          validate: {
+            max: "Name should be a string whose length is under 64.",
+          },
+        },
+        earning: {
+          label: "Percentage of earnings",
+          description:
+            "When your item is shared and profited by others,what percentage of the" +
+            "profits you want from the share of the profits.",
+          validate: {
+            range: "Number out of bounds.",
+          },
+        },
+        currency: {
+          label: "Payment currency",
+          description:
+            "Please select the payment currency of your support (enter token symbol or paste token contract address).",
+          chain: "Current chain: ",
+        },
+        price: {
+          label: "Selling price",
+          description: "In coin, not in wei.",
+        },
+        shares: {
+          label: "Maximum number of shares",
+          description:
+            "How many times do you want each user to help you spread?",
+          placeHolder: "Up to 65535, Interger",
+        },
+        baseline: {
+          label: "Price Baseline of the child nodes (Percentage)",
+          placeHolder: "0 to 255, Interger",
+        },
+        authority: {
+          label: "Work authority",
+        },
+        encrypt: {
+          label: "Encrypt publish",
+          description:
+            "Choose open source release by default, users can download and view" +
+            "the content of the work regardless of whether the work is purchased" +
+            "or not.",
+        },
+        description: {
+          label: "Item description",
+          description:
+            "Please describe your work in simple words. Accurate and effective" +
+            "description can help other users to understand your work more" +
+            "accurately.",
+        },
+        upload: {
+          hint: {
+            _1: "Drop file here or ",
+            _2: "click to upload",
+          },
+          tip:
+            "Multiple file upload is supported,and multiple types of files are" +
+            "supported.",
+          cover: {
+            label: "Cover picture",
+            description:
+              "Please upload your cover image in the area below. Cover files support" +
+              "these formats: JPEG/JPG/PNG.",
+          },
+          content: {
+            label: "Item file",
+            description: "Please upload your work file in the area below.",
+          },
+        },
+      },
+      btn: {
+        publish: "Publish",
+      },
+    },
+    "zh-CN": {
+      validate: "必填。",
+      inputs: {
+        name: { label: "作品名字", validate: { max: "字段长度需小于64。" } },
+        earning: {
+          label: "收益比例",
+          description:
+            "当您的物品被他人分享并获利时，您希望从分享的利润中获得多少比例的收益。",
+          validate: {
+            range: "数值越界。",
+          },
+        },
+        currency: {
+          label: "结算代币",
+          description: "请选择您支持的支付货币 (输入代币符号)",
+          chain: "当前链：",
+        },
+        price: {
+          label: "销售价格",
+          description: "以货币作而非以太为结算单位",
+        },
+        shares: {
+          label: "最高分享次数",
+          description: "您希望每个用户最多能够分享多少次？",
+          placeHolder: "0 - 65535, 整数",
+        },
+        baseline: {
+          label: "子节点的价格基线（百分比）",
+          placeHolder: "0 - 255，整数",
+        },
+        authority: {
+          label: "作品权限",
+        },
+        encrypt: {
+          label: "加密发布",
+          description:
+            "默认选择开源发布，无论是否购买该作品，用户都可以下载并查看该作品内容。",
+        },
+        description: {
+          label: "作品描述",
+          description:
+            "请用简单的话语对您的作品进行描述，精准有效的描述能帮助其他用户更准确得了解您的作品。",
+        },
+        upload: {
+          hint: {
+            _1: "拖拽文件到此处或者",
+            _2: "点击上传文件",
+          },
+          tip: "支持多个文件上传，并支持多种类型的文件。",
+          cover: {
+            label: "封面图片",
+            description:
+              "请在下方区域上传您的封面图片 封面文件支持这些格式：JPEG/JPG/PNG",
+          },
+          content: {
+            label: "作品文件",
+            description: "请在下方区域上传您的作品文件",
+          },
+        },
+      },
+      btn: {
+        publish: "发布",
+      },
+    },
+  },
+});
+
+interface Data {
+  name: string;
+  percentageOfEarnings: number;
+  paymentCurrency: string;
+  sellingPrice: number;
+  maxShareTimes: number;
+  baseline: number;
+  encrypted: boolean;
+  description: string;
+  checkboxGroupsObj: {
+    allowSecondaryCreation: boolean;
+  };
+  files: {
+    cover: File | undefined;
+    content: File[];
+  };
+}
+
+const data = reactive({
+  name: "",
+  percentageOfEarnings: NaN,
+  paymentCurrency: "",
+  sellingPrice: NaN,
+  maxShareTimes: NaN,
+  baseline: NaN,
+  encrypted: false,
+  description: "",
+  checkboxGroupsObj: {
+    allowSecondaryCreation: false,
+    allowCommercialUsage: false,
+    freeForSecondLevel: false,
+  },
+  files: {
+    cover: undefined,
+    content: [],
+  },
+} as Data);
+
+function onValueChange(field: string, value: number) {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //@ts-ignore
+  if (data[field] && data[field] !== value) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
+    data[field] = value;
+  }
+}
+
+const store = useStore();
+const chain = computed(() => store.getters["web3/chainName"]);
+const factory = computed(
+  () => store.getters["web3/userOperatorFactory"] as UserOperatorFactory
+);
+const uploader = computed(() => factory.value.uploader);
+
+function updatePaymentCurrency(address: string) {
+  data.paymentCurrency = address;
+}
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+function updateMetas(meta) {
+  data.checkboxGroupsObj = meta;
+}
+const web3 = computed(() => store.state.web3.web3 as Web3);
+
+function covertToUserInputForm(data: Data): IUserInputForm {
+  const _checkboxGroupObj = data.checkboxGroupsObj;
+  const toWei = web3.value.utils.toWei;
+  return {
+    name: data.name,
+    percentageOfEarnings: data.percentageOfEarnings as number,
+    paymentCurrency: new Address(data.paymentCurrency),
+    sellingPrice: BigInt(toWei((data.sellingPrice as number).toString())),
+    maxShareTimes: data.maxShareTimes as number,
+    allowSecondaryCreation: _checkboxGroupObj.allowSecondaryCreation,
+    encrypted: data.encrypted,
+    description: data.description,
+    baseline: data.baseline,
+    cover: new UniFile(data.files.cover as File),
+    content: data.files.content.map((e) => new UniFile(e)),
+  } as IUserInputForm;
+}
+
+const form = ref(
+  null as {
+    validate: (
+      callback: (validated: boolean, errFields: object) => void
+    ) => void;
+  } | null
+);
+const coverUploader = ref(null as { submit: () => void } | null);
+const contentUploader = ref(null as { submit: () => void } | null);
+
+async function submitUpload() {
+  coverUploader.value?.submit();
+  contentUploader.value?.submit();
+}
+
+function fakeRequest() {
+  return;
+}
+
+type ElFile = { raw: File };
+
+function onCoverChange(file: ElFile) {
+  data.files.cover = file.raw;
+}
+
+function onContentChange(file: ElFile, files: ElFile[]) {
+  data.files.content = files.map((f) => f.raw);
+}
+
+const rules = {
+  name: [
+    {
+      required: true,
+      message: t("validate"),
+    },
+    { max: 64, message: t("inputs.name.validate.max") },
+  ],
+  percentageOfEarnings: [
+    {
+      required: true,
+      message: t("validate"),
+    },
+    {
+      type: "integer",
+      min: 0,
+      max: 100,
+      trigger: "blur",
+      message: t("inputs.earning.validate.range"),
+    },
+  ],
+  paymentCurrency: {
+    required: true,
+    message: t("validate"),
+  },
+  sellingPrice: [
+    {
+      type: "number",
+      trigger: "blur",
+      required: true,
+      message: t("validate"),
+    },
+  ],
+  maxShareTimes: {
+    type: "integer",
+    required: true,
+    trigger: "blur",
+    message: t("validate"),
+  },
+  baseline: {
+    type: "integer",
+    required: true,
+    trigger: "blur",
+    message: t("validate"),
+  },
+  description: {
+    required: true,
+    message: t("validate"),
+  },
+  "files.cover": {
+    required: true,
+    message: t("validate"),
+  },
+  "files.content": {
+    required: true,
+    message: t("validate"),
+  },
+} as Rules;
+
+const showProgressDialog = ref(false);
+const eventEmitter = ref(null as IUploadEventEmitter | null);
+const runUploadPromise = ref(null as (() => Promise<void>) | null);
+
+async function submit() {
+  const validationPromise = new Promise((resolve) => {
+    if (!form.value) resolve(false);
+    form.value?.validate((validated) => {
+      resolve(validated);
+    });
+  });
+  const validated = await validationPromise;
+  if (!validated) return;
+  submitUpload();
+  showProgressDialog.value = true;
+  const formdata = covertToUserInputForm(data);
+  const { eventEmitter: _eventEmitter, runUploadPromise: _runUploadPromise } =
+    uploader.value.upload(formdata);
+  eventEmitter.value = _eventEmitter;
+  runUploadPromise.value = _runUploadPromise;
+}
+
+async function beginUpload() {
+  if (!runUploadPromise.value) return;
+  await runUploadPromise.value();
+}
 </script>
 
 <style lang="scss" scoped>
-	.form {
-		:deep(.el-form-item__label) {
-			font-size: var(--el-font-size-medium);
-			color: black;
-			line-height: 1.5;
-		}
+.form {
+  :deep(.el-form-item__label) {
+    font-size: var(--el-font-size-medium);
+    color: black;
+    line-height: 1.5;
+  }
 
-		.single-label {
-			:deep(.el-form-item__label) {
-				padding-bottom: 16px;
-			}
-		}
+  :deep(.el-input-number) {
+    width: 250px;
+  }
+  :deep(.el-autocomplete) {
+    min-width: 250px;
+  }
 
-		.description {
-			font-size: var(--el-font-size-base);
-			color: var(--el-color-info);
-			line-height: 1;
-		}
+  :deep(.checkbox) {
+    margin-right: 16px;
 
-		.checkbox {
-			margin-right: 16px;
+    & + .checkbox {
+      margin-left: unset;
+    }
+  }
 
-			& + .checkbox {
-				margin-left: unset;
-			}
-		}
+  .single-label {
+    :deep(.el-form-item__label) {
+      padding-bottom: 16px;
+    }
+  }
 
-		.switch-wrapper {
-			display: flex;
-			align-items: center;
+  .description {
+    font-size: var(--el-font-size-base);
+    color: var(--el-color-info);
+    line-height: 1;
+  }
 
-			.description {
-				margin-left: 16px;
-			}
-		}
+  .switch-wrapper {
+    display: flex;
+    align-items: center;
 
-		.el-upload__tip {
-			line-height: 1;
-		}
+    .description {
+      margin-left: 16px;
+    }
+  }
 
-		.divider-line {
-			margin: 16px 0;
-			border-top: var(--el-border-base)
-		}
+  .el-upload__tip {
+    line-height: 1;
+  }
 
-		.btn-area {
-			display: flex;
-			justify-content: end;
-		}
-	}
+  .divider-line {
+    margin: 16px 0;
+    border-top: var(--el-border-base);
+  }
+
+  .btn-area {
+    display: flex;
+    justify-content: end;
+  }
+}
+.embed {
+  border: unset;
+  box-shadow: unset;
+}
 </style>

@@ -1,133 +1,217 @@
 <template>
-	<el-header class="header">
-		<img src="/images/logo.png" class="logo" />
-		<div class="nav">
-			<router-link v-for="item in navs" :key="item.name" :to="item.path">
-				{{ item.name }}
-			</router-link>
-		</div>
-		<div class="end">
-			<el-button type="text" class="lang-btn">language</el-button>
-			<el-tooltip v-if="metaMask.state.account">
-				<template #content>
-					Address: {{ metaMask.state.account }} <br /><br />
-					Click to disconnected.
-				</template>
-				<el-button type="text" class="connected-info" @click="disconnect">
-					Connected
-				</el-button>
-			</el-tooltip>
-			<span v-else-if="metaMask.state.canConnect">Connecting...</span>
-			<button
-				v-else
-				type="primary"
-				:disabled="!metaMask.state.hasProvider"
-				class="connect-btn"
-				@click="connect"
-			>
-				CONNECT WALLET
-			</button>
-		</div>
-	</el-header>
+  <el-header
+    :class="{
+      header: true,
+      mobile: !grid.md,
+      solid: !mobileTransparent,
+      fixed: !sticky,
+      sticky,
+    }"
+  >
+    <div class="inner">
+      <router-link :to="{ name: `index` }" class="logo-a">
+        <el-image src="/assets/main-logo.svg" class="logo" />
+      </router-link>
+      <template v-if="grid.md">
+        <div class="nav">
+          <router-link v-for="item in navs" :key="item.name" :to="item.path">
+            {{ item.name }}
+          </router-link>
+        </div>
+        <div class="space" />
+        <EndBlock />
+      </template>
+      <template v-else>
+        <div class="space" />
+        <button class="reset end" @click="openMobileNav">
+          <el-image src="/assets/nav.svg"></el-image>
+        </button>
+        <NavigationDrawer
+          v-model="mobileNavOpened"
+          :navs="navs"
+        ></NavigationDrawer>
+      </template>
+    </div>
+  </el-header>
+  <div v-if="sticky" class="fixed-placer" />
 </template>
 
 <script lang="ts" setup>
-	import {
-		metaMask,
-		ensureConnect,
-		disconnect as metaMaskDisconnect,
-	} from "../metaMask";
+import { useStore } from "vuex";
+import { grid } from "../grid";
+import { computed, onMounted, onUnmounted, ref } from "vue";
+import { throttle } from "underscore";
+import { useRouter } from "vue-router";
+import NavigationDrawer from "./topBar/NavigationDrawer.vue";
+import { INavItem } from "./types";
+import EndBlock from "./topBar/EndBlock.vue";
+import { t } from "../i18n";
 
-	const navs = [
-		{
-			name: "HOME",
-			path: "/",
-		},
-		{
-			name: "PUBLISH",
-			path: "/publish",
-		},
-		{
-			name: "COLLECTION",
-			path: "/collection",
-		},
-		{
-			name: "WIKI",
-			path: "/wiki",
-		},
-		{
-			name: "MARKET",
-			path: "/market",
-		},
-	] as { name: string; path: string }[];
+withDefaults(defineProps<{ sticky: boolean }>(), { sticky: false });
 
-	function connect() {
-		ensureConnect();
-	}
+const navs = computed(
+  () =>
+    [
+      {
+        name: t("navs.home"),
+        path: "/",
+        icon: "home",
+      },
+      {
+        name: t("navs.publish"),
+        path: "/publish",
+        icon: "file_upload",
+      },
+      {
+        name: t("navs.collection"),
+        path: "/collection",
+        icon: "collections",
+      },
+      {
+        name: t("navs.wiki"),
+        path: "/wiki",
+        icon: "notes",
+      },
+      {
+        name: t("navs.market"),
+        path: "/market",
+        icon: "shopping_cart",
+      },
+    ] as INavItem[]
+);
 
-	function disconnect() {
-		metaMaskDisconnect();
-	}
+const store = useStore();
+
+const mobileTransparent = ref(true);
+
+function _handleScroll() {
+  const t = mobileTransparent.value;
+  if (t && window.scrollY > 50) mobileTransparent.value = false;
+  else if (!t && window.scrollY < 50) mobileTransparent.value = true;
+}
+
+const handleScroll = throttle(_handleScroll, 200);
+
+onMounted(() => {
+  window.addEventListener("scroll", handleScroll);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("scroll", handleScroll);
+});
+
+const mobileNavOpened = ref(false);
+function openMobileNav() {
+  mobileNavOpened.value = true;
+}
+
+const router = useRouter();
+function navTo(path: string) {
+  router.push(path);
+}
 </script>
 
 <style lang="scss" scoped>
-	.header {
-		display: flex;
-		height: 108rem;
-		align-items: center;
-		justify-content: space-between;
-		padding: 0 113rem;
-	}
+$height: 65px;
+.header {
+  --el-header-height: #{$height};
+  border-bottom: var(--el-border-base);
+  position: fixed;
+  z-index: 10;
+  width: 100%;
+  background-color: white;
+  transition: background-color 100ms linear;
+  box-sizing: content-box;
+  padding-left: unset;
+  > .inner {
+    padding: 0 32px 0 16px;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    box-sizing: border-box;
+  }
+  &.mobile {
+    &.fixed {
+      border-bottom: none;
+      background-color: unset;
+      &.solid {
+        border-bottom: var(--el-border-base);
+        background-color: white;
+      }
+    }
 
-	.logo {
-		width: 193rem;
-	}
+    .nav {
+      display: grid;
+      height: 100%;
+      align-items: center;
+      grid-template-columns: repeat(auto-fit, 45%);
+      justify-content: center;
+      button {
+        margin-left: unset;
+        flex: 1;
+      }
+      flex-wrap: wrap;
+      gap: 16px;
+    }
 
-	.nav {
-		display: flex;
-		width: 450rem;
-		height: 100%;
-		align-items: center;
-		justify-content: space-between;
-		padding-left: 250rem;
+    :deep(.down.drawer) {
+      #el-drawer__title {
+        margin-bottom: 16px;
+      }
+    }
+  }
+}
 
-		a {
-			text-decoration: none;
-			color: #f5f5f5;
-			font-size: 18rem;
-			font-weight: bold;
-		}
+.logo {
+  height: 42px;
+  &-a {
+    margin-right: 32px;
+    height: 42px;
+  }
+}
 
-		a.router-link-exact-active {
-			color: #ffea07;
-		}
-	}
+.nav {
+  display: flex;
+  a {
+    text-decoration: none;
+    color: black;
+    font-size: var(--el-font-size-medium);
+  }
 
-	.end {
-		display: flex;
-		align-items: center;
-	}
+  a + a {
+    margin-left: 44px;
+  }
+}
 
-	.lang-btn {
-		color: #f5f5f5;
-		font-size: 18rem;
-		font-weight: bold;
-		margin-right: 40rem;
-	}
+.lang-btn {
+  margin-left: 10px;
+  padding: 6px 10px;
+}
 
-	.connected-info {
-		color: var(--el-text-color-primary);
-	}
+.connected-info {
+  color: var(--el-text-color-primary);
+  padding: 6px 10px;
+}
 
-	.connect-btn {
-		font-size: 20rem;
-		font-weight: bold;
-		color: #ff6e65;
-		width: 283rem;
-		height: 70rem;
-		border-radius: 15rem;
-		border: none;
-		background-color: #ffe177;
-		cursor: pointer;
-	}
+.connect-btn {
+  padding: 6px 10px;
+}
+
+.chain-selector {
+  width: 110px;
+}
+
+.nav-btn {
+  width: 100%;
+  > :deep(span) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+}
+
+.fixed-placer {
+  height: #{$height};
+}
 </style>

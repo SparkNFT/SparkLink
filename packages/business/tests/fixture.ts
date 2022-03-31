@@ -1,6 +1,5 @@
-import config from "./config";
+import config from "./configs";
 
 export async function mochaGlobalSetup() {
-	console.log(config);
-	await config();
+  await config();
 }

@@ -1,0 +1,72 @@
+@forward "element-plus/theme-chalk/src/common/var.scss" with (
+  $colors: (
+    "primary": (
+      "base": #478efd,
+    ),
+  )
+);
+
+@use "element-plus/theme-chalk/src/index.scss";
+
+:root {
+  --color-primary-dark: #478efd;
+  --grey-background: #f4f5f7;
+}
+
+body {
+  margin: unset;
+  font-family: "Inter", "Lato", "Helvetica Neue", Helvetica, "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  line-height: 1.5;
+}
+
+span,
+p {
+  font-size: var(--el-font-size-medium);
+  margin-block-start: unset;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+}
+
+.space {
+  flex: 1;
+}
+
+@mixin index-title {
+  font-size: 30px;
+  margin-top: 80px;
+  margin-bottom: 76px;
+}
+
+@mixin block {
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.no-user-select {
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
+}
+
+button {
+  &.reset {
+    border: unset;
+    background-color: unset;
+  }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}

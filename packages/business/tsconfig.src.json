@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "types": ["mocha"],
+    "target": "es2020",
+    "moduleResolution": "Node",
+    "declaration": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["src/**/*.ts"],  
+}

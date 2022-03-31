@@ -1,13 +1,9 @@
 {
-	"compilerOptions": {
-		"types": [
-			"mocha"
-		],
-		"target": "es2020",
-		"moduleResolution": "Node"
-	},
-	"include": [
-		"tests/**/*.ts",
-		"src/**/*.ts"
-	]
+  "compilerOptions": {
+    "types": ["mocha"],
+    "target": "es2020",
+    "moduleResolution": "Node",
+    "declaration": true
+  },
+  "include": ["tests/**/*.ts", "src/**/*.ts"],  
 }

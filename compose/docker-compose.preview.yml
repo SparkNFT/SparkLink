@@ -1,0 +1,33 @@
+version: "3.8"
+services:
+  postgres:
+    image: postgres:13-alpine
+    environment:
+      POSTGRES_USER: easeshare
+      POSTGRES_PASSWORD: iese7eeL4DuabohphooRie5Eiphaim
+      POSTGRES_DB: easeshare_server_staging
+  server:
+    image: ghcr.io/easeshare/server:latest
+    volumes:
+      - ./config.json:/app/config/config.json
+    ports:
+      - 3001:3000
+  frontend:
+    image: easeshare/frontend-preview
+    build:
+      context: ..
+      dockerfile: compose/Dockerfile.preview
+      
+    ports:
+      - 3002:5000
+    environment:
+      KEY_SERVER_BASE_URL: http://localhost:3001
+      FRONTEND_BASE_URL: http://localhost:3002
+    
+  # eth:
+  #   image: trufflesuite/ganache-cli:v6.12.2
+  #   command: '--accounts 10 --debug --db /app/data'
+  #   ports:
+  #   - '48545:8545'
+  #   volumes:
+  #   - ../data/spark_server/eth:/app/data

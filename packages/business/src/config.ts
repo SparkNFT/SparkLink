@@ -1,0 +1,1 @@
+export const keyServerBaseUrl = process.env.KEY_SERVER_BASE_URL ?? "https://easeshare.io";

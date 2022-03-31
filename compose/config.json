@@ -1,0 +1,24 @@
+{
+    "db": {
+        "host": "postgres",
+        "port": 5432,
+        "user": "easeshare",
+        "password": "iese7eeL4DuabohphooRie5Eiphaim",
+        "db_name": "easeshare_server_staging",
+        "tz": "UTC"
+    },
+    "chain": {
+        "rinkeby": {
+            "rpc_url": "https://rinkeby.infura.io/v3/a3c1fcaf17ca49a6b55a66173693d671",
+            "contract_address": "0x7bEf2541bd8E5b9927d481cE1BeA408EEbF52323",
+            "block_height": 9928295,
+            "sleep_seconds": 10,
+            "fail_sleep_seconds": 5,
+            "block_confirm_count": 1
+        }
+    },
+    "pinata": {
+        "key": "a6a0ad5ebac199155d54",
+        "secret": "6aa407f6cd83272a5398bfa7d02e10aeab6d708ad880c68005db881579520990"
+    }
+}
