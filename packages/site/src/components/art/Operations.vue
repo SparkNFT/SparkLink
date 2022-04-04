@@ -34,13 +34,13 @@
 
 <script lang="ts" setup>
 import { grid } from "../../grid";
-import { DownloadEventEmitter } from "@EaseShare/business";
+import { DownloadEventEmitter } from "@SparkLink/business";
 import type {
   UserOperatorFactory,
   IContentDownloadEventEmitter,
-} from "@EaseShare/business";
-import type { IContentDownloader } from "@EaseShare/business/generated/src/downloader";
-import type { INftInformation } from "@EaseShare/business/generated/src/nftInfomation";
+} from "@SparkLink/business";
+import type { IContentDownloader } from "@SparkLink/business/generated/src/downloader";
+import type { INftInformation } from "@SparkLink/business/generated/src/nftInfomation";
 import { computed, ref, watch } from "vue";
 import { useStore } from "vuex";
 import type Web3 from "web3";

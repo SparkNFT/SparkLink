@@ -178,13 +178,13 @@
 import { grid } from "../../grid";
 import { Check, Close, UploadFilled } from "@element-plus/icons";
 import { useStore } from "vuex";
-import type { UserOperatorFactory } from "@EaseShare/business";
+import type { UserOperatorFactory } from "@SparkLink/business";
 import { computed, reactive, ref } from "vue";
 import type {
   IUploadEventEmitter,
   IUserInputForm,
-} from "@EaseShare/business/generated/src/uploader";
-import { Address, UniFile } from "@EaseShare/business";
+} from "@SparkLink/business/generated/src/uploader";
+import { Address, UniFile } from "@SparkLink/business";
 import type Web3 from "web3";
 import PaymentCurrencySelector from "./PaymentCurrencySelector.vue";
 import MetaCheckboxGroup from "./MetaCheckboxGroup.vue";

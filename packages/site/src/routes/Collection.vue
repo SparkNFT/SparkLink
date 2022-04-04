@@ -40,7 +40,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { UserOperatorFactory } from "@EaseShare/business";
+import type { UserOperatorFactory } from "@SparkLink/business";
 import { computed, onMounted, ref, watch } from "vue";
 import { useStore } from "vuex";
 import ArtCardWrapper from "../components/collection/ArtCardWrapper.vue";

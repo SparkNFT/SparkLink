@@ -40,8 +40,8 @@
 <script lang="ts" setup>
 // Scope: Transient
 
-import { BuyEvent, BuyEventEmitter, IBuyEventEmitter, UserOperatorFactory } from "@EaseShare/business";
-import { INftInformation } from "@EaseShare/business/generated/src/nftInfomation";
+import { BuyEvent, BuyEventEmitter, IBuyEventEmitter, UserOperatorFactory } from "@SparkLink/business";
+import { INftInformation } from "@SparkLink/business/generated/src/nftInfomation";
 import { computed, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRouter } from "vue-router";

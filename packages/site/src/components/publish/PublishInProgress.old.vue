@@ -39,7 +39,7 @@
 <script lang="ts" setup>
 // Scope: Transient
 
-import { IUploadEventEmitter } from "@EaseShare/business";
+import { IUploadEventEmitter } from "@SparkLink/business";
 import { computed, reactive, watch, ref } from "vue";
 import { useStore } from "vuex";
 

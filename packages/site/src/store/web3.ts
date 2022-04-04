@@ -2,7 +2,7 @@
 import type { Module } from "vuex";
 import type Web3 from "web3";
 // @ts-ignore
-import { UserOperatorFactory } from "@EaseShare/business";
+import { UserOperatorFactory } from "@SparkLink/business";
 import { IProvider, ProviderHolder, WalletProvider } from "./provider";
 import {
   chainIdToName,

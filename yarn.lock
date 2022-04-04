@@ -5,9 +5,9 @@ __metadata:
   version: 5
   cacheKey: 8
 
-"@EaseShare/business@workspace:^, @EaseShare/business@workspace:packages/business":
+"@SparkLink/business@workspace:^, @SparkLink/business@workspace:packages/business":
   version: 0.0.0-use.local
-  resolution: "@EaseShare/business@workspace:packages/business"
+  resolution: "@SparkLink/business@workspace:packages/business"
   dependencies:
     "@nomiclabs/hardhat-web3": ^2.0.0
     "@tsconfig/recommended": ^1.0.1
@@ -45,11 +45,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@EaseShare/site@workspace:packages/site":
+"@SparkLink/site@workspace:packages/site":
   version: 0.0.0-use.local
-  resolution: "@EaseShare/site@workspace:packages/site"
+  resolution: "@SparkLink/site@workspace:packages/site"
   dependencies:
-    "@EaseShare/business": "workspace:^"
+    "@SparkLink/business": "workspace:^"
     "@element-plus/icons": ^0.0.11
     "@metamask/detect-provider": ^1.2.0
     "@rollup/plugin-commonjs": ^21.0.1

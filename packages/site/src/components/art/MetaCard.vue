@@ -18,7 +18,7 @@
 
 <script lang="ts" setup>
 import { grid } from "../../grid";
-import { INftInformation } from "@EaseShare/business/generated/src/nftInfomation";
+import { INftInformation } from "@SparkLink/business/generated/src/nftInfomation";
 import { computed } from "vue";
 import { useStore } from "vuex";
 import type Web3 from "web3";

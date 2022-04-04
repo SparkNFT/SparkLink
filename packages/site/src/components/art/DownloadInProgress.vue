@@ -13,7 +13,7 @@
 <script lang="ts" setup>
 // Scope: Transient
 
-import type { IContentDownloadEventEmitter } from "@EaseShare/business";
+import type { IContentDownloadEventEmitter } from "@SparkLink/business";
 import { onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import Dialog from "../Dialog.vue";

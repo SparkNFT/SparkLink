@@ -3,7 +3,7 @@ import ethTokenInfo from "./eth.json";
 import bscTokenInfo from "./bsc.json";
 import maticTokenInfo from "./matic.json";
 import rinkebyInfo from "./rinkeby.json";
-import { Address, IERC20Contract } from "@EaseShare/business";
+import { Address, IERC20Contract } from "@SparkLink/business";
 
 export const chainIdToName = new Map<number, string>();
 chainIdToName.set(1, "ethereum");

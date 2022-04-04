@@ -12,7 +12,7 @@ import ArtCard from "./ArtCard.vue";
 import {
   INftInformation,
   NftInformationGetter,
-} from "@EaseShare/business/generated/src/nftInfomation";
+} from "@SparkLink/business/generated/src/nftInfomation";
 import { computed, onMounted, ref, watch } from "vue";
 
 import { t } from "../../i18n";

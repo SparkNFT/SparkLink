@@ -1,5 +1,5 @@
 {
-  "name": "@EaseShare/site",
+  "name": "@SparkLink/site",
   "version": "0.0.0",
   "scripts": {
     "dev": "DEBUG=true vite",
@@ -10,7 +10,7 @@
     "build-serve": "yarn build && yarn serve"
   },
   "dependencies": {
-    "@EaseShare/business": "workspace:^",
+    "@SparkLink/business": "workspace:^",
     "@metamask/detect-provider": "^1.2.0",
     "@types/underscore": "^1.11.4",
     "@walletconnect/client": "^1.7.0",

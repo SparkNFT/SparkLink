@@ -57,7 +57,7 @@
 </template>
 
 <script lang="ts" setup>
-import { IUploadEventEmitter } from "@EaseShare/business";
+import { IUploadEventEmitter } from "@SparkLink/business";
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
 import type { ITimelineItem } from "../types";
