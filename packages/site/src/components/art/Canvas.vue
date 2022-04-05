@@ -92,7 +92,7 @@ function retry() {
   align-items: center;
   width: 1080px;
   height: 1695px;
-  background: url(/assets/art/poster-background.svg) no-repeat;
+  background: url(/assets/art/poster.svg) no-repeat;
 }
 .cover {
   width: fit-content;

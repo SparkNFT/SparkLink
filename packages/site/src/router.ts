@@ -26,7 +26,7 @@ const routes = [
         path: "wiki",
         component: Index,
         beforeEnter() {
-          window.location.replace("https://docs.easeshare.io/");
+          window.location.replace("https://docs.sparklink.io/");
           return false;
         },
       },
@@ -73,6 +73,7 @@ const debugRoutes = [
 ];
 
 if (process.env?.DEBUG) {
+  // @ts-ignore
   routes.push(...debugRoutes);
 }
 

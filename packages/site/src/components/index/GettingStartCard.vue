@@ -1,53 +1,52 @@
 <template>
-  <div :class="{card: true, mobile: !grid.sm}">
-    <p class="step">step {{ step }}</p>
-    <el-image :src="iconUrl" style="height: 78px;"></el-image>
-    <h3 class="title">{{ title }}</h3>
-    <p>{{ description }}</p>
-  </div>
+	<div class="card">
+		<el-image :src="iconUrl" class="picture"></el-image>
+		<h3 class="title">{{ title }}</h3>
+		<p class="info">{{ description }}</p>
+	</div>
 </template>
 
 <script lang="ts" setup>
-import {grid} from "../../grid"
 defineProps<{
-  step: number;
-  iconUrl: string;
-  title: string;
-  description: string;
+	iconUrl: string;
+	title: string;
+	description: string;
 }>();
 </script>
 
 <style lang="scss" scoped>
 .card {
-  border: var(--el-border-base);
-  box-sizing: border-box;
-  box-shadow: 0px 45px 55px rgba(18, 17, 39, 0.08);
-  border-radius: 20px;
-  padding: 52px 36px 70px;
-  background-color: white;
-  flex: 1;
-  &+.card {
-    margin-left: 80px;
-  }
+	flex: 1;
+	padding: 88px 25px 25px 25px;
+	box-sizing: border-box;
+	box-shadow: 20px 20px 20px #f5f5f5;
+	text-align: center;
+	border-radius: 20px;
+	border: 1px solid #f3f3f3;
 
-  .step {
-    margin-bottom: 36px;
-    color: var(--color-primary-dark);
-  }
+	&+.card {
+		margin-left: 30px;
+	}
 
-  .title {
-    margin-bottom: 68px;
-  }
-}
+	.picture {
+		width: 61px;
+		margin-bottom: 49px;
+	}
 
-.card.mobile {
-  padding: 20px;
-  .step {
-    margin-bottom: 16px;
-  }
-  .title {
-    margin-top: 16px;
-    margin-bottom: 16px;
-  }
+	.title {
+		margin: 0;
+		min-height: 103px;
+		color: #2c2f30;
+		font-size: 32px;
+		font-weight: bold;
+	}
+
+	.info {
+		margin: 0;
+		color: #8d8d97;
+		font-size: 20px;
+		font-weight: 400;
+		line-height: 36px;
+	}
 }
 </style>

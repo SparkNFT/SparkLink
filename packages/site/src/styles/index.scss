@@ -36,9 +36,11 @@ p {
 }
 
 @mixin index-title {
-  font-size: 30px;
-  margin-top: 80px;
-  margin-bottom: 76px;
+  margin: 0;
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 48px;
+  text-align: center;
 }
 
 @mixin block {

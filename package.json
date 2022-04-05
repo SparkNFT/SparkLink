@@ -10,7 +10,9 @@
   "scripts": {
     "serve:staging": "./scripts/staging.sh",
     "serve:production": "./scripts/production.sh",
-    "bootstrap": "./scripts/bootstrap.sh"
+    "bootstrap": "./scripts/bootstrap.sh",
+    "site": "yarn workspace @SparkLink/site run dev",
+    "build": "yarn workspace @SparkLink/business run build:esm"
   },
   "packageManager": "yarn@3.1.0",
   "dependencies": {
