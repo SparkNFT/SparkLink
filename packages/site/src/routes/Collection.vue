@@ -105,7 +105,7 @@ const unsupportedChain = computed(() => !chainName.value);
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-	padding: 140px 150px 175px 150px;
+	padding: 32px 150px 175px 150px;
 	box-sizing: border-box;
 
 	.title {

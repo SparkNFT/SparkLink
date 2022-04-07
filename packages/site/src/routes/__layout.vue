@@ -32,7 +32,7 @@ const topBarShouldBeSticky = computed(() => {
 
 <style lang="scss" scoped>
 .main {
-	padding: 0;
+	padding: 108px 0 0 0;
 }
 
 .notification {

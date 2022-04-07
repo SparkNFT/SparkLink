@@ -1,28 +1,16 @@
 <template>
 	<section id="main-block" :class="{ mobile: !grid.sm }">
-		<div class="block block-1"></div>
-		<div class="block block-2"></div>
-		<div class="block block-3"></div>
 		<div class="container">
-			<h2 class="main-text">
-				{{ t("title._1") }} <br/>
-				{{ t("title._2") }}
-			</h2>
-			<p class="sub-text">
-				{{ t("subTitle._1") }} <br/>
-				{{ t("subTitle._2") }} <br/>
-				{{ t("subTitle._3") }} <br/>
-			</p>
-			<div class="btn-area">
-				<!-- <el-button color="#478EFD" class="btn primary">
-				  <span class="btn-text">Explore</span>
-				</el-button> -->
-				<router-link :to="{ name: `publish` }">
-					<el-button color="#478EFD" class="btn primary">
-						<span class="btn-text">{{ t("publish") }}</span>
-					</el-button>
-				</router-link>
-			</div>
+			<h2 class="main-text">Publishing and distribution,</h2>
+			<h2 class="main-text">are redefined by us.</h2>
+			<p class="sub-text">Publish your love, share your love, spread your love</p>
+			<p class="sub-text">link all creators and sharers together,that is what we doing.</p>
+			<router-link :to="{ name: `publish` }">
+				<el-button color="#478EFD" class="btn primary publish-btn">
+					<span class="btn-text">{{ t("publish") }}</span>
+				</el-button>
+			</router-link>
+			<br>
 			<router-link :to="{ name: `wiki` }" class="sub-text learn-more">
 				{{ t("learnMore") }}
 			</router-link>
@@ -53,160 +41,64 @@ const router = useRouter();
 
 <style lang="scss" scoped>
 #main-block {
-	padding: 64px 0;
-	background-color: var(--grey-background);
+	background-image: url("/public/assets/home/main-block.png");
+	background-repeat: no-repeat;
+	background-size: cover;
 	overflow: hidden;
 	position: relative;
-
-	z-index: 0;
-
-	.block {
-		position: absolute;
-		z-index: 1;
-		filter: blur(30px);
-		opacity: 0.4;
-		border-radius: 50%;
-
-		&:after {
-			content: "";
-			display: block;
-			padding-bottom: 100%;
-		}
-
-		overflow: hidden;
-
-		&.block-1 {
-			width: 700px;
-			background: conic-gradient(
-					from 168.09deg at 50% 50%,
-					#5cffe4 -160.13deg,
-					rgba(255, 128, 250, 0.7) 42.37deg,
-					#5cffe4 199.87deg,
-					rgba(255, 128, 250, 0.7) 402.37deg
-			);
-			transform: rotate(97.38deg);
-			left: -270px;
-			bottom: -100px;
-		}
-
-		&.block-2 {
-			width: 650px;
-			background: conic-gradient(
-					from 168.09deg at 50% 50%,
-					#66ffe6 -160.13deg,
-					rgba(128, 147, 255, 0.6) 42.37deg,
-					#66ffe6 199.87deg,
-					rgba(128, 147, 255, 0.6) 402.37deg
-			);
-			transform: rotate(-44.13deg);
-			right: -100px;
-			top: -300px;
-		}
-
-		&.block-3 {
-			width: 500px;
-			background: conic-gradient(
-					from 168.09deg at 50% 50%,
-					#d6ff89 -160.13deg,
-					rgba(128, 255, 253, 0.6) 42.37deg,
-					#d6ff89 199.87deg,
-					rgba(128, 255, 253, 0.6) 402.37deg
-			);
-			opacity: 0.4;
-			filter: blur(130px);
-			transform: rotate(-144.4deg);
-			bottom: -250px;
-			right: 0;
-		}
-	}
+	height: 1034px;
 
 	.container {
-		position: relative;
-		z-index: 10;
-	}
-}
+		text-align: center;
+		padding-top: 272px;
+		box-sizing: border-box;
+		height: 100%;
 
-.column-1 {
-	display: flex;
-	flex-direction: column;
-}
-
-.logo {
-	width: 400px;
-}
-
-.main-text,
-.sub-text {
-	text-align: center;
-}
-
-.main-text {
-	font-size: 40px;
-	line-height: 1.5;
-	font-weight: 800;
-
-	margin-top: calc(272px - 64px);
-}
-
-.sub-text {
-	font-size: var(--el-font-size-extra-large);
-	margin-top: 50px;
-	color: var(--el-color-info);
-
-	&.learn-more {
-		display: block;
-		color: var(--el-color-primary);
-		margin-top: 92px;
-		margin-bottom: calc(100px - 64px);
-		text-decoration: underline;
-		cursor: pointer;
-	}
-}
-
-.divider {
-	height: 16px;
-}
-
-.btn-area {
-	display: flex;
-	margin-top: 165px;
-	justify-content: center;
-
-	.btn {
-		padding: 20px 80px;
-		border-radius: 15px;
-
-		&.primary {
-			color: white;
+		.main-text {
+			margin: 0 0 50px;
+			color: #f5f5f5;
+			font-weight: bolder;
+			font-size: 58px;
+			line-height: 100%;
 		}
 
-		& + * {
-			margin-left: 80px;
+		#main-block:first-child .main-text {
+			margin-bottom: 38px;
 		}
 
-		.btn-text {
-			font-size: var(--el-font-size-extra-large);
-		}
-	}
-}
-
-.mobile {
-	.main-text {
-		font-size: 28px;
-	}
-
-	.sub-text {
-		font-size: var(--el-font-size-medium);
-	}
-
-	.btn-area {
-		.btn {
-			padding: 12px 50px;
+		.sub-text {
+			margin: 0;
+			color: #f5f5f5;
+			font-size: 24px;
+			line-height: 100%;
 		}
 
-		.btn-text {
-			font-size: var(--el-font-size-medium);
+		#main-block:first-child .sub-text {
+			margin-bottom: 10px;
+		}
+
+		.publish-btn {
+			width: 308px;
+			height: 82px;
+			margin-top: 150px;
+			margin-bottom: 75px;
+			border-radius: 15px;
+			border: none;
+			background: linear-gradient(77.37deg, #FC5151 3.37%, #FFE177 55.28%, #FFA370 99.2%);
+
+			:deep(span) {
+				color: #ff6830;
+				font-size: 30px;
+				font-weight: bold;
+			}
+		}
+
+		.learn-more {
+			font-size: 24px;
+			color: #ffffff;
+			text-decoration: underline;
 		}
 	}
+
 }
 </style>

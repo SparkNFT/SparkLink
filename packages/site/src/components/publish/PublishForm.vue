@@ -1,114 +1,123 @@
 <template>
-	<el-card :class="{ embed: !grid.lgPlus }">
-		<el-form
-			ref="form"
-			:model="data"
-			:rules="rules"
-			label-position="top"
-			class="form"
+	<el-form
+		ref="form"
+		:model="data"
+		:rules="rules"
+		label-position="top"
+		class="form"
+	>
+		<el-form-item
+			:label="t('inputs.name.label')"
+			class="single-label"
+			prop="name"
 		>
+			<el-input v-model="data.name" name="itemName" style="width: 563px"/>
+		</el-form-item>
+		<el-form-item
+			:label="t('inputs.earning.label')"
+			prop="percentageOfEarnings"
+		>
+			<p class="description">{{ t("inputs.earning.description") }}</p>
+			<el-input-number
+				v-model="data.percentageOfEarnings"
+				name="percentageOfEarnings"
+				:controls="false"
+				:min="0"
+				:max="100"
+				:precision="0"
+			/>
+		</el-form-item>
+		<el-form-item :label="t('inputs.currency.label')" prop="paymentCurrency">
+			<p class="description">
+				{{ t("inputs.currency.description") }}
+				<br/><br/>
+				{{ t("inputs.currency.chain") }} <strong>{{ chain }}</strong
+			>.
+			</p>
+			<payment-currency-selector
+				style="width: 862px"
+				name="paymentCurrency"
+				@update:address="updatePaymentCurrency"
+			/>
+		</el-form-item>
+		<el-form-item :label="t('inputs.price.label')" prop="sellingPrice">
+			<p class="description">{{ t("inputs.price.description") }}</p>
+			<el-input-number
+				v-model="data.sellingPrice"
+				:controls="false"
+				size="large"
+				name="sellingPrice"
+				style="width: 862px"
+			/>
+		</el-form-item>
+		<el-form-item :label="t('inputs.shares.label')" prop="maxShareTimes">
+			<p class="description">
+				{{ t("inputs.shares.description") }}
+			</p>
+			<el-input-number
+				v-model="data.maxShareTimes"
+				name="maximum number of shares"
+				:controls="false"
+				:placeholder="t('inputs.shares.placeHolder')"
+				:min="0"
+				:max="65535"
+				:precision="0"
+				style="width: 862px"
+			/>
+		</el-form-item>
+		<el-form-item
+			:label="t('inputs.baseline.label')"
+			prop="baseline"
+			class="single-label"
+		>
+			<el-input-number
+				v-model="data.baseline"
+				name="price baseline"
+				:controls="false"
+				:placeholder="t('inputs.baseline.placeHolder')"
+				:min="0"
+				:max="255"
+				:precision="0"
+			/>
+		</el-form-item>
+		<el-form-item
+			:label="t('inputs.authority.label')"
+			class="single-label"
+			prop="checkboxGroupsObj"
+		>
+			<meta-checkbox-group
+				checkbox-class="checkbox"
+				@update:model-value="updateMetas"
+			/>
+		</el-form-item>
+		<el-form-item
+			:label="t('inputs.encrypt.label')"
+			class="single-label"
+			prop="encrypted"
+		>
+			<div class="switch-wrapper">
+				<el-switch
+					v-model="data.encrypted"
+					:active-icon="Check"
+					:inactive-icon="Close"
+				/>
+				<span class="description">{{ t("inputs.encrypt.description") }}</span>
+			</div>
+		</el-form-item>
+		<el-form-item :label="t('inputs.description.label')" prop="description">
+			<p class="description">{{ t("inputs.description.description") }}</p>
+			<el-input
+				v-model="data.description"
+				type="textarea"
+				autosize
+				name="itemDescription"
+			/>
+		</el-form-item>
+		<div class="upload-container">
 			<el-form-item
-				:label="t('inputs.name.label')"
-				class="single-label"
-				prop="name"
+				:label="t('inputs.upload.cover.label')"
+				prop="files.cover"
 			>
-				<el-input v-model="data.name" name="itemName"/>
-			</el-form-item>
-			<el-form-item
-				:label="t('inputs.earning.label')"
-				prop="percentageOfEarnings"
-			>
-				<p class="description">{{ t("inputs.earning.description") }}</p>
-				<el-input-number
-					v-model="data.percentageOfEarnings"
-					name="percentageOfEarnings"
-					:min="0"
-					:max="100"
-					:precision="0"
-				/>
-			</el-form-item>
-			<el-form-item :label="t('inputs.currency.label')" prop="paymentCurrency">
-				<p class="description">
-					{{ t("inputs.currency.description") }}
-					<br/><br/>
-					{{ t("inputs.currency.chain") }} <strong>{{ chain }}</strong
-				>.
-				</p>
-				<payment-currency-selector
-					name="paymentCurrency"
-					@update:address="updatePaymentCurrency"
-				/>
-			</el-form-item>
-			<el-form-item :label="t('inputs.price.label')" prop="sellingPrice">
-				<p class="description">{{ t("inputs.price.description") }}</p>
-				<el-input-number
-					v-model="data.sellingPrice"
-					:controls="false"
-					size="large"
-					name="sellingPrice"
-				/>
-			</el-form-item>
-			<el-form-item :label="t('inputs.shares.label')" prop="maxShareTimes">
-				<p class="description">
-					{{ t("inputs.shares.description") }}
-				</p>
-				<el-input-number
-					v-model="data.maxShareTimes"
-					name="maximum number of shares"
-					:placeholder="t('inputs.shares.placeHolder')"
-					:min="0"
-					:max="65535"
-					:precision="0"
-				/>
-			</el-form-item>
-			<el-form-item
-				:label="t('inputs.baseline.label')"
-				prop="baseline"
-				class="single-label"
-			>
-				<el-input-number
-					v-model="data.baseline"
-					name="price baseline"
-					:placeholder="t('inputs.baseline.placeHolder')"
-					:min="0"
-					:max="255"
-					:precision="0"
-				/>
-			</el-form-item>
-			<el-form-item
-				:label="t('inputs.authority.label')"
-				class="single-label"
-				prop="checkboxGroupsObj"
-			>
-				<meta-checkbox-group
-					checkbox-class="checkbox"
-					@update:model-value="updateMetas"
-				/>
-			</el-form-item>
-			<el-form-item
-				:label="t('inputs.encrypt.label')"
-				class="single-label"
-				prop="encrypted"
-			>
-				<div class="switch-wrapper">
-					<el-switch
-						v-model="data.encrypted"
-						:active-icon="Check"
-						:inactive-icon="Close"
-					/>
-					<span class="description">{{ t("inputs.encrypt.description") }}</span>
-				</div>
-			</el-form-item>
-			<el-form-item :label="t('inputs.description.label')" prop="description">
-				<p class="description">{{ t("inputs.description.description") }}</p>
-				<el-input
-					v-model="data.description"
-					type="textarea"
-					autosize
-					name="itemDescription"
-				/>
-			</el-form-item>
-			<el-form-item :label="t('inputs.upload.cover.label')" prop="files.cover">
 				<p class="description">
 					{{ t("inputs.upload.cover.description") }}
 				</p>
@@ -163,22 +172,21 @@
 					</template>
 				</el-upload>
 			</el-form-item>
-			<div class="divider-line"/>
-			<div class="btn-area">
-				<el-button type="primary" @click="submit">{{
-						t("btn.publish")
-					}}
-				</el-button>
-			</div>
-			<publish-in-progress
-				v-if="showProgressDialog"
-				v-model="showProgressDialog"
-				:event-emitter="eventEmitter"
-				:encryted="data.encrypted"
-				@listeners:attached="beginUpload"
-			/>
-		</el-form>
-	</el-card>
+		</div>
+		<div class="btn-area">
+			<el-button type="danger" @click="submit" class="publish-btn">{{
+					t("btn.publish")
+				}}
+			</el-button>
+		</div>
+		<publish-in-progress
+			v-if="showProgressDialog"
+			v-model="showProgressDialog"
+			:event-emitter="eventEmitter"
+			:encryted="data.encrypted"
+			@listeners:attached="beginUpload"
+		/>
+	</el-form>
 </template>
 
 <script lang="ts" setup>
@@ -206,13 +214,13 @@ const {t} = useI18n({
 			validate: "This field is required",
 			inputs: {
 				name: {
-					label: "Item name",
+					label: "Work Name",
 					validate: {
 						max: "Name should be a string whose length is under 64.",
 					},
 				},
 				earning: {
-					label: "Percentage of earnings",
+					label: "Percentage of Earnings",
 					description:
 						"When your item is shared and profited by others,what percentage of the" +
 						"profits you want from the share of the profits.",
@@ -221,13 +229,13 @@ const {t} = useI18n({
 					},
 				},
 				currency: {
-					label: "Payment currency",
+					label: "Payment Currency",
 					description:
 						"Please select the payment currency of your support (enter token symbol or paste token contract address).",
 					chain: "Current chain: ",
 				},
 				price: {
-					label: "Selling price",
+					label: "Selling Price",
 					description: "In coin, not in wei.",
 				},
 				shares: {
@@ -241,7 +249,7 @@ const {t} = useI18n({
 					placeHolder: "0 to 255, Interger",
 				},
 				authority: {
-					label: "Work authority",
+					label: "Work Permission",
 				},
 				encrypt: {
 					label: "Encrypt publish",
@@ -251,7 +259,7 @@ const {t} = useI18n({
 						"or not.",
 				},
 				description: {
-					label: "Item description",
+					label: "Work description",
 					description:
 						"Please describe your work in simple words. Accurate and effective" +
 						"description can help other users to understand your work more" +
@@ -266,13 +274,13 @@ const {t} = useI18n({
 						"Multiple file upload is supported,and multiple types of files are" +
 						"supported.",
 					cover: {
-						label: "Cover picture",
+						label: "Cover Photo",
 						description:
 							"Please upload your cover image in the area below. Cover files support" +
 							"these formats: JPEG/JPG/PNG.",
 					},
 					content: {
-						label: "Item file",
+						label: "Work file",
 						description: "Please upload your work file in the area below.",
 					},
 				},
@@ -550,11 +558,29 @@ async function beginUpload() {
 </script>
 
 <style lang="scss" scoped>
+:deep(.el-form-item.is-required:not(.is-no-asterisk)) > .el-form-item__label:before {
+	content: none;
+}
+
+:deep(.el-form-item.is-required:not(.is-no-asterisk)) > .el-form-item__label:after {
+	content: "*";
+	color: var(--el-color-danger);
+	margin-right: 4px;
+}
+
 .form {
+	:deep(.el-textarea__inner),
+	:deep(.el-input__inner),
+	:deep(.el-upload-dragger){
+		border: 2px solid black;
+		border-radius: 5px;
+	}
+
 	:deep(.el-form-item__label) {
-		font-size: var(--el-font-size-medium);
-		color: black;
-		line-height: 1.5;
+		color: #2C2F30;
+		font-weight: 600;
+		font-size: 32px;
+		line-height: 39px;
 	}
 
 	:deep(.el-input-number) {
@@ -594,6 +620,11 @@ async function beginUpload() {
 		}
 	}
 
+	.upload-container {
+		display: flex;
+		align-items: center;
+	}
+
 	.el-upload__tip {
 		line-height: 1;
 	}
@@ -604,8 +635,21 @@ async function beginUpload() {
 	}
 
 	.btn-area {
-		display: flex;
-		justify-content: end;
+		margin-top: 103px;
+		margin-bottom: 140px;
+		text-align: center;
+
+		.publish-btn {
+			width: 267px;
+			height: 70px;
+			background: #EF7A61;
+			border-radius: 15px;
+
+			:deep(span) {
+				font-weight: 700;
+				font-size: 24px;
+			}
+		}
 	}
 }
 

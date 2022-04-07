@@ -1,9 +1,6 @@
 <template>
 	<div :class="{ 'form-container': true, embed: !grid.lgPlus }">
-		<div class="divider"/>
-		<Title class="_title">{{ t("publish") }}</Title>
-		<div v-if="grid.lgPlus" class="divider"/>
-		<el-divider v-else style="" border-style="dashed"></el-divider>
+		<h2 class="_title">{{ t("publish") }}</h2>
 		<PublishForm/>
 		<div class="divider"/>
 		<el-dialog v-model="showWarning" title="Warning">
@@ -15,7 +12,6 @@
 
 <script lang="ts" setup>
 import {grid} from "../grid";
-import Title from "../components/Title.vue";
 import PublishForm from "../components/publish/PublishForm.vue";
 import {useStore} from "vuex";
 import {computed, ref, watch} from "vue";
@@ -26,7 +22,7 @@ import {useI18n} from "vue-i18n";
 const {t} = useI18n({
 	messages: {
 		en: {
-			publish: "Publish Art",
+			publish: "Publish",
 			hint: "Please connect your wallet to publish art. ",
 			connect: "Connect",
 		},
@@ -61,8 +57,6 @@ async function connect() {
 }
 
 .form-container {
-	display: flex;
-	flex-direction: column;
 	max-width: 1050px;
 	margin: auto;
 }
@@ -73,9 +67,12 @@ async function connect() {
 	}
 }
 
-.embed {
-	._title {
-		margin-left: 20px;
-	}
+._title {
+	margin: 0 0 120px;
+	font-weight: 900;
+	font-size: 48px;
+	line-height: 100%;
+	text-align: center;
 }
+
 </style>

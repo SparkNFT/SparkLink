@@ -114,23 +114,25 @@ function navTo(path: string) {
 </script>
 
 <style lang="scss" scoped>
-$height: 65px;
+$height: 108px;
 .header {
 	--el-header-height: #{$height};
 	border-bottom: var(--el-border-base);
 	position: fixed;
 	z-index: 10;
 	width: 100%;
-	background-color: white;
+	background: linear-gradient(230.61deg, #FECC80 1.01%, #F77878 27.21%, #56557E 87.73%), linear-gradient(90deg, #A77182 31.25%, #FDCD99 71.22%);
 	transition: background-color 100ms linear;
 	box-sizing: content-box;
 	padding-left: unset;
+	border: none;
 
 	> .inner {
-		padding: 0 32px 0 16px;
 		display: flex;
 		align-items: center;
+		justify-content: space-between;
 		height: 100%;
+		padding: 0 113px;
 		box-sizing: border-box;
 	}
 
@@ -170,25 +172,25 @@ $height: 65px;
 }
 
 .logo {
-	height: 42px;
-
-	&-a {
-		margin-right: 32px;
-		height: 42px;
-	}
+	width: 193px;
 }
 
 .nav {
 	display: flex;
+	margin-left: 468px;
 
 	a {
 		text-decoration: none;
-		color: black;
-		font-size: var(--el-font-size-medium);
+		color: #f5f5f5;
+		font-size: 18px;
+		font-weight: bold;
 	}
 
 	a + a {
 		margin-left: 44px;
+	}
+	a.router-link-exact-active {
+		color: #ffea07;
 	}
 }
 
@@ -199,10 +201,6 @@ $height: 65px;
 
 .connected-info {
 	color: var(--el-text-color-primary);
-	padding: 6px 10px;
-}
-
-.connect-btn {
 	padding: 6px 10px;
 }
 
