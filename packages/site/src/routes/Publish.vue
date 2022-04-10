@@ -57,6 +57,7 @@ async function connect() {
 }
 
 .form-container {
+	padding-top: 142px;
 	max-width: 1050px;
 	margin: auto;
 }

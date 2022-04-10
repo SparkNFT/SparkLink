@@ -8,6 +8,7 @@
       sticky,
     }"
 	>
+		<div class="background" />
 		<div class="inner">
 			<router-link :to="{ name: `index` }" class="logo-a">
 				<el-image src="assets/logo.png" class="logo"/>
@@ -33,7 +34,6 @@
 			</template>
 		</div>
 	</el-header>
-	<div v-if="sticky" class="fixed-placer"/>
 </template>
 
 <script lang="ts" setup>
@@ -121,11 +121,19 @@ $height: 108px;
 	position: fixed;
 	z-index: 10;
 	width: 100%;
-	background: linear-gradient(230.61deg, #FECC80 1.01%, #F77878 27.21%, #56557E 87.73%), linear-gradient(90deg, #A77182 31.25%, #FDCD99 71.22%);
-	transition: background-color 100ms linear;
 	box-sizing: content-box;
 	padding-left: unset;
 	border: none;
+	overflow-x: hidden;
+
+	.background {
+		width: 100vw;
+		height: 1142px;
+		position: absolute;
+		z-index: -1;
+		background-image: url("/assets/background.png");
+		background-size: contain;
+	}
 
 	> .inner {
 		display: flex;
@@ -217,9 +225,5 @@ $height: 108px;
 		align-items: center;
 		gap: 16px;
 	}
-}
-
-.fixed-placer {
-	height: #{$height};
 }
 </style>

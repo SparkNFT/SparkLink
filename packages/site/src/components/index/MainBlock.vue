@@ -41,9 +41,6 @@ const router = useRouter();
 
 <style lang="scss" scoped>
 #main-block {
-	background-image: url("/public/assets/home/main-block.png");
-	background-repeat: no-repeat;
-	background-size: cover;
 	overflow: hidden;
 	position: relative;
 	height: 1034px;

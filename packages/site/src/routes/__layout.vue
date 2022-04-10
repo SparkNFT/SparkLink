@@ -1,7 +1,7 @@
 <template>
 	<el-container direction="vertical" style="min-height: 100vh;" :class="{embed: !grid.lgPlus}">
 		<TopBar :sticky="topBarShouldBeSticky"/>
-		<el-main class="main">
+		<el-main :class="['main', {'with-background': route.name === 'index'}]">
 			<div>
 				<RouterView/>
 			</div>
@@ -33,6 +33,12 @@ const topBarShouldBeSticky = computed(() => {
 <style lang="scss" scoped>
 .main {
 	padding: 108px 0 0 0;
+}
+
+.main.with-background {
+	background-image: url("/assets/background.png");
+	background-repeat: no-repeat;
+	background-size: contain;
 }
 
 .notification {
