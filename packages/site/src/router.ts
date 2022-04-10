@@ -4,7 +4,6 @@ import Index from "./routes/Index.vue";
 import Publish from "./routes/Publish.vue";
 import Collection from "./routes/Collection.vue";
 import ArtPage from "./routes/ArtPage.vue";
-import Market from "./routes/Market.vue";
 
 const routes = [
   {
@@ -39,11 +38,6 @@ const routes = [
         name: "art",
         path: "arts/:chainId/:nftId",
         component: ArtPage,
-      },
-      {
-        name: "market",
-        path: "market",
-        component: Market,
       },
     ],
   },

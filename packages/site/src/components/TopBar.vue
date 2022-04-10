@@ -71,12 +71,7 @@ const navs = computed(
 				name: t("navs.wiki"),
 				path: "/wiki",
 				icon: "notes",
-			},
-			{
-				name: t("navs.market"),
-				path: "/market",
-				icon: "shopping_cart",
-			},
+			}
 		] as INavItem[]
 );
 

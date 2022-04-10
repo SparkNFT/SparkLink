@@ -81,7 +81,7 @@ const {t} = useI18n({
 			},
 			copyLink: {
 				hint: "The link has been copyed to your clipboard.",
-				prefix: "Welcome to EaseShare to view and share my NFTs: ",
+				prefix: "You are welcome to view and try casting my NFT publication: ",
 			}
 		},
 		"zh-CN": {

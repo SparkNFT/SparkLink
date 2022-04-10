@@ -177,6 +177,7 @@ function switchLanguage(locale: "en" | "zh-CN") {
 <style lang="scss" scoped>
 .end {
 	display: flex;
+	align-items: center;
 }
 
 .chain-selector {
@@ -232,6 +233,7 @@ function switchLanguage(locale: "en" | "zh-CN") {
 	border: none;
 	background-color: #ffe177;
 	cursor: pointer;
+	margin-left: 40px;
 
 	:deep(span) {
 		font-size: 20px;
