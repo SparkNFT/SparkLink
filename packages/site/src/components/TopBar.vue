@@ -8,7 +8,7 @@
       sticky,
     }"
 	>
-		<div class="background" />
+		<img src="/assets/background.png" class="background"/>
 		<div class="inner">
 			<router-link :to="{ name: `index` }" class="logo-a">
 				<el-image src="assets/logo.png" class="logo"/>
@@ -127,12 +127,9 @@ $height: 108px;
 	overflow-x: hidden;
 
 	.background {
-		width: 100vw;
-		height: 1142px;
+		width: 100%;
 		position: absolute;
 		z-index: -1;
-		background-image: url("/assets/background.png");
-		background-size: contain;
 	}
 
 	> .inner {
