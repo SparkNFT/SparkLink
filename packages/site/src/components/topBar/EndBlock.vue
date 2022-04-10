@@ -13,9 +13,18 @@
 				:value="item.value"
 			></el-option>
 		</el-select>
-		<el-button type="text" class="btn lang-btn" @click="onCommand('language')">
-			{{ t("language") }}
-		</el-button>
+		<el-select
+			class="switch-lan"
+			:model-value="current_language"
+			@change="switchLanguage"
+		>
+			<el-option
+				v-for="item in languages"
+				:key="item.name"
+				:label="item.name"
+				:value="item.locale"
+			/>
+		</el-select>
 		<el-tooltip v-if="account">
 			<template #content>
 				{{ t("account.address._1") }}{{ account }} <br/><br/>
@@ -70,20 +79,17 @@
 			v-model="checkAccountDialog"
 			:account="account"
 		></CheckAccountDialog>
-		<SwitchNetworkDialog v-model="switchNetworkDialog"></SwitchNetworkDialog>
 	</div>
-	<SwitchLanguage v-model="switchLanguage"></SwitchLanguage>
 </template>
 
 <script lang="ts" setup>
-import {ref} from "vue";
+import {computed, ref} from "vue";
 import {grid} from "../../grid";
 import {web3Operator, web3InfoGetter, walletInfoGetter} from "../../store";
 import {networkSelectOptions} from "../../store/web3";
 import CheckAccountDialog from "./CheckAccountDialog.vue";
-import SwitchNetworkDialog from "./SwitchNetworkDialog.vue";
-import SwitchLanguage from "./SwitchLanguage.vue";
 import {useI18n} from "vue-i18n";
+import {changeLocale} from "../../i18n";
 
 const {t} = useI18n({
 	messages: {
@@ -121,7 +127,7 @@ const {t} = useI18n({
 		},
 	},
 });
-
+const {locale} = useI18n({useScope: "global"});
 const chainName = web3InfoGetter.chain.name;
 const chainId = web3InfoGetter.chain.id;
 const account = web3InfoGetter.account;
@@ -130,6 +136,7 @@ const hasProvider = web3InfoGetter.hasProvider;
 
 const checkAccountDialog = ref(false);
 const switchNetworkDialog = ref(false);
+const current_language = ref(locale.value);
 
 async function onCommand(command: string) {
 	switch (command) {
@@ -138,10 +145,6 @@ async function onCommand(command: string) {
 			break;
 		case "network":
 			switchNetworkDialog.value = true;
-			break;
-		case "language":
-			console.log(command);
-			switchLanguage.value = true;
 			break;
 		default:
 			break;
@@ -153,7 +156,22 @@ async function onDropdownClick() {
 	else web3Operator.connect();
 }
 
-const switchLanguage = ref(false);
+const languages = computed(
+	() =>
+		[
+			{locale: "en", name: "EN"},
+			{locale: "zh-CN", name: "CH"},
+		].map((e) => ({...e, current: e.locale === locale.value})) as {
+			locale: "en" | "zh-CN";
+			name: string;
+			current: boolean;
+		}[]
+);
+
+function switchLanguage(locale: "en" | "zh-CN") {
+	changeLocale(locale);
+	current_language.value = locale;
+}
 </script>
 
 <style lang="scss" scoped>
@@ -172,12 +190,39 @@ const switchLanguage = ref(false);
 .btn + .btn {
 	margin-left: 16px;
 }
-.connected-info,
-.lang-btn {
+
+.connected-info {
 	color: #f5f5f5;
 	font-size: 18px;
 	font-weight: bold;
-	margin-right: 40px;
+	margin-left: 40px;
+}
+
+@mixin select {
+	:deep(.el-input__inner) {
+		color: white;
+		font-weight: 700;
+		font-size: 18px;
+		line-height: 20px;
+		background-color: unset;
+		border: 1px solid #FFFFFF;
+		border-radius: 5px;
+	}
+
+	:deep(.el-select__caret) {
+		color: white;
+		font-size: 18px;
+		font-weight: 700;
+	}
+}
+
+.chain-selector {
+	@include select;
+}
+
+.switch-lan {
+	@include select;
+	width: 75px;
 }
 
 .connect-btn {
