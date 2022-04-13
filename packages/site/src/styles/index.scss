@@ -8,6 +8,36 @@
 
 @use "element-plus/theme-chalk/src/index.scss";
 
+@font-face {
+  font-family: "iconfont";
+  src: url("assets/fonts/iconfont.ttf?t=1649852280962") format("truetype");
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+}
+
+.icon-discord:before {
+  content: "\e6fe";
+}
+
+.icon-telegram:before {
+  content: "\e8db";
+}
+
+.icon-medium:before {
+  content: "\e87a";
+}
+
+.icon-twitter:before {
+  content: "\e882";
+}
+
 :root {
   --color-primary-dark: #478efd;
   --grey-background: #f4f5f7;
@@ -16,7 +46,7 @@
 body {
   margin: unset;
   font-family: "Inter", "Lato", "Helvetica Neue", Helvetica, "PingFang SC",
-    "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
   line-height: 1.5;
 }
 

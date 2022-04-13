@@ -184,6 +184,11 @@ const {t} = useI18n({
 		text-align: center;
 		background-color: white;
 		cursor: pointer;
+
+		&:hover {
+			color: white;
+			background-color: #ef7a61;
+		}
 	}
 }
 </style>
