@@ -1,23 +1,23 @@
 {
-  "version": "0.0.1",
-  "description": "The frontend mono repo of SparkNet",
-  "author": "David George",
-  "license": "MIT",
-  "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
-  "scripts": {
-    "serve:staging": "./scripts/staging.sh",
-    "serve:production": "./scripts/production.sh",
-    "bootstrap": "./scripts/bootstrap.sh",
-    "site": "yarn workspace @SparkLink/site run dev",
-    "build": "yarn workspace @SparkLink/business run build:esm"
-  },
-  "packageManager": "yarn@3.1.0",
-  "dependencies": {
-    "@metamask/detect-provider": "^1.2.0",
-    "erc-20-abi": "^1.0.0",
-    "eventemitter3": "^4.0.7"
-  }
+	"version": "0.0.1",
+	"description": "The frontend mono repo of SparkNet",
+	"author": "David George",
+	"license": "MIT",
+	"private": true,
+	"workspaces": [
+		"packages/*"
+	],
+	"scripts": {
+		"serve:staging": "./scripts/staging.sh",
+		"serve:production": "./scripts/production.sh",
+		"bootstrap": "./scripts/bootstrap.sh",
+		"site": "yarn workspace @SparkLink/site run dev",
+		"build": "yarn workspace @SparkLink/business run build:esm"
+	},
+	"packageManager": "yarn@3.1.0",
+	"dependencies": {
+		"@metamask/detect-provider": "^1.2.0",
+		"erc-20-abi": "^1.0.0",
+		"eventemitter3": "^4.0.7"
+	}
 }

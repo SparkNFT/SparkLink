@@ -27,7 +27,7 @@
 		</el-select>
 		<el-tooltip v-if="account">
 			<template #content>
-				{{ t("account.address._1") }}{{ account }} <br/><br/>
+				{{ t("account.address._1") }}{{ account }} <br /><br />
 				{{ t("account.address._2") }}
 			</template>
 			<el-button
@@ -83,63 +83,63 @@
 </template>
 
 <script lang="ts" setup>
-import {computed, ref} from "vue";
-import {grid} from "../../grid";
-import {web3Operator, web3InfoGetter, walletInfoGetter} from "../../store";
-import {networkSelectOptions} from "../../store/web3";
-import CheckAccountDialog from "./CheckAccountDialog.vue";
-import {useI18n} from "vue-i18n";
-import {changeLocale} from "../../i18n";
+	import {computed, ref} from "vue";
+	import {grid} from "../../grid";
+	import {web3Operator, web3InfoGetter, walletInfoGetter} from "../../store";
+	import {networkSelectOptions} from "../../store/web3";
+	import CheckAccountDialog from "./CheckAccountDialog.vue";
+	import {useI18n} from "vue-i18n";
+	import {changeLocale} from "../../i18n";
 
-const {t} = useI18n({
-	messages: {
-		en: {
-			language: "Language",
-			account: {
-				connect: "CONNECT WALLET",
-				connected: "Connected",
-				connecting: "Connecting",
-				address: {
-					_1: "Address: ",
-					_2: "Click to disconnected.",
+	const {t} = useI18n({
+		messages: {
+			en: {
+				language: "Language",
+				account: {
+					connect: "CONNECT WALLET",
+					connected: "Connected",
+					connecting: "Connecting",
+					address: {
+						_1: "Address: ",
+						_2: "Click to disconnected.",
+					},
+					dropdown: {
+						account: "Check account",
+						network: "Switch network",
+					},
 				},
-				dropdown: {
-					account: "Check account",
-					network: "Switch network",
+			},
+			"zh-CN": {
+				language: "语言",
+				account: {
+					connect: "连接账户",
+					connected: "已连接",
+					connecting: "连接中",
+					address: {
+						_1: "地址：",
+						_2: "单击以断开连接",
+					},
+					dropdown: {
+						account: "检查连接地址",
+						network: "更换网络",
+					},
 				},
 			},
 		},
-		"zh-CN": {
-			language: "语言",
-			account: {
-				connect: "连接账户",
-				connected: "已连接",
-				connecting: "连接中",
-				address: {
-					_1: "地址：",
-					_2: "单击以断开连接",
-				},
-				dropdown: {
-					account: "检查连接地址",
-					network: "更换网络",
-				},
-			},
-		},
-	},
-});
-const {locale} = useI18n({useScope: "global"});
-const chainName = web3InfoGetter.chain.name;
-const chainId = web3InfoGetter.chain.id;
-const account = web3InfoGetter.account;
-const allowConnection = walletInfoGetter.allowConnection;
-const hasProvider = web3InfoGetter.hasProvider;
+	});
+	const {locale} = useI18n({useScope: "global"});
+	const chainName = web3InfoGetter.chain.name;
+	const chainId = web3InfoGetter.chain.id;
+	const account = web3InfoGetter.account;
+	const allowConnection = walletInfoGetter.allowConnection;
+	const hasProvider = web3InfoGetter.hasProvider;
 
-const checkAccountDialog = ref(false);
-const switchNetworkDialog = ref(false);
-const current_language = ref(locale.value);
+	const checkAccountDialog = ref(false);
+	const switchNetworkDialog = ref(false);
+	const current_language = ref(locale.value);
 
-async function onCommand(command: string) {
-	switch (command) {
+	async function onCommand(command: string) {
+		switch (command) {
 		case "account":
 			checkAccountDialog.value = true;
 			break;
@@ -148,17 +148,15 @@ async function onCommand(command: string) {
 			break;
 		default:
 			break;
+		}
 	}
-}
 
-async function onDropdownClick() {
-	if (account.value) onCommand("network");
-	else web3Operator.connect();
-}
+	async function onDropdownClick() {
+		if (account.value) onCommand("network");
+		else web3Operator.connect();
+	}
 
-const languages = computed(
-	() =>
-		[
+	const languages = computed(() => [
 			{locale: "en", name: "EN"},
 			{locale: "zh-CN", name: "CH"},
 		].map((e) => ({...e, current: e.locale === locale.value})) as {
@@ -166,79 +164,79 @@ const languages = computed(
 			name: string;
 			current: boolean;
 		}[]
-);
+	);
 
-function switchLanguage(locale: "en" | "zh-CN") {
-	changeLocale(locale);
-	current_language.value = locale;
-}
+	function switchLanguage(locale: "en" | "zh-CN") {
+		changeLocale(locale);
+		current_language.value = locale;
+	}
 </script>
 
 <style lang="scss" scoped>
-.end {
-	display: flex;
-	align-items: center;
-}
+	.end {
+		display: flex;
+		align-items: center;
+	}
 
-.chain-selector {
-	max-width: 100px;
+	.chain-selector {
+		max-width: 100px;
 
-	& + * {
+		& + * {
+			margin-left: 16px;
+		}
+	}
+
+	.btn + .btn {
 		margin-left: 16px;
 	}
-}
 
-.btn + .btn {
-	margin-left: 16px;
-}
-
-.connected-info {
-	color: #f5f5f5;
-	font-size: 18px;
-	font-weight: bold;
-	margin-left: 40px;
-}
-
-@mixin select {
-	:deep(.el-input__inner) {
-		color: white;
-		font-weight: 700;
+	.connected-info {
+		color: #f5f5f5;
 		font-size: 18px;
-		line-height: 20px;
-		background-color: unset;
-		border: 1px solid #FFFFFF;
-		border-radius: 5px;
-	}
-
-	:deep(.el-select__caret) {
-		color: white;
-		font-size: 18px;
-		font-weight: 700;
-	}
-}
-
-.chain-selector {
-	@include select;
-}
-
-.switch-lan {
-	@include select;
-	width: 75px;
-}
-
-.connect-btn {
-	width: 283px;
-	height: 70px;
-	border-radius: 15px;
-	border: none;
-	background-color: #ffe177;
-	cursor: pointer;
-	margin-left: 40px;
-
-	:deep(span) {
-		font-size: 20px;
 		font-weight: bold;
-		color: #ff6e65;
+		margin-left: 40px;
 	}
-}
+
+	@mixin select {
+		:deep(.el-input__inner) {
+			color: white;
+			font-weight: 700;
+			font-size: 18px;
+			line-height: 20px;
+			background-color: unset;
+			border: 1px solid #FFFFFF;
+			border-radius: 5px;
+		}
+
+		:deep(.el-select__caret) {
+			color: white;
+			font-size: 18px;
+			font-weight: 700;
+		}
+	}
+
+	.chain-selector {
+		@include select;
+	}
+
+	.switch-lan {
+		@include select;
+		width: 75px;
+	}
+
+	.connect-btn {
+		width: 283px;
+		height: 70px;
+		border-radius: 15px;
+		border: none;
+		background-color: #ffe177;
+		cursor: pointer;
+		margin-left: 40px;
+
+		:deep(span) {
+			font-size: 20px;
+			font-weight: bold;
+			color: #ff6e65;
+		}
+	}
 </style>
