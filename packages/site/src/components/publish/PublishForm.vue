@@ -645,6 +645,12 @@ async function beginUpload() {
 			background: #EF7A61;
 			border-radius: 15px;
 
+			&:hover {
+				color: #FF6E65;
+				background: #FFEA07;
+				border-color: #FFEA07;
+			}
+
 			:deep(span) {
 				font-weight: 700;
 				font-size: 24px;

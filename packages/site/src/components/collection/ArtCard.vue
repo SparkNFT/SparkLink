@@ -119,6 +119,12 @@ const router = useRouter();
 	font-weight: bold;
 	background: #EF7A61;
 	border-radius: 10px;
+
+	&:hover {
+		color: #FF6E65;
+		background: #FFEA07;
+		border-color: #FFEA07;
+	}
 }
 
 .nft-id {
