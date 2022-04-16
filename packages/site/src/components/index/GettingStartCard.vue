@@ -20,10 +20,11 @@ defineProps<{
 	flex: 1;
 	padding: 88px 25px 25px 25px;
 	box-sizing: border-box;
-	box-shadow: 20px 20px 20px #f5f5f5;
 	text-align: center;
 	border-radius: 20px;
 	border: 1px solid #f3f3f3;
+	background-color: white;
+	box-shadow: 0px 45px 55px rgba(18, 17, 39, 0.08);
 
 	&._1 {
 		border-radius: 20px 20px 20px 200px;

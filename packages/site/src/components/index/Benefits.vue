@@ -37,7 +37,6 @@ const {t} = useI18n({
 
 #benefits {
 	height: 863px;
-	background: #F4EBEB;
 	box-sizing: border-box;
 
 	.container {

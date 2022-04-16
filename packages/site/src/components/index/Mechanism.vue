@@ -155,6 +155,7 @@ const {t} = useI18n({
 				padding: 14px 0 17px 0;
 				box-sizing: border-box;
 				text-align: center;
+				background-color: white;
 
 				&:hover {
 					background: #FFFFFF;
