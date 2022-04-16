@@ -67,6 +67,7 @@ const {t} = useI18n({
 			font-weight: 800;
 			line-height: 45px;
 			text-align: center;
+			@include index.title-underline
 		}
 
 		.text {

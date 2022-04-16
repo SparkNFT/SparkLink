@@ -1,5 +1,5 @@
 <template>
-	<div class="card">
+	<div class="card" :class="theClass">
 		<el-image :src="iconUrl" class="picture"></el-image>
 		<h3 class="title">{{ title }}</h3>
 		<p class="info">{{ description }}</p>
@@ -11,6 +11,7 @@ defineProps<{
 	iconUrl: string;
 	title: string;
 	description: string;
+	theClass: string
 }>();
 </script>
 
@@ -23,6 +24,22 @@ defineProps<{
 	text-align: center;
 	border-radius: 20px;
 	border: 1px solid #f3f3f3;
+
+	&._1 {
+		border-radius: 20px 20px 20px 200px;
+	}
+
+	&._2 {
+		border-radius: 200px 20px 20px 20px;
+	}
+
+	&._3 {
+		border-radius: 20px 20px 200px 20px;
+	}
+
+	&._4 {
+		border-radius: 20px 200px 20px 20px;
+	}
 
 	&+.card {
 		margin-left: 30px;

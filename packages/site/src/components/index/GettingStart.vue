@@ -10,6 +10,7 @@
 					:icon-url="step.iconUrl"
 					:title="step.title"
 					:description="step.description"
+					:the-class="step.class"
 				></GettingStartCard>
 			</div>
 		</div>
@@ -56,27 +57,37 @@ interface IStep {
 	iconUrl: string;
 	title: string;
 	description: string;
+	class: string
 }
 
 function createStepMapper(baseUrl: string) {
 	return function (
-		value: { title: string; description: string },
-		index: number
+		value: { title: string; description: string; class: string},
+		index: number,
 	) {
 		return {
 			iconUrl: `${baseUrl}/step-${index + 1}.png`,
 			title: value.title,
 			description: value.description,
+			class: value.class
 		} as IStep;
 	};
 }
 
 const stepSvgBaseUrl = "assets/getting-start";
 
+const step_class = [
+	"_1",
+	"_2",
+	"_3",
+	"_4",
+]
+
 const steps = computed(() => [0, 1, 2, 3]
 	.map((i) => ({
 		title: t(`steps[${i}].title`),
 		description: t(`steps[${i}].description`),
+		class: step_class[i]
 	}))
 	.map(createStepMapper(`${stepSvgBaseUrl}`)) as IStep[]);
 </script>

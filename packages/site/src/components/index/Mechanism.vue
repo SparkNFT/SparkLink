@@ -156,6 +156,11 @@ const {t} = useI18n({
 				box-sizing: border-box;
 				text-align: center;
 
+				&:hover {
+					background: #FFFFFF;
+					box-shadow: 0 3px 40px rgba(232, 68, 33, 0.55);
+				}
+
 				.head {
 					width: 46px;
 				}

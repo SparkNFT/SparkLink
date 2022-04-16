@@ -65,12 +65,23 @@ p {
   flex: 1;
 }
 
+@mixin title-underline {
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-color: #FFE177;
+  text-decoration-thickness: 24px;
+  text-underline-offset: -24px;
+  text-decoration-skip-ink: none;
+}
+
+
 @mixin index-title {
   margin: 0;
   font-size: 48px;
   font-weight: 800;
   line-height: 48px;
   text-align: center;
+  @include title-underline
 }
 
 @mixin block {

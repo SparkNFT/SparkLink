@@ -6,10 +6,10 @@
 				Lopx ipsum dolor amet, consectetur adipiscing elit. Eget nisl nunc quam ac sed turpis volutpat.
 				Cursus sed massa non nisi, placerat.
 			</p>
-			<button v-for="share in shareLinks" :key="share.target" class="share"
+			<p v-for="share in shareLinks" :key="share.target" class="share"
 			        @click="openShareTarget(share.target)">
 				<i :class="share.icon" />
-			</button>
+			</p>
 		</section>
 
 		<section class="item navigation">
@@ -36,7 +36,6 @@
 		<p class="right">
 			© 2020 Landify UI Kit. All rights reserved
 		</p>
-
 	</el-footer>
 </template>
 
@@ -118,12 +117,24 @@
 			}
 
 			.share {
+				display: inline-block;
+				margin: 0 23px 0 0;
 				width: 32px;
 				height: 32px;
 				color: #666;
 				cursor: pointer;
 				border-radius: 16px;
 				border: none;
+				background-color: white;
+				text-align: center;
+
+				&:hover {
+					background-color: #FFEA07;
+				}
+
+				i {
+					line-height: 32px;
+				}
 			}
 
 			button + button {
