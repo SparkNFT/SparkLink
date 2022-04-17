@@ -3,8 +3,8 @@
 		<div class="container">
 			<h2 class="main-text">Publishing and distribution,</h2>
 			<h2 class="main-text">are redefined by us.</h2>
-			<p class="sub-text">Publish your love, share your love, spread your love</p>
-			<p class="sub-text">link all creators and sharers together,that is what we doing.</p>
+			<p class="sub-text">Publish your content, spread your passion</p>
+			<p class="sub-text">Link all creators and sharers together, that is what we doing.</p>
 			<router-link :to="{ name: `publish` }">
 				<el-button color="#478EFD" class="btn primary publish-btn">
 					<span class="btn-text">{{ t("publish") }}</span>
@@ -70,7 +70,7 @@ const router = useRouter();
 			line-height: 100%;
 		}
 
-		#main-block:first-child .sub-text {
+		&:first-child .sub-text {
 			margin-bottom: 10px;
 		}
 

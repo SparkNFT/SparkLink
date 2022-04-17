@@ -3,8 +3,7 @@
 		<section class="item description">
 			<img src="/assets/color-logo.png" class="logo">
 			<p class="description-text">
-				Lopx ipsum dolor amet, consectetur adipiscing elit. Eget nisl nunc quam ac sed turpis volutpat.
-				Cursus sed massa non nisi, placerat.
+				Unique content publishing and distribution protocol
 			</p>
 			<p v-for="share in shareLinks" :key="share.target" class="share"
 			        @click="openShareTarget(share.target)">
@@ -26,12 +25,11 @@
 		</section>
 		<section class="item market">
 			<h5 class="title">MARKET</h5>
-			<a>Easeshare-Markey</a>
 			<a>OpenSea</a>
 		</section>
 		<div class="email-container">
 			<el-input v-model="email" placeholder="info@sparklink.io" />
-			<el-button type="warning" class="send">Send</el-button>
+			<el-button type="warning" class="send" @click="handleMailAddressClick">CONTACT US</el-button>
 		</div>
 		<p class="right">
 			© 2020 Landify UI Kit. All rights reserved
@@ -42,11 +40,16 @@
 <script lang="ts" setup>
 	import {useI18n} from "vue-i18n";
 	import {computed, ref, reactive} from "vue";
+	import { ElMessage } from "element-plus";
 
 	const {t} = useI18n({
 		messages: {
-			en: {},
-			"zh-CN": {},
+			en: {
+				"copy_email_address_success": "copy email address success"
+			},
+			"zh-CN": {
+				"copy_email_address_success": "邮箱地址复制成功"
+			},
 		},
 	});
 
@@ -80,6 +83,12 @@
 
 	function openShareTarget(e: string) {
 		window.open(e)
+	}
+
+	function handleMailAddressClick() {
+		navigator.clipboard.writeText("info@sparklink.io").then(() => {
+			ElMessage({ type: "success", message: t("copy_email_address_success") });
+		})
 	}
 </script>
 

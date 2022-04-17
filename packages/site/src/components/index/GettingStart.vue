@@ -43,7 +43,7 @@ const {t} = useI18n({
 						"Generate exclusive sharing posters and links of NFT works, share and sell freely",
 				},
 				{
-					title: "Distribute works to obtain revenue",
+					title: "Monetize",
 					description:
 						"Creators get royalties and  node income permanently by selling the subordinate nodes of their own works, sharers get the income permanently by selling the subordinate nodes of their bought.",
 				},
