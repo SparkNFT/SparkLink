@@ -1,5 +1,5 @@
 <template>
-	<section id="benefits">
+	<section id="benefits" :class="{'not-see': !in_the_view}">
 		<div class="container">
 			<img src="/assets/how-to-benefit/nodes.png"  class="nodes" />
 			<div class="web3">
@@ -23,6 +23,7 @@
 
 <script lang="ts" setup>
 import {useI18n} from "vue-i18n";
+import {onMounted, ref} from "vue";
 
 const {t} = useI18n({
 	messages: {
@@ -30,6 +31,31 @@ const {t} = useI18n({
 		"zh-CN": {},
 	},
 });
+
+const in_the_view = ref(false);
+
+onMounted(() => {
+	let view_point_height = window.innerHeight;
+	const element = document.getElementById("benefits");
+	if (!element) throw new Error("element is null");
+	const element_top_distance = element.offsetTop;
+
+	window.addEventListener("resize", () => {
+		view_point_height = window.innerHeight;
+	})
+
+	let view_scroll_top = document.documentElement.scrollTop;
+	console.log(element_top_distance);
+
+	window.addEventListener("scroll", () => {
+		view_scroll_top = document.documentElement.scrollTop;
+		if (view_scroll_top + view_point_height > element_top_distance + 400) {
+			in_the_view.value = true;
+		} else {
+			in_the_view.value = false;
+		}
+	})
+})
 </script>
 
 <style lang="scss" scoped>
@@ -51,12 +77,14 @@ const {t} = useI18n({
 		top: 198px;
 		left: 118px;
 		width: 945px;
+		transition: all 0.8s ease-in-out;
 	}
 
 	.web3 {
 		position: absolute;
 		top: 288px;
 		left: 1106px;
+		transition: all 0.8s ease-in-out;
 
 		.title {
 			margin: 34px 0 56px;
@@ -77,6 +105,16 @@ const {t} = useI18n({
 			line-height: 25px;
 			text-align: center;
 		}
+	}
+}
+
+#benefits.not-see {
+	.nodes {
+		transform: translateX(-300px);
+	}
+
+	.web3 {
+		transform: translateX(300px);
 	}
 }
 </style>

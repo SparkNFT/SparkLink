@@ -1,9 +1,9 @@
 <template>
-	<section id="getting-start">
+	<section id="getting-start" :class="{'not-see': !in_the_view}">
 		<div class="getting-start-inner">
 			<h2 class="how-to-start">{{ t("title") }}</h2>
 			<h5 class="sub-title">No need middlemen, publish and spread becomes in seconds.</h5>
-			<div class="card-container">
+			<div id="home-start-card-container" class="card-container">
 				<GettingStartCard
 					v-for="(step, index) in steps"
 					:key="index"
@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts" setup>
-import {computed} from "vue";
+import {computed, onMounted, ref} from "vue";
 import GettingStartCard from "./GettingStartCard.vue";
 import {useI18n} from "vue-i18n";
 
@@ -90,6 +90,33 @@ const steps = computed(() => [0, 1, 2, 3]
 		class: step_class[i]
 	}))
 	.map(createStepMapper(`${stepSvgBaseUrl}`)) as IStep[]);
+
+const in_the_view = ref(false);
+
+onMounted(() => {
+	let view_point_height = window.innerHeight;
+	const element = document.getElementById("getting-start");
+	if (!element) throw new Error("element is null");
+	const element_top_distance = element.offsetTop;
+
+	window.addEventListener("resize", () => {
+		view_point_height = window.innerHeight;
+	})
+
+	let view_scroll_top = document.documentElement.scrollTop;
+
+	window.addEventListener("scroll", () => {
+		view_scroll_top = document.documentElement.scrollTop;
+		if (view_scroll_top + view_point_height > element_top_distance + 300) {
+			in_the_view.value = true;
+		} else {
+			in_the_view.value = false;
+		}
+	})
+})
+
+
+
 </script>
 
 <style lang="scss" scoped>
@@ -121,6 +148,26 @@ const steps = computed(() => [0, 1, 2, 3]
 			align-items: stretch;
 			justify-content: space-between;
 		}
+	}
+}
+
+:deep(._1) {
+	transition: all 0.5s ease-in-out;
+}
+:deep(._2) {
+	transition: all 1s ease-in-out;
+}
+:deep(._3) {
+	transition: all 1.5s ease-in-out;
+}
+:deep(._4) {
+	transition: all 2s ease-in-out;
+}
+
+.not-see {
+	:deep(.card) {
+		transform: translateY(550px);
+		opacity: 0;
 	}
 }
 </style>

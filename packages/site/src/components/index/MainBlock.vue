@@ -1,10 +1,10 @@
 <template>
-	<section id="main-block" :class="{ mobile: !grid.sm }">
+	<section id="main-block" :class="{ mobile: !grid.sm, 'not-see': !in_the_view }">
 		<div class="container">
-			<h2 class="main-text">Publishing and distribution,</h2>
-			<h2 class="main-text">are redefined by us.</h2>
-			<p class="sub-text">Publish your content, spread your passion</p>
-			<p class="sub-text">Link all creators and sharers together, that is what we doing.</p>
+			<h2 class="main-text title">Publishing and distribution,</h2>
+			<h2 class="main-text title">are redefined by us.</h2>
+			<p class="sub-text sub-title">Publish your content, spread your passion</p>
+			<p class="sub-text sub-title">Link all creators and sharers together, that is what we doing.</p>
 			<router-link :to="{ name: `publish` }">
 				<el-button color="#478EFD" class="btn primary publish-btn">
 					<span class="btn-text">{{ t("publish") }}</span>
@@ -22,6 +22,7 @@
 import {useI18n} from "vue-i18n";
 import {useRouter} from "vue-router";
 import {grid} from "../../grid";
+import {onMounted, ref} from "vue";
 
 const {t} = useI18n({
 	messages: {
@@ -35,8 +36,14 @@ const {t} = useI18n({
 		}
 	},
 });
-
+const in_the_view = ref(false);
 const router = useRouter();
+
+onMounted(() => {
+	setTimeout(() => {
+		in_the_view.value = true;
+	}, 1000)
+})
 </script>
 
 <style lang="scss" scoped>
@@ -88,6 +95,11 @@ const router = useRouter();
 				font-size: 30px;
 				font-weight: bold;
 			}
+
+			&:hover {
+				background: #FFE177;
+				filter: drop-shadow(0px 0px 28px #FFE177);
+			}
 		}
 
 		.learn-more {
@@ -97,5 +109,30 @@ const router = useRouter();
 		}
 	}
 
+}
+.title {
+	transition: all 0.5s ease-in-out;
+}
+
+.sub-title {
+	transition: all 1s ease-in-out;
+}
+
+.publish-btn {
+	transition: all 1.5s ease-in-out;
+}
+
+.learn-more {
+	transition: all 1.5s ease-in;
+}
+
+.not-see {
+	.title,
+	.sub-title,
+	.publish-btn,
+	.learn-more{
+		transform: translateY(100px);
+		opacity: 0;
+	}
 }
 </style>

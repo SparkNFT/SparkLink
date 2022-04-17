@@ -1,5 +1,5 @@
 <template>
-	<section id="mechanism">
+	<section id="mechanism" :class="{'not-see': !in_the_view}">
 		<el-row>
 			<el-col :span="12">
 				<div class="description">
@@ -10,7 +10,7 @@
 					<p class="sub-title">
 						everything is stored permanently distributed in NFT.
 					</p>
-					<button class="start-to-publish">
+					<button id="home-start-publish" class="start-to-publish">
 						Start to publish
 					</button>
 				</div>
@@ -85,15 +85,43 @@
 
 <script lang="ts" setup>
 import {useI18n} from "vue-i18n";
+import {onMounted, ref} from "vue";
 
 const {t} = useI18n({
 	messages: {
 		en: {
 			title: "Freely publish what you love",
 		},
-		"zh-CN": {},
+		"zh-CN": {
+			title: "Freely publish what you love",
+		},
 	},
 });
+
+const in_the_view = ref(false);
+
+onMounted(() => {
+	let view_point_height = window.innerHeight;
+	const element = document.getElementById("mechanism");
+	if (!element) throw new Error("element is null");
+	const element_top_distance = element.offsetTop;
+
+	window.addEventListener("resize", () => {
+		view_point_height = window.innerHeight;
+	})
+
+	let view_scroll_top = document.documentElement.scrollTop;
+	console.log(element_top_distance);
+
+	window.addEventListener("scroll", () => {
+		view_scroll_top = document.documentElement.scrollTop;
+		if (view_scroll_top + view_point_height > element_top_distance + 600) {
+			in_the_view.value = true;
+		} else {
+			in_the_view.value = false;
+		}
+	})
+})
 </script>
 
 <style lang="scss" scoped>
@@ -190,11 +218,18 @@ const {t} = useI18n({
 		text-align: center;
 		background-color: white;
 		cursor: pointer;
+		transition: all 0.5s ease-in-out;
 
 		&:hover {
 			color: white;
 			background-color: #ef7a61;
 		}
+	}
+}
+
+#mechanism.not-see {
+	.start-to-publish {
+		transform: translateY(100px);
 	}
 }
 </style>
