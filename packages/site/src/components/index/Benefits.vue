@@ -11,7 +11,7 @@
 				</h1>
 
 				<p class="text">
-					unique tree-shaped sharing economy structure
+					Unique tree-shaped sharing economy structure
 				</p>
 				<p class="text">
 					allows everyone to share and sell node NFT
