@@ -38,13 +38,13 @@ export class Publisher implements IPublisher {
   ) {
     const promiEvent: PromiEvent<TransactionReceipt> = this.contract.methods
       .publish(
-        form.sellPrice,
+        form.firstSellPrice,
+        form.royaltyPrice,
         form.royaltyFeePercentage,
         form.maxShareTimes,
         form.ipfsHashWithoutMultiHash,
         form.tokenAddress.value,
         form.noDerivativeWorks,
-        form.baseline
       )
       .send();
     return new Promise<{ receipt: TransactionReceipt; rootNftId: string }>(
@@ -69,7 +69,8 @@ export class Publisher implements IPublisher {
 }
 
 export interface IPublishForm {
-  sellPrice: bigint;
+  firstSellPrice: bigint;
+  royaltyPrice: bigint;
   royaltyFeePercentage: number;
   maxShareTimes: number;
   // a hex string whose length is 34 bytes (starts with "0x", 68 hex characters, "0x" is not included).
@@ -80,8 +81,6 @@ export interface IPublishForm {
 
   noDerivativeWorks: boolean;
   tokenAddress: Address;
-  // The baseline percentage of selling price changement.
-  baseline: number;
 }
 
 export class PublishForm implements IPublishForm {
@@ -89,7 +88,8 @@ export class PublishForm implements IPublishForm {
     "0x0000000000000000000000000000000000000000"
   );
 
-  sellPrice: bigint;
+  firstSellPrice: bigint;
+  royaltyPrice: bigint;
   royaltyFeePercentage: number;
   maxShareTimes: number;
   multiHash: string;
@@ -108,21 +108,21 @@ export class PublishForm implements IPublishForm {
   baseline: number;
 
   constructor(
-    sellPrice: bigint,
+    firstSellPrice: bigint,
+    royaltyPrice: bigint,
     royaltyFeePercentage: number,
     maxShareTimes: number,
     ipfsHash: string,
     noDerivativeWorks: boolean,
     tokenAddress = PublishForm.ZERO_ADDRESS,
-    baseline = 100
   ) {
-    this.sellPrice = sellPrice;
+    this.firstSellPrice = firstSellPrice;
+    this.royaltyPrice = royaltyPrice;
     this.royaltyFeePercentage = royaltyFeePercentage;
     this.maxShareTimes = maxShareTimes;
     this.multiHash = ipfsHash;
     this.noDerivativeWorks = noDerivativeWorks;
     this.tokenAddress = tokenAddress;
-    this.baseline = baseline;
   }
   
 }
