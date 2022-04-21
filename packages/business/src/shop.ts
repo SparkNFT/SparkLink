@@ -79,7 +79,7 @@ export class Shop implements IShop {
           this.contract.methods.getNFTInfoByNFTID(nftId).call(),
           this.contract.methods.getTokenAddrByNFTId(nftId).call(),
         ]);
-      info = {sellingPrice: _info.selling_price, paymentCurrency: new Address(paymentCurrency)};
+      info = {sellingPrice: _info.shill_price, paymentCurrency: new Address(paymentCurrency)};
     }
 
     const nftIdInBigInt = BigInt(nftId);

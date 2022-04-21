@@ -134,6 +134,7 @@ describe("The put and get nft process", function () {
           paymentCurrency: new Address(
             "0x0000000000000000000000000000000000000000"
           ),
+          royaltyPrice: 10000n,
           sellingPrice: 1145141919810n,
           maxShareTimes: 64,
           allowSecondaryCreation: false,
@@ -141,7 +142,6 @@ describe("The put and get nft process", function () {
           description: "homo demo",
           cover,
           content,
-          baseline: 120,
         };
         uploader = new Uploader(config);
       });
@@ -295,9 +295,9 @@ describe("The put and get nft process", function () {
           axios.create(),
           testConfig.web3,
           testConfig.contractAddress,
-          "https://gateway.pinata.cloud/ipfs"
+          "https://cloudflare-ipfs.com/ipfs"
         );
-        this.timeout(60 * 1000);
+        this.timeout(100 * 1000);
         const result = await nftInformationGetter.get(testUsageNftId);
         expect(result.name).to.be.equal(userInputForm.name);
         expect(result.description).to.be.equal(userInputForm.description);
@@ -314,7 +314,7 @@ describe("The put and get nft process", function () {
           userInputForm.percentageOfEarnings
         );
         expect(result.sellingPrice).to.be.equal(userInputForm.sellingPrice);
-        expect(result.baseline).to.be.equal(userInputForm.baseline);
+        expect(result.royaltyPrice).to.be.equal(userInputForm.royaltyPrice);
         const urls = result.urls;
         const cover = (
           await axios.get(urls.cover, { responseType: "arraybuffer" })
