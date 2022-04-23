@@ -22,7 +22,7 @@
 import {useI18n} from "vue-i18n";
 import {useRouter} from "vue-router";
 import {grid} from "../../grid";
-import {onMounted, ref} from "vue";
+import {onMounted, ref, onBeforeMount} from "vue";
 
 const {t} = useI18n({
 	messages: {
@@ -42,19 +42,40 @@ const router = useRouter();
 onMounted(() => {
 	setTimeout(() => {
 		in_the_view.value = true;
-	}, 1000)
+	}, 1000);
+
+	window.addEventListener("resize", () => {
+		calculateStyle();
+	})
+});
+
+const padding_top = ref("272px");
+const height = ref("1034px");
+
+onBeforeMount(() => {
+	calculateStyle();
 })
+
+function calculateStyle() {
+	height.value = window.document.body.clientWidth / (1920 / 1142) - 108 + "px";
+	if (window.document.body.clientWidth < 1600) {
+		padding_top.value = window.document.body.clientWidth / 1920 * 200 - 100 + "px";
+	} else {
+		padding_top.value = window.document.body.clientWidth / 1920 * 200 + "px";
+	}
+}
+
 </script>
 
 <style lang="scss" scoped>
 #main-block {
 	overflow: hidden;
 	position: relative;
-	height: 1034px;
+	height: v-bind("height");
 
 	.container {
 		text-align: center;
-		padding-top: 272px;
+		padding-top: v-bind("padding_top");
 		box-sizing: border-box;
 		height: 100%;
 
@@ -110,6 +131,7 @@ onMounted(() => {
 	}
 
 }
+
 .title {
 	transition: all 0.5s ease-in-out;
 }
@@ -130,7 +152,7 @@ onMounted(() => {
 	.title,
 	.sub-title,
 	.publish-btn,
-	.learn-more{
+	.learn-more {
 		transform: translateY(100px);
 		opacity: 0;
 	}

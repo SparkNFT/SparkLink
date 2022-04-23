@@ -63,31 +63,28 @@ onMounted(() => {
 
 #benefits {
 	height: 863px;
+	padding-top: 200px;
+	padding-left: 118px;
+	padding-right: 118px;
 	box-sizing: border-box;
+	overflow-x: hidden;
 
 	.container {
-		position: relative;
-		max-width: 1920px;
-		margin: 0 auto;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 		width: 100%;
 	}
 
 	.nodes {
-		position: absolute;
-		top: 198px;
-		left: 118px;
-		width: 945px;
+		width: 50%;
 		transition: all 0.8s ease-in-out;
 	}
 
 	.web3 {
-		position: absolute;
-		top: 288px;
-		left: 1106px;
 		transition: all 0.8s ease-in-out;
 
 		.title {
-			margin: 34px 0 56px;
 			color: #383838;
 			font-size: 45px;
 			font-style: normal;

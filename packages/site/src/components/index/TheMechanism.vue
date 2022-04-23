@@ -1,85 +1,83 @@
 <template>
 	<section id="mechanism" :class="{'not-see': !in_the_view}">
-		<el-row>
-			<el-col :span="12">
-				<div class="description">
-					<h2 class="how-we-work">{{ t("title") }}</h2>
-					<p class="sub-title" style="margin-bottom: 16px">
-						No restrictions on the format and content of the publication,
-					</p>
-					<p class="sub-title">
-						everything is stored permanently distributed in NFT.
-					</p>
-					<button id="home-start-publish" class="start-to-publish">
-						Start to publish
-					</button>
-				</div>
-			</el-col>
-			<el-col :span="12">
-				<div class="types">
-					<div class="row">
-						<div class="item">
-							<img src="/assets/mechanism/file.png" class="head">
-							<p class="info">
-								Art Works
-							</p>
-						</div>
-						<div class="item">
-							<img src="/assets/mechanism/edit-pencil-line.png" class="head">
-							<p class="info">
-								Illustration
-							</p>
-						</div>
-						<div class="item">
-							<img src="/assets/mechanism/book-open.png" class="head">
-							<p class="info">
-								Books
-							</p>
-						</div>
+		<div class="container">
+			<div class="description">
+				<h2 class="how-we-work">{{ t("title") }}</h2>
+				<p class="sub-title" style="margin-bottom: 16px">
+					No restrictions on the format and content of the publication,
+				</p>
+				<p class="sub-title">
+					everything is stored permanently distributed in NFT.
+				</p>
+				<button id="home-start-publish" class="start-to-publish">
+					Start to publish
+				</button>
+			</div>
+			<div class="space"></div>
+			<div class="types">
+				<div class="row">
+					<div class="item">
+						<img src="/assets/mechanism/file.png" class="head">
+						<p class="info">
+							Art Works
+						</p>
 					</div>
-					<div class="row">
-						<div class="item">
-							<img src="/assets/mechanism/leaf.png" class="head">
-							<p class="info">
-								Nature
-							</p>
-						</div>
-						<div class="item">
-							<img src="/assets/mechanism/command.png" class="head">
-							<p class="info">
-								3D Art
-							</p>
-						</div>
-						<div class="item">
-							<img src="/assets/mechanism/building.png" class="head">
-							<p class="info">
-								3D Modeling
-							</p>
-						</div>
+					<div class="item">
+						<img src="/assets/mechanism/edit-pencil-line.png" class="head">
+						<p class="info">
+							Illustration
+						</p>
 					</div>
-					<div class="row">
-						<div class="item">
-							<img src="/assets/mechanism/head-phones.png" class="head">
-							<p class="info">
-								Music
-							</p>
-						</div>
-						<div class="item">
-							<img src="/assets/mechanism/camera.png" class="head">
-							<p class="info">
-								Discovery
-							</p>
-						</div>
-						<div class="item">
-							<img src="/assets/mechanism/alt.png" class="head">
-							<p class="info">
-								Animation
-							</p>
-						</div>
+					<div class="item">
+						<img src="/assets/mechanism/book-open.png" class="head">
+						<p class="info">
+							Books
+						</p>
 					</div>
 				</div>
-			</el-col>
-		</el-row>
+				<div class="row">
+					<div class="item">
+						<img src="/assets/mechanism/leaf.png" class="head">
+						<p class="info">
+							Nature
+						</p>
+					</div>
+					<div class="item">
+						<img src="/assets/mechanism/command.png" class="head">
+						<p class="info">
+							3D Art
+						</p>
+					</div>
+					<div class="item">
+						<img src="/assets/mechanism/building.png" class="head">
+						<p class="info">
+							3D Modeling
+						</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="item">
+						<img src="/assets/mechanism/head-phones.png" class="head">
+						<p class="info">
+							Music
+						</p>
+					</div>
+					<div class="item">
+						<img src="/assets/mechanism/camera.png" class="head">
+						<p class="info">
+							Discovery
+						</p>
+					</div>
+					<div class="item">
+						<img src="/assets/mechanism/alt.png" class="head">
+						<p class="info">
+							Animation
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="space"></div>
+		</div>
 	</section>
 </template>
 
@@ -128,12 +126,18 @@ onMounted(() => {
 @use "../../styles/index.scss";
 
 #mechanism {
-	max-width: 1920px;
-	margin: 0 auto;
+	width: 100%;
+	padding-top: 101px;
 	height: 741px;
 	box-sizing: border-box;
 
-	.el-row,
+	.container {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		width: 100%;
+	}
+
 	.description,
 	.types {
 		height: 100%;
@@ -143,9 +147,7 @@ onMounted(() => {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		width: 710px;
-		height: 332px;
-		padding: 187px 56px 222px 194px;
+		width: 60%;
 
 		.how-we-work {
 			@include index.index-title;
@@ -162,12 +164,14 @@ onMounted(() => {
 	}
 
 	.types {
-		width: 604px;
+		width: 40%;
+		max-width: 604px;
 		height: 414px;
-		margin: 115px 245px 212px 111px;
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
+		padding-right: 50px;
+		box-sizing: border-box;
 
 		.row {
 			width: 100%;
