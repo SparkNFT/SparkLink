@@ -16,6 +16,7 @@ describe("Publisher", function () {
       this.publisher = factory.publisher;
       this.demoForm = new PublishForm(
         10000n,
+        4000n,
         20,
         256,
         "0x122064EC88CA00B268E5BA1A35678A1B5316D212F4F366B2477232534A8AECA37F3C",
@@ -67,7 +68,7 @@ describe("Publisher", function () {
         .call();
       expect(nftInformation).to.have.a.property(
         "shill_price",
-        demoForm.sellPrice.toString()
+        demoForm.firstSellPrice.toString()
       );
       expect(nftInformation).to.have.a.property(
         "remain_shill_times",
@@ -79,6 +80,7 @@ describe("Publisher", function () {
         demoForm.multiHash.toLowerCase()
       );
     });
+    // TODO: Add getter tests here.
     it("should resolve when the confirmation number reaches the min confirmation number.", async function () {
       const publisher = this.publisher as IPublisher;
       const demoForm = this.demoForm as IPublishForm;
