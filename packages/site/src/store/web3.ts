@@ -72,7 +72,7 @@ export const networkSelectOptions = Array.from(chainIdToName).map(
 );
 
 const chainIdToContractAddress = new Map<number, string>();
-chainIdToContractAddress.set(4, "0x7bEf2541bd8E5b9927d481cE1BeA408EEbF52323");
+chainIdToContractAddress.set(4, "0x3Bdc8834cFB7E01cB27a31f4F02274bF2b27246C");
 
 export interface IWeb3 {
 	account: string;
