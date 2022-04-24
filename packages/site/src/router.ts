@@ -1,6 +1,6 @@
 import { createRouter, createWebHashHistory, useRouter } from "vue-router";
 import Layout from "./routes/__layout.vue";
-import Index from "./routes/Index.vue";
+import Index from "./routes/TheIndex.vue";
 import Publish from "./routes/Publish.vue";
 import Collection from "./routes/Collection.vue";
 import ArtPage from "./routes/ArtPage.vue";

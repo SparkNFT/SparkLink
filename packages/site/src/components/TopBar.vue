@@ -8,6 +8,7 @@
       sticky,
     }"
 	>
+		<!-- I can not use css to implement the home page background style,so and a background img to act the header background-->
 		<img src="/assets/background.png" class="background"/>
 		<div class="inner">
 			<router-link :to="{ name: `index` }" class="logo-a">
@@ -19,7 +20,6 @@
 						{{ item.name }}
 					</router-link>
 				</div>
-				<div class="space"/>
 				<EndBlock/>
 			</template>
 			<template v-else>
@@ -177,7 +177,6 @@ $height: 108px;
 
 .nav {
 	display: flex;
-	margin-left: 468px;
 
 	a {
 		text-decoration: none;
