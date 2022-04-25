@@ -18,7 +18,7 @@ export class PinataServerClient implements IPinServerClient {
   private readonly key: string;
   private readonly secret: string;
   private readonly axios: Axios;
-  private static readonly BASE_URL = "https://sparklink.mypinata.cloud";
+  private static readonly BASE_URL = "https://api.pinata.cloud";
   private static readonly ENDPOINT = `${this.BASE_URL}/pinning/pinFileToIPFS`;
   private static readonly PIN_JSON_ENDPOINT = `${this.BASE_URL}/pinning/pinJSONToIPFS`;
 
