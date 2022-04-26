@@ -9,7 +9,7 @@ export const configStore = {
 	state() {
 		console.log(process.env);
 		return {
-			frontendBaseUrl: process.env.FRONTEND_BASE_URL ?? "https://easeshare.io"
+			frontendBaseUrl: process.env.FRONTEND_BASE_URL ?? "https://codeatnow.github.io/TestPage"
 		}
 	}
 } as Module<IConfig, any>

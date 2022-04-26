@@ -6,7 +6,7 @@
 	</div>
 	<template v-else-if="metadata">
 		<div class="art-detail">
-			<img src="/assets/art/expand-left.png" class="back-to-collection">
+			<img src="/assets/art/expand-left.png" class="back-to-collection" @click="router.back()">
 			<h2 class="title">Collection</h2>
 			<div class="current-earnings">
 				<p class="note">Current Earnings</p>
@@ -16,7 +16,7 @@
 				</div>
 				<div class="btns">
 					<button class="btn orange receive">RECEIVE INCOME</button>
-					<button class="btn orange">SELL</button>
+					<button class="btn orange disabled">TRANSFER</button>
 				</div>
 			</div>
 			<div class="detail-container">
@@ -24,7 +24,10 @@
 					<div class="cover-container">
 						<img :src="cover"/>
 					</div>
-					<button class="btn orange download">DOWNLOAD</button>
+					<down-button
+						:metadata="metadata"
+						:nft-id="nftId"
+					/>
 				</div>
 				<div class="info">
 					<p class="ntf-id">#{{nftId}}</p>
@@ -59,7 +62,7 @@
 
 <script lang="ts" setup>
 import {computed, onMounted, ref, watch} from "vue";
-import {useRoute} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import {useStore} from "vuex";
 import {UserOperatorFactory, DownloadEventEmitter} from "@SparkLink/business";
 import type {INftInformation} from "@SparkLink/business/generated/src/nftInfomation";
@@ -69,6 +72,7 @@ import {ElMessage} from "element-plus";
 import {web3InfoGetter} from "../store";
 import {chainIdToName, IToken} from "../token";
 import {useI18n} from "vue-i18n";
+import DownButton from "../components/art/DownButton.vue";
 
 const {t} = useI18n({
 	messages: {
@@ -105,6 +109,7 @@ const factory = computed(
 );
 const infoGetter = computed(() => factory.value?.nftInformationGetter);
 const route = useRoute();
+const router = useRouter();
 const chainId = computed(() => parseInt(route.params.chainId as string));
 const chain = computed(() => chainIdToName.get(chainId.value) as string);
 const isCurrentChain = computed(
@@ -280,6 +285,11 @@ const showPoster = ref(false);
 		.btns > button {
 			width: 395px;
 		}
+
+		.btn.disabled {
+			background: #C4C4C4;
+		}
+
 	}
 
 	.detail-container {
