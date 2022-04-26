@@ -29,7 +29,7 @@ export const i18n = VueI18n.createI18n({
                 close: "Close"
             },
             language: "English",
-            copyright: "© 2021 EaseShare. All rights reserved.",
+            copyright: "© 2021 Sparklink. All rights reserved.",
             hint: {
                 loading: "Loading..."
             }

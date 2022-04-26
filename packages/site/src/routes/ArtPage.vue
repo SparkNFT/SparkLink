@@ -93,7 +93,7 @@ const {t} = useI18n({
 			},
 			copyLink: {
 				hint: "链接已被复制到剪切板。",
-				prefix: "欢迎来到EaseShare查看并分享我的NFT作品："
+				prefix: "欢迎来到Sparklink查看并分享我的NFT作品："
 			}
 		},
 	},
