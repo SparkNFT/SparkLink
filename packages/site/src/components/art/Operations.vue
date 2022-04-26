@@ -138,6 +138,7 @@ watch(downloadInProcess, (a1, a2) => {
 
 async function clickDownloadButton() {
 	const nftId = props.nftId;
+	console.log(nftId);
 	if (!canDownload.value) return;
 	const downloader = await factory.value.getContentDownloader(
 		encrypted.value,
