@@ -82,7 +82,7 @@ const shareLinks = reactive([{
 	target: "https://medium.com/@SparkLink",
 	icon: "iconfont icon-medium"
 }, {
-	target: "https://twitter.com/SparkLinkNFT",
+	target: "https://twitter.com/SparkLink_io",
 	icon: "iconfont icon-twitter"
 }])
 

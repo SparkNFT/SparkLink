@@ -12,7 +12,7 @@ import { IUploadConfig, IUploader, Uploader } from "./uploader";
 // This class is a factory class for all APIs users could reach.
 // To check the docs of an API, please refer to corresponse code file.
 export class UserOperatorFactory {
-  private static readonly CDN_URL = "https://coldcdn.com/api/cdn/v5ynur/ipfs";
+  private static readonly CDN_URL = "sparklink.mypinata.cloud";
   static async getChainId(web3: Web3): Promise<number> {
     return await web3.eth.getChainId();
   }
