@@ -4,7 +4,7 @@ export type Contract = Web3Contract;
 
 export function validateWritableContract(contract: Contract) {
   if (!contract.options.address)
-      throw new Error("Contract Address should be specified.");
-    else if (!contract.options["from"])
-      throw new Error("Contract should have a sender address.");
+    throw new Error("Contract Address should be specified.");
+  else if (!contract.options["from"])
+    throw new Error("Contract should have a sender address.");
 }

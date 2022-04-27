@@ -1,6 +1,9 @@
 import { readFile } from "fs/promises";
 import { expect } from "chai";
-import {fileToIpfsCid0, plainObjectToIpfsCid0} from "../../src/utils/toIpfsCid0";
+import {
+  fileToIpfsCid0,
+  plainObjectToIpfsCid0,
+} from "../../src/utils/toIpfsCid0";
 
 describe("function fileToIpfsCid0", function () {
   it("should parse file to a version 0 IPFS CID.", async function () {
@@ -13,8 +16,7 @@ describe("function fileToIpfsCid0", function () {
 });
 
 describe("function plainObjectToIpfsCid0", function () {
-  it(
-    "should parse plain object to a version 0 IPFS CID.", async function () {
+  it("should parse plain object to a version 0 IPFS CID.", async function () {
     const payload = {
       name: "Hungary",
       description: "blah blah",
@@ -36,6 +38,6 @@ describe("function plainObjectToIpfsCid0", function () {
       ],
     };
     const cid = await plainObjectToIpfsCid0(payload);
-    expect(cid).to.equal("QmdPHgyD4gfy5R5fD7A8gGrCTNrFpuSPNpWk43gQozkKft")
+    expect(cid).to.equal("QmdPHgyD4gfy5R5fD7A8gGrCTNrFpuSPNpWk43gQozkKft");
   });
 });

@@ -7,4 +7,4 @@ export const grid = useGrid({
   lg: 1200,
   lgPlus: 1344,
   xl: 1920,
-})
+});

@@ -39,6 +39,6 @@ export function newBuilder(expections: IExpections) {
     },
     getClient() {
       return client;
-    }
+    },
   };
 }

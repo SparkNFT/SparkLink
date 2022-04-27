@@ -1,4 +1,4 @@
-import { utils } from "ethers"
+import { utils } from "ethers";
 
 export class Address {
   private readonly _value: string;

@@ -57,7 +57,7 @@ const props = withDefaults(
     mobileShowClose: false,
     title: undefined,
     drawerClass: undefined,
-    width: undefined
+    width: undefined,
   }
 );
 const emit = defineEmits<{ (e: "update:modelValue", value: boolean): void }>();
@@ -67,7 +67,7 @@ const _width = computed(() => {
   else if (grid.lgPlus) return "50%";
   else if (grid.md) return "70%";
   else return "90%";
-})
+});
 </script>
 
 <style lang="scss" scoped>
