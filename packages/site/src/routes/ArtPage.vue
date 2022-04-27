@@ -74,10 +74,6 @@ import {chainIdToName, IToken} from "../token";
 import {useI18n} from "vue-i18n";
 import DownButton from "../components/art/DownButton.vue";
 
-function g() {
-  console.log(chain, web3InfoGetter.chain.name);
-}
-
 const {t} = useI18n({
 	messages: {
 		en: {
