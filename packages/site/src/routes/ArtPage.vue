@@ -93,7 +93,7 @@
 
 <script lang="ts" setup>
 import { computed, onMounted, ref, watch } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
 import { UserOperatorFactory, DownloadEventEmitter } from "@SparkLink/business";
 import type { INftInformation } from "@SparkLink/business/generated/src/nftInfomation";
@@ -145,6 +145,7 @@ const factory = computed(
 );
 const infoGetter = computed(() => factory.value?.nftInformationGetter);
 const route = useRoute();
+const router = useRouter();
 const chainId = computed(() => parseInt(route.params.chainId as string));
 const chain = computed(() => chainIdToName.get(chainId.value) as string);
 const isCurrentChain = computed(
