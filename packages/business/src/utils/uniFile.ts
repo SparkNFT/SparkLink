@@ -8,8 +8,8 @@ type Environment = "node" | "browser" | "unsupported";
 let currentEnvironment: Environment = isBrowser
   ? "browser"
   : isNode
-    ? "node"
-    : "unsupported";
+  ? "node"
+  : "unsupported";
 
 validateEnvironment();
 
@@ -105,7 +105,9 @@ export class UniFile implements IUniFile {
       this.arrayBufferPromise = browserFile.arrayBuffer();
       this.type = browserFile.type;
       this.name = browserFile.name;
-      this.path = browserFile.webkitRelativePath ? browserFile.webkitRelativePath : this.name;
+      this.path = browserFile.webkitRelativePath
+        ? browserFile.webkitRelativePath
+        : this.name;
     } else if (environmentSpecificFile["buffer"]) {
       const nodeBuffer = environmentSpecificFile as {
         buffer: NodeBuffer;

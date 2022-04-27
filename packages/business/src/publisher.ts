@@ -44,7 +44,7 @@ export class Publisher implements IPublisher {
         form.maxShareTimes,
         form.ipfsHashWithoutMultiHash,
         form.tokenAddress.value,
-        form.noDerivativeWorks,
+        form.noDerivativeWorks
       )
       .send();
     return new Promise<{ receipt: TransactionReceipt; rootNftId: string }>(
@@ -53,14 +53,14 @@ export class Publisher implements IPublisher {
           .on("confirmation", (number, receipt, latestBlockHash) => {
             //console.log(number);
             const rootNftId = receipt.events.Publish.returnValues.rootNFTId;
-            if (number <= minConfirmNum && onConfirm) onConfirm(number, rootNftId, receipt, latestBlockHash);
+            if (number <= minConfirmNum && onConfirm)
+              onConfirm(number, rootNftId, receipt, latestBlockHash);
             if (number >= minConfirmNum) {
               resolve({
                 receipt: receipt,
                 rootNftId: receipt.events.Publish.returnValues.rootNFTId,
               });
             }
-
           })
           .on("error", (error) => reject(error));
       }
@@ -114,7 +114,7 @@ export class PublishForm implements IPublishForm {
     maxShareTimes: number,
     ipfsHash: string,
     noDerivativeWorks: boolean,
-    tokenAddress = PublishForm.ZERO_ADDRESS,
+    tokenAddress = PublishForm.ZERO_ADDRESS
   ) {
     this.firstSellPrice = firstSellPrice;
     this.royaltyPrice = royaltyPrice;
@@ -124,5 +124,4 @@ export class PublishForm implements IPublishForm {
     this.noDerivativeWorks = noDerivativeWorks;
     this.tokenAddress = tokenAddress;
   }
-  
 }

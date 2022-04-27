@@ -9,7 +9,11 @@
         :span="item.span"
         min-width="100"
       >
-        <span v-if="typeof item.value === 'boolean' " class="material-icons-outlined">{{item.value ? "check" : "clear"}}</span>
+        <span
+          v-if="typeof item.value === 'boolean'"
+          class="material-icons-outlined"
+          >{{ item.value ? "check" : "clear" }}</span
+        >
         <span v-else>{{ item.value }}</span>
       </el-descriptions-item>
     </el-descriptions>
@@ -23,7 +27,6 @@ import { computed } from "vue";
 import { useStore } from "vuex";
 import type Web3 from "web3";
 import { useI18n } from "vue-i18n";
-
 
 const { t } = useI18n({
   messages: {
@@ -46,7 +49,7 @@ const { t } = useI18n({
         dividenRate: "收益比例",
         derived: "允许二次创作",
         maxSharingTimes: "最高分享次数",
-        remainingSharingTimes: "剩余分享次数"
+        remainingSharingTimes: "剩余分享次数",
       },
     },
   },

@@ -41,19 +41,25 @@ export class PinataServerClient implements IPinServerClient {
       formData = new NodeFormData();
       formData.append("file", content, { filename: "file" });
     }
-    const response = await this.axios.post(PinataServerClient.ENDPOINT, formData, this.getOptions(formData));
+    const response = await this.axios.post(
+      PinataServerClient.ENDPOINT,
+      formData,
+      this.getOptions(formData)
+    );
     const result = response.data;
     return { ipfsHash: result.IpfsHash, pinSize: result.PinSize };
   }
 
   async pinJson(obj: object): Promise<PinFileReturnValue> {
-    const result = (await this.axios.post(PinataServerClient.PIN_JSON_ENDPOINT, obj, {
-      withCredentials: true,
-      headers: {
-        'pinata_api_key': this.key,
-        'pinata_secret_api_key': this.secret
-      }
-    })).data
+    const result = (
+      await this.axios.post(PinataServerClient.PIN_JSON_ENDPOINT, obj, {
+        withCredentials: true,
+        headers: {
+          pinata_api_key: this.key,
+          pinata_secret_api_key: this.secret,
+        },
+      })
+    ).data;
     return { ipfsHash: result.IpfsHash, pinSize: result.PinSize };
   }
 
@@ -62,8 +68,8 @@ export class PinataServerClient implements IPinServerClient {
       withCredentials: true,
       maxContentLength: Infinity, //this is needed to prevent axios from erroring out with large files
       maxBodyLength: Infinity,
-      headers: this.getHeaders(data)
-    }
+      headers: this.getHeaders(data),
+    };
   }
 
   private getHeaders(data: NodeFormData | FormData) {
@@ -72,7 +78,9 @@ export class PinataServerClient implements IPinServerClient {
       pinata_secret_api_key: this.secret,
     };
     if (!isBrowser)
-      result["Content-type"] = `multipart/form-data; boundary= ${(data as NodeFormData).getBoundary()}`
+      result["Content-type"] = `multipart/form-data; boundary= ${(
+        data as NodeFormData
+      ).getBoundary()}`;
     return result;
   }
 }

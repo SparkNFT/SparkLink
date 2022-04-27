@@ -13,9 +13,9 @@ const getDefine = () => {
       KEY_SERVER_BASE_URL: process.env.KEY_SERVER_BASE_URL,
       FRONTEND_BASE_URL: process.env.FRONTEND_BASE_URL,
       DEBUG: process.env.DEBUG,
-    }
+    },
   };
-  if (process.env.DEBUG) result["global"] = "globalThis"
+  if (process.env.DEBUG) result["global"] = "globalThis";
   else result["global.WebSocket"] = "globalThis.WebSocket";
   //if (process.env.DEBUG) result["global"] = {};
   console.log(process.env.DEBUG);

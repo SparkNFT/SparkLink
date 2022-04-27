@@ -61,7 +61,7 @@ function emitModelValue(value: boolean) {
     getInitTimeLine().forEach((v, i) => {
       timeLine[i] = v;
     });
-    nftId.value = "";
+  nftId.value = "";
 }
 
 const store = useStore();
@@ -191,7 +191,7 @@ watch(
     eventEmitter.on("publishConfirmation", (confirm: number) => {
       updatePublishData(confirm);
     });
-    eventEmitter.on("published", ({rootNftId}) => {
+    eventEmitter.on("published", ({ rootNftId }) => {
       done(2);
       doing(3);
       nftId.value = rootNftId;

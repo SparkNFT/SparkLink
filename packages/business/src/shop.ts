@@ -3,8 +3,6 @@ import type { TransactionReceipt, PromiEvent } from "web3-core";
 import { Address } from ".";
 import { EventEmitter } from "eventemitter3";
 
-
-
 export interface IShop {
   minConfirmNum: number;
 
@@ -74,12 +72,14 @@ export class Shop implements IShop {
     minConfirmNum?: number
   ) {
     if (!info) {
-      const [_info, paymentCurrency] =
-        await Promise.all([
-          this.contract.methods.getNFTInfoByNFTID(nftId).call(),
-          this.contract.methods.getTokenAddrByNFTId(nftId).call(),
-        ]);
-      info = {sellingPrice: _info.shill_price, paymentCurrency: new Address(paymentCurrency)};
+      const [_info, paymentCurrency] = await Promise.all([
+        this.contract.methods.getNFTInfoByNFTID(nftId).call(),
+        this.contract.methods.getTokenAddrByNFTId(nftId).call(),
+      ]);
+      info = {
+        sellingPrice: _info.shill_price,
+        paymentCurrency: new Address(paymentCurrency),
+      };
     }
 
     const nftIdInBigInt = BigInt(nftId);

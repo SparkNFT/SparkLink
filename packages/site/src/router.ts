@@ -62,8 +62,8 @@ const debugRoutes = [
   },
   {
     path: "/debug/topbar/switch-language",
-    component: () => import("./componentsViews/topbar/SwitchLanguage.vue")
-  }
+    component: () => import("./componentsViews/topbar/SwitchLanguage.vue"),
+  },
 ];
 
 if (process.env?.DEBUG) {
