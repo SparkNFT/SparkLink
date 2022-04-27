@@ -30,10 +30,12 @@ describe("The PinataSeverClient", function () {
     expect(ipfsHash).to.equal("QmTu2jnNnTvK4fpUtQegcMzskiR6cZux2eQ79uyfCpvpLC");
     expect(pinSize).to.equal(488132);
   });
-  it("should pin json currectly", async function() {
-    const {ipfsHash, pinSize} = await client.pinJson({value: "hello world!"});
+  it("should pin json currectly", async function () {
+    const { ipfsHash, pinSize } = await client.pinJson({
+      value: "hello world!",
+    });
     expect(ipfsHash).to.equal("QmQQZ82ibK3CcViDnfzh9KYRGxNtZoaDSzk7V6eU8JKPaB");
     expect(pinSize).to.equal(32);
     return;
-  })
+  });
 });

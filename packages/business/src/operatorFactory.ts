@@ -46,7 +46,7 @@ export class OperatorFactory implements IOperatorFactory {
     const contract = new this.web3.eth.Contract(ERC20ABI);
     contract.options.from = this.sender.value;
     const shop = new Shop(this.contract, contract);
-    if (this.minConfirmNum > 0 ) shop.minConfirmNum = this.minConfirmNum;
+    if (this.minConfirmNum > 0) shop.minConfirmNum = this.minConfirmNum;
     return shop;
   }
 }

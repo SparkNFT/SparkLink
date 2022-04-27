@@ -1,9 +1,6 @@
 <template>
   <el-button @click="open = true">Open</el-button>
-  <NavigationDrawer
-    v-model="open"
-    :navs="navs"
-  ></NavigationDrawer>
+  <NavigationDrawer v-model="open" :navs="navs"></NavigationDrawer>
 </template>
 
 <script lang="ts" setup>
@@ -16,7 +13,6 @@ const open = ref(true);
 
 const route = useRoute();
 const fullPath = computed(() => route.fullPath);
-
 
 const navs = [
   {

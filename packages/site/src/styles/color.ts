@@ -1,1 +1,1 @@
-export const greyBackground = "#EFEFEF"
+export const greyBackground = "#EFEFEF";

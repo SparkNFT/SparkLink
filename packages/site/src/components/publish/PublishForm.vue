@@ -1,53 +1,53 @@
 <template>
   <el-form
-      ref="form"
-      :model="data"
-      :rules="rules"
-      label-position="top"
-      class="form"
+    ref="form"
+    :model="data"
+    :rules="rules"
+    label-position="top"
+    class="form"
   >
     <el-form-item
-        :label="t('inputs.name.label')"
-        class="single-label"
-        prop="name"
+      :label="t('inputs.name.label')"
+      class="single-label"
+      prop="name"
     >
-      <el-input v-model="data.name" name="itemName" style="width: 563px"/>
+      <el-input v-model="data.name" name="itemName" style="width: 563px" />
     </el-form-item>
     <el-form-item
-        :label="t('inputs.earning.label')"
-        prop="percentageOfEarnings"
+      :label="t('inputs.earning.label')"
+      prop="percentageOfEarnings"
     >
       <p class="description">{{ t("inputs.earning.description") }}</p>
       <el-input-number
-          v-model="data.percentageOfEarnings"
-          name="percentageOfEarnings"
-          :controls="false"
-          :min="0"
-          :max="100"
-          :precision="0"
+        v-model="data.percentageOfEarnings"
+        name="percentageOfEarnings"
+        :controls="false"
+        :min="0"
+        :max="100"
+        :precision="0"
       />
     </el-form-item>
     <el-form-item :label="t('inputs.currency.label')" prop="paymentCurrency">
       <p class="description">
         {{ t("inputs.currency.description") }}
-        <br/><br/>
+        <br /><br />
         {{ t("inputs.currency.chain") }} <strong>{{ chain }}</strong
-      >.
+        >.
       </p>
       <payment-currency-selector
-          style="width: 862px"
-          name="paymentCurrency"
-          @update:address="updatePaymentCurrency"
+        style="width: 862px"
+        name="paymentCurrency"
+        @update:address="updatePaymentCurrency"
       />
     </el-form-item>
     <el-form-item :label="t('inputs.price.label')" prop="sellingPrice">
       <p class="description">{{ t("inputs.price.description") }}</p>
       <el-input-number
-          v-model="data.sellingPrice"
-          :controls="false"
-          size="large"
-          name="sellingPrice"
-          style="width: 862px"
+        v-model="data.sellingPrice"
+        :controls="false"
+        size="large"
+        name="sellingPrice"
+        style="width: 862px"
       />
     </el-form-item>
     <el-form-item :label="t('inputs.shares.label')" prop="maxShareTimes">
@@ -55,51 +55,51 @@
         {{ t("inputs.shares.description") }}
       </p>
       <el-input-number
-          v-model="data.maxShareTimes"
-          name="maximum number of shares"
-          :controls="false"
-          :placeholder="t('inputs.shares.placeHolder')"
-          :min="0"
-          :max="65535"
-          :precision="0"
-          style="width: 862px"
+        v-model="data.maxShareTimes"
+        name="maximum number of shares"
+        :controls="false"
+        :placeholder="t('inputs.shares.placeHolder')"
+        :min="0"
+        :max="65535"
+        :precision="0"
+        style="width: 862px"
       />
     </el-form-item>
     <el-form-item
-        :label="t('inputs.royaltyPrice.label')"
-        prop="royaltyPrice"
-        class="single-label"
+      :label="t('inputs.royaltyPrice.label')"
+      prop="royaltyPrice"
+      class="single-label"
     >
       <el-input-number
-          v-model="data.royaltyPrice"
-          name="royalty price"
-          :controls="false"
-          :placeholder="t('inputs.royaltyPrice.placeHolder')"
-          :min="0"
-          size="large"
-          style="width: 862px"
+        v-model="data.royaltyPrice"
+        name="royalty price"
+        :controls="false"
+        :placeholder="t('inputs.royaltyPrice.placeHolder')"
+        :min="0"
+        size="large"
+        style="width: 862px"
       />
     </el-form-item>
     <el-form-item
-        :label="t('inputs.authority.label')"
-        class="single-label"
-        prop="checkboxGroupsObj"
+      :label="t('inputs.authority.label')"
+      class="single-label"
+      prop="checkboxGroupsObj"
     >
       <meta-checkbox-group
-          checkbox-class="checkbox"
-          @update:model-value="updateMetas"
+        checkbox-class="checkbox"
+        @update:model-value="updateMetas"
       />
     </el-form-item>
     <el-form-item
-        :label="t('inputs.encrypt.label')"
-        class="single-label"
-        prop="encrypted"
+      :label="t('inputs.encrypt.label')"
+      class="single-label"
+      prop="encrypted"
     >
       <div class="switch-wrapper">
         <el-switch
-            v-model="data.encrypted"
-            :active-icon="Check"
-            :inactive-icon="Close"
+          v-model="data.encrypted"
+          :active-icon="Check"
+          :inactive-icon="Close"
         />
         <span class="description">{{ t("inputs.encrypt.description") }}</span>
       </div>
@@ -107,62 +107,57 @@
     <el-form-item :label="t('inputs.description.label')" prop="description">
       <p class="description">{{ t("inputs.description.description") }}</p>
       <el-input
-          v-model="data.description"
-          type="textarea"
-          autosize
-          name="itemDescription"
+        v-model="data.description"
+        type="textarea"
+        autosize
+        name="itemDescription"
       />
     </el-form-item>
     <div class="upload-container">
-      <el-form-item
-          :label="t('inputs.upload.cover.label')"
-          prop="files.cover"
-      >
+      <el-form-item :label="t('inputs.upload.cover.label')" prop="files.cover">
         <p class="description">
           {{ t("inputs.upload.cover.description") }}
         </p>
         <el-upload
-            ref="coverUploader"
-            drag
-            multiple
-            :auto-upload="false"
-            action="https://jsonplaceholder.typicode.com/posts"
-            :http-request="fakeRequest"
-            :on-change="onCoverChange"
+          ref="coverUploader"
+          drag
+          multiple
+          :auto-upload="false"
+          action="https://jsonplaceholder.typicode.com/posts"
+          :http-request="fakeRequest"
+          :on-change="onCoverChange"
         >
           <el-icon class="el-icon--upload">
-            <upload-filled/>
+            <upload-filled />
           </el-icon>
           <div class="el-upload__text">
-            {{
-              t("inputs.upload.hint._1")
+            {{ t("inputs.upload.hint._1")
             }}<em>{{ t("inputs.upload.hint._2") }}</em>
           </div>
         </el-upload>
       </el-form-item>
       <el-form-item
-          :label="t('inputs.upload.content.label')"
-          prop="files.content"
+        :label="t('inputs.upload.content.label')"
+        prop="files.content"
       >
         <p class="description">
           {{ t("inputs.upload.content.description") }}
         </p>
         <el-upload
-            ref="contentUploader"
-            class="upload-demo"
-            drag
-            multiple
-            :auto-upload="false"
-            action="https://jsonplaceholder.typicode.com/posts"
-            :http-request="fakeRequest"
-            :on-change="onContentChange"
+          ref="contentUploader"
+          class="upload-demo"
+          drag
+          multiple
+          :auto-upload="false"
+          action="https://jsonplaceholder.typicode.com/posts"
+          :http-request="fakeRequest"
+          :on-change="onContentChange"
         >
           <el-icon class="el-icon--upload">
-            <upload-filled/>
+            <upload-filled />
           </el-icon>
           <div class="el-upload__text">
-            {{
-              t("inputs.upload.hint._1")
+            {{ t("inputs.upload.hint._1")
             }}<em>{{ t("inputs.upload.hint._2") }}</em>
           </div>
           <template #tip>
@@ -174,41 +169,40 @@
       </el-form-item>
     </div>
     <div class="btn-area">
-      <el-button type="danger" @click="submit" class="publish-btn">{{
-          t("btn.publish")
-        }}
+      <el-button type="danger" @click="submit" class="publish-btn"
+        >{{ t("btn.publish") }}
       </el-button>
     </div>
     <publish-in-progress
-        v-if="showProgressDialog"
-        v-model="showProgressDialog"
-        :event-emitter="eventEmitter"
-        :encryted="data.encrypted"
-        @listeners:attached="beginUpload"
+      v-if="showProgressDialog"
+      v-model="showProgressDialog"
+      :event-emitter="eventEmitter"
+      :encryted="data.encrypted"
+      @listeners:attached="beginUpload"
     />
   </el-form>
 </template>
 
 <script lang="ts" setup>
-import {grid} from "../../grid";
-import {Check, Close, UploadFilled} from "@element-plus/icons";
-import {useStore} from "vuex";
-import type {UserOperatorFactory} from "@SparkLink/business";
-import {computed, reactive, ref} from "vue";
+import { grid } from "../../grid";
+import { Check, Close, UploadFilled } from "@element-plus/icons";
+import { useStore } from "vuex";
+import type { UserOperatorFactory } from "@SparkLink/business";
+import { computed, reactive, ref } from "vue";
 import type {
   IUploadEventEmitter,
   IUserInputForm,
 } from "@SparkLink/business/generated/src/uploader";
-import {Address, UniFile} from "@SparkLink/business";
+import { Address, UniFile } from "@SparkLink/business";
 import type Web3 from "web3";
 import PaymentCurrencySelector from "./PaymentCurrencySelector.vue";
 import MetaCheckboxGroup from "./MetaCheckboxGroup.vue";
-import type {Rules} from "async-validator";
+import type { Rules } from "async-validator";
 import PublishInProgress from "./PublishInProgress.vue";
-import {useI18n} from "vue-i18n";
-import {map} from "underscore";
+import { useI18n } from "vue-i18n";
+import { map } from "underscore";
 
-const {t} = useI18n({
+const { t } = useI18n({
   messages: {
     en: {
       validate: "This field is required",
@@ -222,8 +216,8 @@ const {t} = useI18n({
         earning: {
           label: "Percentage of Earnings",
           description:
-              "When your item is shared and profited by others,what percentage of the" +
-              "profits you want from the share of the profits.",
+            "When your item is shared and profited by others,what percentage of the" +
+            "profits you want from the share of the profits.",
           validate: {
             range: "Number out of bounds.",
           },
@@ -231,7 +225,7 @@ const {t} = useI18n({
         currency: {
           label: "Payment Currency",
           description:
-              "Please select the payment currency of your support (enter token symbol or paste token contract address).",
+            "Please select the payment currency of your support (enter token symbol or paste token contract address).",
           chain: "Current chain: ",
         },
         price: {
@@ -241,7 +235,7 @@ const {t} = useI18n({
         shares: {
           label: "Maximum number of shares",
           description:
-              "How many times do you want each user to help you spread?",
+            "How many times do you want each user to help you spread?",
           placeHolder: "Up to 65535, Interger",
         },
         baseline: {
@@ -250,7 +244,7 @@ const {t} = useI18n({
         },
         royaltyPrice: {
           label: "The royalty price the author could get when sold a nft.",
-          placeHolder: "In coin, not in wei."
+          placeHolder: "In coin, not in wei.",
         },
         authority: {
           label: "Work Permission",
@@ -258,16 +252,16 @@ const {t} = useI18n({
         encrypt: {
           label: "Encrypt publish",
           description:
-              "Choose open source release by default, users can download and view" +
-              "the content of the work regardless of whether the work is purchased" +
-              "or not.",
+            "Choose open source release by default, users can download and view" +
+            "the content of the work regardless of whether the work is purchased" +
+            "or not.",
         },
         description: {
           label: "Work description",
           description:
-              "Please describe your work in simple words. Accurate and effective" +
-              "description can help other users to understand your work more" +
-              "accurately.",
+            "Please describe your work in simple words. Accurate and effective" +
+            "description can help other users to understand your work more" +
+            "accurately.",
         },
         upload: {
           hint: {
@@ -275,13 +269,13 @@ const {t} = useI18n({
             _2: "click to upload",
           },
           tip:
-              "Multiple file upload is supported,and multiple types of files are" +
-              "supported.",
+            "Multiple file upload is supported,and multiple types of files are" +
+            "supported.",
           cover: {
             label: "Cover Photo",
             description:
-                "Please upload your cover image in the area below. Cover files support" +
-                "these formats: JPEG/JPG/PNG.",
+              "Please upload your cover image in the area below. Cover files support" +
+              "these formats: JPEG/JPG/PNG.",
           },
           content: {
             label: "Work file",
@@ -296,11 +290,11 @@ const {t} = useI18n({
     "zh-CN": {
       validate: "必填。",
       inputs: {
-        name: {label: "作品名字", validate: {max: "字段长度需小于64。"}},
+        name: { label: "作品名字", validate: { max: "字段长度需小于64。" } },
         earning: {
           label: "收益比例",
           description:
-              "当您的物品被他人分享并获利时，您希望从分享的利润中获得多少比例的收益。",
+            "当您的物品被他人分享并获利时，您希望从分享的利润中获得多少比例的收益。",
           validate: {
             range: "数值越界。",
           },
@@ -329,12 +323,12 @@ const {t} = useI18n({
         encrypt: {
           label: "加密发布",
           description:
-              "默认选择开源发布，无论是否购买该作品，用户都可以下载并查看该作品内容。",
+            "默认选择开源发布，无论是否购买该作品，用户都可以下载并查看该作品内容。",
         },
         description: {
           label: "作品描述",
           description:
-              "请用简单的话语对您的作品进行描述，精准有效的描述能帮助其他用户更准确得了解您的作品。",
+            "请用简单的话语对您的作品进行描述，精准有效的描述能帮助其他用户更准确得了解您的作品。",
         },
         upload: {
           hint: {
@@ -345,7 +339,7 @@ const {t} = useI18n({
           cover: {
             label: "封面图片",
             description:
-                "请在下方区域上传您的封面图片 封面文件支持这些格式：JPEG/JPG/PNG",
+              "请在下方区域上传您的封面图片 封面文件支持这些格式：JPEG/JPG/PNG",
           },
           content: {
             label: "作品文件",
@@ -411,7 +405,7 @@ function onValueChange(field: string, value: number) {
 const store = useStore();
 const chain = computed(() => store.getters["web3/chainName"]);
 const factory = computed(
-    () => store.getters["web3/userOperatorFactory"] as UserOperatorFactory
+  () => store.getters["web3/userOperatorFactory"] as UserOperatorFactory
 );
 const uploader = computed(() => factory.value.uploader);
 
@@ -446,11 +440,11 @@ function covertToUserInputForm(data: Data): IUserInputForm {
 }
 
 const form = ref(
-    null as {
-      validate: (
-          callback: (validated: boolean, errFields: object) => void
-      ) => void;
-    } | null
+  null as {
+    validate: (
+      callback: (validated: boolean, errFields: object) => void
+    ) => void;
+  } | null
 );
 const coverUploader = ref(null as { submit: () => void } | null);
 const contentUploader = ref(null as { submit: () => void } | null);
@@ -480,7 +474,7 @@ const rules = {
       required: true,
       message: t("validate"),
     },
-    {max: 64, message: t("inputs.name.validate.max")},
+    { max: 64, message: t("inputs.name.validate.max") },
   ],
   percentageOfEarnings: [
     {
@@ -549,8 +543,8 @@ async function submit() {
   submitUpload();
   showProgressDialog.value = true;
   const formdata = covertToUserInputForm(data);
-  const {eventEmitter: _eventEmitter, runUploadPromise: _runUploadPromise} =
-      uploader.value.upload(formdata);
+  const { eventEmitter: _eventEmitter, runUploadPromise: _runUploadPromise } =
+    uploader.value.upload(formdata);
   eventEmitter.value = _eventEmitter;
   runUploadPromise.value = _runUploadPromise;
 }
@@ -562,11 +556,13 @@ async function beginUpload() {
 </script>
 
 <style lang="scss" scoped>
-:deep(.el-form-item.is-required:not(.is-no-asterisk)) > .el-form-item__label:before {
+:deep(.el-form-item.is-required:not(.is-no-asterisk))
+  > .el-form-item__label:before {
   content: none;
 }
 
-:deep(.el-form-item.is-required:not(.is-no-asterisk)) > .el-form-item__label:after {
+:deep(.el-form-item.is-required:not(.is-no-asterisk))
+  > .el-form-item__label:after {
   content: "*";
   color: var(--el-color-danger);
   margin-right: 4px;
@@ -581,7 +577,7 @@ async function beginUpload() {
   }
 
   :deep(.el-form-item__label) {
-    color: #2C2F30;
+    color: #2c2f30;
     font-weight: 600;
     font-size: 32px;
     line-height: 39px;
@@ -646,13 +642,13 @@ async function beginUpload() {
     .publish-btn {
       width: 267px;
       height: 70px;
-      background: #EF7A61;
+      background: #ef7a61;
       border-radius: 15px;
 
       &:hover {
-        color: #FF6E65;
-        background: #FFEA07;
-        border-color: #FFEA07;
+        color: #ff6e65;
+        background: #ffea07;
+        border-color: #ffea07;
       }
 
       :deep(span) {

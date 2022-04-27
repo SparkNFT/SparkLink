@@ -7,7 +7,11 @@
     @update:model-value="emitModelValue"
   >
     <template #desktop>
-      <Timeline :progress="progress" :custom-message="_message" :items="timelineItems"></Timeline>
+      <Timeline
+        :progress="progress"
+        :custom-message="_message"
+        :items="timelineItems"
+      ></Timeline>
     </template>
     <template #bottom>
       <el-button type="primary" :disabled="!newId" @click="goToThePage">
@@ -22,7 +26,11 @@
       </el-button>
     </template>
     <template #mobile>
-      <Timeline :progress="progress" :custom-message="_message" :items="timelineItems"></Timeline>
+      <Timeline
+        :progress="progress"
+        :custom-message="_message"
+        :items="timelineItems"
+      ></Timeline>
       <el-button type="primary" :disabled="!newId" @click="goToThePage">
         {{ t("to") }}
       </el-button>
@@ -40,7 +48,12 @@
 <script lang="ts" setup>
 // Scope: Transient
 
-import { BuyEvent, BuyEventEmitter, IBuyEventEmitter, UserOperatorFactory } from "@SparkLink/business";
+import {
+  BuyEvent,
+  BuyEventEmitter,
+  IBuyEventEmitter,
+  UserOperatorFactory,
+} from "@SparkLink/business";
 import { INftInformation } from "@SparkLink/business/generated/src/nftInfomation";
 import { computed, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
@@ -64,7 +77,7 @@ const { t } = useI18n({
           before: "Mint",
           doing: "Minting",
           after: "Minted",
-          confirm: "Confirm num: "
+          confirm: "Confirm num: ",
         },
       },
       to: "Go to your NFT",
@@ -81,7 +94,7 @@ const { t } = useI18n({
           before: "铸造",
           doing: "铸造中",
           after: "铸造完成",
-          confirm: "确认数："
+          confirm: "确认数：",
         },
         to: "前往NFT页面",
       },
@@ -118,13 +131,14 @@ const minConfirmationNum = computed(
 
 const _message = computed(() => {
   if (!message.value) return undefined;
-  else return {
-    index: progress.value,
-    message: message.value
-  }
-})
+  else
+    return {
+      index: progress.value,
+      message: message.value,
+    };
+});
 
-watch(progress, () => message.value = "");
+watch(progress, () => (message.value = ""));
 
 async function mint() {
   const nftId = props.nftId;
@@ -134,12 +148,18 @@ async function mint() {
   eventEmitter.on(BuyEvent.approved, () => progress.value++);
   eventEmitter.on(BuyEvent.accepted, () => progress.value++);
   eventEmitter.on(BuyEvent.confirm, (confNum) => {
-    message.value = `${t("steps.mint.confirm")}[${confNum}/${minConfirmationNum.value}]` 
-  } );
-  const { nftId: _newId } = await shop.buy(nftId, eventEmitter as BuyEventEmitter, {
-    sellingPrice: props.metadata.sellingPrice,
-    paymentCurrency: props.metadata.paymentCurrency,
+    message.value = `${t("steps.mint.confirm")}[${confNum}/${
+      minConfirmationNum.value
+    }]`;
   });
+  const { nftId: _newId } = await shop.buy(
+    nftId,
+    eventEmitter as BuyEventEmitter,
+    {
+      sellingPrice: props.metadata.sellingPrice,
+      paymentCurrency: props.metadata.paymentCurrency,
+    }
+  );
   newId.value = _newId;
 }
 

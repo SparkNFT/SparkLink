@@ -259,7 +259,8 @@ describe("The put and get nft process", function () {
         localConfig.pinServerClientBuilder =
           new PinataSeverClientBuilder().axios(axios.create());
         const uploader: IUploader = new Uploader(localConfig);
-        const { eventEmitter, runUploadPromise } = uploader.upload(userInputForm);
+        const { eventEmitter, runUploadPromise } =
+          uploader.upload(userInputForm);
         let coverIpfsHash, contentIpfsHash;
         eventEmitter.on("zipGenerated", (file) => {
           zipfile = file;
@@ -340,8 +341,8 @@ describe("The put and get nft process", function () {
         this.timeout(120 * 1000);
         const shop = operatorFactory.shop;
         const { nftId } = await shop.buy(testUsageNftId, new BuyEventEmitter());
-        expect(BigInt(nftId) - 1n).to.be.equal(BigInt(testUsageNftId))
-      })
-    })
+        expect(BigInt(nftId) - 1n).to.be.equal(BigInt(testUsageNftId));
+      });
+    });
   });
 });

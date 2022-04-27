@@ -1,10 +1,6 @@
 <template>
   <el-card shadow="never" class="image-area">
-    <el-image
-      :src="url"
-      class="image"
-      fit="contain"
-    >
+    <el-image :src="url" class="image" fit="contain">
       <template #placeholder>
         <div class="image-slot">Loading<span class="dot">...</span></div>
       </template>
@@ -13,7 +9,7 @@
 </template>
 
 <script lang="ts" setup>
-defineProps<{url: string}>()
+defineProps<{ url: string }>();
 </script>
 
 <style lang="scss" scoped>
