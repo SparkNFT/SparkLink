@@ -124,6 +124,7 @@ export const web3InfoGetter = {
   tokenInquirer: computed(
     () => store.getters["web3/chainTokenInquirer"] as ITokenInquirer
   ),
+  web3: computed(() => store.getters["web3"]),
 };
 
 export const walletInfoGetter = {

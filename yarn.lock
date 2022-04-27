@@ -91,7 +91,7 @@ __metadata:
     vue: ^3.2.16
     vue-eslint-parser: ^8.0.1
     vue-i18n: next
-    vue-router: 4
+    vue-router: ^4.0.13
     vue-screen: next
     vuex: next
     web3: ^1.6.1
@@ -13383,7 +13383,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vue-router@npm:4":
+"vue-router@npm:^4.0.13":
   version: 4.0.14
   resolution: "vue-router@npm:4.0.14"
   dependencies:

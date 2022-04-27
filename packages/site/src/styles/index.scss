@@ -1,7 +1,7 @@
 @forward "element-plus/theme-chalk/src/common/var.scss" with (
   $colors: (
     "primary": (
-      "base": #478efd,
+      "base": #ef7a61,
     ),
   )
 );
@@ -10,7 +10,7 @@
 
 @font-face {
   font-family: "iconfont";
-  src: url("fonts/iconfont.ttf?t=1649852280962") format("truetype");
+  src: url("/assets/fonts/iconfont.ttf?t=1649852280962") format("truetype");
 }
 
 .iconfont {
@@ -72,6 +72,7 @@ p {
   text-underline-offset: -24px;
   text-decoration-skip-ink: none;
 }
+
 
 @mixin index-title {
   margin: 0;
