@@ -1,6 +1,6 @@
 <template>
-<el-button @click="open=true">open</el-button>
-<SwitchNetworkDialog v-model="open"></SwitchNetworkDialog>
+  <el-button @click="open = true">open</el-button>
+  <SwitchNetworkDialog v-model="open"></SwitchNetworkDialog>
 </template>
 
 <script lang="ts" setup>

@@ -25,18 +25,36 @@
             <img :src="cover" />
           </div>
           <h2 class="ntf-name">{{ metadata.name }}</h2>
-          <p class="description">{{metadata.description}}</p>
-          <Operations style="text-align: left" :metadata="metadata" :nft-id="nftId"></Operations>
+          <p class="description">{{ metadata.description }}</p>
+          <Operations
+            style="text-align: left"
+            :metadata="metadata"
+            :nft-id="nftId"
+          ></Operations>
         </div>
         <div class="info">
           <p class="ntf-id">#{{ nftId }}</p>
           <div class="ntf-detail">
-            <p>{{`Spark Price: ${sellingPriceInCoin} ${token.symbol}`}}</p>
-            <p>{{`Fixed royalty for root: ${toCoin(metadata.royaltyPrice)} ${token.symbol}`}}</p>
-            <p>{{`Maximum number of share: ${metadata.maxShareTimes}`}}</p>
-            <p>{{`Percentage of Earning on sub-node: ${metadata.percentageOfEarnings}`}}</p>
-            <p>{{`Work is encrypted: ${metadata.encrypted}`}}</p>
-            <p>{{`Allow secondary creation: ${metadata.allowSecondaryCreation}`}}</p>
+            <p>{{ `Spark Price: ${sellingPriceInCoin} ${token.symbol}` }}</p>
+            <p>
+              {{
+                `Fixed royalty for root: ${toCoin(metadata.royaltyPrice)} ${
+                  token.symbol
+                }`
+              }}
+            </p>
+            <p>{{ `Maximum number of share: ${metadata.maxShareTimes}` }}</p>
+            <p>
+              {{
+                `Percentage of Earning on sub-node: ${metadata.percentageOfEarnings}`
+              }}
+            </p>
+            <p>{{ `Work is encrypted: ${metadata.encrypted}` }}</p>
+            <p>
+              {{
+                `Allow secondary creation: ${metadata.allowSecondaryCreation}`
+              }}
+            </p>
             <p>{{ `Dividend ratio:  ${metadata.percentageOfEarnings} %` }}</p>
             <p>{{ `Number of child nodes currently owned:  0` }}</p>
             <p>{{ `Whether NFT is encrypted:  ${metadata.encrypted}` }}</p>
@@ -223,8 +241,6 @@ const showShareDialog = ref(false);
 const showPoster = ref(false);
 
 // Mint
-
-
 </script>
 
 <style lang="scss" scoped>

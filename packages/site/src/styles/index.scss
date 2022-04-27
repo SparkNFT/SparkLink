@@ -19,7 +19,6 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
 }
 
 .icon-discord:before {
@@ -46,7 +45,7 @@
 body {
   margin: unset;
   font-family: "Inter", "Lato", "Helvetica Neue", Helvetica, "PingFang SC",
-  "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
   line-height: 1.5;
 }
 
@@ -68,12 +67,11 @@ p {
 @mixin title-underline {
   text-decoration-line: underline;
   text-decoration-style: solid;
-  text-decoration-color: #FFE177;
+  text-decoration-color: #ffe177;
   text-decoration-thickness: 24px;
   text-underline-offset: -24px;
   text-decoration-skip-ink: none;
 }
-
 
 @mixin index-title {
   margin: 0;
@@ -81,7 +79,7 @@ p {
   font-weight: 800;
   line-height: 48px;
   text-align: center;
-  @include title-underline
+  @include title-underline;
 }
 
 @mixin block {

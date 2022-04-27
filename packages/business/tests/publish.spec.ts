@@ -88,9 +88,13 @@ describe("Publisher", function () {
 
       async function assertCounter(minConfirmNum, minConfirmNumFuncInput) {
         let count = 0;
-        await publisher.publish(demoForm, minConfirmNumFuncInput, (confNumber) => {
-          count = confNumber;
-        });
+        await publisher.publish(
+          demoForm,
+          minConfirmNumFuncInput,
+          (confNumber) => {
+            count = confNumber;
+          }
+        );
         expect(count).to.equal(minConfirmNum);
       }
 

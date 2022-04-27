@@ -10,10 +10,7 @@
       </el-button>
     </template>
     <template v-else>
-      <el-button
-        class="operator-btn"
-        type="primary"
-        @click="mint"
+      <el-button class="operator-btn" type="primary" @click="mint"
         >{{ t("mint") }}
       </el-button>
       <MintInProgress
