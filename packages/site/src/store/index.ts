@@ -119,7 +119,8 @@ export const web3InfoGetter = {
 	},
 	hasProvider: computed(() => store.getters["web3/hasProvider"]),
 	userOperatorFactory: computed(() => store.getters["web3/userOperatorFactory"]),
-	tokenInquirer: computed(() => store.getters["web3/chainTokenInquirer"] as ITokenInquirer)
+	tokenInquirer: computed(() => store.getters["web3/chainTokenInquirer"] as ITokenInquirer),
+	web3: computed(() => store.getters["web3"])
 };
 
 export const walletInfoGetter = {
