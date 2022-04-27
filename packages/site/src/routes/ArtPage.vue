@@ -1,7 +1,7 @@
 <template>
 	<div v-if="!isCurrentChain" style="margin-top: 40px">
 		<el-alert type="error" dark>
-			{{ t("hint", [chain, web3InfoGetter.chain.name]) }}
+			{{ t("hint", [chain, web3InfoGetter.chain.name.value]) }}
 		</el-alert>
 	</div>
 	<template v-else-if="metadata">
@@ -73,6 +73,10 @@ import {web3InfoGetter} from "../store";
 import {chainIdToName, IToken} from "../token";
 import {useI18n} from "vue-i18n";
 import DownButton from "../components/art/DownButton.vue";
+
+function g() {
+  console.log(chain, web3InfoGetter.chain.name);
+}
 
 const {t} = useI18n({
 	messages: {
