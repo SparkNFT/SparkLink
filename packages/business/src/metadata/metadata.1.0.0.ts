@@ -12,7 +12,7 @@ export interface IMetadata_1_0_0 {
   // You can add any attributes you like, but NEVER change or remove the result set.
   attributes: IAttribute[];
   version: "1.0.0";
-  encryptMethod?: string
+  encryptMethod?: string;
 }
 
 export interface IAttributesForm {
@@ -51,11 +51,11 @@ export function fromAttributes(attributes: IAttribute[]): IAttributesForm {
     "Bonus Percentage": "bonusPercentage",
     "File Address": "fileAddress",
     "Filename Extension": "filenameExtension",
-    "Encrypted": "encrypted"
-  }
+    Encrypted: "encrypted",
+  };
   for (const attribute of attributes) {
     let value = attribute.value as any;
-    if(value === "TRUE") value = true;
+    if (value === "TRUE") value = true;
     else if (value === "FALSE") value = false;
     result[transformMap[attribute.trait_type]] = value;
   }

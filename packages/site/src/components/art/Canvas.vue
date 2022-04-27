@@ -4,27 +4,27 @@
       <span class="material-icons-outlined icon">downloading</span
       >{{ t("hint.loading") }}
     </p>
-      <div ref="canvasContainer" class="canvas-container"></div>
-      <div id="drawing" ref="drawing" class="drawing">
-        <img ref="coverImage" :src="cover" class="cover" :onerror="retry" />
-        <h2 class="name">{{ name }}</h2>
-        <p class="chain">chain {{ chain }}</p>
-        <p class="price">{{ price }}<img :src="logoUrl" /></p>
-        <img :src="qr" class="qrcode" />
-      </div>
+    <div ref="canvasContainer" class="canvas-container"></div>
+    <div id="drawing" ref="drawing" class="drawing">
+      <img ref="coverImage" :src="cover" class="cover" :onerror="retry" />
+      <h2 class="name">{{ name }}</h2>
+      <p class="chain">chain {{ chain }}</p>
+      <p class="price">{{ price }}<img :src="logoUrl" /></p>
+      <img :src="qr" class="qrcode" />
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { computed, ref, watch } from "vue";
 import html2canvas from "html2canvas";
-import {useI18n} from "vue-i18n";
+import { useI18n } from "vue-i18n";
 
-const {t} = useI18n({messages: {
-  en: {
-    
-  }
-}});
+const { t } = useI18n({
+  messages: {
+    en: {},
+  },
+});
 
 const props = defineProps<{
   cover: string;
@@ -37,7 +37,7 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  (e: "update:image", value: Blob): void
+  (e: "update:image", value: Blob): void;
 }>();
 
 const coverImage = ref(null as HTMLImageElement | null);
@@ -67,7 +67,7 @@ watch(drawing, async () => {
   result.style.height = "unset";
   canvas.value = result;
   (canvasContainer.value as HTMLDivElement).append(result);
-  result.toBlob((blob) => emit("update:image", blob as Blob))
+  result.toBlob((blob) => emit("update:image", blob as Blob));
   loading.value = false;
 });
 
@@ -116,7 +116,8 @@ function retry() {
   display: flex;
   gap: 32px;
   justify-content: center;
-  div, img {
+  div,
+  img {
     height: 64px;
     width: 64px;
   }

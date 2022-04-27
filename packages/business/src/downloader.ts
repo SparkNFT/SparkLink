@@ -9,7 +9,6 @@ export interface IContentDownloader {
   ): Promise<Uint8Array>;
 }
 
-
 // This class is used to download the content zip from the ipfs network.
 // If the zip is encrypted, then it's gotten decrypted first.
 export class ContentDownloader implements IContentDownloader {
@@ -55,4 +54,3 @@ export interface IContentDownloadEventEmitterEmits {
 export class DownloadEventEmitter
   extends EventEmitter
   implements IContentDownloadEventEmitter, IContentDownloadEventEmitterEmits {}
-

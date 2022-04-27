@@ -79,7 +79,7 @@ export default class Client implements IKeyServerClient {
     payload: IClaimPinataApiKeyAndStoreEncryptPasswordPayload
   ) {
     const url = `${Client.BASE_URL_WITH_API_VERSION}/key`;
-    const _payload = {...payload, expired_at: getAuthorizationExpiration()};
+    const _payload = { ...payload, expired_at: getAuthorizationExpiration() };
     const authorizationPayload = JSON.stringify(
       _payload,
       Object.keys(_payload).sort()
@@ -88,7 +88,10 @@ export default class Client implements IKeyServerClient {
       authorizationPayload
     );
     const actualPayload = { ..._payload, signature: authorization };
-    const str = JSON.stringify(actualPayload, Object.keys(actualPayload).sort());
+    const str = JSON.stringify(
+      actualPayload,
+      Object.keys(actualPayload).sort()
+    );
     const data = (await this.axios.post(url, str)).data.pinata;
     return {
       apiKey: data.api_key,
@@ -99,15 +102,14 @@ export default class Client implements IKeyServerClient {
   async retrieveNftIds(payload: IRetrieveNftIdsPayload) {
     const url = `${Client.BASE_URL_WITH_API_VERSION}/nft/list`;
     const response = await this.axios.get(url, { params: payload });
-    return response.data.nft as string[]
-      ;
+    return response.data.nft as string[];
   }
 
   async retrieveEncryptPassword(payload: IRetrieveEncryptPasswordPayload) {
     const url = `${Client.BASE_URL_WITH_API_VERSION}/key`;
     const _payload = {
       ...payload,
-      expired_at: getAuthorizationExpiration()
+      expired_at: getAuthorizationExpiration(),
     };
     const authorizationPayload = JSON.stringify(
       _payload,

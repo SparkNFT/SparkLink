@@ -104,7 +104,10 @@ export interface ITokenArrInquirer {
 }
 
 export function isSymbol(symbolOrAddress: string) {
-  return !(symbolOrAddress.toLocaleLowerCase().startsWith("0x") && symbolOrAddress.toLocaleLowerCase().length == 42);
+  return !(
+    symbolOrAddress.toLocaleLowerCase().startsWith("0x") &&
+    symbolOrAddress.toLocaleLowerCase().length == 42
+  );
 }
 
 class TokenInquirerBase implements ITokenInquirer, ITokenArrInquirer {

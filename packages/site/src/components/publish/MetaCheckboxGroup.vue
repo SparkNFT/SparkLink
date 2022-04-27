@@ -5,7 +5,7 @@
     :class="checkboxClass"
     label="allowSecondaryCreation"
   >
-    {{t("_1")}}
+    {{ t("_1") }}
   </el-checkbox>
   <!-- <el-checkbox
     v-model="data.allowCommercialUsage"
