@@ -9,8 +9,7 @@ export const configStore = {
   state() {
     console.log(process.env);
     return {
-      frontendBaseUrl:
-        process.env.FRONTEND_BASE_URL ?? "https://codeatnow.github.io/TestPage",
+      frontendBaseUrl: process.env.FRONTEND_BASE_URL ?? "https://sparklink.io",
     };
   },
 } as Module<IConfig, any>;

@@ -3,16 +3,14 @@
     <template v-if="isOwner">
       <el-button
         type="primary"
+        class="operator-btn"
         :disabled="!canDownload"
         @click="clickDownloadButton"
         >{{ t("download") }}
       </el-button>
-      <el-button type="primary" plain style="flex: 1" disabled>
-        {{ t("recieveIncome", { profit }) }}
-      </el-button>
     </template>
     <template v-else>
-      <el-button type="primary" style="flex: 1" @click="mint"
+      <el-button class="operator-btn" type="primary" @click="mint"
         >{{ t("mint") }}
       </el-button>
       <MintInProgress
@@ -23,9 +21,10 @@
       ></MintInProgress>
     </template>
     <DownloadInProgress
+      style="text-align: left"
       v-if="downloadInProcess"
       v-model="downloadInProcess"
-      :event-emitter="eventEmitter as IContentDownloadEventEmitter"
+      :event-emitter="eventEmitter"
       :encrypted="encrypted"
       @listeners:attached="download"
     ></DownloadInProgress>
@@ -136,6 +135,7 @@ watch(downloadInProcess, (a1, a2) => {
 
 async function clickDownloadButton() {
   const nftId = props.nftId;
+  console.log(nftId);
   if (!canDownload.value) return;
   const downloader = await factory.value.getContentDownloader(
     encrypted.value,
@@ -184,9 +184,9 @@ async function mint() {
     display: flex;
   }
 
-  &.mobile {
-    border: none;
+  border: none;
 
+  &.mobile {
     :deep(.el-card__body) {
       flex-direction: column;
       gap: 16px;
@@ -196,5 +196,13 @@ async function mint() {
       }
     }
   }
+}
+
+.operator-btn {
+  --el-font-size-medium: 24px;
+  font-weight: 700;
+  height: 70px;
+  border-radius: 16px;
+  flex: 1;
 }
 </style>

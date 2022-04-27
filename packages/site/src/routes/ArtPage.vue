@@ -12,7 +12,7 @@
         @click="router.back()"
       />
       <h2 class="title">Collection</h2>
-      <div class="current-earnings">
+      <div class="current-earnings" v-if="owned">
         <p class="note">Current Earnings</p>
         <div class="result">
           <p class="number">0</p>
@@ -28,16 +28,37 @@
           <div class="cover-container">
             <img :src="cover" />
           </div>
-          <down-button
-            style="text-align: initial"
+          <h2 class="ntf-name">{{ metadata.name }}</h2>
+          <p class="description">{{ metadata.description }}</p>
+          <Operations
+            style="text-align: left"
             :metadata="metadata"
             :nft-id="nftId"
-          />
+          ></Operations>
         </div>
         <div class="info">
           <p class="ntf-id">#{{ nftId }}</p>
-          <h2 class="ntf-name">{{ metadata.name }}</h2>
           <div class="ntf-detail">
+            <p>{{ `Spark Price: ${sellingPriceInCoin} ${token.symbol}` }}</p>
+            <p>
+              {{
+                `Fixed royalty for root: ${toCoin(metadata.royaltyPrice)} ${
+                  token.symbol
+                }`
+              }}
+            </p>
+            <p>{{ `Maximum number of share: ${metadata.maxShareTimes}` }}</p>
+            <p>
+              {{
+                `Percentage of Earning on sub-node: ${metadata.percentageOfEarnings}`
+              }}
+            </p>
+            <p>{{ `Work is encrypted: ${metadata.encrypted}` }}</p>
+            <p>
+              {{
+                `Allow secondary creation: ${metadata.allowSecondaryCreation}`
+              }}
+            </p>
             <p>{{ `Dividend ratio:  ${metadata.percentageOfEarnings} %` }}</p>
             <p>{{ `Number of child nodes currently owned:  0` }}</p>
             <p>{{ `Whether NFT is encrypted:  ${metadata.encrypted}` }}</p>
@@ -82,7 +103,12 @@ import { ElMessage } from "element-plus";
 import { web3InfoGetter } from "../store";
 import { chainIdToName, IToken } from "../token";
 import { useI18n } from "vue-i18n";
-import DownButton from "../components/art/DownButton.vue";
+import type Web3 from "web3";
+import Operations from "../components/art/Operations.vue";
+
+function g() {
+  console.log(chain, web3InfoGetter.chain.name);
+}
 
 const { t } = useI18n({
   messages: {
@@ -128,6 +154,16 @@ const isCurrentChain = computed(
 const nftId = computed(() => route.params.nftId as string);
 const metadata = ref(null as INftInformation | null);
 const cover = computed(() => (metadata.value as INftInformation)?.urls.cover);
+const owner = computed(() => (metadata.value as INftInformation)?.owner.value);
+const account = computed(() => web3InfoGetter.account.value);
+const owned = computed(() => account.value === owner.value);
+const toCoin = function (wei: BigInt) {
+  const web3 = store.state.web3.web3 as Web3;
+  return web3.utils.fromWei(wei.toString());
+};
+const sellingPriceInCoin = computed(() =>
+  toCoin((metadata.value as INftInformation)?.sellingPrice)
+);
 
 async function resetPage() {
   metadata.value = null;
@@ -208,6 +244,8 @@ async function clickDownloadButton() {
 
 const showShareDialog = ref(false);
 const showPoster = ref(false);
+
+// Mint
 </script>
 
 <style lang="scss" scoped>
@@ -297,10 +335,6 @@ const showPoster = ref(false);
     .btns > button {
       width: 395px;
     }
-
-    .btn.disabled {
-      background: #c4c4c4;
-    }
   }
 
   .detail-container {
@@ -348,15 +382,6 @@ const showPoster = ref(false);
         color: #ef7a61;
       }
 
-      .ntf-name {
-        margin: 22px 0 0;
-        font-style: normal;
-        font-weight: 800;
-        font-size: 36px;
-        line-height: 44px;
-        color: #2c2f30;
-      }
-
       .ntf-detail {
         margin: 106px 0;
 
@@ -364,7 +389,7 @@ const showPoster = ref(false);
           margin: 0;
           font-style: normal;
           font-weight: 600;
-          font-size: 30px;
+          font-size: 20px;
           line-height: 100%;
           color: #303030;
         }
@@ -461,5 +486,14 @@ const showPoster = ref(false);
       margin-left: unset;
     }
   }
+}
+
+.ntf-name {
+  margin: 22px 0 0;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 36px;
+  line-height: 44px;
+  color: #2c2f30;
 }
 </style>
