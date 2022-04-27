@@ -6,7 +6,11 @@
   </div>
   <template v-else-if="metadata">
     <div class="art-detail">
-      <img src="/assets/art/expand-left.png" class="back-to-collection" />
+      <img
+        src="/assets/art/expand-left.png"
+        class="back-to-collection"
+        @click="router.back()"
+      />
       <h2 class="title">Collection</h2>
       <div class="current-earnings" v-if="owned">
         <p class="note">Current Earnings</p>
@@ -16,7 +20,7 @@
         </div>
         <div class="btns">
           <button class="btn orange receive">RECEIVE INCOME</button>
-          <button class="btn orange">SELL</button>
+          <button class="btn orange disabled">TRANSFER</button>
         </div>
       </div>
       <div class="detail-container">
