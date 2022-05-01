@@ -28,7 +28,7 @@ interface ITimelineItem {
 const props = defineProps<{
   items: IItem[];
   progress: number;
-  customMessage?: ITimelineCustomMessage;
+  customMessage: ITimelineCustomMessage | undefined;
 }>();
 
 function getInitTimeLine(): ITimelineItem[] {
