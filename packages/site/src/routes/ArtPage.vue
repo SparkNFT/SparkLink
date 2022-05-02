@@ -15,18 +15,23 @@
       <div class="current-earnings" v-if="owned">
         <p class="note">Current Earnings</p>
         <div class="result">
-          <p class="number">0</p>
-          <p class="unit">ETH</p>
+          <p class="number">{{ toCoin(metadata.profit) }}</p>
+          <p class="unit">{{ token.symbol }}</p>
         </div>
         <div class="btns">
-          <button class="btn orange receive">RECEIVE INCOME</button>
+          <button
+            class="btn orange receive"
+            @click="showClaimInProgress = true"
+          >
+            RECEIVE INCOME
+          </button>
           <button class="btn orange disabled">TRANSFER</button>
         </div>
       </div>
       <div class="detail-container">
         <div class="cover">
           <div class="cover-container">
-            <img :src="cover" />
+            <img :src="metadata.urls.cover" />
           </div>
           <h2 class="ntf-name">{{ metadata.name }}</h2>
           <p class="description">{{ metadata.description }}</p>
@@ -87,6 +92,11 @@
       :payment-currency="metadata.paymentCurrency.value"
       :url="shareLink"
     ></Poster>
+    <ClaimProfitInProgress
+      v-if="showClaimInProgress"
+      v-model="showClaimInProgress"
+      :nft-id="nftId"
+    ></ClaimProfitInProgress>
   </template>
   <el-skeleton v-else :rows="5" animated style="margin-top: 40px" />
 </template>
@@ -105,6 +115,7 @@ import { chainIdToName, IToken } from "../token";
 import { useI18n } from "vue-i18n";
 import type Web3 from "web3";
 import Operations from "../components/art/Operations.vue";
+import ClaimProfitInProgress from "../components/art/ClaimProfitInProgress.vue";
 
 function g() {
   console.log(chain, web3InfoGetter.chain.name);
@@ -153,10 +164,8 @@ const isCurrentChain = computed(
 );
 const nftId = computed(() => route.params.nftId as string);
 const metadata = ref(null as INftInformation | null);
-const cover = computed(() => (metadata.value as INftInformation)?.urls.cover);
-const owner = computed(() => (metadata.value as INftInformation)?.owner.value);
 const account = computed(() => web3InfoGetter.account.value);
-const owned = computed(() => account.value === owner.value);
+const owned = computed(() => account.value === metadata.value?.owner.value);
 const toCoin = function (wei: BigInt) {
   const web3 = store.state.web3.web3 as Web3;
   return web3.utils.fromWei(wei.toString());
@@ -244,6 +253,7 @@ async function clickDownloadButton() {
 
 const showShareDialog = ref(false);
 const showPoster = ref(false);
+const showClaimInProgress = ref(false);
 
 // Mint
 </script>

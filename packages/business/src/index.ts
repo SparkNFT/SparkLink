@@ -9,3 +9,5 @@ export type { IUploadEventEmitter } from "./uploader";
 export { BuyEvent, BuyEventEmitter } from "./shop";
 export type { IBuyEventEmitter } from "./shop";
 export type { IERC20Contract } from "./ERC20Contract";
+export { ClaimEvent, ClaimEventEmitter } from "./profitClaimer";
+export type { IClaimedEventEmitter } from "./profitClaimer";

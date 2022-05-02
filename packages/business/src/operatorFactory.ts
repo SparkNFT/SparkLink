@@ -8,6 +8,7 @@ import { IShop, Shop } from "./shop";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import ERC20ABI from "erc-20-abi";
+import { ProfitClaimer } from "./profitClaimer";
 
 export interface IOperatorFactory {
   get publisher(): IPublisher;
@@ -48,5 +49,11 @@ export class OperatorFactory implements IOperatorFactory {
     const shop = new Shop(this.contract, contract);
     if (this.minConfirmNum > 0) shop.minConfirmNum = this.minConfirmNum;
     return shop;
+  }
+
+  get profitClaimer() {
+    const claimer = new ProfitClaimer(this.contract);
+    if (this.minConfirmNum > 0) claimer.minConfirmNum = this.minConfirmNum;
+    return claimer;
   }
 }

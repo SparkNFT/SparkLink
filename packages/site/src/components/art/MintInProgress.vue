@@ -148,9 +148,8 @@ async function mint() {
   eventEmitter.on(BuyEvent.approved, () => progress.value++);
   eventEmitter.on(BuyEvent.accepted, () => progress.value++);
   eventEmitter.on(BuyEvent.confirm, (confNum) => {
-    message.value = `${t("steps.mint.confirm")}[${confNum}/${
-      minConfirmationNum.value
-    }]`;
+    message.value = `${t("steps.mint.confirm")}
+    [${confNum}/${minConfirmationNum.value}]`;
   });
   const { nftId: _newId } = await shop.buy(
     nftId,

@@ -6,6 +6,7 @@ import { ContentDownloader } from "./downloader";
 import { ERC20Contract } from "./ERC20Contract";
 import { NftInformationGetter } from "./nftInfomation";
 import { OperatorFactory } from "./operatorFactory";
+import { ProfitClaimer } from "./profitClaimer";
 import { Address } from "./types/address";
 import { IUploadConfig, IUploader, Uploader } from "./uploader";
 
@@ -125,5 +126,15 @@ export class UserOperatorFactory {
 
   get ERC20Contract() {
     return new ERC20Contract(this.web3);
+  }
+
+  get profitClaimer() {
+    const factory = new OperatorFactory(
+      this.web3,
+      this.sender,
+      this.contractAddress,
+      this.minConfirmNum
+    );
+    return factory.profitClaimer;
   }
 }
