@@ -89,7 +89,23 @@ const { t } = useI18n({
       },
     },
     "zh-CN": {
-      title: "Freely publish what you love",
+      title: "自由发布您喜欢的内容",
+      description: {
+        _1: "对出版物的格式和内容没有限制，",
+        _2: "所有内容都永久存储在NFT中",
+      },
+      start_to_publish: "开始发布",
+      items: {
+        art_works: "艺术作品",
+        illustration: "插图",
+        books: "书",
+        nature: "自然界",
+        "3d_art": "3D 艺术",
+        "3d_modeling": "3D 建模",
+        music: "音乐",
+        discovery: "发现",
+        animation: "动画",
+      },
     },
   },
 });
