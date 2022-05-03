@@ -5,7 +5,7 @@
         <section class="item">
           <img src="/assets/color-logo.png" class="logo" />
           <p class="description-text">
-            Unique content publishing and distribution protocol
+            {{ t("description") }}
           </p>
           <p
             v-for="share in shareLinks"
@@ -19,7 +19,7 @@
       </div>
       <div class="others">
         <section class="item">
-          <h5 class="title">NAVIGATION</h5>
+          <h5 class="title">{{ t("items.navigation") }}</h5>
           <router-link
             v-for="item in navs"
             :key="item.name"
@@ -29,24 +29,24 @@
           </router-link>
         </section>
         <section class="item">
-          <h5 class="title">RESOURCES</h5>
-          <a>Conditions</a>
-          <a>Privacy Policy</a>
-          <a>People</a>
+          <h5 class="title">{{ t("items.resources") }}</h5>
+          <a>{{ t("items.conditions") }}</a>
+          <a>{{ t("items.privacy_policy") }}</a>
+          <a>{{ t("items.people") }}</a>
         </section>
         <section class="item">
-          <h5 class="title">MARKET</h5>
-          <a>OpenSea</a>
+          <h5 class="title">{{ t("items.market") }}</h5>
+          <a>{{ t("items.open_sea") }}</a>
         </section>
       </div>
     </div>
     <div class="email-container">
       <el-input v-model="email" placeholder="info@sparklink.io" />
-      <el-button type="warning" class="send" @click="handleMailAddressClick"
-        >CONTACT US</el-button
-      >
+      <el-button type="warning" class="send" @click="handleMailAddressClick">
+        {{ t("contact_us") }}
+      </el-button>
     </div>
-    <p class="rights">© 2020 Landify UI Kit. All rights reserved</p>
+    <p class="rights">{{ t("rights") }}</p>
   </el-footer>
 </template>
 
@@ -58,7 +58,19 @@ import { ElMessage } from "element-plus";
 const { t } = useI18n({
   messages: {
     en: {
+      description: "Unique content publishing and distribution protocol",
+      items: {
+        navigation: "NAVIGATION",
+        resources: "RESOURCES",
+        conditions: "Conditions",
+        privacy_policy: "Privacy Policy",
+        people: "People",
+        open_sea: "OpenSea",
+        market: "MARKET",
+      },
+      contact_us: "CONTACT US",
       copy_email_address_success: "copy email address success",
+      rights: "© 2020 Landify UI Kit. All rights reserved",
     },
     "zh-CN": {
       copy_email_address_success: "邮箱地址复制成功",

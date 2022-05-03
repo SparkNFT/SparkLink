@@ -306,7 +306,7 @@ const { t } = useI18n({
         },
         price: {
           label: "销售价格",
-          description: "以货币作而非以太为结算单位",
+          description: "以货币而非以太为结算单位",
         },
         shares: {
           label: "最高分享次数",
@@ -316,6 +316,10 @@ const { t } = useI18n({
         baseline: {
           label: "子节点的价格基线（百分比）",
           placeHolder: "0 - 255，整数",
+        },
+        royaltyPrice: {
+          label: "销售版税",
+          placeHolder: "以货币而非以太为结算单位",
         },
         authority: {
           label: "作品权限",

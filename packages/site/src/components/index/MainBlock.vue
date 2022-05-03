@@ -4,13 +4,13 @@
     :class="{ mobile: !grid.sm, 'not-see': !in_the_view }"
   >
     <div class="container">
-      <h2 class="main-text title">Publishing and distribution,</h2>
-      <h2 class="main-text title">are redefined by us.</h2>
+      <h2 class="main-text title">{{ t("title._1") }}</h2>
+      <h2 class="main-text title">{{ t("title._2") }}</h2>
       <p class="sub-text sub-title">
-        Publish your content, spread your passion
+        {{ t("description._1") }}
       </p>
       <p class="sub-text sub-title">
-        Link all creators and sharers together, that is what we doing.
+        {{ t("description._2") }}
       </p>
       <router-link :to="{ name: `publish` }">
         <el-button color="#478EFD" class="btn primary publish-btn">
@@ -34,10 +34,26 @@ import { onMounted, ref, onBeforeMount } from "vue";
 const { t } = useI18n({
   messages: {
     en: {
+      title: {
+        _1: "Publishing and distribution,",
+        _2: "are redefined by us.",
+      },
+      description: {
+        _1: "Publish your content, spread your passion",
+        _2: "Link all creators and sharers together, that is what we doing.",
+      },
       publish: "Publish",
       learnMore: "Learn More",
     },
     "zh-CN": {
+      title: {
+        _1: "出版和发行，",
+        _2: "被我们重新定义。",
+      },
+      description: {
+        _1: "发布您的内容，传播您的热情",
+        _2: "将所有创作者和分享者联系在一起，这就是我们所做的。",
+      },
       publish: "发布",
       learnMore: "了解更多",
     },

@@ -3,7 +3,7 @@
     <div class="getting-start-inner">
       <h2 class="how-to-start">{{ t("title") }}</h2>
       <h5 class="sub-title">
-        No need middlemen, publish and spread becomes in seconds.
+        {{ t("description") }}
       </h5>
       <div id="home-start-card-container" class="card-container">
         <GettingStartCard
@@ -28,6 +28,7 @@ const { t } = useI18n({
   messages: {
     en: {
       title: "Simple to start",
+      description: "No need middlemen, publish and spread becomes in seconds.",
       steps: [
         {
           title: "Set up your wallet",
@@ -49,7 +50,29 @@ const { t } = useI18n({
         },
       ],
     },
-    "zh-CN": {},
+    "zh-CN": {
+      title: "简单上手",
+      description: "无需中间商，发布和传播在几秒钟内完成。",
+      steps: [
+        {
+          title: "设置你的钱包",
+          description: "连接加密钱包开始",
+        },
+        {
+          title: "发布您的内容",
+          description: "上传您的作品（图片、视频、音频或 3D 艺术作品）",
+        },
+        {
+          title: "生成分享海报或链接",
+          description: "生成NFT作品独家分享海报和链接，自由分享和销售",
+        },
+        {
+          title: "货币化",
+          description:
+            "创作者通过出售自己作品的从属节点永久获得版税和节点收益，分享者通过出售自己作品的从属节点永久获得收益。",
+        },
+      ],
+    },
   },
 });
 
@@ -149,12 +172,15 @@ onMounted(() => {
 :deep(._1) {
   transition: all 0.5s ease-in-out;
 }
+
 :deep(._2) {
   transition: all 1s ease-in-out;
 }
+
 :deep(._3) {
   transition: all 1.5s ease-in-out;
 }
+
 :deep(._4) {
   transition: all 2s ease-in-out;
 }

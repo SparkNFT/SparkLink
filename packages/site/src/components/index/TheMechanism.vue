@@ -4,13 +4,13 @@
       <div class="description">
         <h2 class="how-we-work">{{ t("title") }}</h2>
         <p class="sub-title" style="margin-bottom: 16px">
-          No restrictions on the format and content of the publication,
+          {{ t("description._1") }}
         </p>
         <p class="sub-title">
-          everything is stored permanently distributed in NFT.
+          {{ t("description._2") }}
         </p>
         <button id="home-start-publish" class="start-to-publish">
-          Start to publish
+          {{ t("start_to_publish") }}
         </button>
       </div>
       <div class="space"></div>
@@ -18,43 +18,43 @@
         <div class="row">
           <div class="item">
             <img src="/assets/mechanism/file.png" class="head" />
-            <p class="info">Art Works</p>
+            <p class="info">{{ t("items.art_works") }}</p>
           </div>
           <div class="item">
             <img src="/assets/mechanism/edit-pencil-line.png" class="head" />
-            <p class="info">Illustration</p>
+            <p class="info">{{ t("items.illustration") }}</p>
           </div>
           <div class="item">
             <img src="/assets/mechanism/book-open.png" class="head" />
-            <p class="info">Books</p>
+            <p class="info">{{ t("items.books") }}</p>
           </div>
         </div>
         <div class="row">
           <div class="item">
             <img src="/assets/mechanism/leaf.png" class="head" />
-            <p class="info">Nature</p>
+            <p class="info">{{ t("items.nature") }}</p>
           </div>
           <div class="item">
             <img src="/assets/mechanism/command.png" class="head" />
-            <p class="info">3D Art</p>
+            <p class="info">{{ t("items.3d_art") }}</p>
           </div>
           <div class="item">
             <img src="/assets/mechanism/building.png" class="head" />
-            <p class="info">3D Modeling</p>
+            <p class="info">{{ t("items.3d_modeling") }}</p>
           </div>
         </div>
         <div class="row">
           <div class="item">
             <img src="/assets/mechanism/head-phones.png" class="head" />
-            <p class="info">Music</p>
+            <p class="info">{{ t("items.music") }}</p>
           </div>
           <div class="item">
             <img src="/assets/mechanism/camera.png" class="head" />
-            <p class="info">Discovery</p>
+            <p class="info">{{ t("items.discovery") }}</p>
           </div>
           <div class="item">
             <img src="/assets/mechanism/alt.png" class="head" />
-            <p class="info">Animation</p>
+            <p class="info">{{ t("items.animation") }}</p>
           </div>
         </div>
       </div>
@@ -71,6 +71,22 @@ const { t } = useI18n({
   messages: {
     en: {
       title: "Freely publish what you love",
+      description: {
+        _1: "No restrictions on the format and content of the publication,",
+        _2: "everything is stored permanently distributed in NFT.",
+      },
+      start_to_publish: "Start to publish",
+      items: {
+        art_works: "Art Works",
+        illustration: "Illustration",
+        books: "Books",
+        nature: "Nature",
+        "3d_art": "3D Art",
+        "3d_modeling": "3D Modeling",
+        music: "Music",
+        discovery: "Discovery",
+        animation: "Animation",
+      },
     },
     "zh-CN": {
       title: "Freely publish what you love",
@@ -91,7 +107,6 @@ onMounted(() => {
   });
 
   let view_scroll_top = document.documentElement.scrollTop;
-  console.log(element_top_distance);
 
   window.addEventListener("scroll", () => {
     view_scroll_top = document.documentElement.scrollTop;

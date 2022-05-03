@@ -3,11 +3,11 @@
     <div class="container">
       <img src="/assets/how-to-benefit/nodes.png" class="nodes" />
       <div class="web3">
-        <h1 class="title">Pure Web3 creator economy,</h1>
-        <h1 class="title">We are So different from others</h1>
+        <h1 class="title">{{ t("title._1") }}</h1>
+        <h1 class="title">{{ t("title._2") }}</h1>
 
-        <p class="text">Unique tree-shaped sharing economy structure</p>
-        <p class="text">allows everyone to share and sell node NFT</p>
+        <p class="text">{{ t("description._1") }}</p>
+        <p class="text">{{ t("description._2") }}</p>
       </div>
     </div>
   </section>
@@ -19,7 +19,16 @@ import { onMounted, ref } from "vue";
 
 const { t } = useI18n({
   messages: {
-    en: {},
+    en: {
+      title: {
+        _1: "Pure Web3 creator economy,",
+        _2: "We are So different from others",
+      },
+      description: {
+        _1: "Unique tree-shaped sharing economy structure",
+        _2: "allows everyone to share and sell node NFT",
+      },
+    },
     "zh-CN": {},
   },
 });
@@ -37,7 +46,6 @@ onMounted(() => {
   });
 
   let view_scroll_top = document.documentElement.scrollTop;
-  console.log(element_top_distance);
 
   window.addEventListener("scroll", () => {
     view_scroll_top = document.documentElement.scrollTop;

@@ -11,9 +11,9 @@
         class="back-to-collection"
         @click="router.back()"
       />
-      <h2 class="title">Collection</h2>
+      <h2 class="title">{{ t("title") }}</h2>
       <div class="current-earnings" v-if="owned">
-        <p class="note">Current Earnings</p>
+        <p class="note">{{ t("current_earning") }}</p>
         <div class="result">
           <p class="number">{{ toCoin(metadata.profit) }}</p>
           <p class="unit">{{ token.symbol }}</p>
@@ -23,9 +23,9 @@
             class="btn orange receive"
             @click="showClaimInProgress = true"
           >
-            RECEIVE INCOME
+            {{ t("receive_income") }}
           </button>
-          <button class="btn orange disabled">TRANSFER</button>
+          <button class="btn orange disabled">{{ t("transfer") }}</button>
         </div>
       </div>
       <div class="detail-container">
@@ -44,39 +44,70 @@
         <div class="info">
           <p class="ntf-id">#{{ nftId }}</p>
           <div class="ntf-detail">
-            <p>{{ `Spark Price: ${sellingPriceInCoin} ${token.symbol}` }}</p>
             <p>
               {{
-                `Fixed royalty for root: ${toCoin(metadata.royaltyPrice)} ${
-                  token.symbol
-                }`
+                t("detail.price", {
+                  price: sellingPriceInCoin,
+                  symbol: token.symbol,
+                })
               }}
             </p>
-            <p>{{ `Maximum number of share: ${metadata.maxShareTimes}` }}</p>
             <p>
               {{
-                `Percentage of Earning on sub-node: ${metadata.percentageOfEarnings}`
+                t("detail.royalty", {
+                  price: toCoin(metadata.royaltyPrice),
+                  symbol: token.symbol,
+                })
               }}
             </p>
-            <p>{{ `Work is encrypted: ${metadata.encrypted}` }}</p>
             <p>
               {{
-                `Allow secondary creation: ${metadata.allowSecondaryCreation}`
+                t("detail.max_shares_number", { times: metadata.maxShareTimes })
               }}
             </p>
-            <p>{{ `Dividend ratio:  ${metadata.percentageOfEarnings} %` }}</p>
-            <p>{{ `Number of child nodes currently owned:  0` }}</p>
-            <p>{{ `Whether NFT is encrypted:  ${metadata.encrypted}` }}</p>
+            <p>
+              {{
+                t("detail.percentage_earning", {
+                  percentage: metadata.percentageOfEarnings,
+                })
+              }}
+            </p>
+            <p>
+              {{
+                t("detail.work_is_encrypted", { encrypted: metadata.encrypted })
+              }}
+            </p>
+            <p>
+              {{
+                t("detail.allow_secondary_creation", {
+                  allow: metadata.allowSecondaryCreation,
+                })
+              }}
+            </p>
+            <p>
+              {{
+                t("detail.dividend_ratio", {
+                  percentage: metadata.percentageOfEarnings,
+                })
+              }}
+            </p>
+            <p>{{ t("detail.child_node_owned", {}) }}</p>
+            <p>
+              {{
+                t("detail.nft_is_encrypted", { encrypted: metadata.encrypted })
+              }}
+            </p>
           </div>
           <div>
-            <button class="btn white" @click="copyLink">LINk SHARING</button>
+            <button class="btn white" @click="copyLink">
+              {{ t("share.link") }}
+            </button>
             <button class="btn white" @click="showPoster = true">
-              POSTER SHARING
+              {{ t("share.poster") }}
             </button>
           </div>
           <p class="notes">
-            💡Everyone can view and purchase this work by sharing links or
-            posters to the details page of the work.
+            {{ t("notes") }}
           </p>
         </div>
       </div>
@@ -124,28 +155,60 @@ function g() {
 const { t } = useI18n({
   messages: {
     en: {
+      title: "Collection",
+      current_earning: "Current Earnings",
+      receive_income: "RECEIVE INCOME",
+      transfer: "TRANSFER",
       hint: "This nft is on the {0} network. Please switch to it first. (Current: {1})",
+      detail: {
+        price: "Spark Price: {price} {symbol}",
+        royalty: "Fixed royalty for root: {price} {symbol}",
+        max_shares_number: "Maximum number of share: {times}",
+        percentage_earning: "Percentage of Earning on sub-node: {percentage}",
+        work_is_encrypted: "Work is encrypted: {encrypted}",
+        allow_secondary_creation: "Allow secondary creation: {allow}",
+        dividend_ratio: "Dividend ratio:  {percentage} %",
+        child_node_owned: "Number of child nodes currently owned:  0",
+        nft_is_encrypted: "Whether NFT is encrypted:  {encrypted}",
+      },
       share: {
-        all: "Share",
-        link: "Share by link",
-        poster: "Share by poster",
+        link: "LINK SHARING",
+        poster: "POSTER SHARING",
       },
       copyLink: {
         hint: "The link has been copyed to your clipboard.",
         prefix: "You are welcome to view and try casting my NFT publication: ",
       },
+      notes:
+        "💡Everyone can view and purchase this work by sharing links or posters to the details page of the work.",
     },
     "zh-CN": {
+      title: "Collection",
+      current_earning: "Current Earnings",
+      receive_income: "RECEIVE INCOME",
+      transfer: "TRANSFER",
       hint: "当前NFT在 {0} 网络。请先更换到该网络。（当前网络：{1}）",
+      detail: {
+        price: "Spark Price: {price} {symbol}",
+        royalty: "Fixed royalty for root: {price} {symbol}",
+        max_shares_number: "Maximum number of share: {times}",
+        percentage_earning: "Percentage of Earning on sub-node: {percentage}",
+        work_is_encrypted: "Work is encrypted: {encrypted}",
+        allow_secondary_creation: "Allow secondary creation: {allow}",
+        dividend_ratio: "Dividend ratio:  {percentage} %",
+        child_node_owned: "Number of child nodes currently owned:  0",
+        nft_is_encrypted: "Whether NFT is encrypted:  {encrypted}",
+      },
       share: {
-        all: "分享",
         link: "复制链接",
         poster: "分享海报",
       },
       copyLink: {
         hint: "链接已被复制到剪切板。",
-				prefix: "欢迎来到Sparklink查看并分享我的NFT作品："
-			}
+        prefix: "欢迎来到Sparklink查看并分享我的NFT作品：",
+      },
+      notes:
+        "💡Everyone can view and purchase this work by sharing links or posters to the details page of the work.",
     },
   },
 });

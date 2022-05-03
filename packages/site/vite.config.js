@@ -3,10 +3,8 @@ import vue from "@vitejs/plugin-vue";
 import inject from "@rollup/plugin-inject";
 import builtins from "rollup-plugin-node-builtins";
 import commonjs from "@rollup/plugin-commonjs";
-import { writeFile } from "fs/promises";
 
 // https://vitejs.dev/config/
-
 const getDefine = () => {
   const result = {
     "process.env": {
