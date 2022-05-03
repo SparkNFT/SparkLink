@@ -91,7 +91,6 @@ onMounted(() => {
   });
 
   let view_scroll_top = document.documentElement.scrollTop;
-  console.log(element_top_distance);
 
   window.addEventListener("scroll", () => {
     view_scroll_top = document.documentElement.scrollTop;
