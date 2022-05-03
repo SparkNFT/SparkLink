@@ -6,12 +6,13 @@
         class="operator-btn"
         :disabled="!canDownload"
         @click="clickDownloadButton"
-        >{{ t("download") }}
+      >
+        {{ t("download") }}
       </el-button>
     </template>
-    <template v-else>
-      <el-button class="operator-btn" type="primary" @click="mint"
-        >{{ t("mint") }}
+    <template v-if="is_share">
+      <el-button class="operator-btn" type="primary" @click="mint">
+        {{ t("mint") }}
       </el-button>
       <MintInProgress
         v-if="mintInProgress"
@@ -21,9 +22,9 @@
       ></MintInProgress>
     </template>
     <DownloadInProgress
+      v-model="downloadInProcess"
       style="text-align: left"
       v-if="downloadInProcess"
-      v-model="downloadInProcess"
       :event-emitter="eventEmitter"
       :encrypted="encrypted"
       @listeners:attached="download"
@@ -45,7 +46,7 @@ import { useStore } from "vuex";
 import type Web3 from "web3";
 import { getSymbol } from "../../token";
 import DownloadInProgress from "./DownloadInProgress.vue";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 import MintInProgress from "./MintInProgress.vue";
 import { useI18n } from "vue-i18n";
 
@@ -172,6 +173,8 @@ async function download() {
 }
 
 const router = useRouter();
+const route = useRoute();
+const is_share = ref(route.name === "spark");
 
 async function mint() {
   mintInProgress.value = true;

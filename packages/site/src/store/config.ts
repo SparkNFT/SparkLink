@@ -7,7 +7,6 @@ export interface IConfig {
 export const configStore = {
   namespaced: true,
   state() {
-    console.log(process.env);
     return {
       frontendBaseUrl: process.env.FRONTEND_BASE_URL ?? "https://sparklink.io",
     };
