@@ -119,7 +119,7 @@ $height: 108px;
   box-sizing: content-box;
   padding-left: unset;
   border: none;
-  overflow-x: hidden;
+  overflow: hidden;
 
   .background {
     width: 100%;
