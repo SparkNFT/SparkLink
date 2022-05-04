@@ -8,9 +8,16 @@
 
 @use "element-plus/theme-chalk/src/index.scss";
 
+@use "element-plus/theme-chalk/src/display.scss";
+
 @font-face {
   font-family: "iconfont";
   src: url("/assets/fonts/iconfont.ttf?t=1649852280962") format("truetype");
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("/assets/fonts/OpenSans.ttf") format("truetype");
 }
 
 .iconfont {
@@ -72,7 +79,6 @@ p {
   text-underline-offset: -24px;
   text-decoration-skip-ink: none;
 }
-
 
 @mixin index-title {
   margin: 0;
