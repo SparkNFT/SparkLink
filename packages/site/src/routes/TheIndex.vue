@@ -43,7 +43,7 @@ function calculateStyle() {
     left: 281px;
     width: 310px;
     height: 310px;
-    background-image: url("home/block_1.svg");
+    background-image: url("/assets/home/block_1.svg");
     background-repeat: no-repeat;
     background-size: contain;
   }
@@ -54,7 +54,7 @@ function calculateStyle() {
     left: 958px;
     width: 1353px;
     height: 1922px;
-    background-image: url("home/block_2.svg");
+    background-image: url("/assets/home/block_2.svg");
     background-repeat: no-repeat;
     background-size: contain;
   }
@@ -65,7 +65,7 @@ function calculateStyle() {
     left: -176px;
     width: 1339px;
     height: 1902px;
-    background-image: url("home/block_3.svg");
+    background-image: url("/assets/home/block_3.svg");
     background-repeat: no-repeat;
     background-size: contain;
   }
