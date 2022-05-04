@@ -1,9 +1,15 @@
 import { createRouter, createWebHashHistory, useRouter } from "vue-router";
+import type { RouteRecordRaw } from "vue-router";
 import Layout from "./routes/__layout.vue";
 import Index from "./routes/TheIndex.vue";
 import Publish from "./routes/Publish.vue";
 import Collection from "./routes/Collection.vue";
 import ArtPage from "./routes/ArtPage.vue";
+
+function goExternal(url: string) {
+  window.location.replace(url);
+  return false;
+}
 
 const routes = [
   {
@@ -41,7 +47,30 @@ const routes = [
       },
     ],
   },
-];
+] as RouteRecordRaw[];
+
+const externalRoutes = [
+  {
+    name: "discord",
+    path: "/external/discord",
+    redirect: () => goExternal("https://t.co/xM7bzslqZ8"),
+  },
+  {
+    name: "telegram",
+    path: "/external/telegram",
+    redirect: () => goExternal("https://t.co/Ngpm0LKQDP"),
+  },
+  {
+    name: "medium",
+    path: "/external/medium",
+    redirect: () => goExternal("https://medium.com/@SparkLink"),
+  },
+  {
+    name: "twitter",
+    path: "/external/twitter",
+    redirect: () => goExternal("https://twitter.com/SparkLink_io"),
+  },
+] as RouteRecordRaw[];
 
 const debugRoutes = [
   {
@@ -64,10 +93,10 @@ const debugRoutes = [
     path: "/debug/topbar/switch-language",
     component: () => import("./componentsViews/topbar/SwitchLanguage.vue"),
   },
-];
+] as RouteRecordRaw[];
 
+routes.push(...externalRoutes);
 if (process.env?.DEBUG) {
-  // @ts-ignore
   routes.push(...debugRoutes);
 }
 
