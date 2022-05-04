@@ -1,7 +1,7 @@
 <template>
   <section id="benefits" :class="{ 'not-see': !in_the_view }">
     <div class="container">
-      <img src="/assets/how-to-benefit/nodes.png" class="nodes" />
+      <img :src="t('nodes')" class="nodes" />
       <div class="web3">
         <h1 class="title">{{ t("title._1") }}</h1>
         <h1 class="title">{{ t("title._2") }}</h1>
@@ -20,6 +20,7 @@ import { onMounted, ref } from "vue";
 const { t } = useI18n({
   messages: {
     en: {
+      nodes: "/assets/how-to-benefit/nodes_en.png",
       title: {
         _1: "Pure Web3 creator economy,",
         _2: "We are So different from others",
@@ -29,7 +30,17 @@ const { t } = useI18n({
         _2: "allows everyone to share and sell node NFT",
       },
     },
-    "zh-CN": {},
+    "zh-CN": {
+      nodes: "/assets/how-to-benefit/nodes_zh.png",
+      title: {
+        _1: "纯粹的Web3创作者经济，",
+        _2: "我们如此与众不同",
+      },
+      description: {
+        _1: "独特的树形共享经济结构",
+        _2: "允许每个人分销内容并向下获取收益",
+      },
+    },
   },
 });
 

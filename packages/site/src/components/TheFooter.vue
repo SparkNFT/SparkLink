@@ -99,7 +99,19 @@ const { t } = useI18n({
       rights: "© Sparklink 2021. All rights reserved.",
     },
     "zh-CN": {
+      description: "独特的内容发布和分发协议",
+      items: {
+        navigation: "导航",
+        resources: "资源",
+        conditions: "条件",
+        privacy_policy: "隐私策略",
+        people: "用户",
+        open_sea: "OpenSea",
+        market: "市场",
+      },
+      contact_us: "联系我们",
       copy_email_address_success: "邮箱地址复制成功",
+      rights: "© 2020 Landify UI Kit. All rights reserved",
       items: {
         navigation: "导航",
       },

@@ -290,11 +290,11 @@ const { t } = useI18n({
     "zh-CN": {
       validate: "必填。",
       inputs: {
-        name: { label: "作品名字", validate: { max: "字段长度需小于64。" } },
+        name: { label: "作品名称", validate: { max: "字段长度需小于64。" } },
         earning: {
-          label: "收益比例",
+          label: "抽成百分比",
           description:
-            "当您的物品被他人分享并获利时，您希望从分享的利润中获得多少比例的收益。",
+            "当您的作品内容被其他人分销和获利时，您希望从他人利润份额中获得多少百分比的利润",
           validate: {
             range: "数值越界。",
           },
@@ -305,12 +305,12 @@ const { t } = useI18n({
           chain: "当前链：",
         },
         price: {
-          label: "销售价格",
+          label: "售价",
           description: "以货币而非以太为结算单位",
         },
         shares: {
-          label: "最高分享次数",
-          description: "您希望每个用户最多能够分享多少次？",
+          label: "最大节点分销次数",
+          description: "您希望每个用户可分销多少次？",
           placeHolder: "0 - 65535, 整数",
         },
         baseline: {
@@ -322,7 +322,7 @@ const { t } = useI18n({
           placeHolder: "以货币而非以太为结算单位",
         },
         authority: {
-          label: "作品权限",
+          label: "作品许可",
         },
         encrypt: {
           label: "加密发布",
