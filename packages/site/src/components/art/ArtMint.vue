@@ -44,6 +44,5 @@ async function mint() {
   font-weight: 700;
   height: 70px;
   border-radius: 16px;
-  flex: 1;
 }
 </style>

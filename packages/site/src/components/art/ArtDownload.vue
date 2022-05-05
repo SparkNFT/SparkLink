@@ -118,6 +118,11 @@ async function download() {
   font-weight: 700;
   height: 70px;
   border-radius: 16px;
-  flex: 1;
+
+  &.is-disabled {
+    color: #C4C4C4;
+    border: 2px solid #C4C4C4;
+    background-color: white;
+  }
 }
 </style>

@@ -19,8 +19,10 @@
           <div class="cover-container">
             <img :src="metadata.urls.cover" />
           </div>
-          <h2 class="nft-name">{{ metadata.name }}</h2>
-          <p class="description">{{ metadata.description }}</p>
+          <div>
+            <h2 class="nft-name">{{ metadata.name }}</h2>
+            <p class="description">{{ metadata.description }}</p>
+          </div>
           <art-download
             :metadata="metadata"
             :nft-id="nftId"
@@ -87,14 +89,6 @@
                 }}
               </p>
             </div>
-            <div class="detail-item">
-              <p>
-                {{ t("detail.commercial_use") }}
-              </p>
-              <p class="result">
-                {{ `` }}
-              </p>
-            </div>
           </div>
           <art-mint
             :metadata="metadata"
@@ -133,7 +127,6 @@ const { t } = useI18n({
         percentage_earning: "Percentage of Earning on sub-node:",
         work_is_encrypted: "Work is encrypted:",
         allow_secondary_creation: "Allow secondary creation:",
-        commercial_use: "Commercial user:",
       },
     },
     "zh-CN": {
@@ -221,7 +214,12 @@ onMounted(resetPage);
     margin: 113px auto 0 auto;
 
     .exhibition {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: end;
       max-width: 525px;
+      height: 837px;
       text-align: right;
 
       .cover-container {
@@ -242,6 +240,7 @@ onMounted(resetPage);
         font-weight: 800;
         font-size: 36px;
         line-height: 44px;
+        margin-bottom: 12px;
       }
 
       .description {
@@ -253,7 +252,11 @@ onMounted(resetPage);
     }
 
     .info {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
       max-width: 673px;
+      height: 837px;
       flex: 1;
       text-align: left;
 
