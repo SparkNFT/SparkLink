@@ -109,9 +109,10 @@ function navTo(path: string) {
 </script>
 
 <style lang="scss" scoped>
-$height: 108px;
+@use "element-plus/theme-chalk/src/mixins/mixins" as *;
+@use "element-plus/theme-chalk/src/common/var" as *;
+
 .header {
-  --el-header-height: #{$height};
   border-bottom: var(--el-border-base);
   position: fixed;
   z-index: 10;
@@ -120,6 +121,14 @@ $height: 108px;
   padding-left: unset;
   border: none;
   overflow: hidden;
+
+  @include res("md-and-up", $breakpoints-spec) {
+    --el-header-height: 108px;
+  }
+
+  @include res("sm-and-down", $breakpoints-spec) {
+    --el-header-height: 74px;
+  }
 
   .background {
     width: 100%;
@@ -134,6 +143,14 @@ $height: 108px;
     height: 100%;
     padding: 0 113px;
     box-sizing: border-box;
+
+    @include res("md-and-up", $breakpoints-spec) {
+      padding: 0 113px;
+    }
+
+    @include res("sm-and-down", $breakpoints-spec) {
+      padding: 0 20px;
+    }
   }
 
   &.mobile {
@@ -172,7 +189,14 @@ $height: 108px;
 }
 
 .logo {
-  width: 193px;
+  height: 46px;
+  :deep(img) {
+    image-rendering: -webkit-optimize-contrast;
+  }
+
+  @include res("sm-and-down", $breakpoints-spec) {
+    height: 30px;
+  }
 }
 
 .nav {

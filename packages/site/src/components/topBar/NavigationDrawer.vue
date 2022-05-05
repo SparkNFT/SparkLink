@@ -7,7 +7,9 @@
     @update:model-value="emit('update:modelValue', $event)"
   >
     <div class="container">
-      <el-image src="/assets/main-logo.svg" class="logo" />
+      <div class="logo-wrapper">
+        <el-image src="/assets/color-logo.png" class="logo" />
+      </div>
       <div class="inner">
         <div class="nav">
           <el-button
@@ -19,7 +21,7 @@
               normal: !current(item.path),
               current: current(item.path),
             }"
-            :color="current(item.path) ? greyBackground : undefined"
+            :color="current(item.path) ? secondaryBackground : undefined"
             @click="navTo(item.path)"
           >
             <div class="btn-inner">
@@ -34,8 +36,9 @@
           <transition name="fade">
             <el-button
               v-if="chainName"
-              :color="greyBackground"
+              :color="secondaryBackground"
               round
+              class="current bold"
               @click="switchNetwork = true"
               >{{ chainName }}</el-button
             >
@@ -54,14 +57,15 @@
               @click="web3Operator.connect"
             >
               <div class="btn-inner">
-                <span class="material-icons-outlined">fingerprint</span>
+                <span class="material-icons-outlined">account_balance_wallet</span>
                 <span>{{ t("link") }}</span>
               </div>
             </el-button>
             <el-button
               v-else
-              :color="greyBackground"
+              :color="secondaryBackground"
               round
+              class="current"
               @click="web3Operator.disconnect"
             >
               {{
@@ -83,7 +87,7 @@ import { web3Operator, web3InfoGetter } from "../../store";
 import SwitchNetworkDialog from "./SwitchNetworkDialog.vue";
 import SwitchLanguage from "./SwitchLanguage.vue";
 import { ref } from "vue";
-import { greyBackground } from "../../styles/color";
+import { secondaryBackground } from "../../styles/color";
 import { useI18n } from "vue-i18n";
 
 const { t } = useI18n({
@@ -117,15 +121,25 @@ const switchLanguage = ref(false);
 
 .container {
   height: 100%;
-  gap: 40px;
+  gap: 128px;
+  --el-border-radius-round: 10px;
   & > .inner {
     justify-content: space-between;
     flex: 1;
   }
 }
 
+.logo-wrapper {
+  display: flex;
+  justify-content: center;
+  transform: translate3d(0, 0, 0);
+}
+
 .logo {
-  max-height: 50px;
+  :deep(img) {
+    image-rendering: -webkit-optimize-contrast;
+    height: 50px;
+  }
 }
 
 .nav {
@@ -140,6 +154,7 @@ const switchLanguage = ref(false);
 }
 
 .current {
+  color: black;
   .btn-inner {
     color: black;
   }
@@ -166,5 +181,9 @@ const switchLanguage = ref(false);
   .btn-inner {
     gap: 12px;
   }
+}
+
+.bold {
+  font-weight: bold;
 }
 </style>

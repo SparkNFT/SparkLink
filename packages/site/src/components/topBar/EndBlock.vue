@@ -67,7 +67,7 @@
           <el-dropdown-item v-if="account" command="network">
             {{ t("account.dropdown.network") }}
           </el-dropdown-item>
-          <el-dropdown-item command="language" divided
+          <el-dropdown-item command="language" :divided="!!account"
             >{{ t("language") }}
           </el-dropdown-item>
         </el-dropdown-menu>
