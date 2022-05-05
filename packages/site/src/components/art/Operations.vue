@@ -1,15 +1,13 @@
 <template>
   <el-card shadow="never" :class="{ 'button-area': true, mobile: !grid.sm }">
-    <template v-if="isOwner">
-      <el-button
-        type="primary"
-        class="operator-btn"
-        :disabled="!canDownload"
-        @click="clickDownloadButton"
-      >
-        {{ t("download") }}
-      </el-button>
-    </template>
+    <el-button
+      type="primary"
+      class="operator-btn"
+      :disabled="!canDownload"
+      @click="clickDownloadButton"
+    >
+      {{ t("download") }}
+    </el-button>
     <template v-if="is_share">
       <el-button class="operator-btn" type="primary" @click="mint">
         {{ t("mint") }}
@@ -22,9 +20,9 @@
       ></MintInProgress>
     </template>
     <DownloadInProgress
+      v-if="downloadInProcess"
       v-model="downloadInProcess"
       style="text-align: left"
-      v-if="downloadInProcess"
       :event-emitter="eventEmitter"
       :encrypted="encrypted"
       @listeners:attached="download"

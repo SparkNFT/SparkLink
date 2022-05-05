@@ -21,6 +21,10 @@
           </div>
           <h2 class="nft-name">{{ metadata.name }}</h2>
           <p class="description">{{ metadata.description }}</p>
+          <art-download
+            :metadata="metadata"
+            :nft-id="nftId"
+          />
         </div>
         <div class="info">
           <p class="nft-id">#{{ nftId }}</p>
@@ -92,10 +96,11 @@
               </p>
             </div>
           </div>
+          <art-mint
+            :metadata="metadata"
+            :nft-id="nftId"
+          />
         </div>
-      </div>
-      <div class="btn-container">
-        <Operations :metadata="metadata" :nft-id="nftId"></Operations>
       </div>
     </div>
   </template>
@@ -112,7 +117,8 @@ import { UserOperatorFactory } from "@SparkLink/business";
 import type { INftInformation } from "@SparkLink/business/generated/src/nftInfomation";
 import { useStore } from "vuex";
 import Web3 from "web3";
-import Operations from "../components/art/Operations.vue";
+import ArtMint from "../components/art/ArtMint.vue";
+import ArtDownload from "../components/art/ArtDownload.vue";
 
 const { t } = useI18n({
   messages: {
@@ -208,7 +214,7 @@ onMounted(resetPage);
   }
 
   .detail-container {
-    max-width: 1425px;
+    max-width: 1342px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -247,7 +253,7 @@ onMounted(resetPage);
     }
 
     .info {
-      max-width: 777px;
+      max-width: 673px;
       flex: 1;
       text-align: left;
 
@@ -288,11 +294,6 @@ onMounted(resetPage);
         }
       }
     }
-  }
-
-  .btn-container {
-    max-width: 800px;
-    margin: 0 auto;
   }
 }
 </style>
