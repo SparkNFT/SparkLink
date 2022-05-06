@@ -52,27 +52,39 @@ async function connect() {
 </script>
 
 <style lang="scss" scoped>
+@use "../styles/index.scss";
+@use "element-plus/theme-chalk/src/mixins/mixins" as *;
+@use "element-plus/theme-chalk/src/common/var" as *;
+
+@mixin mobile() {
+  @include res("md-and-down", $breakpoints-spec) {
+    @content;
+  }
+}
+
 .divider {
   height: 24px;
 }
 
 .form-container {
   padding-top: 142px;
+  padding-bottom: 185px;
   max-width: 1050px;
   margin: auto;
-}
-
-@media (min-width: 1050px) {
-  .form-container {
-    width: 1050px;
+  @include mobile() {
+    padding: 0 20px;
+    padding-top: 78px;
+    padding-bottom: 106px;
   }
 }
 
 ._title {
-  margin: 0 0 120px;
-  font-weight: 900;
-  font-size: 48px;
-  line-height: 100%;
-  text-align: center;
+  @include index.title-red;
+  margin-bottom: 120px;
+
+  @include mobile {
+    font-size: 30px;
+    margin-bottom: 60px;
+  }
 }
 </style>
