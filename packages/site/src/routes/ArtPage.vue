@@ -43,7 +43,7 @@
         </div>
         <div class="info">
           <p class="ntf-id">#{{ nftId }}</p>
-          <div class="ntf-detail">
+          <div class="nft-detail">
             <p>
               {{
                 t("detail.price", {
@@ -265,7 +265,9 @@ watch([tokenAddress, tokenInquirer], setToken);
 onMounted(setToken);
 
 const baseUrl = computed(() => store.state.config.frontendBaseUrl);
-const shareLink = computed(() => `${baseUrl.value}/#${route.fullPath}`);
+const shareLink = computed(
+  () => `${baseUrl.value}/#/spark/${route.params.chainId}/${route.params.nftId}`
+);
 
 function copyLink() {
   const clipboard = navigator.clipboard;
@@ -324,6 +326,7 @@ const showClaimInProgress = ref(false);
 <style lang="scss" scoped>
 .art-detail {
   max-width: 1920px;
+  margin: 0 auto;
   position: relative;
   padding: 142px 0 175px 0;
 
@@ -455,7 +458,7 @@ const showClaimInProgress = ref(false);
         color: #ef7a61;
       }
 
-      .ntf-detail {
+      .nft-detail {
         margin: 106px 0;
 
         p {
