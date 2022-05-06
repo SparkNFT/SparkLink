@@ -10,6 +10,10 @@
 
 @use "element-plus/theme-chalk/src/display.scss";
 
+@use "element-plus/theme-chalk/src/mixins/mixins" as *;
+
+@use "element-plus/theme-chalk/src/common/var" as *;
+
 @font-face {
   font-family: "iconfont";
   src: url("/assets/fonts/iconfont.ttf?t=1649852280962") format("truetype");
@@ -71,22 +75,39 @@ p {
   flex: 1;
 }
 
-@mixin title-underline {
+@mixin title-underline($underline-color: #ffe177) {
   text-decoration-line: underline;
   text-decoration-style: solid;
-  text-decoration-color: #ffe177;
+  text-decoration-color: $underline-color;
   text-decoration-thickness: 24px;
   text-underline-offset: -24px;
   text-decoration-skip-ink: none;
 }
 
-@mixin index-title {
+@mixin _title() {
   margin: 0;
   font-size: 48px;
   font-weight: 800;
   line-height: 48px;
   text-align: center;
+  @include res("sm-and-down", $breakpoints-spec) {
+    font-size: 30px;
+  }
+}
+
+@mixin index-title() {
+  @include _title();
   @include title-underline;
+  
+}
+
+@mixin title-yellow() {
+  @include index-title;
+}
+
+@mixin title-red() {
+  @include _title;
+  @include title-underline(#ef7a61);
 }
 
 @mixin block {
