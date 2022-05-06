@@ -65,7 +65,6 @@ function inspect() {
 
 export default defineConfig({
   plugins: getPlugin(),
-  base: "/TestPage/",
   build: {
     ssr: false,
     sourcemap: true,
