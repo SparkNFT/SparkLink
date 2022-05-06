@@ -6,14 +6,19 @@
         {{ t("description") }}
       </h5>
       <div id="home-start-card-container" class="card-container">
-        <GettingStartCard
-          v-for="(step, index) in steps"
-          :key="index"
-          :icon-url="step.iconUrl"
-          :title="step.title"
-          :description="step.description"
-          :the-class="step.class"
-        ></GettingStartCard>
+        <div v-for="(step, index) in steps" :key="index" class="card-wrapper">
+          <el-image
+            v-if="index === 0 && grid.xl"
+            src="/assets/home/block_1.svg"
+            class="dot"
+          ></el-image>
+          <GettingStartCard
+            :icon-url="step.iconUrl"
+            :title="step.title"
+            :description="step.description"
+            :the-class="step.class"
+          ></GettingStartCard>
+        </div>
       </div>
     </div>
   </section>
@@ -23,6 +28,7 @@
 import { computed, onMounted, ref } from "vue";
 import GettingStartCard from "./GettingStartCard.vue";
 import { useI18n } from "vue-i18n";
+import { grid } from "../../grid";
 
 const { t } = useI18n({
   messages: {
@@ -32,17 +38,17 @@ const { t } = useI18n({
         "No gatekeepers. You’re in control. Publish and share in seconds.",
       steps: [
         {
-          title: "Set up wallet",
-          description: "Connect a crypto wallet to start",
+          title: "Set up your wallet",
+          description: "Connect the crypto wallet to start.",
         },
         {
-          title: "Publish content",
-          description: "Upload your work (image, video, audio, or 3D art)",
+          title: "Publish your content",
+          description: "Upload your work (image, video, audio, or 3D art).",
         },
         {
           title: "Generate sharing poster or link",
           description:
-            "Generate an exclusive sharing poster or link of your NFT to share and sell freely",
+            "Generate exclusive sharing posters and links of NFT works, share and sell freely.",
         },
         {
           title: "Monetize",
@@ -140,11 +146,36 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 @use "../../styles/index.scss";
+@use "element-plus/theme-chalk/src/mixins/mixins" as *;
+@use "element-plus/theme-chalk/src/common/var" as *;
+
+.dot {
+  position: absolute;
+  right: 0;
+  transform: translate(23.5%, -40%);
+  width: 310px;
+  z-index: -1;
+}
 
 #getting-start {
-  padding: 166px 0 169px 0;
   box-sizing: border-box;
   text-align: center;
+
+  @include res("lg-and-down", $breakpoints-spec) {
+    padding: 100px 0;
+  }
+
+  @include res("xl-only", $breakpoints-spec) {
+    padding: 166px 0;
+  }
+
+  @include res("sm-and-down", $breakpoints-spec) {
+    padding: 78px 0;
+  }
+
+  @include res("md-and-down", $breakpoints-spec) {
+    background-color: #f9f4f4;
+  }
 
   .getting-start-inner {
     .how-to-start {
@@ -152,20 +183,31 @@ onMounted(() => {
     }
 
     .sub-title {
-      margin: 29px 0 0;
-      color: #8d8d97;
-      font-size: 22px;
-      font-weight: 400;
-      line-height: 40px;
-      text-align: center;
+      @include index.index-description;
     }
 
     .card-container {
-      margin: 120px auto 0;
+      margin: 0 auto;
       max-width: 1683px;
       display: flex;
       align-items: stretch;
       justify-content: space-between;
+      gap: 30px;
+
+      @include res("lg-and-down", $breakpoints-spec) {
+        margin-top: 80px;
+      }
+      @include res("xl-only", $breakpoints-spec) {
+        margin-top: 120px;
+      }
+
+      @include res("md-and-down", $breakpoints-spec) {
+        flex-direction: column;
+      }
+      @include res("xs-only", $breakpoints-spec) {
+        margin-top: 48px;
+      }
+      @include index.index-container;
     }
   }
 }
@@ -184,6 +226,13 @@ onMounted(() => {
 
 :deep(._4) {
   transition: all 2s ease-in-out;
+}
+
+.card-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: stretch;
+  position: relative;
 }
 
 .not-see {

@@ -16,6 +16,28 @@ defineProps<{
 </script>
 
 <style lang="scss" scoped>
+@use "element-plus/theme-chalk/src/mixins/mixins" as *;
+@use "element-plus/theme-chalk/src/common/var" as *;
+
+$round: 200px;
+
+@mixin _p($position, $value) {
+  border-#{$position}-radius: $value;
+}
+
+@mixin make-corner($position) {
+  @include res("lg-only", $breakpoints-spec) {
+    @include _p($position, 100px);
+  }
+
+  @include res("xl-only", $breakpoints-spec) {
+    @include _p($position, 200px);
+  }
+
+  @include res("md-and-down", $breakpoints-spec) {
+  }
+}
+
 .card {
   flex: 1;
   padding: 88px 25px 25px 25px;
@@ -26,20 +48,28 @@ defineProps<{
   background-color: white;
   box-shadow: 0 45px 55px rgba(18, 17, 39, 0.08);
 
+  @include res("lg-only", $breakpoints-spec) {
+    padding: 88px 24px 24px;
+  }
+  @include res("sm-and-down", $breakpoints-spec) {
+    padding: 40px 20px 20px;
+    min-height: 300px;
+  }
+
   &._1 {
-    border-radius: 20px 20px 20px 200px;
+    @include make-corner(bottom-left);
   }
 
   &._2 {
-    border-radius: 200px 20px 20px 20px;
+    @include make-corner(top-left);
   }
 
   &._3 {
-    border-radius: 20px 20px 200px 20px;
+    @include make-corner(bottom-right);
   }
 
   &._4 {
-    border-radius: 20px 200px 20px 20px;
+    @include make-corner(top-right);
   }
 
   & + .card {
@@ -47,24 +77,44 @@ defineProps<{
   }
 
   .picture {
-    width: 61px;
+    width: 50px;
     margin-bottom: 49px;
+
+    @include res("sm-and-down", $breakpoints-spec) {
+      margin-bottom: 16px;
+    }
   }
 
   .title {
     margin: 0;
-    min-height: 103px;
     color: #2c2f30;
     font-size: 32px;
     font-weight: bold;
+
+    @include res("xl-only", $breakpoints-spec) {
+      min-height: 103px;
+    }
+
+    @include res("lg-and-down", $breakpoints-spec) {
+      font-size: 26px;
+    }
+
+    @include res("lg-only", $breakpoints-spec) {
+      min-height: 80px;
+    }
+
+    @include res("sm-and-down", $breakpoints-spec) {
+      margin-bottom: 38px;
+    }
   }
 
   .info {
     margin: 0;
     color: #8d8d97;
-    font-size: 20px;
+    font-size: var(--el-font-size-extra-large);
     font-weight: 400;
     line-height: 36px;
+    text-align: center;
   }
 }
 </style>
