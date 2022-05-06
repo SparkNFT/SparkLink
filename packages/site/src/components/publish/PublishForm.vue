@@ -101,7 +101,9 @@
           :active-icon="Check"
           :inactive-icon="Close"
         />
-        <span class="description">{{ t("inputs.encrypt.description") }}</span>
+        <span class="description no-margin">{{
+          t("inputs.encrypt.description")
+        }}</span>
       </div>
     </el-form-item>
     <el-form-item :label="t('inputs.description.label')" prop="description">
@@ -109,7 +111,7 @@
       <el-input
         v-model="data.description"
         type="textarea"
-        :autosize="{minRows: 3}"
+        :autosize="{ minRows: 3 }"
         name="itemDescription"
       />
     </el-form-item>
@@ -127,9 +129,7 @@
           :http-request="fakeRequest"
           :on-change="onCoverChange"
         >
-          <el-icon class="el-icon--upload">
-            <upload-filled />
-          </el-icon>
+          <img src="/assets/publish/upload.svg" class="el-icon--upload" />
           <div class="el-upload__text">
             {{ t("inputs.upload.hint._1")
             }}<em>{{ t("inputs.upload.hint._2") }}</em>
@@ -153,9 +153,7 @@
           :http-request="fakeRequest"
           :on-change="onContentChange"
         >
-          <el-icon class="el-icon--upload">
-            <upload-filled />
-          </el-icon>
+          <img src="/assets/publish/upload.svg" class="el-icon--upload" />
           <div class="el-upload__text">
             {{ t("inputs.upload.hint._1")
             }}<em>{{ t("inputs.upload.hint._2") }}</em>
@@ -589,13 +587,21 @@ async function beginUpload() {
 
 .form {
   :deep(.el-form-item) {
-    margin-bottom: 55px; 
-}
+    margin-bottom: 55px;
+  }
   :deep(.el-textarea__inner),
   :deep(.el-input__inner),
   :deep(.el-upload-dragger) {
-    border: 2px solid black;
     border-radius: 5px;
+  }
+
+  :deep(.el-textarea__inner), :deep(.el-input__inner) {
+    border: 1px solid #0D0D0D;
+  }
+
+  :deep(.el-upload-dragger) {
+    border: 1px solid #f5cccc;
+    background: #fdf4f2;
   }
 
   :deep(.el-form-item__label) {
@@ -631,6 +637,10 @@ async function beginUpload() {
     font-size: var(--el-font-size-base);
     color: var(--el-color-info);
     line-height: 1;
+    margin-bottom: 22px;
+    &.no-margin {
+      margin-bottom: unset;
+    }
 
     &.upload {
       margin-bottom: 36px;
@@ -650,7 +660,7 @@ async function beginUpload() {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    &>* {
+    & > * {
       width: 360px;
     }
 
