@@ -9,7 +9,11 @@
         <p class="sub-title">
           {{ t("description._2") }}
         </p>
-        <button id="home-start-publish" class="start-to-publish">
+        <button
+          id="home-start-publish"
+          class="start-to-publish"
+          @click="router.push({ name: 'publish' })"
+        >
           {{ t("start_to_publish") }}
         </button>
       </div>
@@ -66,6 +70,7 @@
 <script lang="ts" setup>
 import { useI18n } from "vue-i18n";
 import { onMounted, ref } from "vue";
+import { useRouter } from "vue-router";
 
 const { t } = useI18n({
   messages: {
@@ -110,6 +115,7 @@ const { t } = useI18n({
   },
 });
 
+const router = useRouter();
 const in_the_view = ref(false);
 
 onMounted(() => {
