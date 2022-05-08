@@ -80,14 +80,14 @@ const { t } = useI18n({
         _1: "No restrictions on the format and content of the publication,",
         _2: "everything is stored permanently distributed in NFT.",
       },
-      start_to_publish: "Start to publish",
+      start_to_publish: "Start publishing",
       items: {
-        art_works: "Art Works",
+        art_works: "Artwork",
         illustration: "Illustration",
         books: "Books",
         nature: "Nature",
         "3d_art": "3D Art",
-        "3d_modeling": "3D Modeling",
+        "3d_modeling": "3D Modelling",
         music: "Music",
         discovery: "Discovery",
         animation: "Animation",
@@ -96,7 +96,7 @@ const { t } = useI18n({
     "zh-CN": {
       title: "自由发布您喜欢的内容",
       description: {
-        _1: "对出版物的格式和内容没有限制，",
+        _1: "对出版物的格式没有限制，",
         _2: "所有内容都永久存储在NFT中",
       },
       start_to_publish: "开始发布",

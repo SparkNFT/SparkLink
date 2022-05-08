@@ -70,6 +70,7 @@
       prop="royaltyPrice"
       class="single-label"
     >
+      <p class="description">{{ t("inputs.royaltyPrice.description") }}</p>
       <el-input-number
         v-model="data.royaltyPrice"
         name="royalty price"
@@ -208,7 +209,7 @@ const { t } = useI18n({
       validate: "This field is required",
       inputs: {
         name: {
-          label: "Work Name",
+          label: "Name of Creation",
           validate: {
             max: "Name should be a string whose length is under 64.",
           },
@@ -216,8 +217,7 @@ const { t } = useI18n({
         earning: {
           label: "Percentage of Earnings",
           description:
-            "When your item is shared and profited by others,what percentage of the" +
-            "profits you want from the share of the profits.",
+            "This is the percentage of the profits you want to keep when your item is shared and profited by others.",
           validate: {
             range: "Number out of bounds.",
           },
@@ -225,7 +225,7 @@ const { t } = useI18n({
         currency: {
           label: "Payment Currency",
           description:
-            "Please select the payment currency of your support (enter token symbol or paste token contract address).",
+            "Please select your payment currency (enter token symbol or paste token contract address).",
           chain: "Current chain: ",
         },
         price: {
@@ -235,7 +235,7 @@ const { t } = useI18n({
         shares: {
           label: "Maximum number of shares",
           description:
-            "How many times do you want each user to help you spread?",
+            "How many times should each buyer be able to sell nodes of your creation?",
           placeHolder: "Up to 65535, Interger",
         },
         baseline: {
@@ -243,7 +243,9 @@ const { t } = useI18n({
           placeHolder: "0 to 255, Interger",
         },
         royaltyPrice: {
-          label: "The royalty price the author could get when sold a nft.",
+          label: "Royalty Price",
+          description:
+            "The amount you will receive each time a node of your creation is sold.",
           placeHolder: "In coin, not in wei.",
         },
         authority: {
@@ -252,16 +254,12 @@ const { t } = useI18n({
         encrypt: {
           label: "Encrypt publish",
           description:
-            "Choose open source release by default, users can download and view" +
-            "the content of the work regardless of whether the work is purchased" +
-            "or not.",
+            "Choose open-source release by default, meaning users can download and view the work regardless of whether the work is purchased or not.",
         },
         description: {
           label: "Work description",
           description:
-            "Please describe your work in simple words. Accurate and effective" +
-            "description can help other users to understand your work more" +
-            "accurately.",
+            "Describe your work in simple words. Accurate and effective descriptions can help other users to understand your work more accurately.",
         },
         upload: {
           hint: {
@@ -274,8 +272,7 @@ const { t } = useI18n({
           cover: {
             label: "Cover Photo",
             description:
-              "Please upload your cover image in the area below. Cover files support" +
-              "these formats: JPEG/JPG/PNG.",
+              "Please upload your cover image in the area below. Cover files support these formats: JPEG/JPG/PNG.",
           },
           content: {
             label: "Work file",
@@ -319,6 +316,7 @@ const { t } = useI18n({
         },
         royaltyPrice: {
           label: "销售版税",
+          description: "每一个下级节点被出售后创作者固定的版税抽成",
           placeHolder: "以货币而非以太为结算单位",
         },
         authority: {
