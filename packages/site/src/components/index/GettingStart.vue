@@ -27,47 +27,48 @@ import { useI18n } from "vue-i18n";
 const { t } = useI18n({
   messages: {
     en: {
-      title: "Simple to start",
-      description: "No need middlemen, publish and spread becomes in seconds.",
+      title: "Get started",
+      description:
+        "No gatekeepers. You’re in control. Publish and share in seconds.",
       steps: [
         {
-          title: "Set up your wallet",
-          description: "Connect the crypto wallet to start",
+          title: "Set up wallet",
+          description: "Connect a crypto wallet to start",
         },
         {
-          title: "Publish your content",
-          description: "Upload your work(image, video, audio, or 3D art)",
+          title: "Publish content",
+          description: "Upload your work (image, video, audio, or 3D art)",
         },
         {
-          title: "Generate share posters or links",
+          title: "Generate sharing poster or link",
           description:
-            "Generate exclusive sharing posters and links of NFT works, share and sell freely",
+            "Generate an exclusive sharing poster or link of your NFT to share and sell freely",
         },
         {
           title: "Monetize",
           description:
-            "Creators get royalties and  node income permanently by selling the subordinate nodes of their own works, sharers get the income permanently by selling the subordinate nodes of their bought.",
+            "Creators gain royalties and node income by selling subordinate nodes of their works. Sharers gain income by selling subordinate nodes of creator’s NFTs.\n",
         },
       ],
     },
     "zh-CN": {
-      title: "简单上手",
-      description: "无需中间商，发布和传播在几秒钟内完成。",
+      title: "如何开始",
+      description: "无需中间商，创造和分发即刻开始",
       steps: [
         {
           title: "设置您的数字钱包",
           description: "连接加密钱包开始",
         },
         {
-          title: "出版您的内容",
+          title: "发布您的作品",
           description: "上传您任何格式的作品（图像、视频、音频等）",
         },
         {
-          title: "生成共享海报或链接",
+          title: "生成分享海报或链接",
           description: "生成作品的独特分享海报和链接，自由分享和销售",
         },
         {
-          title: "赚钱",
+          title: "获取收益",
           description:
             "创作者通过出售自己作品的从属节点永久获得版税和节点抽成收入，共享者通过分销已购买作品的下级永久获得抽成收入。",
         },

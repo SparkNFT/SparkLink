@@ -20,7 +20,7 @@
       </div>
       <div v-else class="subscription">
         <el-button size="large" class="button" color="#FFE177" round>
-          <i class="iconfont icon-telegram" style="margin-right: 8px;"></i>
+          <i class="iconfont icon-telegram" style="margin-right: 8px"></i>
           <span class="text">{{ t("subscription._1") }}</span>
         </el-button>
         <p>{{ t("subscription._2") }}</p>
@@ -156,7 +156,7 @@ const navs = computed(
           { name: t("navs.home"), routeName: "index" },
           { name: t("navs.publish"), routeName: "publish" },
           { name: t("navs.collection"), routeName: "collection" },
-          { name: t("wiki"), routeName: "wiki" },
+          { name: t("Wiki"), routeName: "wiki" },
         ],
       },
       {

@@ -22,18 +22,18 @@ const { t } = useI18n({
     en: {
       nodes: "/assets/how-to-benefit/nodes_en.png",
       title: {
-        _1: "Pure Web3 creator economy,",
-        _2: "We are So different from others",
+        _1: "For a pure WEB3.0 creator economy,",
+        _2: "We are SO different from others",
       },
       description: {
-        _1: "Unique tree-shaped sharing economy structure",
-        _2: "allows everyone to share and sell node NFT",
+        _1: "Bringing creators and audiences closer than ever before. ",
+        _2: "Share and sell node NFTs using a unique tree-shaped sharing economy structure.",
       },
     },
     "zh-CN": {
       nodes: "/assets/how-to-benefit/nodes_zh.png",
       title: {
-        _1: "纯粹的Web3创作者经济，",
+        _1: "纯粹的Web3.0创作者经济，",
         _2: "我们如此与众不同",
       },
       description: {

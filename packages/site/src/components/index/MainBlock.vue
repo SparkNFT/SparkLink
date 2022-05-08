@@ -35,12 +35,12 @@ const { t } = useI18n({
   messages: {
     en: {
       title: {
-        _1: "Publishing and distribution,",
-        _2: "are redefined by us.",
+        _1: "Redefining publishing and",
+        _2: "distribution.",
       },
       description: {
-        _1: "Publish your content, spread your passion",
-        _2: "Link all creators and sharers together, that is what we doing.",
+        _1: "Sparking creators, Linking audiences.",
+        _2: "Bringing creators and audiences closer than ever before.",
       },
       publish: "Publish",
       learnMore: "Learn More",
@@ -51,8 +51,8 @@ const { t } = useI18n({
         _2: "被我们重新定义。",
       },
       description: {
-        _1: "初版你的内容，传播你的热情",
-        _2: "将所有创作者和传播者连接起来，这是我们的愿望。",
+        _1: "出版你的作品，传播你的热情",
+        _2: "将所有人连接起来，这是我们的愿望。",
       },
       publish: "发布",
       learnMore: "了解更多",
