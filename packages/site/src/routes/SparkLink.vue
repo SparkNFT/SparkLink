@@ -132,8 +132,17 @@ const { t } = useI18n({
     "zh-CN": {
       title: "Spark Information",
       hint: "当前NFT在 {0} 网络。请先更换到该网络。（当前网络：{1}）",
-    },
-  },
+			detail: {
+				price: "点火价格:",
+				royalty: "根节点固定版税抽成：",
+				max_shares_number: "最大分销次数：",
+				remaining_share_times: "剩余分享次数：",
+				percentage_earning: "子节点抽成：",
+				work_is_encrypted: "NFT内容是否加密：",
+				allow_secondary_creation: "是否允许二次创作：",
+			},
+		},
+	},
 });
 
 const route = useRoute();
