@@ -84,19 +84,7 @@
                 })
               }}
             </p>
-            <p>
-              {{
-                t("detail.dividend_ratio", {
-                  percentage: metadata.percentageOfEarnings,
-                })
-              }}
-            </p>
             <p>{{ t("detail.child_node_owned", {}) }}</p>
-            <p>
-              {{
-                t("detail.nft_is_encrypted", { encrypted: metadata.encrypted })
-              }}
-            </p>
           </div>
           <div>
             <button class="btn white" @click="copyLink">
@@ -164,12 +152,10 @@ const { t } = useI18n({
         price: "Spark Price: {price} {symbol}",
         royalty: "Fixed royalty for root: {price} {symbol}",
         max_shares_number: "Maximum number of share: {times}",
-        percentage_earning: "Percentage of Earning on sub-node: {percentage}",
+        percentage_earning: "Percentage of Earning on sub-node: {percentage}%",
         work_is_encrypted: "Work is encrypted: {encrypted}",
         allow_secondary_creation: "Allow secondary creation: {allow}",
-        dividend_ratio: "Dividend ratio:  {percentage} %",
         child_node_owned: "Number of child nodes currently owned:  0",
-        nft_is_encrypted: "Whether NFT is encrypted:  {encrypted}",
       },
       share: {
         link: "LINK SHARING",
@@ -192,12 +178,10 @@ const { t } = useI18n({
         price: "点火价格：{price} {symbol}",
         royalty: "根节点固定版税抽成：{price} {symbol}",
         max_shares_number: "最大分销次数：{times}",
-        percentage_earning: "Percentage of Earning on sub-node: {percentage}",
-        work_is_encrypted: "Work is encrypted: {encrypted}",
+        percentage_earning: "子节点抽成: {percentage}%",
+        work_is_encrypted: "NFT内容是否加密{encrypted}",
         allow_secondary_creation: "是否允许二次创作：{allow}",
-        dividend_ratio: "Dividend ratio:  {percentage} %",
         child_node_owned: "目前已经有的下级节点：0",
-        nft_is_encrypted: "NFT内容是否加密{encrypted}",
       },
       share: {
         link: "复制链接",
