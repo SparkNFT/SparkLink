@@ -136,7 +136,7 @@ const shareLinks = reactive([
     name: "telegram",
   },
   {
-    target: "https://medium.com/@SparkLink",
+    target: "https://medium.com/@SparkLink_Protocol",
     icon: "iconfont icon-medium",
     name: "medium",
   },
