@@ -3,13 +3,11 @@
     :class="{
       header: true,
       mobile: !grid.md,
-      solid: !mobileTransparent,
       fixed: !sticky,
       sticky,
     }"
   >
-    <!-- I can not use css to implement the home page background style,so and a background img to act the header background-->
-    <img src="/assets/background.png" class="background" />
+    <div class="background"></div>
     <div class="inner">
       <router-link :to="{ name: `index` }" class="logo-a">
         <el-image src="assets/logo.png" class="logo" />
@@ -113,7 +111,6 @@ function navTo(path: string) {
 @use "element-plus/theme-chalk/src/common/var" as *;
 
 .header {
-  border-bottom: var(--el-border-base);
   position: fixed;
   z-index: 10;
   width: 100%;
@@ -121,19 +118,20 @@ function navTo(path: string) {
   padding-left: unset;
   border: none;
   overflow: hidden;
-
-  @include res("md-and-up", $breakpoints-spec) {
-    --el-header-height: 108px;
-  }
-
-  @include res("sm-and-down", $breakpoints-spec) {
-    --el-header-height: 74px;
-  }
+  --el-header-height: var(--header-height);
 
   .background {
     width: 100%;
     position: absolute;
+    height: 100vh;
     z-index: -1;
+    background: linear-gradient(
+        203.56deg,
+        rgba(255, 255, 255, 0.2) 14.77%,
+        rgba(255, 248, 235, 0.18125) 21.72%,
+        rgba(0, 0, 0, 0) 80.72%
+      ),
+      linear-gradient(230.61deg, #fecc80 1.01%, #f77878 27.21%, #56557e 87.73%);
   }
 
   > .inner {
@@ -157,11 +155,6 @@ function navTo(path: string) {
     &.fixed {
       border-bottom: none;
       background-color: unset;
-
-      &.solid {
-        border-bottom: var(--el-border-base);
-        background-color: white;
-      }
     }
 
     .nav {

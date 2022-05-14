@@ -1,21 +1,26 @@
 <template>
-  <div class="background">
-    <div class="_1"></div>
-    <div class="_2"></div>
-    <div class="_3"></div>
+  <div class="content">
+    <MainBlock />
+    <div class="with_2">
+      <el-image
+        v-if="index.blocksHaveBackground.value"
+        src="/assets/home/block_2.svg"
+        class="_2"
+      ></el-image>
+      <GettingStart />
+      <Mechanism />
+    </div>
+    <Benefits />
   </div>
-  <MainBlock />
-  <GettingStart />
-  <Mechanism />
-  <Benefits />
 </template>
 
 <script lang="ts" setup>
-import { onBeforeMount, ref } from "vue";
+import { onBeforeMount, provide, ref, watch } from "vue";
 import MainBlock from "../components/index/MainBlock.vue";
 import Mechanism from "../components/index/TheMechanism.vue";
 import GettingStart from "../components/index/GettingStart.vue";
 import Benefits from "../components/index/TheBenefits.vue";
+import { index } from "../states";
 
 const height = ref("4237px");
 onBeforeMount(() => {
@@ -27,6 +32,7 @@ function calculateStyle() {
     window.document.body.clientWidth / (1920 / 1142) - 108;
   height.value = 4237 - (1142 - main_block_height) + "px";
 }
+
 </script>
 
 <style scoped lang="scss">
@@ -48,17 +54,6 @@ function calculateStyle() {
     background-size: contain;
   }
 
-  ._2 {
-    position: absolute;
-    top: 1060px;
-    left: 958px;
-    width: 1353px;
-    height: 1922px;
-    background-image: url("/assets/home/block_2.svg");
-    background-repeat: no-repeat;
-    background-size: contain;
-  }
-
   ._3 {
     position: absolute;
     top: 3272px;
@@ -66,8 +61,27 @@ function calculateStyle() {
     width: 1339px;
     height: 1902px;
     background-image: url("/assets/home/block_3.svg");
-    background-repeat: no-repeat;
-    background-size: contain;
+  }
+}
+
+.with_2 {
+  position: relative;
+}
+
+.with_2 > ._2 {
+  position: absolute;
+  right: -361px;
+  top: -8px;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.content {
+  position: relative;
+  
+  top: calc(-1 * var(--header-height));
+  &::v-deep a {
+    text-decoration-line: none;
   }
 }
 </style>

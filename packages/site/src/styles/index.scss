@@ -110,6 +110,24 @@ p {
   @include title-underline(#ef7a61);
 }
 
+@mixin index-description {
+  font-size: 22px;
+  @include res("sm-and-down", $breakpoints-spec) {
+    font-size: 20px;
+  }
+  color: var(--el-color-info);
+  line-height: 1.5;
+  text-align: center;
+  font-weight: 400;
+}
+
+@mixin index-container {
+  @include res("md-and-down", $breakpoints-spec) {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
 @mixin block {
   display: flex;
   flex-direction: column;
