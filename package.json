@@ -12,12 +12,15 @@
 		"serve:production": "./scripts/production.sh",
 		"bootstrap": "./scripts/bootstrap.sh",
 		"site": "yarn workspace @SparkLink/site run dev",
-		"build": "yarn workspace @SparkLink/business run build:esm"
+		"build": "yarn workspace @SparkLink/business run build:esm && yarn workspace @SparkLink/site run build",
+		"predeploy": "yarn build",
+		"deploy": "echo sparklink.io > packages/site/dist/CNAME && gh-pages -d packages/site/dist"
 	},
 	"packageManager": "yarn@3.1.0",
 	"dependencies": {
 		"@metamask/detect-provider": "^1.2.0",
 		"erc-20-abi": "^1.0.0",
-		"eventemitter3": "^4.0.7"
+		"eventemitter3": "^4.0.7",
+		"gh-pages": "^4.0.0"
 	}
 }
