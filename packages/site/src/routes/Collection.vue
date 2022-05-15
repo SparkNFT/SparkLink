@@ -98,25 +98,33 @@ async function resetPage() {
 
 watch(client, resetPage);
 onMounted(resetPage);
-
-const unsupportedChain = computed(() => !chainName.value);
 </script>
 
 <style lang="scss" scoped>
+@use "../styles/index.scss";
+@use "element-plus/theme-chalk/src/common/var" as *;
+@use "element-plus/theme-chalk/src/mixins/mixins" as *;
+
+@mixin mobile() {
+  @include res("sm-and-down", $breakpoints-spec) {
+    @content;
+  }
+}
+
 .collection-border {
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 32px 150px 175px 150px;
+  padding: 150px 0;
   box-sizing: border-box;
 
+  @include mobile {
+    padding: 80px 20px;
+  }
+
   .title {
-    margin: 0 0 77px;
-    font-size: 48px;
-    font-weight: 900;
-    line-height: 48px;
-    text-align: center;
-    color: #383838;
+    @include index.title-red;
+    margin-bottom: 77px;
   }
 }
 
@@ -126,6 +134,11 @@ const unsupportedChain = computed(() => !chainName.value);
   grid-template-columns: repeat(auto-fit, 489px);
   justify-content: center;
   gap: 68px;
+
+  @include mobile {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
 }
 
 .nothing {

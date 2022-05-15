@@ -4,3 +4,7 @@ import { grid } from "../grid";
 export const index = {
   blocksHaveBackground: computed(() => grid.xl),
 };
+
+export const collection = {
+  inMobile: computed(() => !grid.md),
+};
