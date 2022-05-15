@@ -168,7 +168,7 @@
       </el-form-item>
     </div>
     <div class="btn-area">
-      <el-button type="danger" @click="submit" class="publish-btn"
+      <el-button type="danger" class="publish-btn" @click="submit"
         >{{ t("btn.publish") }}
       </el-button>
     </div>
@@ -657,6 +657,10 @@ async function beginUpload() {
   .upload-container {
     display: flex;
     align-items: center;
+	  .el-form-item {
+		  height: 291px;
+	  }
+
     justify-content: space-between;
     & > * {
       width: 360px;
