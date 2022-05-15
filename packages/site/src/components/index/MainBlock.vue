@@ -3,18 +3,19 @@
     id="main-block"
     :class="{ mobile: !grid.sm, 'not-see': !in_the_view }"
   >
+    <div class="background">
+      <div class="imgs"></div>
+    </div>
     <div class="container">
-      <h2 class="main-text title">{{ t("title._1") }}</h2>
-      <h2 class="main-text title">{{ t("title._2") }}</h2>
+      <h2 class="main-text title _1">
+        {{ t("title._1") }}<br />{{ t("title._2") }}
+      </h2>
       <p class="sub-text sub-title">
-        {{ t("description._1") }}
-      </p>
-      <p class="sub-text sub-title">
-        {{ t("description._2") }}
+        {{ t("description._1") }}<br />{{ t("description._2") }}
       </p>
       <router-link :to="{ name: `publish` }">
         <el-button color="#478EFD" class="btn primary publish-btn">
-          <span class="btn-text">{{ t("publish") }}</span>
+          {{ t("publish") }}
         </el-button>
       </router-link>
       <br />
@@ -73,14 +74,12 @@ onMounted(() => {
 });
 
 const padding_top = ref("272px");
-const height = ref("1034px");
 
 onBeforeMount(() => {
   calculateStyle();
 });
 
 function calculateStyle() {
-  height.value = window.document.body.clientWidth / (1920 / 1142) - 108 + "px";
   if (window.document.body.clientWidth < 1600) {
     padding_top.value =
       (window.document.body.clientWidth / 1920) * 200 - 100 + "px";
@@ -91,23 +90,72 @@ function calculateStyle() {
 </script>
 
 <style lang="scss" scoped>
+@use "element-plus/theme-chalk/src/mixins/mixins" as *;
+@use "element-plus/theme-chalk/src/common/var" as *;
+
+.background {
+  position: absolute;
+  top: 0;
+  background: linear-gradient(
+      203.56deg,
+      rgba(255, 255, 255, 0.2) 14.77%,
+      rgba(255, 248, 235, 0.18125) 21.72%,
+      rgba(0, 0, 0, 0) 80.72%
+    ),
+    linear-gradient(230.61deg, #fecc80 1.01%, #f77878 27.21%, #56557e 87.73%);
+}
+
+#main-block,
+.background {
+  width: 100%;
+  height: 100vh;
+  .imgs {
+    position: absolute;
+    left: 52%;
+    transform: translateX(-50%);
+    width: 1920px;
+    height: 550px;
+    top: 20%;
+    background: url(/assets/home/mainBlock/desktop.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    overflow: visible;
+
+    @include res("xs-only", $breakpoints-spec) {
+      background-image: url(/assets/home/mainBlock/mobile.png);
+      width: 609px;
+      height: 495px;
+      top: 11%;
+    }
+  }
+}
+
 #main-block {
   overflow: hidden;
   position: relative;
-  height: v-bind("height");
+  height: 100vh;
 
   .container {
     text-align: center;
-    padding-top: v-bind("padding_top");
+    position: relative;
+    top: 30%;
     box-sizing: border-box;
     height: 100%;
+
+    @include res("xs-only", $breakpoints-spec) {
+      top: 22%;
+    }
 
     .main-text {
       margin: 0 0 50px;
       color: #f5f5f5;
       font-weight: bolder;
       font-size: 58px;
-      line-height: 100%;
+      line-height: 1.5;
+      @include res("xs-only", $breakpoints-spec) {
+        font-size: 28px;
+        margin: 0 20px 50px;
+      }
     }
 
     #main-block:first-child .main-text {
@@ -118,7 +166,12 @@ function calculateStyle() {
       margin: 0;
       color: #f5f5f5;
       font-size: 24px;
-      line-height: 100%;
+      line-height: 1.5;
+
+      @include res("xs-only", $breakpoints-spec) {
+        font-size: var(--el-font-size-large);
+        margin: 0 40px;
+      }
     }
 
     &:first-child .sub-text {
@@ -126,12 +179,28 @@ function calculateStyle() {
     }
 
     .publish-btn {
-      width: 308px;
+      padding: 0 100px;
       height: 82px;
       margin-top: 150px;
       margin-bottom: 75px;
       border-radius: 15px;
       border: none;
+      color: #ff6830;
+      font-weight: bold;
+
+      @include res("xs-only", $breakpoints-spec) {
+        margin-bottom: 20px;
+        height: 54px;
+        padding: 0 64px;
+      }
+
+      :deep(span) {
+        font-size: 30px;
+        @include res("xs-only", $breakpoints-spec) {
+          font-size: 20px;
+        }
+      }
+
       background: linear-gradient(
         77.37deg,
         #fc5151 3.37%,
@@ -139,20 +208,12 @@ function calculateStyle() {
         #ffa370 99.2%
       );
 
-      :deep(span) {
-        color: #ff6830;
-        font-size: 30px;
-        font-weight: bold;
-      }
-
       &:hover {
-        background: #ffe177;
         filter: drop-shadow(0px 0px 28px #ffe177);
       }
     }
 
     .learn-more {
-      font-size: 24px;
       color: #ffffff;
       text-decoration: underline;
     }

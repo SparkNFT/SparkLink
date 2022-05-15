@@ -1,26 +1,33 @@
 <template>
   <section id="benefits" :class="{ 'not-see': !in_the_view }">
-    <div class="container">
-      <img :src="t('nodes')" class="nodes" />
+    <div class="wrapper">
+      <div class="container">
+      <NodesImg v-if="!isMobile"></NodesImg>
       <div class="web3">
-        <h1 class="title">{{ t("title._1") }}</h1>
-        <h1 class="title">{{ t("title._2") }}</h1>
-
-        <p class="text">{{ t("description._1") }}</p>
-        <p class="text">{{ t("description._2") }}</p>
+        <h1 class="title">
+          {{ t("title._1") }}<br v-if="!isMobile" />{{ t("title._2") }}
+        </h1>
+        <p class="text">
+          {{ t("description._1") }}<br v-if="!isMobile" />{{
+            t("description._2")
+          }}
+        </p>
+        <NodesImg v-if="isMobile"></NodesImg>
       </div>
+    </div>
     </div>
   </section>
 </template>
 
 <script lang="ts" setup>
 import { useI18n } from "vue-i18n";
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
+import { grid } from "../../grid";
+import NodesImg from "./benefits/NodesImg.vue";
 
 const { t } = useI18n({
   messages: {
     en: {
-      nodes: "/assets/how-to-benefit/nodes_en.png",
       title: {
         _1: "For a pure WEB3.0 creator economy,",
         _2: "We are SO different from others",
@@ -31,7 +38,6 @@ const { t } = useI18n({
       },
     },
     "zh-CN": {
-      nodes: "/assets/how-to-benefit/nodes_zh.png",
       title: {
         _1: "纯粹的Web3.0创作者经济，",
         _2: "我们如此与众不同",
@@ -45,6 +51,8 @@ const { t } = useI18n({
 });
 
 const in_the_view = ref(false);
+
+const isMobile = computed(() => !grid.lg);
 
 onMounted(() => {
   let view_point_height = window.innerHeight;
@@ -71,48 +79,66 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 @use "../../styles/index.scss";
+@use "element-plus/theme-chalk/src/mixins/mixins" as *;
+@use "element-plus/theme-chalk/src/common/var" as *;
+
+@mixin mobile() {
+  @include res("md-and-down", $breakpoints-spec) {
+    @content;
+  }
+}
+
+@mixin desktop() {
+  @include res("lg-and-up", $breakpoints-spec) {
+    @content;
+  }
+}
 
 #benefits {
-  height: 863px;
-  padding-top: 200px;
-  padding-left: 118px;
-  padding-right: 118px;
+  padding: 200px 0;
   box-sizing: border-box;
   overflow-x: hidden;
+  background: #F4EBEB;
+  position: relative;
+  top: calc(var(--header-height));
+  @include mobile {
+    padding: 80px 20px 60px;
+  }
 
   .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-  }
-
-  .nodes {
-    width: 50%;
-    transition: all 0.8s ease-in-out;
+    @include mobile {
+      flex-direction: column;
+    }
   }
 
   .web3 {
     transition: all 0.8s ease-in-out;
 
     .title {
-      color: #383838;
-      font-size: 45px;
-      font-style: normal;
-      font-weight: 800;
-      line-height: 45px;
-      text-align: center;
+      @include index.index-title;
       @include index.title-underline;
+      margin-bottom: 56px;
+      @include mobile {
+        margin-bottom: 32px;
+      }
     }
 
     .text {
-      color: #8d8d97;
-      font-size: 25px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 25px;
-      text-align: center;
+      @include index.index-description;
+      @include mobile {
+        margin-bottom: 50px;
+      }
     }
+  }
+}
+
+.wrapper {
+  @include desktop() {
+    max-width: 1688px;
   }
 }
 

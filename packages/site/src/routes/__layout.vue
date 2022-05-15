@@ -2,13 +2,11 @@
   <el-container
     direction="vertical"
     style="min-height: 100vh"
-    :class="{ embed: !grid.lgPlus }"
+    :class="{ embed: !grid.lgPlus, wrapper: true }"
   >
     <TopBar :sticky="topBarShouldBeSticky" />
-    <el-main :class="['main', { 'with-background': route.name === 'index' }]">
-      <div>
-        <RouterView />
-      </div>
+    <el-main class="main">
+      <RouterView />
     </el-main>
     <the-footer />
   </el-container>
@@ -35,14 +33,21 @@ const topBarShouldBeSticky = computed(() => {
 </script>
 
 <style lang="scss" scoped>
-.main {
-  padding: 108px 0 0 0;
+@use "element-plus/theme-chalk/src/mixins/mixins" as *;
+@use "element-plus/theme-chalk/src/common/var" as *;
+
+.wrapper {
+  @include res("md-and-up", $breakpoints-spec) {
+    --header-height: 108px;
+  }
+
+  @include res("sm-and-down", $breakpoints-spec) {
+    --header-height: 74px;
+  }
 }
 
-.main.with-background {
-  background-image: url("/assets/background.png");
-  background-repeat: no-repeat;
-  background-size: contain;
+.main {
+  padding: var(--header-height) 0 0 0;
 }
 
 .notification {

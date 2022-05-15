@@ -11,7 +11,7 @@
       class="single-label"
       prop="name"
     >
-      <el-input v-model="data.name" name="itemName" style="width: 563px" />
+      <el-input v-model="data.name" name="itemName" class="len short" />
     </el-form-item>
     <el-form-item
       :label="t('inputs.earning.label')"
@@ -35,8 +35,8 @@
         >.
       </p>
       <payment-currency-selector
-        style="width: 862px"
         name="paymentCurrency"
+        class="len long"
         @update:address="updatePaymentCurrency"
       />
     </el-form-item>
@@ -47,7 +47,7 @@
         :controls="false"
         size="large"
         name="sellingPrice"
-        style="width: 862px"
+        class="len long"
       />
     </el-form-item>
     <el-form-item :label="t('inputs.shares.label')" prop="maxShareTimes">
@@ -62,7 +62,7 @@
         :min="0"
         :max="65535"
         :precision="0"
-        style="width: 862px"
+        class="len long"
       />
     </el-form-item>
     <el-form-item
@@ -78,7 +78,7 @@
         :placeholder="t('inputs.royaltyPrice.placeHolder')"
         :min="0"
         size="large"
-        style="width: 862px"
+        class="len long"
       />
     </el-form-item>
     <el-form-item
@@ -102,7 +102,9 @@
           :active-icon="Check"
           :inactive-icon="Close"
         />
-        <span class="description">{{ t("inputs.encrypt.description") }}</span>
+        <span class="description no-margin">{{
+          t("inputs.encrypt.description")
+        }}</span>
       </div>
     </el-form-item>
     <el-form-item :label="t('inputs.description.label')" prop="description">
@@ -110,13 +112,13 @@
       <el-input
         v-model="data.description"
         type="textarea"
-        autosize
+        :autosize="{ minRows: 3 }"
         name="itemDescription"
       />
     </el-form-item>
     <div class="upload-container">
       <el-form-item :label="t('inputs.upload.cover.label')" prop="files.cover">
-        <p class="description">
+        <p class="upload description">
           {{ t("inputs.upload.cover.description") }}
         </p>
         <el-upload
@@ -128,9 +130,7 @@
           :http-request="fakeRequest"
           :on-change="onCoverChange"
         >
-          <el-icon class="el-icon--upload">
-            <upload-filled />
-          </el-icon>
+          <img src="/assets/publish/upload.svg" class="el-icon--upload" />
           <div class="el-upload__text">
             {{ t("inputs.upload.hint._1")
             }}<em>{{ t("inputs.upload.hint._2") }}</em>
@@ -141,7 +141,7 @@
         :label="t('inputs.upload.content.label')"
         prop="files.content"
       >
-        <p class="description">
+        <p class="upload description">
           {{ t("inputs.upload.content.description") }}
         </p>
         <el-upload
@@ -154,9 +154,7 @@
           :http-request="fakeRequest"
           :on-change="onContentChange"
         >
-          <el-icon class="el-icon--upload">
-            <upload-filled />
-          </el-icon>
+          <img src="/assets/publish/upload.svg" class="el-icon--upload" />
           <div class="el-upload__text">
             {{ t("inputs.upload.hint._1")
             }}<em>{{ t("inputs.upload.hint._2") }}</em>
@@ -558,6 +556,21 @@ async function beginUpload() {
 </script>
 
 <style lang="scss" scoped>
+@use "element-plus/theme-chalk/src/mixins/mixins" as *;
+@use "element-plus/theme-chalk/src/common/var" as *;
+
+@mixin mobile() {
+  @include res("md-and-down", $breakpoints-spec) {
+    @content;
+  }
+}
+
+@mixin desktop() {
+  @include res("lg-and-up", $breakpoints-spec) {
+    @content;
+  }
+}
+
 :deep(.el-form-item.is-required:not(.is-no-asterisk))
   > .el-form-item__label:before {
   content: none;
@@ -571,11 +584,22 @@ async function beginUpload() {
 }
 
 .form {
+  :deep(.el-form-item) {
+    margin-bottom: 55px;
+  }
   :deep(.el-textarea__inner),
   :deep(.el-input__inner),
   :deep(.el-upload-dragger) {
-    border: 2px solid black;
     border-radius: 5px;
+  }
+
+  :deep(.el-textarea__inner), :deep(.el-input__inner) {
+    border: 1px solid #0D0D0D;
+  }
+
+  :deep(.el-upload-dragger) {
+    border: 1px solid #f5cccc;
+    background: #fdf4f2;
   }
 
   :deep(.el-form-item__label) {
@@ -611,6 +635,14 @@ async function beginUpload() {
     font-size: var(--el-font-size-base);
     color: var(--el-color-info);
     line-height: 1;
+    margin-bottom: 22px;
+    &.no-margin {
+      margin-bottom: unset;
+    }
+
+    &.upload {
+      margin-bottom: 36px;
+    }
   }
 
   .switch-wrapper {
@@ -628,6 +660,15 @@ async function beginUpload() {
 	  .el-form-item {
 		  height: 291px;
 	  }
+
+    justify-content: space-between;
+    & > * {
+      width: 360px;
+    }
+
+    @include mobile {
+      flex-direction: column;
+    }
   }
 
   .el-upload__tip {
@@ -641,8 +682,11 @@ async function beginUpload() {
 
   .btn-area {
     margin-top: 103px;
-    margin-bottom: 140px;
     text-align: center;
+
+    @include mobile {
+      margin-top: 46px;
+    }
 
     .publish-btn {
       width: 267px;
@@ -660,6 +704,24 @@ async function beginUpload() {
         font-weight: 700;
         font-size: 24px;
       }
+    }
+  }
+
+  :deep(.len) {
+    &.short {
+      @include desktop {
+        width: 563px;
+      }
+    }
+
+    &.long {
+      @include desktop {
+        width: 863px;
+      }
+    }
+
+    @include mobile {
+      width: 100%;
     }
   }
 }
