@@ -8,8 +8,7 @@
     "moduleResolution": "node",
     "lib": ["DOM", "ESNext"],
     "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true,
-    "exactOptionalPropertyTypes": true
+    "allowSyntheticDefaultImports": true
   },
   "include": [
     "src/**/*.ts",
