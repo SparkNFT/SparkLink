@@ -1,6 +1,6 @@
 <template>
   <div class="collection-border">
-    <h1 class="title">
+    <h1 class="title collection">
       {{ t("collection") }}
     </h1>
 
@@ -123,8 +123,13 @@ onMounted(resetPage);
   }
 
   .title {
-    @include index.title-red;
-    margin-bottom: 77px;
+    @include index.index-title;
+    @include mobile {
+      @include index.title-red;
+    }
+    &.collection {
+      margin-bottom: 77px;
+    }
   }
 }
 
