@@ -3,9 +3,9 @@ services:
   postgres:
     image: postgres:13-alpine
     environment:
-      POSTGRES_USER: easeshare
+      POSTGRES_USER: sparklink
       POSTGRES_PASSWORD: iese7eeL4DuabohphooRie5Eiphaim
-      POSTGRES_DB: easeshare_server_staging
+      POSTGRES_DB: sparklink_server_staging
   server:
     image: ghcr.io/easeshare/server:latest
     volumes:
@@ -13,7 +13,7 @@ services:
     ports:
       - 3001:3000
   frontend:
-    image: easeshare/frontend-preview
+    image: sparklink/frontend-preview
     build:
       context: ..
       dockerfile: compose/Dockerfile.preview

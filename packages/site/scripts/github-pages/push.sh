@@ -9,7 +9,7 @@ cp -r $SITE_BASEDIR/dist $BASEDIR
 cd $BASEDIR/dist
 echo $2 > CNAME
 git init
-git config user.email "no-reply@easeshare.io"
+git config user.email "no-reply@sparklink.io"
 git config user.name "deploy-robot"
 git checkout -b main
 git add -A
