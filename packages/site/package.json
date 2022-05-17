@@ -4,8 +4,8 @@
   "scripts": {
     "dev": "DEBUG=true vite",
     "build": "vite build",
-    "build:staging": "KEY_SERVER_BASE_URL=https://staging.easeshare.io FRONTEND_BASE_URL=https://app-staging.easeshare.io yarn build",
-    "build:production": "KEY_SERVER_BASE_URL=https://easeshare.io FRONTEND_BASE_URL=https://app-staging.easeshare.io yarn build",
+    "build:staging": "KEY_SERVER_BASE_URL=https://staging.sparklink.io FRONTEND_BASE_URL=https://app-staging.sparklink.io yarn build",
+    "build:production": "KEY_SERVER_BASE_URL=https://sparklink.io FRONTEND_BASE_URL=https://app-staging.sparklink.io yarn build",
     "serve": "vite preview --host 0.0.0.0",
     "build-serve": "yarn build && yarn serve"
   },

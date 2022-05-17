@@ -2,9 +2,9 @@
     "db": {
         "host": "postgres",
         "port": 5432,
-        "user": "easeshare",
+        "user": "sparklink",
         "password": "iese7eeL4DuabohphooRie5Eiphaim",
-        "db_name": "easeshare_server_staging",
+        "db_name": "sparklink_server_staging",
         "tz": "UTC"
     },
     "chain": {
