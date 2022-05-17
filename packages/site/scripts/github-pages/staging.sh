@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 BASEDIR=$(dirname "$0")
-$BASEDIR/push.sh sparklink/Frontend.page.git app-staging.sparklink.io $1
+$BASEDIR/push.sh SparkNFT/Frontend.page.git app-staging.sparklink.io $1
