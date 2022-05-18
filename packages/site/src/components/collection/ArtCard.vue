@@ -1,41 +1,45 @@
 <template>
-  <el-card class="art-card" shadow="hover">
-    <el-image
-      v-if="coverUrl !== 'Loading'"
-      :src="coverUrl"
-      fit="cover"
-      class="img"
-    />
-    <el-image class="img" v-else>
-      <template #error>
-        <div class="image-slot">{{ t("hint.loading") }}</div>
-      </template>
-    </el-image>
-    <div class="content">
-      <p class="title">{{ title }}</p>
-      <p class="sub-title">{{ description }}</p>
-      <div class="bottom">
-        <el-button
-          class="enter"
-          type="text"
-          @click="
-            router.push({
-              name: 'art',
-              params: { chainId: web3InfoGetter.chain.id.value, nftId },
-            })
-          "
-          >{{ t("view") }}
-        </el-button>
+  <div>
+    <p v-if="inMobile" class="nft-id">NFT ID: {{ nftId }}</p>
+    <div class="art-card" shadow="hover">
+      <el-image
+        v-if="coverUrl !== 'Loading'"
+        :src="coverUrl"
+        fit="cover"
+        class="img"
+      />
+      <el-image class="img" v-else>
+        <template #error>
+          <div class="image-slot">{{ t("hint.loading") }}</div>
+        </template>
+      </el-image>
+      <div class="content">
+        <p class="title">{{ title }}</p>
+        <p class="sub-title">{{ description }}</p>
+        <div class="bottom">
+          <el-button
+            class="enter"
+            type="text"
+            @click="
+              router.push({
+                name: 'art',
+                params: { chainId: web3InfoGetter.chain.id.value, nftId },
+              })
+            "
+            >{{ t("view") }}
+          </el-button>
+        </div>
+        <p v-if="!inMobile" class="nft-id">NFT ID: {{ nftId }}</p>
       </div>
-      <p class="nft-id">NFT ID: {{ nftId }}</p>
     </div>
-  </el-card>
+  </div>
 </template>
 
 <script lang="ts" setup>
 import { useI18n } from "vue-i18n";
 import { useRouter } from "vue-router";
 import { web3InfoGetter } from "../../store";
+import { collection } from "../../states";
 
 const { t } = useI18n({
   messages: { en: { view: "View" }, "zh-CN": { view: "查看" } },
@@ -49,12 +53,21 @@ defineProps<{
 }>();
 
 const router = useRouter();
+
+const inMobile = collection.inMobile;
 </script>
 
 <style lang="scss" scoped>
+@use "element-plus/theme-chalk/src/common/var" as *;
+@use "element-plus/theme-chalk/src/mixins/mixins" as *;
+
+@mixin mobile() {
+  @include res("sm-and-down", $breakpoints-spec) {
+    @content;
+  }
+}
+
 .art-card {
-  width: 489px;
-  height: 773px;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -69,14 +82,20 @@ const router = useRouter();
 
 .img {
   width: 100%;
-  height: 498px;
   display: flex;
   align-items: center;
   background: #e2c8ce;
   border-radius: 20px;
 
-  & > :deep(img) {
-    height: auto;
+  &:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+  }
+
+  > :deep(*) {
+    position: absolute;
+    top: 0;
   }
 }
 
@@ -96,6 +115,12 @@ const router = useRouter();
   line-height: 39px;
   text-align: center;
   color: #2c2f30;
+
+  @include mobile {
+    font-size: var(--el-font-size-medium);
+    margin-bottom: unset;
+    line-height: unset;
+  }
 }
 
 .sub-title {
@@ -105,16 +130,28 @@ const router = useRouter();
   line-height: 180%;
   text-align: center;
   color: #8d8d97;
+
+  @include mobile {
+    font-size: 10px;
+    margin-bottom: 8px;
+  }
 }
 
 .content {
-  height: 284px;
   padding: 34px 0 36px 0;
   text-align: center;
+
+  @include mobile {
+    padding: 12px 0 0;
+  }
 }
 
 .bottom {
   margin-bottom: 23px;
+
+  @include mobile {
+    margin-bottom: 0;
+  }
 }
 
 .enter {
@@ -124,6 +161,15 @@ const router = useRouter();
   font-weight: bold;
   background: #ef7a61;
   border-radius: 10px;
+
+  @include mobile {
+    width: 100%;
+    border-radius: 40px;
+    height: 40px;
+    :deep(span) {
+      font-size: 12px;
+    }
+  }
 
   &:hover {
     color: #ff6e65;
@@ -138,5 +184,12 @@ const router = useRouter();
   line-height: 22px;
   text-align: center;
   color: #4d4d4d;
+
+  @include mobile {
+    font-size: 8px;
+    line-height: unset;
+    margin-block-end: 4px;
+    color: var(--el-color-primary);
+  }
 }
 </style>
