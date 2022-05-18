@@ -38,22 +38,22 @@ const { t } = useI18n({
         "No gatekeepers. You’re in control. Publish and share in seconds.",
       steps: [
         {
-          title: "Set up your wallet",
-          description: "Connect the crypto wallet to start.",
+          title: "Set up wallet",
+          description: "Connect a crypto wallet to start.",
         },
         {
-          title: "Publish your content",
+          title: "Publish content",
           description: "Upload your work (image, video, audio, or 3D art).",
         },
         {
           title: "Generate sharing poster or link",
           description:
-            "Generate exclusive sharing posters and links of NFT works, share and sell freely.",
+            "Generate an exclusive sharing poster or link of your NFT to share and sell freely.",
         },
         {
           title: "Monetize",
           description:
-            "Creators gain royalties and node income by selling subordinate nodes of their works. Sharers gain income by selling subordinate nodes of creator’s NFTs.\n",
+            "Creators gain royalties and node income by selling subordinate nodes of their works. Sharers gain income by selling subordinate nodes of creator’s NFTs.",
         },
       ],
     },

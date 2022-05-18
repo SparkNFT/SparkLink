@@ -33,14 +33,14 @@ const { t } = useI18n({
   messages: {
     en: {
       title: {
-        _1: "Freely publish what ",
-        _2: "you love",
+        _1: "Publishing without limits",
+        _2: "",
       },
       description: {
-        _1: "No restrictions on the format and content of the publication, ",
-        _2: "everything is stored permanently distributed in NFT.",
+        _1: "No restrictions on format or content of. ",
+        _2: "Everything is stored permanently and distributed in NFT.",
       },
-      start_to_publish: "Start to publish",
+      start_to_publish: "Start publish",
     },
     "zh-CN": {
       title: {
