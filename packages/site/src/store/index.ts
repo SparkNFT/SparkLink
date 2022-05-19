@@ -41,11 +41,11 @@ class Web3Operator {
     if (store.state.web3.account) {
       return store.state.web3.account;
     } else {
-      ElMessage({
-        message: "Preparing connecting...",
-        type: "info",
-        duration: 1000,
-      });
+      // ElMessage({
+      //   message: "Preparing connecting...",
+      //   type: "info",
+      //   duration: 1000,
+      // });
     }
     const provider = await Web3Operator.setProvider(
       store.state.walletConnectionInfo.provider

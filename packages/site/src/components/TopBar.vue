@@ -31,6 +31,7 @@
         ></NavigationDrawer>
       </template>
     </div>
+    <NetworkCheck></NetworkCheck>
   </el-header>
 </template>
 
@@ -44,6 +45,7 @@ import NavigationDrawer from "./topBar/NavigationDrawer.vue";
 import { INavItem } from "./types";
 import EndBlock from "./topBar/EndBlock.vue";
 import { t } from "../i18n";
+import NetworkCheck from "./topBar/NetworkCheck.vue";
 
 withDefaults(defineProps<{ sticky: boolean }>(), { sticky: false });
 
