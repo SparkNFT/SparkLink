@@ -229,6 +229,9 @@ const { t } = useI18n({
         price: {
           label: "Selling Price",
           description: "In coin, not in wei.",
+          validate: {
+            range: "Selling price must be greater than zero.",
+          },
         },
         shares: {
           label: "Maximum number of shares",
@@ -245,6 +248,10 @@ const { t } = useI18n({
           description:
             "The amount you will receive each time a node of your creation is sold.",
           placeHolder: "In coin, not in wei.",
+          validate: {
+            range:
+              "Royalty price must be smaller than selling price and bigger than 0.",
+          },
         },
         authority: {
           label: "Work Permission",
@@ -500,6 +507,12 @@ const rules = {
       required: true,
       message: t("validate"),
     },
+    {
+      type: "number",
+      min: 0,
+      trigger: "blur",
+      message: t("inputs.price.validate.range"),
+    },
   ],
   maxShareTimes: {
     type: "integer",
@@ -507,12 +520,22 @@ const rules = {
     trigger: "blur",
     message: t("validate"),
   },
-  baseline: {
-    type: "integer",
-    required: true,
-    trigger: "blur",
-    message: t("validate"),
-  },
+  royaltyPrice: [
+    {
+      type: "number",
+      trigger: "blur",
+      required: true,
+      message: t("validate"),
+    },
+    {
+      validator: (rule, value, callback) => {
+        console.log(data.sellingPrice, value);
+        if (value < data.sellingPrice) callback();
+        else callback(new Error(t("inputs.royaltyPrice.validate.range")));
+      },
+      trigger: "blur",
+    },
+  ],
   description: {
     required: true,
     message: t("validate"),
@@ -593,8 +616,9 @@ async function beginUpload() {
     border-radius: 5px;
   }
 
-  :deep(.el-textarea__inner), :deep(.el-input__inner) {
-    border: 1px solid #0D0D0D;
+  :deep(.el-textarea__inner),
+  :deep(.el-input__inner) {
+    border: 1px solid #0d0d0d;
   }
 
   :deep(.el-upload-dragger) {
@@ -657,9 +681,9 @@ async function beginUpload() {
   .upload-container {
     display: flex;
     align-items: center;
-	  .el-form-item {
-		  height: 291px;
-	  }
+    .el-form-item {
+      height: 291px;
+    }
 
     justify-content: space-between;
     & > * {
