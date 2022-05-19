@@ -6,7 +6,7 @@
       <span class="unit">{{ token.symbol }}</span>
     </p>
     <div class="btn-area">
-      <Button class="btn" @click="claim">
+      <Button class="btn" :type="inMobile ? Type.Outlined : Type.Default" @click="claim">
         <template #icon>
           <span class="material-icons-outlined">currency_exchange</span>
         </template>
@@ -36,6 +36,7 @@ import { toCoin } from "./data";
 import Button, { Type } from "../Button.vue";
 import { ref } from "vue";
 import ClaimProfitInProgress from "./ClaimProfitInProgress.vue";
+import { art } from "../../states";
 
 const props = defineProps<{
   nftId: string;
@@ -62,6 +63,8 @@ const { t } = useI18n({
   },
 });
 
+const { inMobile } = art;
+
 const profit = computed(() => toCoin(props.metadata.profit));
 
 function setupClaim() {
@@ -78,6 +81,8 @@ const { claimInProgress, claim } = setupClaim();
 </script>
 
 <style lang="scss" scoped>
+@use "../../styles/art.scss" as *;
+
 .container {
   display: flex;
   flex-direction: column;
@@ -93,6 +98,7 @@ const { claimInProgress, claim } = setupClaim();
 .result {
   font-weight: bold;
   font-size: 36px;
+  position: relative;
   .number {
     color: black;
     &:after {
@@ -102,6 +108,34 @@ const { claimInProgress, claim } = setupClaim();
   .unit {
     color: var(--el-color-primary);
   }
+
+  @include mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 116px;
+    overflow: visible;
+    height: 110px;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 234, 7, 0.7) -16.85%,
+      rgba(255, 234, 7, 0) 42.93%
+    );
+    justify-content: end;
+    filter: drop-shadow(0px 3px 40px rgba(255, 245, 135, 0.25));
+    border-radius: 52.5px;
+    .number {
+      font-size: 42px;
+    }
+    .unit {
+      font-size: 24px;
+      font-weight: 800px;
+    }
+    .background {
+      position: absolute;
+      top: 0;
+    }
+  }
 }
 
 .btn-area {
@@ -109,6 +143,15 @@ const { claimInProgress, claim } = setupClaim();
   width: 100%;
   max-width: 900px;
   gap: 100px;
+  :deep(* + *) {
+    margin-left: unset;
+  }
+
+  @include mobile {
+    flex-direction: column;
+    gap: 22px;
+    width: 80%;
+  }
 }
 
 .btn {

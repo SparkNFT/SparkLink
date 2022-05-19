@@ -9,9 +9,9 @@ defineProps<{ url: string }>();
 </script>
 
 <style lang="scss" scoped>
+@use "../../styles/art.scss" as *;
 .img {
   position: relative;
-  width: 526px;
   filter: drop-shadow(17px 24px 58px rgba(239, 122, 97, 0.25));
   border-radius: 20px;
   overflow: hidden;
@@ -19,6 +19,14 @@ defineProps<{ url: string }>();
     content: "";
     display: block;
     padding-bottom: 100%;
+  }
+  
+  @include desktop {
+    width: 526px;
+  }
+
+  @include mobile {
+    filter: drop-shadow(4px 16px 42px rgba(239, 122, 97, 0.25));
   }
 }
 

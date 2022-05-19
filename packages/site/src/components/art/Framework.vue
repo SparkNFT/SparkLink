@@ -6,7 +6,7 @@
   </div>
   <div v-else-if="hasMetadata" class="content">
     <div class="top-area">
-      <BackButton class="back"></BackButton>
+      <BackButton v-if="!inMobile" class="back"></BackButton>
       <ColorTitle :title="title"></ColorTitle>
     </div>
     <slot></slot>
@@ -16,14 +16,14 @@
 
 <script lang="ts" setup>
 import { web3InfoGetter } from "../../store";
-import { useRoute } from "vue-router";
 import { computed } from "vue";
 import { useI18n } from "vue-i18n";
-import { chainIdToName } from "../../token";
 import BackButton from "./BackButton.vue";
 import ColorTitle from "../ColorTitle.vue";
+import { art } from "../../states";
+import { setupRoute } from "./data";
 
-defineProps<{ title: string, hasMetadata: boolean }>();
+defineProps<{ title: string; hasMetadata: boolean }>();
 
 const { t } = useI18n({
   messages: {
@@ -35,20 +35,24 @@ const { t } = useI18n({
     },
   },
 });
-// From route
-const route = useRoute();
-const chainId = computed(() => parseInt(route.params.chainId as string));
-const chain = computed(() => chainIdToName.get(chainId.value) as string);
 
-const isCurrentChain = computed(
-  () => {return chainId.value === web3InfoGetter.chain.id.value || web3InfoGetter.chain.id.value < 0}
-);
+const { inMobile } = art;
+
+const { chainId, chain } = setupRoute();
+
+const isCurrentChain = computed(() => {
+  return (
+    chainId.value === web3InfoGetter.chain.id.value ||
+    web3InfoGetter.chain.id.value < 0
+  );
+});
 
 const currentChain = web3InfoGetter.chain.name;
-
 </script>
 
 <style lang="scss" scoped>
+@use "../../styles/art.scss" as *;
+
 .hint {
   > .alert {
     --el-alert-description-font-size: 14px;
@@ -56,8 +60,10 @@ const currentChain = web3InfoGetter.chain.name;
   }
 }
 
-.hint,.skeleton {
-  padding: 20px;
+.hint,
+.skeleton {
+  width: 80%;
+  margin: 20px;
 }
 
 .content {
@@ -66,6 +72,12 @@ const currentChain = web3InfoGetter.chain.name;
   margin: auto;
   display: flex;
   flex-direction: column;
+  
+  @include mobile {
+    padding-top: 78px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 }
 
 .top-area {

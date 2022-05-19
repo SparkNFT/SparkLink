@@ -1,16 +1,15 @@
 <template>
   <div class="details">
-    <p
-      v-for="{ key, label, value, suffix } in data"
-      :key="key"
-      class="container"
-    >
-      <span class="label">{{ label }}</span>
-      <span class="value-container">
-        <span class="value">{{ value }}</span>
-        <span v-if="suffix" class="suffix">{{ suffix }}</span>
-      </span>
-    </p>
+    <template v-for="({ key, label, value, suffix }, index) in data" :key="key">
+      <el-divider v-if="index > 0" class="divider"></el-divider>
+      <p class="container">
+        <span class="label">{{ label }}</span>
+        <span class="value-container">
+          <span class="value">{{ value }}</span>
+          <span v-if="suffix" class="suffix">{{ suffix }}</span>
+        </span>
+      </p>
+    </template>
   </div>
 </template>
 
@@ -76,18 +75,38 @@ const data = computed(() => {
 </script>
 
 <style lang="scss" scoped>
+@use "../../styles/art.scss" as *;
+
 .details {
   font-size: 30px;
   font-weight: 600;
   line-height: 1;
+
+  @include mobile {
+    font-size: 16px;
+    border: 1px solid #f3f3f3;
+    box-shadow: 0px 25px 40px rgba(18, 17, 39, 0.08);
+    border-radius: 20px;
+    padding: 0 20px;
+  }
+
   .container {
     display: flex;
     justify-content: space-between;
+    @include mobile {
+      margin-block-start: 1em;
+      margin-block-end: 1em;
+    }
   }
 }
 
 .value,
 .suffix {
   color: var(--el-color-primary);
+}
+
+.divider {
+  margin: unset;
+  border-color: #f3f3f3;
 }
 </style>

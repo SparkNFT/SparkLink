@@ -1,0 +1,33 @@
+@use "element-plus/theme-chalk/src/common/var" as *;
+@use "element-plus/theme-chalk/src/mixins/mixins" as *;
+
+@mixin mobile() {
+  @include res("sm-and-down", $breakpoints-spec) {
+    @content;
+  }
+}
+
+@mixin desktop() {
+  @include res("md-and-up", $breakpoints-spec) {
+    @content;
+  }
+}
+
+@mixin resetButtonGap {
+  >:deep(button+button) {
+    margin-left: unset;
+  }
+}
+
+@mixin buttonContainer {
+  @include mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    align-items: center;
+    @include resetButtonGap;
+    >:deep(button) {
+      width: 80%;
+    }
+  }
+}

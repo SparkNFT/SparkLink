@@ -40,6 +40,15 @@ const buttonProps = computed(() => {
 </script>
 
 <style lang="scss" scoped>
+@use "element-plus/theme-chalk/src/common/var" as *;
+@use "element-plus/theme-chalk/src/mixins/mixins" as *;
+
+@mixin mobile() {
+  @include res("sm-and-down", $breakpoints-spec) {
+    @content;
+  }
+}
+
 .btn {
   font-family: "Montserrat";
   padding: 22px 60px;
@@ -47,6 +56,12 @@ const buttonProps = computed(() => {
   :deep(span) {
     font-weight: 700;
     font-size: 24px;
+  }
+  @include mobile {
+    padding: 18px 60px;
+    :deep(span) {
+      font-size: 18px;
+    }
   }
 }
 </style>
