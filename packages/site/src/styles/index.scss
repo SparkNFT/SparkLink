@@ -24,6 +24,11 @@
   src: url("/assets/fonts/OpenSans.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "Montserrat";
+  src: url("/assets/fonts/Montserrat.ttf") format("truetype");
+}
+
 .iconfont {
   font-family: "iconfont" !important;
   font-size: 16px;
@@ -62,7 +67,6 @@ body {
 
 span,
 p {
-  font-size: var(--el-font-size-medium);
   margin-block-start: unset;
 }
 

@@ -13,9 +13,11 @@
 <script lang="ts" setup>
 // Scope: Transient
 
-import type { IContentDownloadEventEmitter } from "@SparkLink/business";
-import { onMounted, ref } from "vue";
+import { DownloadEventEmitter, UserOperatorFactory } from "@SparkLink/business";
+import type { INftInformation } from "@SparkLink/business/generated/src/nftInfomation";
+import { computed, ref } from "vue";
 import { useI18n } from "vue-i18n";
+import { useStore } from "vuex";
 import Dialog from "../Dialog.vue";
 import Timeline from "../Timeline.vue";
 import type { ITimelineItem } from "../types";
@@ -57,34 +59,73 @@ const { t } = useI18n({
 
 const props = defineProps<{
   modelValue: boolean;
-  eventEmitter: IContentDownloadEventEmitter;
-  encrypted: boolean;
+  nftId: string;
+  metadata: INftInformation;
 }>();
 
-const emit = defineEmits<{
-  (e: "update:modelValue", value: boolean): void;
-  (e: "listeners:attached"): void;
-}>();
+const emit = defineEmits<{ (e: "update:modelValue", value: boolean): void }>();
 
 function emitModelValue(value: boolean) {
   emit("update:modelValue", value);
 }
 
-const timelineItems = [] as ITimelineItem[];
-timelineItems.push({
-  before: t("steps.download.before"),
-  doing: t("steps.download.doing"),
-  after: t("steps.download.after"),
-});
-if (props.encrypted)
-  timelineItems.push({
-    before: t("steps.decrypt.before"),
-    doing: t("steps.decrypt.doing"),
-    after: t("steps.decrypt.after"),
+function setupTimeline() {
+  const timelineItems = computed(() => {
+    const timelineItems = [] as ITimelineItem[];
+    timelineItems.push({
+      before: t("steps.download.before"),
+      doing: t("steps.download.doing"),
+      after: t("steps.download.after"),
+    });
+    if (props.metadata.encrypted)
+      timelineItems.push({
+        before: t("steps.decrypt.before"),
+        doing: t("steps.decrypt.doing"),
+        after: t("steps.decrypt.after"),
+      });
+    return timelineItems;
   });
+  const progress = ref(0);
+  return { timelineItems, progress };
+}
 
-const progress = ref(0);
-props.eventEmitter.on("downloaded", () => (progress.value = 1));
-props.eventEmitter.on("decypted", () => (progress.value = 2));
-emit("listeners:attached");
+const { timelineItems, progress } = setupTimeline();
+
+function downloadURL(url: string, fileName: string) {
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = fileName;
+  document.body.appendChild(a);
+  a.style.display = "none";
+  a.click();
+  a.remove();
+}
+
+function downloadBlob(data: Uint8Array, fileName: string) {
+  const blob = new Blob([data]);
+  const url = window.URL.createObjectURL(blob);
+  downloadURL(url, fileName);
+  setTimeout(() => window.URL.revokeObjectURL(url), 1000);
+}
+
+async function download() {
+  const store = useStore();
+  const factory = computed(
+    () => store.getters["web3/userOperatorFactory"] as UserOperatorFactory
+  );
+  const downloader = await factory.value.getContentDownloader(
+    props.metadata.encrypted,
+    props.nftId
+  );
+  const eventEmitter = new DownloadEventEmitter();
+  eventEmitter.on("downloaded", () => (progress.value = 1));
+  eventEmitter.on("decypted", () => (progress.value = 1));
+  const content = await downloader.download(
+    props.metadata.urls.content,
+    eventEmitter
+  );
+  downloadBlob(content, `${props.metadata.name}.zip`);
+}
+
+download();
 </script>

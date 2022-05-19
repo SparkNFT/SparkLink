@@ -4,8 +4,7 @@ import Layout from "./routes/__layout.vue";
 import Index from "./routes/TheIndex.vue";
 import Publish from "./routes/Publish.vue";
 import Collection from "./routes/Collection.vue";
-import ArtPage from "./routes/ArtPage.vue";
-import SparkLink from "./routes/SparkLink.vue";
+import Art, { Type } from "./routes/Art.vue";
 
 function goExternal(url: string) {
   window.location.replace(url);
@@ -44,12 +43,14 @@ const routes = [
       {
         name: "art",
         path: "arts/:chainId/:nftId",
-        component: ArtPage,
+        component: Art,
+        props: { type: Type.Art },
       },
       {
         name: "spark",
         path: "spark/:chainId/:nftId",
-        component: SparkLink,
+        component: Art,
+        props: { type: Type.Spark },
       },
     ],
   },
