@@ -40,7 +40,11 @@ const show = ref(false);
 </script>
 
 <style lang="scss" scoped>
+@use "../../styles/art.scss" as *;
+
 .btn {
-  min-width: 360px;
+  @include desktop {
+    min-width: 360px;
+  }
 }
 </style>

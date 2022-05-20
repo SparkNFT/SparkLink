@@ -119,7 +119,7 @@ async function download() {
   );
   const eventEmitter = new DownloadEventEmitter();
   eventEmitter.on("downloaded", () => (progress.value = 1));
-  eventEmitter.on("decypted", () => (progress.value = 1));
+  eventEmitter.on("decypted", () => (progress.value = 2));
   const content = await downloader.download(
     props.metadata.urls.content,
     eventEmitter

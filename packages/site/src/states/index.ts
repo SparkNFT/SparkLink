@@ -8,3 +8,7 @@ export const index = {
 export const collection = {
   inMobile: computed(() => !grid.md),
 };
+
+export const art = {
+  inMobile: computed(() => !grid.md),
+};

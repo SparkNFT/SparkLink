@@ -61,7 +61,14 @@ const { inDownload, start } = setupDownload();
 </script>
 
 <style lang="scss" scoped>
+@use "../../styles/art.scss" as *;
+
 .btn {
-  min-width: 360px;
+  @include desktop {
+    min-width: 360px;
+  }
+  @include mobile {
+    width: 80%;
+  }
 }
 </style>
