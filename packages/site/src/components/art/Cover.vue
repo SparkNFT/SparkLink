@@ -1,11 +1,7 @@
 <template>
-  <el-card shadow="never" class="image-area">
-    <el-image :src="url" class="image" fit="contain">
-      <template #placeholder>
-        <div class="image-slot">Loading<span class="dot">...</span></div>
-      </template>
-    </el-image>
-  </el-card>
+  <div class="img">
+    <el-image class="inner" :src="url" fit="cover"></el-image>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -13,25 +9,23 @@ defineProps<{ url: string }>();
 </script>
 
 <style lang="scss" scoped>
-.image-area {
-  :deep(.el-card__body) {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    padding: unset;
+.img {
+  position: relative;
+  width: 526px;
+  filter: drop-shadow(17px 24px 58px rgba(239, 122, 97, 0.25));
+  border-radius: 20px;
+  overflow: hidden;
+  &:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
   }
 }
 
-.image {
-  :deep(.el-image__inner) {
-    height: 350px;
-  }
-}
-
-.image-slot {
-  height: 350px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.inner {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
 }
 </style>
