@@ -6,9 +6,9 @@ import rinkebyInfo from "./rinkeby.json";
 import { Address, IERC20Contract } from "@SparkLink/business";
 
 export const chainIdToName = new Map<number, string>();
-chainIdToName.set(1, "ethereum");
+// chainIdToName.set(1, "ethereum");
 chainIdToName.set(4, "rinkeby");
-chainIdToName.set(56, "bsc");
+// chainIdToName.set(56, "bsc");
 chainIdToName.set(137, "matic");
 
 export interface IToken {
