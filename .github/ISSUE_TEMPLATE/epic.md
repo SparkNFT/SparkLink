@@ -11,7 +11,7 @@ assignees: ''
 
 Give the epic a summary about its objective.
 
-## Fetures
+## Features
 
 A list of issues this epic contains.
 For example: 
