@@ -75,7 +75,7 @@ export function setupShareLink() {
   const baseUrl = computed(() => store.state.config.frontendBaseUrl);
   const { chainId, nftId } = setupRoute();
   const shareLink = computed(
-    () => `${baseUrl.value}/#/spark/${chainId}/${nftId}`
+    () => `${baseUrl.value}/#/spark/${chainId.value}/${nftId.value}`
   );
   return { shareLink };
 }
