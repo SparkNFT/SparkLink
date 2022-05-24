@@ -177,7 +177,11 @@ export class WalletConnectProviderGetter extends ProviderGetterBase {
   constructor() {
     super(async () => {
       return new _WalletConnectProvider({
-        infuraId: "9aa3d95b3bc440fa88ea12eaa4456161",
+        rpc: {
+          1: "https://mainnet.infura.io/v3/",
+          4: "https://rinkeby.infura.io/v3/",
+          137: "https://polygon-rpc.com/"
+        }
       });
     });
   }
