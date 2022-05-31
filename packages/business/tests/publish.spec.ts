@@ -7,12 +7,13 @@ import { ipfsCdnUrlToMultiHashInHex } from "../src/utils/ipfsCdnUrlToMultiHashIn
 describe("Publisher", function () {
   this.timeout(15 * 1000);
   context("when publish", function () {
-    beforeEach(function () {
+    beforeEach(async function () {
       const factory = new OperatorFactory(
         config.web3,
         config.senderAddress,
         config.contractAddress
       );
+      await factory.init();
       this.publisher = factory.publisher;
       this.demoForm = new PublishForm(
         10000n,

@@ -180,8 +180,8 @@ export class WalletConnectProviderGetter extends ProviderGetterBase {
         rpc: {
           1: "https://mainnet.infura.io/v3/",
           4: "https://rinkeby.infura.io/v3/",
-          137: "https://polygon-rpc.com/"
-        }
+          137: "https://polygon-rpc.com/",
+        },
       });
     });
   }

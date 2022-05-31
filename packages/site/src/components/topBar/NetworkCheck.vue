@@ -9,7 +9,6 @@ import { useI18n } from "vue-i18n";
 import { useRoute } from "vue-router";
 import { web3InfoGetter } from "../../store";
 import { chainIdToName } from "../../token";
-import { setupNetwork } from "./network";
 
 const { t } = useI18n({
   messages: {
