@@ -9,7 +9,6 @@ import {
   ChainTokenInquirer,
   ERC20TokenInquirer,
   localTokenInquirerHolder,
-  LocalTokenInquirerHolder,
   storageTokenInquirerHolder,
 } from "../token";
 
@@ -81,6 +80,7 @@ export interface IWeb3 {
   contractAddress: string;
   web3: Web3 | undefined;
   minConfirmationNum: number;
+  _userOperatorFactory: UserOperatorFactory;
 }
 
 const holder = new ProviderHolder();
@@ -117,6 +117,12 @@ export const web3Store = {
     ) {
       (state.chainId = chainId), (state.contractAddress = contractAddress);
     },
+    setUserOperatorFactory(
+      state,
+      { userOperatorFactory }: { userOperatorFactory: UserOperatorFactory }
+    ) {
+      state._userOperatorFactory = userOperatorFactory;
+    },
   },
   getters: {
     hasProvider(state) {
@@ -127,24 +133,7 @@ export const web3Store = {
       return chainIdToName.get(state.chainId) ?? "other";
     },
     userOperatorFactory(state) {
-      const chainName = chainIdToName.get(state.chainId);
-      if (
-        state.web3 &&
-        state.account &&
-        chainName &&
-        state.chainId &&
-        state.contractAddress
-      ) {
-        return new UserOperatorFactory(
-          state.web3,
-          state.account,
-          chainName,
-          state.chainId,
-          state.contractAddress,
-          state.minConfirmationNum
-        );
-      }
-      return undefined;
+      return state._userOperatorFactory;
     },
     chainTokenInquirer(state, getters) {
       const userOperatorFactory = getters.userOperatorFactory as
@@ -171,6 +160,7 @@ export const web3Store = {
     async useMetaMask(context) {
       const provider = await holder.useMetamask();
       context.state.web3 = provider.web3;
+      await context.dispatch("updateUserFactory");
     },
     async useWalletConnect(context) {
       const provider = await holder.useWalletConnect();
@@ -179,6 +169,7 @@ export const web3Store = {
         context.dispatch("fulfillChain");
       });
       context.state.web3 = provider.web3;
+      await context.dispatch("updateUserFactory");
     },
     async disconnect(context) {
       context.state.web3 = undefined;
@@ -194,10 +185,12 @@ export const web3Store = {
         throw new Error("Account request has failed!");
       }
       context.commit("setAccount", account);
+      await context.dispatch("updateUserFactory");
       return account;
     },
-    removeAccount(context) {
+    async removeAccount(context) {
       context.commit("setAccount", "");
+      await context.dispatch("updateUserFactory");
     },
     async fulfillChain(context) {
       checkProvider();
@@ -206,10 +199,12 @@ export const web3Store = {
         chainId,
         contractAddress: chainIdToContractAddress.get(chainId) ?? "",
       });
+      context.dispatch("updateUserFactory");
       return chainId;
     },
-    removeChain(context) {
+    async removeChain(context) {
       context.commit("setChain", { chainId: -1, contractAddress: "" });
+       await context.dispatch("updateUserFactory");
     },
     async switchNetwork(context, chainId: number) {
       checkProvider();
@@ -218,6 +213,22 @@ export const web3Store = {
       }
       await (holder.currentProvider as IProvider).switchNetwork(chainId);
       await context.dispatch("fulfillChain");
+    },
+    async updateUserFactory({ state, commit }) {
+      const chainName = chainIdToName.get(state.chainId);
+      let userOperatorFactory;
+      if (chainName && state.web3) {
+        userOperatorFactory = new UserOperatorFactory(
+          state.web3 as Web3,
+          state.account,
+          chainName as string,
+          state.chainId,
+          state.contractAddress,
+          state.minConfirmationNum
+        );
+        await userOperatorFactory.init();
+      }
+      commit("setUserOperatorFactory", { userOperatorFactory });
     },
   },
 } as Module<IWeb3, any>;

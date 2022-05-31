@@ -5,7 +5,7 @@ import { PinataSeverClientBuilder } from "./client/pinServer";
 import { ContentDownloader } from "./downloader";
 import { ERC20Contract } from "./ERC20Contract";
 import { NftInformationGetter } from "./nftInfomation";
-import { OperatorFactory } from "./operatorFactory";
+import { IOperatorFactory, OperatorFactory } from "./operatorFactory";
 import { ProfitClaimer } from "./profitClaimer";
 import { Address } from "./types/address";
 import { IUploadConfig, IUploader, Uploader } from "./uploader";
@@ -40,6 +40,7 @@ export class UserOperatorFactory {
   minConfirmNum: number;
   private readonly chain: string;
   private readonly chainId: number;
+  private readonly operatorFactory: IOperatorFactory;
 
   // If any value of parameters change, you should get a new factory
   // to keep the APIs performing correctly.
@@ -60,6 +61,17 @@ export class UserOperatorFactory {
     this.minConfirmNum = minConfirmNum;
     this.chain = chain;
     this.chainId = chainId;
+    this.operatorFactory = new OperatorFactory(
+      this.web3,
+      this.sender,
+      this.contractAddress,
+      this.minConfirmNum
+    );
+    
+  }
+
+  async init() {
+    await this.operatorFactory.init();
   }
 
   get uploader(): IUploader {
@@ -70,12 +82,7 @@ export class UserOperatorFactory {
       pinServerClientBuilder: new PinataSeverClientBuilder().axios(
         axios.create()
       ),
-      operatorFactory: new OperatorFactory(
-        this.web3,
-        this.sender,
-        this.contractAddress,
-        this.minConfirmNum
-      ),
+      operatorFactory: this.operatorFactory,
       account: this.sender,
       chain: this.chain,
       sign,
@@ -115,12 +122,7 @@ export class UserOperatorFactory {
   }
 
   get shop() {
-    const factory = new OperatorFactory(
-      this.web3,
-      this.sender,
-      this.contractAddress,
-      this.minConfirmNum
-    );
+    const factory = this.operatorFactory;
     return factory.shop;
   }
 
@@ -129,12 +131,7 @@ export class UserOperatorFactory {
   }
 
   get profitClaimer() {
-    const factory = new OperatorFactory(
-      this.web3,
-      this.sender,
-      this.contractAddress,
-      this.minConfirmNum
-    );
+    const factory = this.operatorFactory;
     return factory.profitClaimer;
   }
 }

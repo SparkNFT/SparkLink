@@ -8,11 +8,13 @@ import { IShop, Shop } from "./shop";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import ERC20ABI from "erc-20-abi";
-import { ProfitClaimer } from "./profitClaimer";
+import { IProfitClaimer, ProfitClaimer } from "./profitClaimer";
 
 export interface IOperatorFactory {
   get publisher(): IPublisher;
   get shop(): IShop;
+  get profitClaimer(): IProfitClaimer;
+  init(): Promise<void>;
 }
 
 export class OperatorFactory implements IOperatorFactory {
@@ -35,6 +37,25 @@ export class OperatorFactory implements IOperatorFactory {
     this.contract = new web3.eth.Contract(ContractAbi, contractAddress.value);
     this.contract.options.from = sender.value;
     this.minConfirmNum = minConfirmNum;
+  }
+
+  async init() {
+    const { baseFeePerGas, reward } = await this.web3.eth.getFeeHistory(
+      1,
+      "latest",
+      [5]
+    );
+    console.debug(
+      `baseGasPrice: ${baseFeePerGas.map(
+        (v) => this.web3.utils.hexToNumber(v) / 10 ** 9
+      )} Gwei`,
+      `reward: ${reward.map((l) =>
+        l.map((v) => this.web3.utils.hexToNumber(v) / 10 ** 9)
+      )} Gwei`
+    );
+    this.contract.options.gasPrice = `${
+      parseInt(baseFeePerGas[0]) * 2 + parseInt(reward[0][0])
+    }`;
   }
 
   get publisher() {

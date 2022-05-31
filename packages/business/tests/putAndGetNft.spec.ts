@@ -88,6 +88,7 @@ describe("The put and get nft process", function () {
           new Address(testConfig.contractAddress),
           2
         );
+        await operatorFactory.init();
 
         config = {
           cdnUrl: "https://ipfs.io/ipfs",
