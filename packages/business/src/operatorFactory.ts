@@ -40,6 +40,8 @@ export class OperatorFactory implements IOperatorFactory {
   }
 
   async init() {
+    const chainId = await this.web3.eth.getChainId();
+    if (chainId === 56) return;
     const { baseFeePerGas, reward } = await this.web3.eth.getFeeHistory(
       1,
       "latest",
