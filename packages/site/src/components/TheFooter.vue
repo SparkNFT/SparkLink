@@ -273,7 +273,7 @@ function handleMailAddressClick() {
 
     .send {
       position: absolute;
-      width: 153px;
+      width: 200px;
       height: 73px;
       background: #ef7a61;
       right: 7px;
