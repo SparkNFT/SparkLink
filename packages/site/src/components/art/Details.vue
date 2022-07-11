@@ -17,10 +17,12 @@
 import { INftInformation } from "@SparkLink/business/generated/src/nftInfomation";
 import { computed } from "vue";
 import { useI18n } from "vue-i18n";
-import { IToken } from "../../token";
 import { toCoin } from "./data";
+import { NftInformation } from "./types";
 
-const props = defineProps<{ metadata: INftInformation; token: IToken }>();
+const props = defineProps<{
+  metadata: NftInformation;
+}>();
 
 const { t } = useI18n({
   messages: {
@@ -63,7 +65,7 @@ const data = computed(() => {
   result.forEach((v) => {
     if (v.key === "sellingPrice" || v.key === "royaltyPrice") {
       v.value = toCoin(v.value as bigint);
-      v.suffix = ` ${props.token.symbol}`;
+      v.suffix = ` ${props.metadata.paymentCurrency.symbol}`;
     } else if (v.key === "percentageOfEarnings") {
       v.suffix = "%";
     } else if (typeof v.value === "boolean") {

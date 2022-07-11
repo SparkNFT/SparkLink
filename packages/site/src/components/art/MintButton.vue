@@ -1,5 +1,5 @@
 <template>
-  <Button :type="Type.Default" class="btn" @click="show = true">
+  <Button :type="type" class="btn" @click="show = true">
     <template #icon>
       <span class="material-icons-outlined">local_fire_department</span>
     </template>
@@ -14,15 +14,17 @@
 </template>
 
 <script lang="ts" setup>
-import type { INftInformation } from "@SparkLink/business/generated/src/nftInfomation";
+import { computed } from "@vue/reactivity";
 import { ref } from "vue";
 import { useI18n } from "vue-i18n";
+import { web3InfoGetter } from "../../store";
 import Button, { Type } from "../Button.vue";
 import MintInProgress from "./MintInProgress.vue";
+import { NftInformation } from "./types";
 
 defineProps<{
   nftId: string;
-  metadata: INftInformation;
+  metadata: NftInformation;
 }>();
 
 const { t } = useI18n({
@@ -37,6 +39,8 @@ const { t } = useI18n({
 });
 
 const show = ref(false);
+
+const type = computed(() => web3InfoGetter.account.value   ? Type.Default : Type.Disabled);
 </script>
 
 <style lang="scss" scoped>

@@ -14,13 +14,14 @@
 // Scope: Transient
 
 import { DownloadEventEmitter, UserOperatorFactory } from "@SparkLink/business";
-import type { INftInformation } from "@SparkLink/business/generated/src/nftInfomation";
 import { computed, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { useStore } from "vuex";
+import { getNftInfo } from "../../store/info";
 import Dialog from "../Dialog.vue";
 import Timeline from "../Timeline.vue";
 import type { ITimelineItem } from "../types";
+import { NftInformation } from "./types";
 
 console.log("Downloading...");
 
@@ -60,7 +61,7 @@ const { t } = useI18n({
 const props = defineProps<{
   modelValue: boolean;
   nftId: string;
-  metadata: INftInformation;
+  metadata: NftInformation;
 }>();
 
 const emit = defineEmits<{ (e: "update:modelValue", value: boolean): void }>();

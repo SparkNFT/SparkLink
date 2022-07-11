@@ -3,9 +3,9 @@
 </template>
 
 <script lang="ts" setup>
-import type { INftInformation } from "@SparkLink/business/generated/src/nftInfomation";
+import { getNftInfo } from "../../store/info";
 
-defineProps<{ metadata: INftInformation }>();
+defineProps<{ metadata: Awaited<ReturnType<typeof getNftInfo>> }>();
 </script>
 
 <style lang="scss" scoped>

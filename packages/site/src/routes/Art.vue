@@ -4,10 +4,10 @@
     :has-metadata="!!metadata"
   >
     <Income
-      v-if="isArtPage"
+      v-if="isArtPage && account"
       :nft-id="nftId"
       :metadata="$metadata"
-      :token="token"
+      :token="$metadata.paymentCurrency"
       class="income"
     ></Income>
     <div class="art">
@@ -35,13 +35,12 @@
           <NftId :nft-id="nftId" class="nft-id"></NftId>
           <Title v-if="isArtPage" :metadata="$metadata"></Title>
         </template>
-        <Details :metadata="$metadata" :token="token" class="details"></Details>
+        <Details :metadata="$metadata" class="details"></Details>
         <template v-if="isArtPage">
           <div class="share-btn-area">
             <LinkShareButton></LinkShareButton>
             <PosterShareButton
               :metadata="$metadata"
-              :token="token"
             ></PosterShareButton>
           </div>
           <p class="hint">
@@ -86,6 +85,8 @@ import PosterShareButton from "../components/art/PosterShareButton.vue";
 import { computed } from "vue";
 import MintButton from "../components/art/MintButton.vue";
 import { art } from "../states";
+import { getNftInfo } from "../store/info";
+import { web3InfoGetter } from "../store";
 
 //workaround
 type _workaround = INftInformation;
@@ -105,8 +106,9 @@ const { t } = useI18n({
 
 const { inMobile } = art;
 
-const { nftId, metadata, token } = setup();
-const $metadata = computed(() => metadata.value as INftInformation);
+const account = web3InfoGetter.account;
+const { nftId, metadata } = setup();
+const $metadata = computed(() => metadata.value as Awaited<ReturnType<typeof getNftInfo>>);
 
 const isArtPage = computed(() => props.type === Type.Art);
 const isSparkPage = computed(() => !isArtPage.value);

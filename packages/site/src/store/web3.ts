@@ -11,6 +11,7 @@ import {
   localTokenInquirerHolder,
   storageTokenInquirerHolder,
 } from "../token";
+import { chainIdToContractAddress } from "./chainIdToContractAddress";
 
 export interface IWalletConnectionInfo {
   // If this's true, a fresh load of the page should establish connection to wallect automaticly.
@@ -69,11 +70,6 @@ export const networkSelectOptions = Array.from(chainIdToName).map(
     value: key,
   })
 );
-
-const chainIdToContractAddress = new Map<number, string>();
-chainIdToContractAddress.set(4, "0x3Bdc8834cFB7E01cB27a31f4F02274bF2b27246C");
-chainIdToContractAddress.set(137, "0xb83A6A35F1468BEA014e6Aa014300128D34ee433");
-chainIdToContractAddress.set(56, "0xb83A6A35F1468BEA014e6Aa014300128D34ee433");
 
 export interface IWeb3 {
   account: string;

@@ -3,10 +3,14 @@
     <p class="title">{{ t("title") }}</p>
     <p class="result">
       <span class="number">{{ profit }}</span>
-      <span class="unit">{{ token.symbol }}</span>
+      <span class="unit">{{ metadata.paymentCurrency.symbol }}</span>
     </p>
     <div class="btn-area">
-      <Button class="btn" :type="inMobile ? Type.Outlined : Type.Default" @click="claim">
+      <Button
+        class="btn"
+        :type="type"
+        @click="claim"
+      >
         <template #icon>
           <span class="material-icons-outlined">currency_exchange</span>
         </template>
@@ -28,20 +32,19 @@
 </template>
 
 <script lang="ts" setup>
-import { INftInformation } from "@SparkLink/business/generated/src/nftInfomation";
 import { computed } from "@vue/reactivity";
 import { useI18n } from "vue-i18n";
-import { IToken } from "../../token";
 import { toCoin } from "./data";
 import Button, { Type } from "../Button.vue";
 import { ref } from "vue";
 import ClaimProfitInProgress from "./ClaimProfitInProgress.vue";
 import { art } from "../../states";
+import { NftInformation } from "./types";
+import { web3InfoGetter } from "../../store";
 
 const props = defineProps<{
   nftId: string;
-  metadata: INftInformation;
-  token: IToken;
+  metadata: NftInformation;
 }>();
 
 const { t } = useI18n({
@@ -78,6 +81,14 @@ function setupClaim() {
 }
 
 const { claimInProgress, claim } = setupClaim();
+
+const type = computed(() =>
+  web3InfoGetter.account.value
+    ? inMobile.value
+      ? Type.Outlined
+      : Type.Default
+    : Type.Disabled
+);
 </script>
 
 <style lang="scss" scoped>
