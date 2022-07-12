@@ -19,6 +19,8 @@ import { assert } from "console";
  */
 const rpcMap = new Map<number, string>();
 rpcMap.set(4, "https://rinkeby.infura.io/v3/ae0de58ec6c347fe85a5d5434ff0a399");
+rpcMap.set(56, "https://bsc-dataseed1.binance.org");
+rpcMap.set(137, "https://polygon-rpc.com");
 
 const chainSet = new Set<number>();
 const userOperatorFactoryMap = new Map<number, UserOperatorFactory>();
