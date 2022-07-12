@@ -49,16 +49,17 @@
 // Scope: Transient
 
 import {
+Address,
   BuyEvent,
   BuyEventEmitter,
   IBuyEventEmitter,
   UserOperatorFactory,
 } from "@SparkLink/business";
-import { INftInformation } from "@SparkLink/business/generated/src/nftInfomation";
 import { computed, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
+import { getNftInfo } from "../../store/info";
 import Dialog from "../Dialog.vue";
 import Timeline from "../Timeline.vue";
 import type { ITimelineItem } from "../types";
@@ -104,7 +105,7 @@ const { t } = useI18n({
 
 const props = defineProps<{
   modelValue: boolean;
-  metadata: INftInformation;
+  metadata: Awaited<ReturnType<typeof getNftInfo>>;
   nftId: string;
 }>();
 
@@ -156,7 +157,7 @@ async function mint() {
     eventEmitter as BuyEventEmitter,
     {
       sellingPrice: props.metadata.sellingPrice,
-      paymentCurrency: props.metadata.paymentCurrency,
+      paymentCurrency: new Address(props.metadata.paymentCurrency.address),
     }
   );
   newId.value = _newId;
@@ -169,7 +170,7 @@ function goToThePage() {
 }
 
 const timelineItems = [] as ITimelineItem[];
-if (!props.metadata.paymentCurrency.isZeroAddress()) {
+if (!new Address(props.metadata.paymentCurrency.address).isZeroAddress()) {
   timelineItems.push({
     before: t("steps.approve.before"),
     doing: t("steps.approve.doing"),

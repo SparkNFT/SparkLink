@@ -1,11 +1,10 @@
-import type { UserOperatorFactory } from "@SparkLink/business";
-import type { INftInformation } from "@SparkLink/business/generated/src/nftInfomation";
 import { computed, onMounted, Ref, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
 import Web3 from "web3";
 import { web3InfoGetter } from "../../store";
 import { chainIdToName, IToken } from "../../token";
+import { getNftInfo } from "../../store/info";
 
 export function setupRoute() {
   const route = useRoute();
@@ -18,22 +17,19 @@ export function setupRoute() {
 
 export function setup() {
   const store = useStore();
-  const { nftId } = setupRoute();
+  const { nftId, chainId } = setupRoute();
   function _reloadWhenNeed() {
-    const factory = computed(
-      () => store.getters["web3/userOperatorFactory"] as UserOperatorFactory
-    );
-    const infoGetter = computed(() => factory.value?.nftInformationGetter);
-    const metadata = ref(null as INftInformation | null);
+    const metadata = ref(null as Awaited<ReturnType<typeof getNftInfo>> | null);
 
     async function _resetPage() {
-      metadata.value = null;
-      if (nftId.value && infoGetter.value) {
-        metadata.value = await infoGetter.value.get(nftId.value);
+      if (nftId.value) {
+        metadata.value = await getNftInfo(chainId.value, nftId.value);
+      } else {
+        metadata.value = null;
       }
     }
 
-    watch([nftId, infoGetter], _resetPage);
+    watch([nftId], _resetPage);
     onMounted(_resetPage);
 
     return metadata;
@@ -62,7 +58,7 @@ export function setup() {
 
   const token = _setToken();
 
-  return { nftId, metadata, token };
+  return { nftId, metadata };
 }
 
 export function toCoin(wei: bigint) {

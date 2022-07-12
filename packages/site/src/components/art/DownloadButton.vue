@@ -14,17 +14,17 @@
 </template>
 
 <script lang="ts" setup>
-import type { INftInformation } from "@SparkLink/business/generated/src/nftInfomation";
 import { web3InfoGetter } from "../../store";
 import Button, { Type } from "../Button.vue";
 import DownloadInProgress from "./DownloadInProgress.vue";
 import { ref, computed } from "vue";
 import { useI18n } from "vue-i18n";
+import { NftInformation } from "./types";
 
 const props = withDefaults(
   defineProps<{
     nftId: string;
-    metadata: INftInformation;
+    metadata: NftInformation;
     outlined?: boolean;
   }>(),
   { outlined: false }
@@ -44,7 +44,7 @@ const { t } = useI18n({
 const type = computed(() => {
   const account = web3InfoGetter.account.value;
   const owned = props.metadata.owner.value === account;
-  const canDownload = owned || !props.metadata.encrypted;
+  const canDownload = account && (owned || !props.metadata.encrypted);
   const defaultType = props.outlined ? Type.Outlined : Type.Default;
   return canDownload ? defaultType : Type.Disabled;
 });

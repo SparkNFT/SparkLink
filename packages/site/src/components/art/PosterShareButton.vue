@@ -13,7 +13,7 @@
     :symbol="token.symbol"
     :logo-url="token.logoURI"
     :chain="chain"
-    :payment-currency="metadata.paymentCurrency.value"
+    :payment-currency="metadata.paymentCurrency.address"
     :url="shareLink"
   ></Poster>
 </template>
@@ -22,14 +22,13 @@
 import Button, { Type } from "../Button.vue";
 import { useI18n } from "vue-i18n";
 import { ref } from "vue";
-import { INftInformation } from "@SparkLink/business/generated/src/nftInfomation";
-import { IToken } from "../../token";
 import { setupRoute, setupShareLink } from "./data";
 import Poster from "./Poster.vue";
+import { computed } from "@vue/reactivity";
+import { getNftInfo } from "../../store/info";
 
-defineProps<{
-  metadata: INftInformation;
-  token: IToken;
+const props = defineProps<{
+  metadata: Awaited<ReturnType<typeof getNftInfo>>;
 }>();
 
 const { t } = useI18n({
@@ -42,6 +41,8 @@ const { t } = useI18n({
     },
   },
 });
+
+const token = computed(() => props.metadata.paymentCurrency)
 
 const { chain } = setupRoute();
 const { shareLink } = setupShareLink();

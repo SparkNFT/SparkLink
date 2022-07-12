@@ -85,7 +85,7 @@ __metadata:
     rollup-plugin-node-builtins: ^2.1.2
     rollup-plugin-polyfill-node: ^0.8.0
     sass: ^1.43.4
-    typescript: ^4.5.2
+    typescript: ^4.7.1
     underscore: ^1.13.2
     vite: 2.6
     vue: ^3.2.16
@@ -13240,7 +13240,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^4.5.2, typescript@npm:^4.5.3":
+"typescript@npm:^4.5.3":
   version: 4.6.4
   resolution: "typescript@npm:4.6.4"
   bin:
@@ -13250,13 +13250,33 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^4.5.2#~builtin<compat/typescript>, typescript@patch:typescript@^4.5.3#~builtin<compat/typescript>":
+"typescript@npm:^4.7.1":
+  version: 4.7.4
+  resolution: "typescript@npm:4.7.4"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 5750181b1cd7e6482c4195825547e70f944114fb47e58e4aa7553e62f11b3f3173766aef9c281783edfd881f7b8299cf35e3ca8caebe73d8464528c907a164df
+  languageName: node
+  linkType: hard
+
+"typescript@patch:typescript@^4.5.3#~builtin<compat/typescript>":
   version: 4.6.4
   resolution: "typescript@patch:typescript@npm%3A4.6.4#~builtin<compat/typescript>::version=4.6.4&hash=ddd1e8"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 8cff08bf66d9ecfbf9fcc5edde04a5a7923e6cac3b21d99b4e9a06973bf5bd7f9a83ec7eed24129c1b9e13fd861de8c1070110d4b9ce9f18ab57c6999e9c9a6f
+  languageName: node
+  linkType: hard
+
+"typescript@patch:typescript@^4.7.1#~builtin<compat/typescript>":
+  version: 4.7.4
+  resolution: "typescript@patch:typescript@npm%3A4.7.4#~builtin<compat/typescript>::version=4.7.4&hash=ddd1e8"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 96d3030cb01143570567cb4f3a616b10df65f658f0e74e853e77a089a6a954e35c800be7db8b9bfe9a1ae05d9c2897e281359f65e4caa1caf266368e1c4febd3
   languageName: node
   linkType: hard
 
